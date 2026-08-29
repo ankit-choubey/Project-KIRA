@@ -92,7 +92,6 @@ def mutate_geo_hop(
         "merchant_id": m.merchant_id,
         "mcc": m.mcc,
         "channel": Channel.CARD_PRESENT if query_idx % 2 == 0 else Channel.MOBILE_WALLET,
-        "auth_failed_count": 0,
     })
 
 
@@ -153,7 +152,6 @@ def mutate_cross_merchant_fanout(
         "mcc": m.mcc,
         "amount": float(new_amount),
         "channel": Channel.CARD_PRESENT if query_idx % 2 == 0 else Channel.ECOMMERCE,
-        "auth_failed_count": 0,
     })
 
 

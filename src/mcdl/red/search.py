@@ -6,6 +6,7 @@ Enforces strict mutability masks, Layer-1 physical validity, and stops on evasio
 
 from __future__ import annotations
 
+import copy
 from dataclasses import dataclass, field
 from datetime import datetime
 import numpy as np
@@ -15,7 +16,7 @@ from mcdl.features.stream import StreamingFeatureExtractor
 from mcdl.red.distance import compute_evasion_distance
 from mcdl.red.mask import FAMILY_MUTABLE_FIELDS, check_mask_violations
 from mcdl.red.strategies import generate_candidate_mutation
-from mcdl.schemas import AttackFamily, Decision, Customer, Mandate, Merchant, Transaction
+from mcdl.schemas import AttackFamily, Customer, Decision, Mandate, Merchant, Transaction
 from mcdl.world.ledger import haversine_distance_km
 
 
@@ -34,7 +35,7 @@ class AttackProvenance:
     final_decision: Decision
     original_risk: float
     final_risk: float
-    med: float
+    med: float | None
     success: bool
     rejection_reasons: list[str] = field(default_factory=list)
     best_candidate: Transaction | None = None
@@ -71,11 +72,6 @@ def validate_physical_candidate(
     if candidate.channel.value == "agent":
         if not candidate.agent_id or not candidate.mandate_id:
             reasons.append("MISSING_AGENT_OR_MANDATE_ID")
-        elif candidate.mandate_id in mandates:
-            mandate = mandates[mandate_id]
-            if candidate.amount > mandate.max_amount:
-                # Mandates allow reject, but physical world rejects if over limit
-                pass
 
     return reasons
 
@@ -101,6 +97,7 @@ class RedSearchEngine:
         family: AttackFamily,
         budget: int = 20,
         seed: int = 20260827,
+        feature_extractor_state: StreamingFeatureExtractor | None = None,
     ) -> AttackProvenance:
         """Runs budgeted adversarial search for a single transaction."""
         rng = np.random.default_rng(seed)
@@ -108,15 +105,19 @@ class RedSearchEngine:
         if customer is None:
             raise ValueError(f"Customer {source_txn.customer_id} not found")
 
-        # 1. Evaluate baseline decision on source transaction
-        extractor_baseline = StreamingFeatureExtractor(customers=self.customers)
-        base_feats = extractor_baseline.extract(source_txn)
+        # 1. Evaluate baseline decision on source transaction using historical context
+        if feature_extractor_state is not None:
+            base_ext = feature_extractor_state.clone()
+        else:
+            base_ext = StreamingFeatureExtractor(customers=self.customers)
+
+        base_feats = base_ext.extract(source_txn)
         base_decision = self.detector.score_transaction(source_txn, base_feats, mandates=self.mandates)
 
         orig_decision = base_decision.decision
         orig_risk = base_decision.calibrated_score
 
-        # If already ALLOWed, evasion is trivially 0-distance
+        # Source must be protected/blocked to be eligible for evasion testing
         if orig_decision == Decision.ALLOW:
             return AttackProvenance(
                 attack_instance_id=f"atk_{source_txn.txn_id}_{family.value}_{budget}",
@@ -124,7 +125,7 @@ class RedSearchEngine:
                 source_txn_id=source_txn.txn_id,
                 seed=seed,
                 query_budget=budget,
-                queries_used=1,
+                queries_used=0,
                 mutations_attempted=0,
                 valid_mutations=0,
                 invalid_mutations=0,
@@ -132,8 +133,9 @@ class RedSearchEngine:
                 final_decision=orig_decision,
                 original_risk=orig_risk,
                 final_risk=orig_risk,
-                med=0.0,
-                success=True,
+                med=None,
+                success=False,
+                rejection_reasons=["SOURCE_ALREADY_ALLOWED"],
                 best_candidate=source_txn,
             )
 
@@ -152,7 +154,6 @@ class RedSearchEngine:
 
         # 2. Budgeted candidate mutation loop
         for q in range(budget):
-            queries_used += 1
             mutations_attempted += 1
 
             candidate = generate_candidate_mutation(
@@ -182,10 +183,15 @@ class RedSearchEngine:
                 continue
 
             valid_mutations += 1
+            queries_used += 1
 
-            # Score candidate with Blue detector
-            extractor = StreamingFeatureExtractor(customers=self.customers)
-            cand_feats = extractor.extract(candidate)
+            # Score candidate with Blue detector under exact historical context
+            if feature_extractor_state is not None:
+                cand_ext = feature_extractor_state.clone()
+            else:
+                cand_ext = StreamingFeatureExtractor(customers=self.customers)
+
+            cand_feats = cand_ext.extract(candidate)
             cand_decision = self.detector.score_transaction(candidate, cand_feats, mandates=self.mandates)
 
             cand_score = cand_decision.calibrated_score
@@ -222,7 +228,7 @@ class RedSearchEngine:
             final_decision=best_decision,
             original_risk=orig_risk,
             final_risk=best_risk,
-            med=med if med is not None else compute_evasion_distance(source_txn, final_cand),
+            med=med,
             success=success,
             rejection_reasons=list(set(rejection_reasons)),
             best_candidate=best_candidate,

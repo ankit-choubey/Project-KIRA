@@ -61,6 +61,35 @@ class StreamingFeatureExtractor:
                     credit_limit=cust.credit_limit,
                 )
 
+    def clone(self) -> StreamingFeatureExtractor:
+        """Fast shallow clone of extractor with cloned deques/sets."""
+        cloned = StreamingFeatureExtractor()
+        for c_id, cs in self.customers_state.items():
+            new_cs = CustomerStreamState(cs.home_lat, cs.home_lon, cs.credit_limit)
+            new_cs.last_ts = cs.last_ts
+            new_cs.last_lat = cs.last_lat
+            new_cs.last_lon = cs.last_lon
+            new_cs.cumulative_amount_sum = cs.cumulative_amount_sum
+            new_cs.cumulative_txn_count = cs.cumulative_txn_count
+            new_cs.known_devices = set(cs.known_devices)
+            new_cs.events_24h = deque(cs.events_24h)
+            cloned.customers_state[c_id] = new_cs
+
+        for m_id, ms in self.merchants_state.items():
+            new_ms = MerchantStreamState()
+            new_ms.events_24h = deque(ms.events_24h)
+            new_ms.unconfirmed_labels = deque(ms.unconfirmed_labels)
+            new_ms.confirmed_fraud_count = ms.confirmed_fraud_count
+            new_ms.confirmed_total_count = ms.confirmed_total_count
+            cloned.merchants_state[m_id] = new_ms
+
+        for d_id, ds in self.devices_state.items():
+            new_ds = DeviceStreamState()
+            new_ds.known_customers = set(ds.known_customers)
+            cloned.devices_state[d_id] = new_ds
+
+        return cloned
+
     def extract(self, txn: Transaction) -> dict[str, Any]:
         """Extracts causal features for transaction T_i, then advances internal state."""
         c_id = txn.customer_id

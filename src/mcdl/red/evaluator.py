@@ -6,8 +6,10 @@ Computes ASR(B) and Mean Evasion Distance (MED).
 
 from __future__ import annotations
 
+import copy
 import numpy as np
 from mcdl.blue.model import BlueDetector
+from mcdl.features.stream import StreamingFeatureExtractor
 from mcdl.red.search import AttackProvenance, RedSearchEngine
 from mcdl.schemas import AttackFamily, Customer, Decision, Mandate, Merchant, RedMetrics, Transaction
 
@@ -22,7 +24,8 @@ CANONICAL_FAMILIES = [
 
 
 def evaluate_red_attacks(
-    transactions: list[Transaction],
+    all_transactions: list[Transaction],
+    test_start_idx: int,
     detector: BlueDetector,
     customers: dict[str, Customer],
     merchants: dict[str, Merchant],
@@ -44,17 +47,36 @@ def evaluate_red_attacks(
         mandates=mandates,
     )
 
-    provenance_log: list[AttackProvenance] = []
+    # 1. Advance streaming state chronologically through pre-test history
+    sorted_txns = sorted(all_transactions, key=lambda t: (t.timestamp, t.txn_id))
+    rolling_extractor = StreamingFeatureExtractor(customers=customers)
 
-    # Map budget -> successful evasions count and total attempts
+    for t in sorted_txns[:test_start_idx]:
+        rolling_extractor.extract(t)
+
+    # 2. Identify blocked / challenged test transactions
+    blocked_test_cases: list[tuple[Transaction, StreamingFeatureExtractor]] = []
+    test_txns = sorted_txns[test_start_idx:]
+
+    for t in test_txns:
+        state_snapshot = rolling_extractor.clone()
+        feats = state_snapshot.extract(t)
+        dec = detector.score_transaction(t, feats, mandates=mandates)
+
+        if dec.decision in {Decision.BLOCK, Decision.STEP_UP}:
+            blocked_test_cases.append((t, rolling_extractor.clone()))
+
+        rolling_extractor.extract(t)
+
+    provenance_log: list[AttackProvenance] = []
     budget_successes: dict[int, int] = {b: 0 for b in budgets}
     budget_totals: dict[int, int] = {b: 0 for b in budgets}
     med_values: list[float] = []
     total_mask_violations = 0
     total_invalid_attacks = 0
 
-    # Test each transaction across attack families and budgets
-    for txn in transactions:
+    # 3. Test each blocked transaction across attack families and budgets
+    for txn, state_at_t in blocked_test_cases:
         for family in families:
             for budget in budgets:
                 atk_seed = int(seed + len(provenance_log))
@@ -63,13 +85,15 @@ def evaluate_red_attacks(
                     family=family,
                     budget=budget,
                     seed=atk_seed,
+                    feature_extractor_state=state_at_t,
                 )
                 provenance_log.append(prov)
 
                 budget_totals[budget] += 1
                 if prov.success:
                     budget_successes[budget] += 1
-                    med_values.append(prov.med)
+                    if prov.med is not None:
+                        med_values.append(prov.med)
 
                 total_mask_violations += len([r for r in prov.rejection_reasons if "IMMUTABLE" in r or "UNAUTHORIZED" in r])
                 total_invalid_attacks += prov.invalid_mutations
@@ -81,7 +105,7 @@ def evaluate_red_attacks(
         rate = float(budget_successes[b] / total) if total > 0 else 0.0
         asr_by_budget[str(b)] = float(round(rate, 4))
 
-    mean_med = float(round(np.mean(med_values), 4)) if med_values else None
+    mean_med = float(round(np.mean(med_values), 4)) if med_values else 0.0
 
     red_metrics = RedMetrics(
         asr_by_budget=asr_by_budget,

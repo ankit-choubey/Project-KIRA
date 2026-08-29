@@ -269,15 +269,11 @@ def gate_4(c: Checks) -> None:
     split = temporal_split(feature_df, train_ratio=0.70, valid_ratio=0.15)
     detector = BlueDetector(n_estimators=30, max_depth=3, learning_rate=0.05)
     detector.fit(split.train_df, split.valid_df)
-
-    # Sample test transactions for Red evaluation
-    test_txns = world.transactions[len(split.train_df) + len(split.valid_df):]
-    sample_eval_txns = [t for t in test_txns if t.is_fraud or t.amount > 200.0][:10]
-    if not sample_eval_txns:
-        sample_eval_txns = test_txns[:10]
+    test_start_idx = len(split.train_df) + len(split.valid_df)
 
     red_metrics, prov_log = evaluate_red_attacks(
-        transactions=sample_eval_txns,
+        all_transactions=world.transactions,
+        test_start_idx=test_start_idx,
         detector=detector,
         customers=world.customers,
         merchants=world.merchants,

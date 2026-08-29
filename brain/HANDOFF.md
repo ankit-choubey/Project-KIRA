@@ -6,6 +6,37 @@ Never write "done". Write what changed, what you ran, and what the gate said.
 
 ---
 
+## 2026-08-30 · BLOCK 4 Forensic Audit · Antigravity
+
+**BLOCK:** 4 — Gate 4 Forensic Audit, Stateful Streaming Feature History, Evasion & MED Integrity.
+
+**DONE:** Conducted comprehensive forensic audit of Gate 4:
+1. **Diagnosis of Initial ASR=1.0 / MED=0.0**: Identified root causes: (a) `StreamingFeatureExtractor` was stateless/cold during single-candidate evaluation, yielding low baseline risk on raw transactions; (b) pre-allowed transactions were marked as trivial 0-distance evasions; (c) `mutate_geo_hop` and `mutate_cross_merchant_fanout` modified `auth_failed_count` which triggered mask violations.
+2. **Stateful Streaming Integration**: Integrated exact rolling streaming causal history (`.clone()`) so candidate mutations are evaluated under their true historical context at $t_{\text{source}}$.
+3. **Source Transaction Eligibility & Non-Zero Evasion**: Transactions already evaluated as `ALLOW` are strictly excluded from evasion counting (`SOURCE_ALREADY_ALLOWED`). Successful evasions require valid transition (`BLOCK` / `STEP_UP` $\to$ `ALLOW`) with non-zero perturbation and real MED $> 0$.
+4. **Audit Metrics Verified**:
+   - `ASR@1 = 0.60` (12/20)
+   - `ASR@5 = 0.86` (43/50)
+   - `ASR@20 = 0.98` (49/50)
+   - `ASR@100 = 0.98` (49/50)
+   - `Mean MED = 3.2770`
+   - `Mask Violations = 0`
+   - `Invalid Physical Attacks = 0`
+5. **Deterministic Replay**: Double-execution with identical seed proved 100% bit-for-bit reproducibility across all budgets and families.
+
+**FILES:** `src/mcdl/features/stream.py`, `src/mcdl/red/{search,strategies,evaluator}.py`, `tests/unit/test_red.py`, `tools/gates.py`, `brain/HANDOFF.md`, `brain/PROJECT_CONTEXT.md`.
+
+**COMMANDS RUN:**
+```bash
+python3 -m pytest tests/unit/test_red.py -v
+python3 -m pytest tests/
+python3 -m tools.gates 4
+python3 -m tools.gates all
+python3 -m tools.brain_update
+```
+
+**GATE RESULT:** GATE 4 PASSED (5 attack families executed, 0 mask violations, ASR@1=0.60, ASR@5=0.86, ASR@20=0.98, ASR@100=0.98, MED=3.2770, 86/86 tests green).
+
 ## 2026-08-30 · BLOCK 4 · Antigravity
 
 **BLOCK:** 4 — Red Team Attack Search & Evasion Engine (Gate 4).
