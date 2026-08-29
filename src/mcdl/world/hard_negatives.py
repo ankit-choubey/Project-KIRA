@@ -53,7 +53,8 @@ def sample_transaction_attributes(
     ip_prefix = f"{int(rng.integers(24, 210))}.{int(rng.integers(1, 255))}"
     device_id = f"dev_{customer.customer_id}_pri"
     is_new_device = False
-    auth_failed_count = 0
+    # Realistic benign auth failure distribution (~2.5% rate of 1 retry typo)
+    auth_failed_count = 1 if rng.random() < 0.025 else 0
     agent_id = None
     mandate_id = None
 
@@ -68,12 +69,16 @@ def sample_transaction_attributes(
         if rng.random() < 0.6:
             device_id = f"dev_{customer.customer_id}_travel"
             is_new_device = True
+        if rng.random() < 0.08:
+            auth_failed_count = int(rng.choice([1, 2]))
 
     elif hard_neg_type == HardNegative.FLASH_SALE:
         flash_mccs = ["5045", "5311", "5942"]
         mcc = str(rng.choice(flash_mccs))
         amount = round(amount * float(rng.uniform(2.0, 5.0)), 2)
         channel = Channel.ECOMMERCE
+        if rng.random() < 0.05:
+            auth_failed_count = 1
 
     elif hard_neg_type == HardNegative.SHARED_FAMILY_DEVICE:
         device_id = f"dev_shared_{int(rng.integers(0, 5)):03d}"
@@ -87,7 +92,8 @@ def sample_transaction_attributes(
         ip_prefix = f"198.51.{int(rng.integers(1, 255))}"
         device_id = f"dev_fraud_{int(rng.integers(100, 999))}"
         is_new_device = True
-        auth_failed_count = int(rng.choice([1, 2, 3]))
+        # Fraud auth failures: 30% stolen active session (0 failures), 70% guessing/burst (1-3 failures)
+        auth_failed_count = int(rng.choice([0, 1, 2, 3], p=[0.30, 0.35, 0.20, 0.15]))
         attack_family = AttackFamily.R1_ATO
 
     # If channel is AGENT (and not overridden by fraud/hard-negatives)
