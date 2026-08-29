@@ -141,10 +141,38 @@ def gate_0(c: Checks) -> None:
 def gate_1(c: Checks) -> None:
     """World: zero physics violations, FK integrity. BLOCK 1."""
     try:
-        from mcdl.evaluation.validity import check_world  # noqa: F401
+        from mcdl.world import generate_world
+        from mcdl.evaluation.validity import check_world
     except ImportError as exc:
-        raise Pending("BLOCK 1 not built: mcdl.evaluation.validity.check_world") from exc
-    raise Pending("gate 1 body pending BLOCK 1")
+        raise Pending("BLOCK 1 not built: mcdl.world.generate_world / mcdl.evaluation.validity.check_world") from exc
+
+    cfg = load_config(scale="tiny")
+    world = generate_world(cfg)
+
+    c.add("world generates transactions", len(world.transactions) > 0, f"{len(world.transactions)} transactions")
+    c.add("customers generated", len(world.customers) > 0, f"{len(world.customers)} customers")
+    c.add("merchants generated", len(world.merchants) > 0, f"{len(world.merchants)} merchants")
+    c.add("devices generated", len(world.devices) > 0, f"{len(world.devices)} devices")
+
+    # Run Layer 1 Physical Validity
+    report = check_world(world)
+    c.add("L1: zero balance violations", report.negative_balance_violations == 0, f"violations={report.negative_balance_violations}")
+    c.add("L1: zero timestamp order violations", report.timestamp_order_violations == 0, f"violations={report.timestamp_order_violations}")
+    c.add("L1: zero device registration violations", report.device_registration_violations == 0, f"violations={report.device_registration_violations}")
+    c.add("L1: zero MCC violations", report.mcc_validity_violations == 0, f"violations={report.mcc_validity_violations}")
+    c.add("L1: zero geo speed violations", report.geo_speed_violations == 0, f"violations={report.geo_speed_violations}")
+    c.add("L1: zero foreign key violations", report.foreign_key_violations == 0, f"violations={report.foreign_key_violations}")
+    c.add("L1: zero mandate violations", report.mandate_violations == 0, f"violations={report.mandate_violations}")
+    c.add("L1: overall physics validity passed", report.passed, f"total violations={report.total_violations}")
+
+    # Check hard negatives and base fraud exist in transactions
+    hard_negs = set(t.hard_negative.value for t in world.transactions if t.hard_negative.value != "none")
+    c.add("hard negatives present", len(hard_negs) >= 2, f"hard_negs={hard_negs}")
+    n_fraud = sum(1 for t in world.transactions if t.is_fraud)
+    c.add("base fraud present", n_fraud > 0, f"fraud_txns={n_fraud}")
+
+    r = _pytest("tests/unit/test_world.py")
+    c.add("pytest tests/unit/test_world.py", r.returncode == 0, _tail(r))
 
 
 def gate_2(c: Checks) -> None:

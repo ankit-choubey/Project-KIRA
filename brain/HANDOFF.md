@@ -6,6 +6,25 @@ Never write "done". Write what changed, what you ran, and what the gate said.
 
 ---
 
+## 2026-08-30 · BLOCK 1 · Antigravity
+
+**BLOCK:** 1 — Synthetic payment world + Layer 1 physical validity
+
+**DONE:** Implemented stateful payment world simulator in `src/mcdl/world/` (`archetypes.py`, `entities.py`, `ledger.py`, `hard_negatives.py`, `generator.py`), Layer 1 validity assertions in `src/mcdl/evaluation/validity.py`, unit test suite in `tests/unit/test_world.py`, and Gate 1 verification in `tools/gates.py`. All 14/14 checks pass with zero physical or invariant violations.
+
+**FILES:** `src/mcdl/world/{__init__,archetypes,entities,ledger,hard_negatives,generator}.py`, `src/mcdl/evaluation/validity.py`, `tests/unit/test_world.py`, `tools/gates.py`.
+
+**COMMANDS RUN:**
+```bash
+python3 -m pytest tests/unit
+python3 -m tools.gates 1
+python3 -m tools.brain_update
+```
+
+**GATE RESULT:** GATE 1 PASSED — 14/14 checks passed (9346 transactions generated, 0 balance violations, 0 timestamp violations, 0 device registration violations, 0 MCC violations, 0 geo speed violations, 0 FK violations, 0 mandate violations, hard negatives and base fraud present, 30 unit tests green).
+
+**NEXT:** BLOCK 2 — Causal feature store (`batch.py`, `stream.py`, `spec.py`) and batch/stream parity tests. Target: Gate 2.
+
 ## 2026-08-30 · Project-KIRA GitHub Setup & Gate 0 Full Pass · Antigravity
 
 **BLOCK:** Project-KIRA repo creation, frontend build, and Gate 0 verification.
