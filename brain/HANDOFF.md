@@ -6,6 +6,26 @@ Never write "done". Write what changed, what you ran, and what the gate said.
 
 ---
 
+## 2026-08-30 · BLOCK 2 · Antigravity
+
+**BLOCK:** 2 — Causal Feature Store & Batch/Stream Parity Engine
+
+**DONE:** Implemented online feature extractor `StreamingFeatureExtractor` in `src/mcdl/features/stream.py` and vectorised batch extraction in `src/mcdl/features/batch.py`. Created invariant test suite in `tests/invariants/test_batch_stream_parity.py` proving exact parity ($\le 10^{-9}$) across all 25 features on 1,000+ transactions and proving zero-future-read causality. Gate 2 is officially PASS.
+
+**FILES:** `src/mcdl/features/{__init__,spec,stream,batch}.py`, `tests/invariants/test_batch_stream_parity.py`, `brain/HANDOFF.md`, `brain/PROJECT_CONTEXT.md`.
+
+**COMMANDS RUN:**
+```bash
+python3 -m pytest tests/invariants
+python3 -m pytest tests/
+python3 -m tools.gates 2
+python3 -m tools.brain_update
+```
+
+**GATE RESULT:** GATE 2 PASSED (Batch/Stream parity <= 1e-9 verified, causality verified, 65/65 total tests passing).
+
+**NEXT:** BLOCK 3 — Blue team baseline & calibration (`src/mcdl/blue/`). Target: Gate 3.
+
 ## 2026-08-30 · BLOCK 2 Pre-Implementation Contract · Antigravity
 
 **BLOCK:** 2 — Causal Feature Store Mathematical Specification & Contract Freezing.
