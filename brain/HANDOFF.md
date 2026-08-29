@@ -6,6 +6,28 @@ Never write "done". Write what changed, what you ran, and what the gate said.
 
 ---
 
+## 2026-08-30 · BLOCK 2 Pre-Implementation Contract · Antigravity
+
+**BLOCK:** 2 — Causal Feature Store Mathematical Specification & Contract Freezing.
+
+**DONE:** Created single source of truth `src/mcdl/features/spec.py` defining 20 canonical features across 7 feature groups. Formally specified:
+- Deterministic lexicographic causal ordering: $(timestamp, txn\_id)$ ascending.
+- Historical temporal window bounds: $W_\Delta(T_i) = \{ T_j \mid T_j \prec T_i \land t_i - \Delta \le t_j \le t_i \}$.
+- Strict exclusion of current transaction $T_i$ from all historical aggregations (no self-leakage).
+- Exact 7-day chargeback label availability cutoff ($t_j \le t_i - 604,800\text{s}$).
+- Explicit first-history/default non-null values for all stateful/relational features.
+Added unit test suite `tests/unit/test_feature_spec.py` verifying exact boundary edge cases. Did not implement `batch.py` or `stream.py` (pre-implementation phase).
+
+**FILES:** `src/mcdl/features/spec.py`, `tests/unit/test_feature_spec.py`, `brain/HANDOFF.md`.
+
+**COMMANDS RUN:**
+```bash
+python3 -m pytest tests/unit
+python3 -m tools.gates 1
+```
+
+**GATE RESULT:** Gate 2 not claimed (pre-implementation phase). All 44 unit tests passing. Gate 1 remains PASS (14/14).
+
 ## 2026-08-30 · BLOCK 1 Sequential Balance Audit · Antigravity
 
 **BLOCK:** 1 — Implementation of sequential inter-transaction balance consistency verification.
