@@ -6,6 +6,25 @@ Never write "done". Write what changed, what you ran, and what the gate said.
 
 ---
 
+## 2026-08-30 · Project-KIRA GitHub Setup & Gate 0 Full Pass · Antigravity
+
+**BLOCK:** Project-KIRA repo creation, frontend build, and Gate 0 verification.
+
+**DONE:** Created new public GitHub repository `Project-KIRA` under `ankit-choubey`, updated git remote to `https://github.com/ankit-choubey/Project-KIRA.git`, built frontend distribution (`frontend/dist`), and verified Gate 0 (12/12 checks passing).
+
+**FILES:** `frontend/dist/*`, `frontend/package-lock.json`, `brain/PROJECT_CONTEXT.md`, `brain/HANDOFF.md`.
+
+**COMMANDS RUN:**
+```bash
+# Created GitHub repo Project-KIRA via GitHub API / MCP
+git remote set-url origin https://github.com/ankit-choubey/Project-KIRA.git
+cd frontend && npm install && npm run build
+python3 -m tools.gates 0
+python3 -m tools.brain_update
+```
+
+**GATE RESULT:** GATE 0 PASSED (12/12 checks, pytest 26 unit passed, 19 e2e passed, frontend built).
+
 ## 2026-08-29 · Git Push · Antigravity
 
 **BLOCK:** Git repository setup and push to GitHub.

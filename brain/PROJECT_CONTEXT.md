@@ -5,19 +5,19 @@ Read this before touching anything. See `AGENTS.md` for the rules and
 
 <!-- AUTO-GENERATED BELOW - DO NOT HAND-EDIT -->
 
-_Generated 2026-08-29 18:48 from artifacts and git. Do not edit below._
+_Generated 2026-08-30 02:48 from artifacts and git. Do not edit below._
 
 ## Current state
 
 - **Last gate passed:** 0
-- **Git:** `no commits yet` on `-`
+- **Git:** `599b6ae` on `main`
 - **Latest run:** `run_fixture_0000` — FIXTURE (not real), scale `fixture`
 
 ## Gate ladder
 
 | Gate | Name | Status | Last run |
 |---|---|---|---|
-| 0 | contracts | PASS | 2026-08-29T18:46:31 |
+| 0 | contracts | PASS | 2026-08-30T02:48:36 |
 | 1 | world | not run | — |
 | 2 | features | not run | — |
 | 3 | blue | not run | — |
@@ -40,7 +40,7 @@ _be cited in the report, the UI, or a commit message._
 - **BLOCK 4 — Red engine + filter L3:** not started
 - **BLOCK 5 — Closed loop + intent engine:** not started
 - **BLOCK 6 — Full cloud run:** not started
-- **BLOCK 7 — Evidence & docs:** not started
+- **BLOCK 7 — Evidence & docs:** done
 
 ## Open blockers
 
