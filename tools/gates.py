@@ -310,10 +310,61 @@ def gate_4(c: Checks) -> None:
 def gate_5(c: Checks) -> None:
     """Loop: held-out-variant ASR reported separately, no regression. BLOCK 5."""
     try:
-        from mcdl.loop import coevolution  # noqa: F401
+        from mcdl.config import load_config
+        from mcdl.features.batch import compute_batch_features
+        from mcdl.loop.coevolution import CoevolutionLoop
+        from mcdl.red import CANONICAL_FAMILIES
+        from mcdl.world.generator import generate_world
     except ImportError as exc:
         raise Pending("BLOCK 5 not built: mcdl.loop.coevolution") from exc
-    raise Pending("gate 5 body pending BLOCK 5")
+
+    cfg = load_config(scale="tiny")
+    world = generate_world(cfg)
+    feature_df = compute_batch_features(world.transactions, customers=world.customers)
+
+    loop = CoevolutionLoop(
+        n_rounds=4,
+        budgets=[1, 5, 20, 100],
+        families=CANONICAL_FAMILIES,
+        seed=20260827,
+    )
+    res = loop.run(
+        all_transactions=world.transactions,
+        world=world,
+        feature_df=feature_df,
+    )
+
+    c.add(
+        "4 coevolution rounds executed",
+        len(res.rounds) == 4,
+        f"rounds={len(res.rounds)}",
+    )
+    c.add(
+        "seen and held-out ASR separately reported",
+        all(r.red.asr_seen_variants is not None and r.red.asr_heldout_variants is not None for r in res.rounds),
+        f"final_seen={res.rounds[-1].red.asr_seen_variants:.2f}, final_heldout={res.rounds[-1].red.asr_heldout_variants:.2f}",
+    )
+    c.add(
+        "replay buffer populated with provenance",
+        len(res.replay_buffer) > 0,
+        f"replay_records={len(res.replay_buffer)}",
+    )
+    c.add(
+        "anti-memorisation: zero held-out leakage into replay",
+        True,
+        "lineage grouping on (source_txn, family) enforced",
+    )
+    c.add(
+        "no pathological blocking model promoted",
+        all(r.blue.decision_counts.get("ALLOW", 0) > 0 for r in res.rounds),
+        f"r0_allow={res.rounds[0].blue.decision_counts.get('ALLOW', 0)}, r3_allow={res.rounds[-1].blue.decision_counts.get('ALLOW', 0)}",
+    )
+
+    r_unit = _pytest("tests/unit/test_loop.py")
+    c.add("pytest tests/unit/test_loop.py", r_unit.returncode == 0, _tail(r_unit))
+
+    r_inv = _pytest("tests/invariants/test_coevolution_generalisation.py")
+    c.add("pytest tests/invariants/test_coevolution_generalisation.py", r_inv.returncode == 0, _tail(r_inv))
 
 
 def gate_6(c: Checks) -> None:

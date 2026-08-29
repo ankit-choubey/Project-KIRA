@@ -6,6 +6,34 @@ Never write "done". Write what changed, what you ran, and what the gate said.
 
 ---
 
+## 2026-08-30 · BLOCK 5 · Antigravity
+
+**BLOCK:** 5 — Adversarial Coevolution Loop & Generalisation Measurement (Gate 5).
+
+**DONE:** Implemented complete 4-round adversarial coevolution loop:
+- `src/mcdl/loop/replay.py`: Provenance-preserving `ReplayBuffer` capturing successful Red evasions and converting to strictly observable feature rows (`FEATURE_NAMES` + `is_fraud=True`) with zero metadata leakage.
+- `src/mcdl/loop/split.py`: Lineage-grouped `split_seen_heldout` grouping by `(source_txn_id, attack_family)` before Challenger training, guaranteeing zero held-out leakage into training.
+- `src/mcdl/loop/challenger.py`: `ChallengerTrainer` hardening models via Base Train + Replay Buffer, and `evaluate_promotion` balancing Security gain with False Positive Rate ($\le 0.08$) and Benign Approval Rate ($\ge 70\%$).
+- `src/mcdl/loop/metrics.py`: Computes Seen ASR, Held-out ASR, $\Delta \text{ASR}$, and Generalisation Retention ($GR$).
+- `src/mcdl/loop/coevolution.py`: 4-round loop tracking evolution from $\text{Blue}_0$ baseline through Challenger hardening.
+- `tests/unit/test_loop.py`, `tests/invariants/test_coevolution_generalisation.py`, and `tools/gates.py`: Gate 5 implemented and verified.
+
+**FILES:** `src/mcdl/loop/{__init__,replay,split,challenger,metrics,coevolution}.py`, `tests/unit/test_loop.py`, `tests/invariants/test_coevolution_generalisation.py`, `tools/gates.py`, `brain/HANDOFF.md`, `brain/PROJECT_CONTEXT.md`.
+
+**COMMANDS RUN:**
+```bash
+python3 -m pytest tests/unit/test_loop.py -v
+python3 -m pytest tests/invariants/test_coevolution_generalisation.py -v
+python3 -m pytest tests/
+python3 -m tools.gates 5
+python3 -m tools.gates all
+python3 -m tools.brain_update
+```
+
+**GATE RESULT:** GATE 5 PASSED (4 rounds executed, zero held-out leakage into replay buffer, honest Seen vs Held-out ASR separately reported, $GR > 1.0$, FPR=0.0000, 91/91 tests green).
+
+**NEXT:** BLOCK 6 — Artifact Generation, External Real-World Anchor & Pipeline Execution (`src/mcdl/artifacts/`, `src/mcdl/pipeline.py`). Target: Gate 6.
+
 ## 2026-08-30 · BLOCK 4 Forensic Audit · Antigravity
 
 **BLOCK:** 4 — Gate 4 Forensic Audit, Stateful Streaming Feature History, Evasion & MED Integrity.

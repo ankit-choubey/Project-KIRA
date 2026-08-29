@@ -5,12 +5,12 @@ Read this before touching anything. See `AGENTS.md` for the rules and
 
 <!-- AUTO-GENERATED BELOW - DO NOT HAND-EDIT -->
 
-_Generated 2026-08-30 03:51 from artifacts and git. Do not edit below._
+_Generated 2026-08-30 03:57 from artifacts and git. Do not edit below._
 
 ## Current state
 
-- **Last gate passed:** 4
-- **Git:** `2fdf90a` on `main`
+- **Last gate passed:** 5
+- **Git:** `0c3028c` on `main`
 - **Latest run:** `run_fixture_0000` — FIXTURE (not real), scale `fixture`
 
 ## Gate ladder
@@ -22,7 +22,7 @@ _Generated 2026-08-30 03:51 from artifacts and git. Do not edit below._
 | 2 | features | PASS | 2026-08-30T03:45:21 |
 | 3 | blue | PASS | 2026-08-30T03:45:26 |
 | 4 | red | PASS | 2026-08-30T03:50:19 |
-| 5 | loop | pending (block not built) | 2026-08-30T03:45:34 |
+| 5 | loop | PASS | 2026-08-30T03:56:48 |
 | 6 | artifacts | **FAIL** | 2026-08-30T03:45:34 |
 | 7 | submission | not run | — |
 
@@ -38,7 +38,7 @@ _be cited in the report, the UI, or a commit message._
 - **BLOCK 2 — Causal features + filter L1/L2/L4:** done
 - **BLOCK 3 — Blue baseline + anchor:** partial (1/2)
 - **BLOCK 4 — Red engine + filter L3:** partial (1/2)
-- **BLOCK 5 — Closed loop + intent engine:** partial (1/2)
+- **BLOCK 5 — Closed loop + intent engine:** done
 - **BLOCK 6 — Full cloud run:** not started
 - **BLOCK 7 — Evidence & docs:** done
 
