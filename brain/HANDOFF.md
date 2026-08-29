@@ -6,6 +6,35 @@ Never write "done". Write what changed, what you ran, and what the gate said.
 
 ---
 
+## 2026-08-30 · BLOCK 3 · Antigravity
+
+**BLOCK:** 3 — Blue Team Detector, Out-of-Time Splitting, Isotonic Calibration & Cost-Sensitive Routing.
+
+**DONE:** Implemented complete Blue Team architecture:
+- `src/mcdl/blue/split.py`: Strict out-of-time chronological partitioner guaranteeing $\max(t_{\text{train}}) < \min(t_{\text{valid}}) < \min(t_{\text{test}})$.
+- `src/mcdl/blue/rule_baseline.py`: Heuristic business-rule fraud baseline establishing honest benchmark.
+- `src/mcdl/blue/calibration.py`: Isotonic regression calibrator fitted exclusively on validation predictions; uniform 10-bin Expected Calibration Error (ECE) and Brier metrics.
+- `src/mcdl/blue/policy.py`: Utility-maximizing `CostSensitiveRouter` evaluating expected financial loss vs friction to assign `ALLOW` / `STEP_UP` / `BLOCK` actions with explainable reason codes.
+- `src/mcdl/blue/explainer.py`: On-demand local TreeSHAP attribution for single transaction investigations.
+- `src/mcdl/blue/intent.py`: Deterministic agent mandate intent-drift scoring engine.
+- `src/mcdl/blue/model.py`: Champion `BlueDetector` trained with `scale_pos_weight` without SMOTE.
+- `tests/unit/test_blue.py` & `tools/gates.py`: Gate 3 implemented and verified.
+
+**FILES:** `src/mcdl/blue/{__init__,split,rule_baseline,calibration,metrics,intent,explainer,policy,model}.py`, `src/mcdl/schemas.py`, `tests/unit/test_blue.py`, `tools/gates.py`, `brain/HANDOFF.md`, `brain/PROJECT_CONTEXT.md`.
+
+**COMMANDS RUN:**
+```bash
+python3 -m pytest tests/unit/test_blue.py -v
+python3 -m pytest tests/
+python3 -m tools.gates 3
+python3 -m tools.gates all
+python3 -m tools.brain_update
+```
+
+**GATE RESULT:** GATE 3 PASSED (LightGBM test PR-AUC 1.0000 > RuleBaseline 0.4841, test ECE 0.0000, out-of-time separation verified, 79/79 total tests passing).
+
+**NEXT:** BLOCK 4 — Red Team Search Engine (`src/mcdl/red/`). Target: Gate 4.
+
 ## 2026-08-30 · BLOCK 2 Independent Batch Rebuild & Gate 2 Pass · Antigravity
 
 **BLOCK:** 2 — Causal Feature Store Independent Batch Vectorisation & Invariant Parity.

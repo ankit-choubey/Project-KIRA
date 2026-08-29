@@ -245,6 +245,15 @@ class BlueDecision(BaseModel):
     latency_ms: float = 0.0
 
 
+class SHAPExplanation(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    txn_id: str
+    base_value: float
+    feature_contributions: dict[str, float] = Field(default_factory=dict)
+    top_features: list[tuple[str, float]] = Field(default_factory=list)
+
+
 class Counterfactual(BaseModel):
     """Minimum Evasion Distance: the smallest change to attacker-controllable
     fields that flips BLOCK -> ALLOW. Reported instead of ASR as the headline

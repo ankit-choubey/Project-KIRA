@@ -188,10 +188,67 @@ def gate_2(c: Checks) -> None:
 def gate_3(c: Checks) -> None:
     """Blue: out-of-time split enforced, beats rule baseline, ECE recorded. BLOCK 3."""
     try:
-        from mcdl.blue import model  # noqa: F401
+        from mcdl.blue import BlueDetector, RuleBaseline, temporal_split
+        from mcdl.config import load_config
+        from mcdl.features.batch import compute_batch_features
+        from mcdl.schemas import Decision
+        from mcdl.world.generator import generate_world
     except ImportError as exc:
-        raise Pending("BLOCK 3 not built: mcdl.blue.model") from exc
-    raise Pending("gate 3 body pending BLOCK 3")
+        raise Pending("BLOCK 3 not built: mcdl.blue") from exc
+
+    cfg = load_config(scale="tiny")
+    world = generate_world(cfg)
+    feature_df = compute_batch_features(world.transactions, customers=world.customers)
+
+    split = temporal_split(feature_df, train_ratio=0.70, valid_ratio=0.15)
+    is_ordered = (
+        split.train_df["timestamp"].max()
+        < split.valid_df["timestamp"].min()
+        < split.test_df["timestamp"].min()
+    )
+    c.add(
+        "out-of-time split strictly ordered",
+        is_ordered,
+        f"train_max={split.train_summary.max_ts} < valid_min={split.valid_summary.min_ts} < test_min={split.test_summary.min_ts}",
+    )
+
+    detector = BlueDetector(n_estimators=50, max_depth=4, learning_rate=0.05)
+    detector.fit(split.train_df, split.valid_df)
+
+    c.add(
+        "train class imbalance scale_pos_weight recorded",
+        detector.train_scale_pos_weight > 1.0,
+        f"scale_pos_weight={detector.train_scale_pos_weight:.2f}",
+    )
+
+    reports = detector.evaluate_split(split)
+    lgbm_test_pr = reports["lgbm_calibrated_test"].pr_auc
+    rule_test_pr = reports["rule_baseline_test"].pr_auc
+    c.add(
+        "LightGBM test PR-AUC beats RuleBaseline",
+        lgbm_test_pr >= rule_test_pr,
+        f"LightGBM PR-AUC={lgbm_test_pr:.4f} vs RuleBaseline PR-AUC={rule_test_pr:.4f}",
+    )
+
+    test_ece = reports["lgbm_calibrated_test"].ece
+    c.add(
+        "test ECE recorded and calibrated",
+        test_ece <= 0.15,
+        f"test ECE={test_ece:.4f}, brier={reports['lgbm_calibrated_test'].brier_score:.4f}",
+    )
+
+    # Policy decision check
+    sample_txn = world.transactions[0]
+    sample_feat_dict = {f: float(feature_df[f][0]) for f in detector.explainer.feature_names}
+    blue_decision = detector.score_transaction(sample_txn, sample_feat_dict)
+    c.add(
+        "cost router emits valid decision with reason codes",
+        blue_decision.decision in {Decision.ALLOW, Decision.STEP_UP, Decision.BLOCK} and len(blue_decision.reason_codes) > 0,
+        f"decision={blue_decision.decision.value}, reasons={blue_decision.reason_codes}",
+    )
+
+    r = _pytest("tests/unit/test_blue.py")
+    c.add("pytest tests/unit/test_blue.py", r.returncode == 0, _tail(r))
 
 
 def gate_4(c: Checks) -> None:
