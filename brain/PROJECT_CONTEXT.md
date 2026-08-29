@@ -5,25 +5,25 @@ Read this before touching anything. See `AGENTS.md` for the rules and
 
 <!-- AUTO-GENERATED BELOW - DO NOT HAND-EDIT -->
 
-_Generated 2026-08-30 03:39 from artifacts and git. Do not edit below._
+_Generated 2026-08-30 03:45 from artifacts and git. Do not edit below._
 
 ## Current state
 
-- **Last gate passed:** 3
-- **Git:** `1bc5323` on `main`
+- **Last gate passed:** 4
+- **Git:** `e028b13` on `main`
 - **Latest run:** `run_fixture_0000` — FIXTURE (not real), scale `fixture`
 
 ## Gate ladder
 
 | Gate | Name | Status | Last run |
 |---|---|---|---|
-| 0 | contracts | PASS | 2026-08-30T03:36:04 |
-| 1 | world | PASS | 2026-08-30T03:36:10 |
-| 2 | features | PASS | 2026-08-30T03:36:12 |
-| 3 | blue | PASS | 2026-08-30T03:39:17 |
-| 4 | red | pending (block not built) | 2026-08-30T03:36:17 |
-| 5 | loop | pending (block not built) | 2026-08-30T03:36:17 |
-| 6 | artifacts | **FAIL** | 2026-08-30T03:36:17 |
+| 0 | contracts | PASS | 2026-08-30T03:45:13 |
+| 1 | world | PASS | 2026-08-30T03:44:56 |
+| 2 | features | PASS | 2026-08-30T03:44:58 |
+| 3 | blue | PASS | 2026-08-30T03:45:04 |
+| 4 | red | PASS | 2026-08-30T03:45:12 |
+| 5 | loop | pending (block not built) | 2026-08-30T03:45:12 |
+| 6 | artifacts | **FAIL** | 2026-08-30T03:45:12 |
 | 7 | submission | not run | — |
 
 ## Live metrics
@@ -37,7 +37,7 @@ _be cited in the report, the UI, or a commit message._
 - **BLOCK 1 — Synthetic world + API/UI shell:** done
 - **BLOCK 2 — Causal features + filter L1/L2/L4:** done
 - **BLOCK 3 — Blue baseline + anchor:** partial (1/2)
-- **BLOCK 4 — Red engine + filter L3:** not started
+- **BLOCK 4 — Red engine + filter L3:** partial (1/2)
 - **BLOCK 5 — Closed loop + intent engine:** partial (1/2)
 - **BLOCK 6 — Full cloud run:** not started
 - **BLOCK 7 — Evidence & docs:** done

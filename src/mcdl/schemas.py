@@ -42,6 +42,12 @@ class Decision(str, Enum):
 
 
 class AttackFamily(str, Enum):
+    BURST_DRAIN = "burst_drain"
+    SLOW_SIPHON = "slow_siphon"
+    GEO_HOP = "geo_hop"
+    AGENT_SUBVERSION = "agent_subversion"
+    CROSS_MERCHANT_FANOUT = "cross_merchant_fanout"
+    # Backward compatibility aliases
     R1_ATO = "R1_ato"
     R2_VELOCITY_BURST = "R2_velocity_burst"
     R3_LOW_AND_SLOW = "R3_low_and_slow"

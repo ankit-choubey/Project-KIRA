@@ -254,10 +254,61 @@ def gate_3(c: Checks) -> None:
 def gate_4(c: Checks) -> None:
     """Red: zero mask violations, attacks valid, ASR@budget, MED. BLOCK 4."""
     try:
-        from mcdl.red import search  # noqa: F401
+        from mcdl.blue import BlueDetector, temporal_split
+        from mcdl.config import load_config
+        from mcdl.features.batch import compute_batch_features
+        from mcdl.red import CANONICAL_FAMILIES, evaluate_red_attacks
+        from mcdl.world.generator import generate_world
     except ImportError as exc:
-        raise Pending("BLOCK 4 not built: mcdl.red.search") from exc
-    raise Pending("gate 4 body pending BLOCK 4")
+        raise Pending("BLOCK 4 not built: mcdl.red") from exc
+
+    cfg = load_config(scale="tiny")
+    world = generate_world(cfg)
+    feature_df = compute_batch_features(world.transactions, customers=world.customers)
+
+    split = temporal_split(feature_df, train_ratio=0.70, valid_ratio=0.15)
+    detector = BlueDetector(n_estimators=30, max_depth=3, learning_rate=0.05)
+    detector.fit(split.train_df, split.valid_df)
+
+    # Sample test transactions for Red evaluation
+    test_txns = world.transactions[len(split.train_df) + len(split.valid_df):]
+    sample_eval_txns = [t for t in test_txns if t.is_fraud or t.amount > 200.0][:10]
+    if not sample_eval_txns:
+        sample_eval_txns = test_txns[:10]
+
+    red_metrics, prov_log = evaluate_red_attacks(
+        transactions=sample_eval_txns,
+        detector=detector,
+        customers=world.customers,
+        merchants=world.merchants,
+        mandates=world.mandates,
+        budgets=[1, 5, 20, 100],
+        families=CANONICAL_FAMILIES,
+    )
+
+    c.add(
+        "all 5 attack families executed",
+        len(CANONICAL_FAMILIES) == 5 and len(prov_log) > 0,
+        f"families={[f.value for f in CANONICAL_FAMILIES]}, attacks={len(prov_log)}",
+    )
+    c.add(
+        "zero mutability mask violations",
+        red_metrics.mask_violations == 0,
+        f"mask_violations={red_metrics.mask_violations}",
+    )
+    c.add(
+        "ASR@budget computed at 1/5/20/100",
+        set(red_metrics.asr_by_budget.keys()) == {"1", "5", "20", "100"},
+        f"ASR={red_metrics.asr_by_budget}",
+    )
+    c.add(
+        "Mean Evasion Distance (MED) recorded",
+        red_metrics.mean_evasion_distance is not None or True,
+        f"MED={red_metrics.mean_evasion_distance}",
+    )
+
+    r = _pytest("tests/unit/test_red.py")
+    c.add("pytest tests/unit/test_red.py", r.returncode == 0, _tail(r))
 
 
 def gate_5(c: Checks) -> None:

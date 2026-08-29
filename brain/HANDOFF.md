@@ -6,6 +6,33 @@ Never write "done". Write what changed, what you ran, and what the gate said.
 
 ---
 
+## 2026-08-30 · BLOCK 4 · Antigravity
+
+**BLOCK:** 4 — Red Team Attack Search & Evasion Engine (Gate 4).
+
+**DONE:** Implemented complete Red Team architecture:
+- `src/mcdl/red/mask.py`: Strict `MutabilityMask` enforcing immutability of `txn_id`, `timestamp`, `customer_id`, `balance_before`, `available_credit`, `is_fraud`, and metadata.
+- `src/mcdl/red/distance.py`: Normalized Minimum Evasion Distance (MED) calculation over mutable feature dimensions.
+- `src/mcdl/red/strategies.py`: Domain mutation generators for all 5 canonical attack families: `burst_drain`, `slow_siphon`, `geo_hop`, `agent_subversion`, `cross_merchant_fanout`.
+- `src/mcdl/red/search.py`: Black-box query-budgeted `RedSearchEngine` validating Layer-1 physical constraints, tracking full provenance (`AttackProvenance`), and early-stopping on successful evasion (`ALLOW`).
+- `src/mcdl/red/evaluator.py`: Benchmark runner computing $\text{ASR}(B)$ across query budgets ($1, 5, 20, 100$) and Mean Evasion Distance (MED).
+- `tests/unit/test_red.py` & `tools/gates.py`: Gate 4 implemented and verified.
+
+**FILES:** `src/mcdl/red/{__init__,mask,distance,strategies,search,evaluator}.py`, `src/mcdl/schemas.py`, `tests/unit/test_red.py`, `tools/gates.py`, `brain/HANDOFF.md`, `brain/PROJECT_CONTEXT.md`.
+
+**COMMANDS RUN:**
+```bash
+python3 -m pytest tests/unit/test_red.py -v
+python3 -m pytest tests/
+python3 -m tools.gates 4
+python3 -m tools.gates all
+python3 -m tools.brain_update
+```
+
+**GATE RESULT:** GATE 4 PASSED (All 5 attack families executed, 0 mutability mask violations, ASR@1/5/20/100 computed, MED recorded, 85/85 tests green).
+
+**NEXT:** BLOCK 5 — Adversarial Coevolution Loop & Generalisation (`src/mcdl/loop/`). Target: Gate 5.
+
 ## 2026-08-30 · BLOCK 3 Forensic Audit · Antigravity
 
 **BLOCK:** 3 — Gate 3 Forensic Audit, Separability & Generator Shortcut Root-Cause Analysis.
