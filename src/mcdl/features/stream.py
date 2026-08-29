@@ -34,8 +34,7 @@ class CustomerStreamState:
 class MerchantStreamState:
     def __init__(self) -> None:
         self.events_24h: deque[tuple[datetime, str]] = deque()
-        # Confirmed 7-day lag tracking
-        # unconfirmed queue: (timestamp, is_fraud)
+        # Confirmed 7-day lag tracking: queue of (timestamp, is_fraud)
         self.unconfirmed_labels: deque[tuple[datetime, bool]] = deque()
         self.confirmed_fraud_count: int = 0
         self.confirmed_total_count: int = 0
@@ -68,7 +67,7 @@ class StreamingFeatureExtractor:
         m_id = txn.merchant_id
         dev_id = txn.device_id
         t_curr = txn.timestamp
-        amt = txn.amount
+        amt = float(txn.amount)
 
         # 1. Resolve / initialize customer state
         c_state = self.customers_state.get(c_id)
@@ -103,7 +102,7 @@ class StreamingFeatureExtractor:
             speed = 0.0
 
         # --- C. Customer Velocity Windows (Trailing 1h, 6h, 24h) ------------
-        # Prune customer events older than 24h
+        # Window: t_curr - delta <= t_j <= t_curr with T_j < T_i in causal order
         cutoff_24h = t_curr - timedelta(hours=24)
         while c_state.events_24h and c_state.events_24h[0][0] < cutoff_24h:
             c_state.events_24h.popleft()
@@ -119,7 +118,7 @@ class StreamingFeatureExtractor:
         c_v24_sum = 0.0
 
         for e_ts, e_id, e_amt in c_state.events_24h:
-            # Events in deque are already strictly prior to txn in causal order
+            # Events in deque strictly precede T_i in causal order
             c_v24_count += 1
             c_v24_sum += e_amt
             if e_ts >= cutoff_6h:
@@ -172,8 +171,8 @@ class StreamingFeatureExtractor:
 
         # --- Assemble Feature Dictionary -----------------------------------
         features = {
-            "amount": float(amt),
-            "log_amount": float(log_amount),
+            "amount": amt,
+            "log_amount": log_amount,
             "hour_of_day": int(hour_of_day),
             "day_of_week": int(day_of_week),
             "is_weekend": int(is_weekend),
@@ -182,21 +181,21 @@ class StreamingFeatureExtractor:
             "time_since_prev_txn_seconds": float(time_since_prev),
             "speed_kmh": float(speed),
             "cust_velocity_1h_count": int(c_v1_count),
-            "cust_velocity_1h_sum": float(round(c_v1_sum, 6)),
+            "cust_velocity_1h_sum": float(c_v1_sum),
             "cust_velocity_6h_count": int(c_v6_count),
-            "cust_velocity_6h_sum": float(round(c_v6_sum, 6)),
+            "cust_velocity_6h_sum": float(c_v6_sum),
             "cust_velocity_24h_count": int(c_v24_count),
-            "cust_velocity_24h_sum": float(round(c_v24_sum, 6)),
+            "cust_velocity_24h_sum": float(c_v24_sum),
             "merch_velocity_1h_count": int(m_v1_count),
             "merch_velocity_24h_count": int(m_v24_count),
-            "cust_avg_amount_hist": float(round(cust_avg_hist, 6)),
-            "cust_amount_to_avg_ratio": float(round(amount_to_avg_ratio, 6)),
-            "balance_utilization": float(round(balance_util, 6)),
+            "cust_avg_amount_hist": float(cust_avg_hist),
+            "cust_amount_to_avg_ratio": float(amount_to_avg_ratio),
+            "balance_utilization": float(balance_util),
             "is_new_device": int(is_new_dev),
             "device_cust_count": int(device_cust_count),
             "auth_failed_count": int(auth_failed),
             "is_agent_initiated": int(is_agent),
-            "merch_fraud_rate_7d_lag": float(round(merch_fraud_rate_7d, 6)),
+            "merch_fraud_rate_7d_lag": float(merch_fraud_rate_7d),
         }
 
         # --- ADVANCE STATE WITH CURRENT TRANSACTION -------------------------

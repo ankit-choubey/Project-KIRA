@@ -5,25 +5,25 @@ Read this before touching anything. See `AGENTS.md` for the rules and
 
 <!-- AUTO-GENERATED BELOW - DO NOT HAND-EDIT -->
 
-_Generated 2026-08-30 03:23 from artifacts and git. Do not edit below._
+_Generated 2026-08-30 03:28 from artifacts and git. Do not edit below._
 
 ## Current state
 
 - **Last gate passed:** 2
-- **Git:** `f6e7277` on `main`
+- **Git:** `d90177b` on `main`
 - **Latest run:** `run_fixture_0000` — FIXTURE (not real), scale `fixture`
 
 ## Gate ladder
 
 | Gate | Name | Status | Last run |
 |---|---|---|---|
-| 0 | contracts | PASS | 2026-08-30T03:23:35 |
-| 1 | world | PASS | 2026-08-30T03:23:40 |
-| 2 | features | PASS | 2026-08-30T03:23:44 |
-| 3 | blue | pending (block not built) | 2026-08-30T03:23:44 |
-| 4 | red | pending (block not built) | 2026-08-30T03:23:44 |
-| 5 | loop | pending (block not built) | 2026-08-30T03:23:44 |
-| 6 | artifacts | **FAIL** | 2026-08-30T03:23:44 |
+| 0 | contracts | PASS | 2026-08-30T03:28:15 |
+| 1 | world | PASS | 2026-08-30T03:28:21 |
+| 2 | features | PASS | 2026-08-30T03:28:23 |
+| 3 | blue | pending (block not built) | 2026-08-30T03:28:23 |
+| 4 | red | pending (block not built) | 2026-08-30T03:28:23 |
+| 5 | loop | pending (block not built) | 2026-08-30T03:28:23 |
+| 6 | artifacts | **FAIL** | 2026-08-30T03:28:23 |
 | 7 | submission | not run | — |
 
 ## Live metrics
