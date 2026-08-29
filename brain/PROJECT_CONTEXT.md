@@ -5,12 +5,12 @@ Read this before touching anything. See `AGENTS.md` for the rules and
 
 <!-- AUTO-GENERATED BELOW - DO NOT HAND-EDIT -->
 
-_Generated 2026-08-30 03:13 from artifacts and git. Do not edit below._
+_Generated 2026-08-30 03:17 from artifacts and git. Do not edit below._
 
 ## Current state
 
 - **Last gate passed:** 1
-- **Git:** `377ac60` on `main`
+- **Git:** `202f0f1` on `main`
 - **Latest run:** `run_fixture_0000` — FIXTURE (not real), scale `fixture`
 
 ## Gate ladder
@@ -18,7 +18,7 @@ _Generated 2026-08-30 03:13 from artifacts and git. Do not edit below._
 | Gate | Name | Status | Last run |
 |---|---|---|---|
 | 0 | contracts | PASS | 2026-08-30T03:09:19 |
-| 1 | world | PASS | 2026-08-30T03:13:05 |
+| 1 | world | PASS | 2026-08-30T03:17:46 |
 | 2 | features | not run | — |
 | 3 | blue | not run | — |
 | 4 | red | not run | — |

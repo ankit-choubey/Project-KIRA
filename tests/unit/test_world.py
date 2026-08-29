@@ -146,7 +146,7 @@ def test_regression_inconsistent_balance_transitions(base_world):
     m_id = list(merchants.keys())[0]
     dev_id = list(devices.keys())[0]
 
-    # balance_before + available_credit does not match cust.credit_limit
+    # 1. Intra-transaction accounting mismatch: balance_before + available_credit != cust.credit_limit
     bad_txn = _make_sample_txn(
         c_id, m_id, dev_id, datetime(2026, 1, 2),
         balance_before=100.0, available_credit=cust.credit_limit,  # sum = limit + 100
@@ -154,6 +154,19 @@ def test_regression_inconsistent_balance_transitions(base_world):
     report = check_transactions([bad_txn], customers, merchants, devices, mandates)
     assert report.negative_balance_violations > 0
     assert not report.passed
+
+    # 2. Inter-transaction sequential mismatch: T1 balance=100, amt=50 -> next balance should be 150.0 (or 52.5 on settlement), but is 300.0
+    t1 = _make_sample_txn(
+        c_id, m_id, dev_id, datetime(2026, 1, 2, 10, 0),
+        amount=50.0, balance_before=100.0, available_credit=cust.credit_limit - 100.0,
+    )
+    t2 = _make_sample_txn(
+        c_id, m_id, dev_id, datetime(2026, 1, 2, 11, 0),
+        amount=20.0, balance_before=300.0, available_credit=cust.credit_limit - 300.0,
+    )
+    report_seq = check_transactions([t1, t2], customers, merchants, devices, mandates)
+    assert report_seq.negative_balance_violations > 0
+    assert not report_seq.passed
 
 
 def test_regression_invalid_transaction_amount(base_world):

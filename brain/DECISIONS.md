@@ -76,16 +76,20 @@ ladder is worse than no ladder, because it manufactures false confidence.
 
 **Rules out:** Stubbing a gate to return success in order to unblock a commit.
 
-### D-008 · Pre-transaction state vs post-balance state in Transaction schema
+### D-008 · Sequential balance verification and observable transaction schema
 
 **Decision:** The `Transaction` schema retains causal `balance_before` and
-`available_credit` at event time `t`, but intentionally does not carry a redundant
-`balance_after` field. Layer-1 validity audits balance-state transitions using
-exact accounting invariants: `balance_before + available_credit == credit_limit`
-and `balance_before <= credit_limit`.
+`available_credit` at event time `t`, but intentionally omits post-authorization
+`balance_after`. Layer-1 validity independently verifies:
+1. Intra-transaction accounting identity: `balance_before + available_credit == credit_limit`
+2. Credit-limit ceiling: `balance_before <= credit_limit`
+3. Sequential inter-transaction transitions: For consecutive transactions of the same
+   customer $(T_k, T_{k+1})$, $T_{k+1}.\text{balance\_before}$ must strictly match either
+   unsettled transition $\text{round}(B_k + A_k, 2)$ or periodic settlement
+   $\text{round}(\text{round}(B_k + A_k, 2) \times 0.35, 2)$.
 
-**Why:** Causal features for online detection at scoring time $t$ only have access
-to state *before* authorization. Adding post-transaction ledger state to `Transaction`
-risks feature leakage during model training.
+**Why:** Online detectors scoring at time $t$ only have access to pre-authorization
+ledger state. Proving balance validity through pre-state sequences prevents post-event
+feature leakage into training datasets while strictly catching ledger transition bugs.
 
-**Rules out:** Modifying `Transaction` to carry post-event ledger state.
+**Rules out:** Adding `balance_after` to `Transaction` or manufacturing fake post-event fields.

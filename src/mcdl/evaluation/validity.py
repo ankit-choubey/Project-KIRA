@@ -96,7 +96,24 @@ def check_transactions(
                         f"Balance exceeds credit limit: txn {txn.txn_id}, bal={txn.balance_before} > limit={cust.credit_limit}"
                     )
 
-        last_state_by_customer[txn.customer_id] = (txn.balance_before, txn.amount, txn.available_credit)
+        # 1c. Sequential inter-transaction balance consistency
+        prev_state = last_state_by_customer.get(txn.customer_id)
+        if prev_state is not None and cust is not None:
+            prev_bal, prev_amt = prev_state
+            expected_unsettled = round(prev_bal + prev_amt, 2)
+            expected_settled = round(expected_unsettled * 0.35, 2)
+            actual_curr_bal = round(txn.balance_before, 2)
+
+            if actual_curr_bal not in (expected_unsettled, expected_settled):
+                report.negative_balance_violations += 1
+                if len(report.violation_samples) < 10:
+                    report.violation_samples.append(
+                        f"Sequential balance transition violation: customer {txn.customer_id} in txn {txn.txn_id}, "
+                        f"curr_bal={actual_curr_bal} != expected ({expected_unsettled} or {expected_settled}) "
+                        f"from prev_bal={prev_bal} + prev_amt={prev_amt}"
+                    )
+
+        last_state_by_customer[txn.customer_id] = (txn.balance_before, txn.amount)
 
         # 2. Foreign Key referential integrity
         if txn.customer_id not in customers:

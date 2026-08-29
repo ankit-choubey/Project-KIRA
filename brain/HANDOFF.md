@@ -6,6 +6,23 @@ Never write "done". Write what changed, what you ran, and what the gate said.
 
 ---
 
+## 2026-08-30 · BLOCK 1 Sequential Balance Audit · Antigravity
+
+**BLOCK:** 1 — Implementation of sequential inter-transaction balance consistency verification.
+
+**DONE:** Updated `src/mcdl/evaluation/validity.py` to independently audit sequential balance transitions across consecutive customer transactions $(T_k, T_{k+1})$, verifying that $T_{k+1}.\text{balance\_before}$ matches either unsettled transition $\text{round}(B_k + A_k, 2)$ or periodic settlement $\text{round}(\text{round}(B_k + A_k, 2) \times 0.35, 2)$. Enhanced regression tests in `tests/unit/test_world.py` to test both intra-transaction identity and inter-transaction sequential mismatch detection. Updated `D-008` in `brain/DECISIONS.md`.
+
+**FILES:** `src/mcdl/evaluation/validity.py`, `tests/unit/test_world.py`, `brain/DECISIONS.md`, `brain/HANDOFF.md`, `brain/PROJECT_CONTEXT.md`.
+
+**COMMANDS RUN:**
+```bash
+python3 -m pytest tests/unit
+python3 -m tools.gates 1
+python3 -m tools.brain_update
+```
+
+**GATE RESULT:** GATE 1 PASSED — 14/14 checks passed (39/39 unit tests green).
+
 ## 2026-08-30 · BLOCK 1 Audit & Invariant Regression Suite · Antigravity
 
 **BLOCK:** 1 — Focused audit of Layer-1 validity and invariant regression suite.
