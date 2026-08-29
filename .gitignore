@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Secrets - never commit
+.env
+*.key
+kaggle.json
+
+# Reference data is downloaded, not committed (also keeps licences clean)
+data/
+
+# Generated artifacts. artifacts/demo/ IS committed - it is what the Space serves.
+artifacts/*
+!artifacts/demo/
+!artifacts/demo/**
+
+# Frontend build. `make frontend` force-adds dist/ when deploying (see rules/30).
+frontend/node_modules/
+frontend/dist/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
