@@ -1,7 +1,7 @@
 """Multi-Round Adversarial Coevolution Loop.
 
 Executes 4 rounds of Blue defense vs Red attack search, replay hardening,
-and honest seen vs held-out generalization measurement.
+and honest seen vs held-out generalization measurement without test contamination.
 """
 
 from __future__ import annotations
@@ -33,7 +33,7 @@ class CoevolutionResult:
 
 
 class CoevolutionLoop:
-    """Orchestrates 4-round adversarial coevolution experiment."""
+    """Orchestrates 4-round adversarial coevolution experiment with strict test isolation."""
 
     def __init__(
         self,
@@ -56,6 +56,7 @@ class CoevolutionLoop:
         """Executes the full 4-round coevolution loop."""
         # 1. Temporal split
         split = temporal_split(feature_df, train_ratio=0.70, valid_ratio=0.15)
+        train_end_idx = len(split.train_df)
         test_start_idx = len(split.train_df) + len(split.valid_df)
 
         # 2. Initialize Round 0 Baseline Blue
@@ -76,10 +77,11 @@ class CoevolutionLoop:
         for r in range(self.n_rounds):
             round_seed = self.seed + r * 1000
 
-            # Red attacks current Champion
-            red_metrics, prov_log = evaluate_red_attacks(
-                all_transactions=all_transactions,
-                test_start_idx=test_start_idx,
+            # 3. Hardening pool: Red attacks blocked fraud in TRAIN split only
+            # This ensures replay records NEVER contain test transactions
+            red_metrics_train, train_prov_log = evaluate_red_attacks(
+                all_transactions=all_transactions[:train_end_idx],
+                test_start_idx=0,
                 detector=champion,
                 customers=world.customers,
                 merchants=world.merchants,
@@ -89,10 +91,33 @@ class CoevolutionLoop:
                 seed=round_seed,
             )
 
-            # Partition successful evasions into Seen vs Held-Out
-            split_atks = split_seen_heldout(prov_log, seen_ratio=0.5, seed=round_seed)
+            # Partition train evasions into Seen (for hardening) vs Held-out (for generalization)
+            split_atks = split_seen_heldout(train_prov_log, seen_ratio=0.5, seed=round_seed)
 
-            # Evaluate Champion on Validation set for Blue Metrics
+            # 4. Ingest Seen evasions into replay buffer
+            for prov in split_atks.seen:
+                if prov.success and prov.best_candidate is not None:
+                    ext = StreamingFeatureExtractor(customers=world.customers)
+                    cand_feats = ext.extract(prov.best_candidate)
+                    replay_buffer.add(
+                        ReplayRecord(
+                            attack_instance_id=prov.attack_instance_id,
+                            attack_family=prov.attack_family,
+                            source_txn_id=prov.source_txn_id,
+                            round_generated=r,
+                            evasion_features=cand_feats,
+                            original_risk=prov.original_risk,
+                            evasion_risk=prov.final_risk,
+                            original_decision=prov.original_decision,
+                            evasion_decision=prov.final_decision,
+                            med=prov.med if prov.med is not None else 0.0,
+                            query_budget=prov.query_budget,
+                            seed=prov.seed,
+                            candidate_transaction=prov.best_candidate,
+                        )
+                    )
+
+            # 5. Evaluate Champion on Validation set for Blue Metrics
             val_eval = champion.evaluate_split(split)["lgbm_calibrated_valid"]
             raw_preds = champion.predict_raw_proba(split.valid_df)
             val_preds = champion.predict_calibrated_proba(split.valid_df)
@@ -123,31 +148,6 @@ class CoevolutionLoop:
             )
 
             if r == 0:
-                # Round 0: Record baseline un-hardened metrics
-                # Store successful seen evasions in replay buffer
-                for prov in split_atks.seen:
-                    if prov.success and prov.best_candidate is not None:
-                        # Extract features for candidate
-                        ext = StreamingFeatureExtractor(customers=world.customers)
-                        cand_feats = ext.extract(prov.best_candidate)
-                        replay_buffer.add(
-                            ReplayRecord(
-                                attack_instance_id=prov.attack_instance_id,
-                                attack_family=prov.attack_family,
-                                source_txn_id=prov.source_txn_id,
-                                round_generated=r,
-                                evasion_features=cand_feats,
-                                original_risk=prov.original_risk,
-                                evasion_risk=prov.final_risk,
-                                original_decision=prov.original_decision,
-                                evasion_decision=prov.final_decision,
-                                med=prov.med if prov.med is not None else 0.0,
-                                query_budget=prov.query_budget,
-                                seed=prov.seed,
-                                candidate_transaction=prov.best_candidate,
-                            )
-                        )
-
                 report_r0 = compute_generalisation_metrics(
                     baseline_seen=split_atks.seen,
                     baseline_heldout=split_atks.heldout,
@@ -178,8 +178,7 @@ class CoevolutionLoop:
                     round_idx=r,
                 )
 
-                # Evaluate Challenger on seen and heldout sets
-                # Re-evaluate attacks against Challenger
+                # Re-score seen and heldout attacks against Challenger
                 chal_seen_atks = []
                 for p in split_atks.seen:
                     if p.best_candidate is not None:
@@ -261,29 +260,6 @@ class CoevolutionLoop:
 
                 if promoted:
                     champion = challenger
-
-                # Ingest new seen evasions into replay buffer for next round
-                for prov in split_atks.seen:
-                    if prov.success and prov.best_candidate is not None:
-                        ext = StreamingFeatureExtractor(customers=world.customers)
-                        cand_feats = ext.extract(prov.best_candidate)
-                        replay_buffer.add(
-                            ReplayRecord(
-                                attack_instance_id=prov.attack_instance_id,
-                                attack_family=prov.attack_family,
-                                source_txn_id=prov.source_txn_id,
-                                round_generated=r,
-                                evasion_features=cand_feats,
-                                original_risk=prov.original_risk,
-                                evasion_risk=prov.final_risk,
-                                original_decision=prov.original_decision,
-                                evasion_decision=prov.final_decision,
-                                med=prov.med if prov.med is not None else 0.0,
-                                query_budget=prov.query_budget,
-                                seed=prov.seed,
-                                candidate_transaction=prov.best_candidate,
-                            )
-                        )
 
                 rounds_history.append(
                     RoundResult(
