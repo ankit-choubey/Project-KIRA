@@ -66,15 +66,37 @@ def check_transactions(
 
     last_ts_by_customer: dict[str, datetime] = {}
     last_pos_by_customer: dict[str, tuple[float, float, datetime]] = {}
+    last_state_by_customer: dict[str, tuple[float, float, float]] = {}  # (balance_before, amount, available_credit)
 
     for txn in transactions:
-        # 1. Negative balance or available credit check
+        # 1. Negative balance or available credit check & non-positive amounts
         if txn.balance_before < 0.0 or txn.available_credit < 0.0 or txn.amount <= 0.0:
             report.negative_balance_violations += 1
             if len(report.violation_samples) < 10:
                 report.violation_samples.append(
-                    f"Balance violation: txn {txn.txn_id}, bal={txn.balance_before}, amt={txn.amount}"
+                    f"Balance/amount violation: txn {txn.txn_id}, bal={txn.balance_before}, avail={txn.available_credit}, amt={txn.amount}"
                 )
+
+        # 1b. Customer balance transition consistency (if customer exists)
+        cust = customers.get(txn.customer_id)
+        if cust is not None:
+            # Credit limit boundary assertion
+            if round(txn.balance_before + txn.available_credit, 2) != round(cust.credit_limit, 2):
+                report.negative_balance_violations += 1
+                if len(report.violation_samples) < 10:
+                    report.violation_samples.append(
+                        f"Balance accounting violation: txn {txn.txn_id}, bal={txn.balance_before} + avail={txn.available_credit} != limit={cust.credit_limit}"
+                    )
+
+            # Sequential balance sanity check: balance_before must not exceed credit limit
+            if txn.balance_before > cust.credit_limit:
+                report.negative_balance_violations += 1
+                if len(report.violation_samples) < 10:
+                    report.violation_samples.append(
+                        f"Balance exceeds credit limit: txn {txn.txn_id}, bal={txn.balance_before} > limit={cust.credit_limit}"
+                    )
+
+        last_state_by_customer[txn.customer_id] = (txn.balance_before, txn.amount, txn.available_credit)
 
         # 2. Foreign Key referential integrity
         if txn.customer_id not in customers:

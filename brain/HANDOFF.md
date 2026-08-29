@@ -6,6 +6,23 @@ Never write "done". Write what changed, what you ran, and what the gate said.
 
 ---
 
+## 2026-08-30 · BLOCK 1 Audit & Invariant Regression Suite · Antigravity
+
+**BLOCK:** 1 — Focused audit of Layer-1 validity and invariant regression suite.
+
+**DONE:** Expanded `src/mcdl/evaluation/validity.py` with balance transition consistency checking (`balance_before + available_credit == credit_limit` and `balance_before <= credit_limit`). Added 9 targeted regression tests in `tests/unit/test_world.py` verifying detection of inconsistent balance transitions, negative/invalid transaction amounts, credit-limit boundary breaches, timestamp non-monotonicity, device registration ordering anomalies, invalid MCC formats, impossible travel speeds, foreign-key referential errors, and mandate amount violations. Documented architectural decision `D-008` in `brain/DECISIONS.md`.
+
+**FILES:** `src/mcdl/evaluation/validity.py`, `tests/unit/test_world.py`, `brain/DECISIONS.md`, `brain/HANDOFF.md`, `brain/PROJECT_CONTEXT.md`.
+
+**COMMANDS RUN:**
+```bash
+python3 -m pytest tests/unit
+python3 -m tools.gates 1
+python3 -m tools.brain_update
+```
+
+**GATE RESULT:** GATE 1 PASSED — 14/14 checks passed (13/13 in test_world.py, 39/39 total unit tests green).
+
 ## 2026-08-30 · BLOCK 1 · Antigravity
 
 **BLOCK:** 1 — Synthetic payment world + Layer 1 physical validity

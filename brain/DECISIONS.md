@@ -75,3 +75,17 @@ day 3 against artifacts they have never seen.
 ladder is worse than no ladder, because it manufactures false confidence.
 
 **Rules out:** Stubbing a gate to return success in order to unblock a commit.
+
+### D-008 · Pre-transaction state vs post-balance state in Transaction schema
+
+**Decision:** The `Transaction` schema retains causal `balance_before` and
+`available_credit` at event time `t`, but intentionally does not carry a redundant
+`balance_after` field. Layer-1 validity audits balance-state transitions using
+exact accounting invariants: `balance_before + available_credit == credit_limit`
+and `balance_before <= credit_limit`.
+
+**Why:** Causal features for online detection at scoring time $t$ only have access
+to state *before* authorization. Adding post-transaction ledger state to `Transaction`
+risks feature leakage during model training.
+
+**Rules out:** Modifying `Transaction` to carry post-event ledger state.
