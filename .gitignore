@@ -27,7 +27,7 @@ frontend/dist/
 # OS / editor
 .DS_Store
 Thumbs.db
-.idea/
-.vscode/
-brain/
-.agents/
+# Research binary artifacts
+research_runs/**/*.pkl
+research_runs/**/*.bin
+research_runs/**/*.ckpt
