@@ -15,10 +15,12 @@ kaggle.json
 # Reference data is downloaded, not committed (also keeps licences clean)
 data/
 
-# Generated artifacts. artifacts/demo/ IS committed - it is what the Space serves.
+# Generated artifacts. artifacts/demo/ and authoritative baseline are committed.
 artifacts/*
 !artifacts/demo/
 !artifacts/demo/**
+!artifacts/run_tiny_s20260827_193f7897_40997ab/
+!artifacts/run_tiny_s20260827_193f7897_40997ab/**
 
 # Frontend build. `make frontend` force-adds dist/ when deploying (see rules/30).
 frontend/node_modules/

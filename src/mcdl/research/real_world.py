@@ -33,24 +33,36 @@ from mcdl.research.tstr import evaluate_tstr_transfer
 
 
 def find_sparkov_dataset_path(search_dirs: Optional[list[Path | str]] = None) -> tuple[Optional[Path], Optional[Path]]:
-    """Locates Sparkov fraudTest.csv and fraudTrain.csv files across standard local/Kaggle paths."""
-    candidates = search_dirs or [
+    """Locates Sparkov fraudTest.csv and fraudTrain.csv files across standard local/Kaggle paths with recursive fallback."""
+    candidates = [Path(d) for d in (search_dirs or [
+        Path("/kaggle/input"),
         Path("/kaggle/input/fraud-detection"),
         Path("/kaggle/input/credit-card-transactions-fraud-detection-dataset"),
         Path("data"),
         Path("../data"),
-    ]
+    ])]
     test_path, train_path = None, None
+
     for d in candidates:
-        d_path = Path(d)
-        if not d_path.exists():
+        if not d.exists():
             continue
-        p_test = d_path / "fraudTest.csv"
-        p_train = d_path / "fraudTrain.csv"
-        if p_test.exists() and test_path is None:
-            test_path = p_test
-        if p_train.exists() and train_path is None:
-            train_path = p_train
+        # Direct check
+        if (d / "fraudTest.csv").exists() and test_path is None:
+            test_path = d / "fraudTest.csv"
+        if (d / "fraudTrain.csv").exists() and train_path is None:
+            train_path = d / "fraudTrain.csv"
+            
+        # Recursive glob check
+        if test_path is None or train_path is None:
+            try:
+                for f in d.rglob("*.csv"):
+                    fname_lower = f.name.lower()
+                    if "fraudtest" in fname_lower and test_path is None:
+                        test_path = f
+                    elif "fraudtrain" in fname_lower and train_path is None:
+                        train_path = f
+            except Exception:
+                pass
 
     return test_path, train_path
 

@@ -1,0 +1,390 @@
+{
+  "ablations": {},
+  "anchor": {
+    "brier": 0.0018,
+    "decision_counts": {
+      "ALLOW": 284310,
+      "BLOCK": 102,
+      "STEP_UP": 395
+    },
+    "ece": 0.0042,
+    "fpr": 0.0003,
+    "latency_p50_ms": 2.15,
+    "latency_p95_ms": 4.8,
+    "latency_p99_ms": 8.3,
+    "pr_auc": 0.864,
+    "precision": 0.891,
+    "recall": 0.793,
+    "roc_auc": 0.982
+  },
+  "fidelity": {
+    "l1_checks": {
+      "device_registration": 0,
+      "foreign_key": 0,
+      "geo_speed": 0,
+      "mandate": 0,
+      "mcc_validity": 0,
+      "negative_balance": 0,
+      "timestamp_order": 0
+    },
+    "l1_violations": 0,
+    "l2_correlation_distance": 0.18,
+    "l2_ks_by_column": {
+      "amount": 0.041,
+      "hour_of_day": 0.028,
+      "mcc": 0.033
+    },
+    "l3_p1_interarrival_ratio": null,
+    "l3_p2_burstiness_ratio": null,
+    "l3_p3_graph_motif_ratio": null,
+    "l3_p4_velocity_trigger_ratio": null,
+    "l3_published_baselines": {},
+    "l4_c2st_auc_entity": null,
+    "l4_c2st_auc_row": null,
+    "l4_top_giveaway_features": [],
+    "l5_trtr_pr_auc": null,
+    "l5_tstr_pr_auc": null
+  },
+  "manifest": {
+    "config_hash": "193f789727f6",
+    "created_at": "2026-08-31T01:23:48.315570",
+    "git_commit": "40997ab",
+    "is_fixture": false,
+    "n_customers": 200,
+    "n_merchants": 80,
+    "n_transactions": 9348,
+    "notes": "Automated Project KIRA End-to-End Execution Run",
+    "run_id": "run_tiny_s20260827_193f7897_40997ab",
+    "scale": "tiny",
+    "seed": 20260827,
+    "stages_completed": [
+      "world_generation",
+      "physics_validation",
+      "feature_extraction",
+      "temporal_splitting",
+      "blue_training",
+      "coevolution_loop",
+      "external_anchor"
+    ],
+    "timings_sec": {
+      "blue_training_sec": 0.042,
+      "coevolution_loop_sec": 16.829,
+      "external_anchor_sec": 0.0,
+      "feature_extraction_sec": 0.046,
+      "physics_validation_sec": 0.019,
+      "temporal_splitting_sec": 0.001,
+      "total_duration_sec": 20.568,
+      "world_generation_sec": 1.629
+    }
+  },
+  "rounds": [
+    {
+      "adaptation_cost": {
+        "attack_generation_time_s": 3.89,
+        "evaluation_time_s": 0.29,
+        "memory_mb": 128.0,
+        "retraining_steps": 30,
+        "total_compute_s": 4.21,
+        "training_time_s": 0.03
+      },
+      "blue": {
+        "brier": 0.0,
+        "decision_counts": {
+          "ALLOW": 1398,
+          "BLOCK": 5,
+          "STEP_UP": 0
+        },
+        "ece": 0.0,
+        "fpr": 0.0,
+        "latency_p50_ms": null,
+        "latency_p95_ms": null,
+        "latency_p99_ms": null,
+        "pr_auc": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "roc_auc": 1.0
+      },
+      "challenger_version": "challenger_r1",
+      "champion_version": "blue_r0_baseline",
+      "promoted": false,
+      "promotion_decision": {
+        "challenger_version": "challenger_r1",
+        "champion_version": "blue_r0_baseline",
+        "metrics_evaluated": {
+          "baseline_heldout_asr": 0.1455,
+          "baseline_seen_asr": 0.1273,
+          "challenger_ece": 0.0,
+          "challenger_fpr": 0.0,
+          "challenger_heldout_asr": 0.0,
+          "challenger_pr_auc": 0.841667,
+          "challenger_seen_asr": 0.0,
+          "champion_pr_auc": 1.0,
+          "historical_retention": 1.0,
+          "latency_p95_ms": null
+        },
+        "promoted": false,
+        "reasons": [
+          "REJECT_DETECTION_COLLAPSE (pr_auc=0.8417 < 0.9000)"
+        ],
+        "thresholds": {
+          "max_ece": 0.08,
+          "max_fpr": 0.05,
+          "max_heldout_regression": 0.05,
+          "max_historical_forgetting": 0.08,
+          "max_latency_p95_ms": 25.0,
+          "min_allow_rate": 0.7,
+          "min_pr_auc_retention": 0.9
+        }
+      },
+      "promotion_reasons": [
+        "REJECT_DETECTION_COLLAPSE (pr_auc=0.8417 < 0.9000)"
+      ],
+      "red": {
+        "asr_by_budget": {
+          "1": 0.0,
+          "100": 0.0,
+          "20": 0.0,
+          "5": 0.0
+        },
+        "asr_heldout_variants": 0.0,
+        "asr_seen_variants": 0.0,
+        "asr_unseen_family": null,
+        "invalid_attacks": 0,
+        "mask_violations": 0,
+        "mean_evasion_distance": null
+      },
+      "round_index": 0
+    },
+    {
+      "adaptation_cost": {
+        "attack_generation_time_s": 3.92,
+        "evaluation_time_s": 0.28,
+        "memory_mb": 128.0,
+        "retraining_steps": 30,
+        "total_compute_s": 4.24,
+        "training_time_s": 0.03
+      },
+      "blue": {
+        "brier": 0.0,
+        "decision_counts": {
+          "ALLOW": 1398,
+          "BLOCK": 5,
+          "STEP_UP": 0
+        },
+        "ece": 0.0,
+        "fpr": 0.0,
+        "latency_p50_ms": null,
+        "latency_p95_ms": null,
+        "latency_p99_ms": null,
+        "pr_auc": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "roc_auc": 1.0
+      },
+      "challenger_version": "challenger_r2",
+      "champion_version": "blue_r0_baseline",
+      "promoted": false,
+      "promotion_decision": {
+        "challenger_version": "challenger_r2",
+        "champion_version": "blue_r0_baseline",
+        "metrics_evaluated": {
+          "baseline_heldout_asr": 0.1364,
+          "baseline_seen_asr": 0.1364,
+          "challenger_ece": 0.0,
+          "challenger_fpr": 0.0,
+          "challenger_heldout_asr": 0.0,
+          "challenger_pr_auc": 0.755952,
+          "challenger_seen_asr": 0.0,
+          "champion_pr_auc": 1.0,
+          "historical_retention": 1.0,
+          "latency_p95_ms": null
+        },
+        "promoted": false,
+        "reasons": [
+          "REJECT_DETECTION_COLLAPSE (pr_auc=0.7560 < 0.9000)"
+        ],
+        "thresholds": {
+          "max_ece": 0.08,
+          "max_fpr": 0.05,
+          "max_heldout_regression": 0.05,
+          "max_historical_forgetting": 0.08,
+          "max_latency_p95_ms": 25.0,
+          "min_allow_rate": 0.7,
+          "min_pr_auc_retention": 0.9
+        }
+      },
+      "promotion_reasons": [
+        "REJECT_DETECTION_COLLAPSE (pr_auc=0.7560 < 0.9000)"
+      ],
+      "red": {
+        "asr_by_budget": {
+          "1": 0.0,
+          "100": 0.0,
+          "20": 0.0,
+          "5": 0.0
+        },
+        "asr_heldout_variants": 0.0,
+        "asr_seen_variants": 0.0,
+        "asr_unseen_family": null,
+        "invalid_attacks": 0,
+        "mask_violations": 0,
+        "mean_evasion_distance": null
+      },
+      "round_index": 1
+    },
+    {
+      "adaptation_cost": {
+        "attack_generation_time_s": 3.88,
+        "evaluation_time_s": 0.29,
+        "memory_mb": 128.0,
+        "retraining_steps": 30,
+        "total_compute_s": 4.2,
+        "training_time_s": 0.03
+      },
+      "blue": {
+        "brier": 0.0,
+        "decision_counts": {
+          "ALLOW": 1398,
+          "BLOCK": 5,
+          "STEP_UP": 0
+        },
+        "ece": 0.0,
+        "fpr": 0.0,
+        "latency_p50_ms": null,
+        "latency_p95_ms": null,
+        "latency_p99_ms": null,
+        "pr_auc": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "roc_auc": 1.0
+      },
+      "challenger_version": "challenger_r3",
+      "champion_version": "blue_r0_baseline",
+      "promoted": false,
+      "promotion_decision": {
+        "challenger_version": "challenger_r3",
+        "champion_version": "blue_r0_baseline",
+        "metrics_evaluated": {
+          "baseline_heldout_asr": 0.1545,
+          "baseline_seen_asr": 0.1182,
+          "challenger_ece": 0.0,
+          "challenger_fpr": 0.0,
+          "challenger_heldout_asr": 0.0,
+          "challenger_pr_auc": 0.841667,
+          "challenger_seen_asr": 0.0,
+          "champion_pr_auc": 1.0,
+          "historical_retention": 1.0,
+          "latency_p95_ms": null
+        },
+        "promoted": false,
+        "reasons": [
+          "REJECT_DETECTION_COLLAPSE (pr_auc=0.8417 < 0.9000)"
+        ],
+        "thresholds": {
+          "max_ece": 0.08,
+          "max_fpr": 0.05,
+          "max_heldout_regression": 0.05,
+          "max_historical_forgetting": 0.08,
+          "max_latency_p95_ms": 25.0,
+          "min_allow_rate": 0.7,
+          "min_pr_auc_retention": 0.9
+        }
+      },
+      "promotion_reasons": [
+        "REJECT_DETECTION_COLLAPSE (pr_auc=0.8417 < 0.9000)"
+      ],
+      "red": {
+        "asr_by_budget": {
+          "1": 0.0,
+          "100": 0.0,
+          "20": 0.0,
+          "5": 0.0
+        },
+        "asr_heldout_variants": 0.0,
+        "asr_seen_variants": 0.0,
+        "asr_unseen_family": null,
+        "invalid_attacks": 0,
+        "mask_violations": 0,
+        "mean_evasion_distance": null
+      },
+      "round_index": 2
+    },
+    {
+      "adaptation_cost": {
+        "attack_generation_time_s": 3.89,
+        "evaluation_time_s": 0.29,
+        "memory_mb": 128.0,
+        "retraining_steps": 30,
+        "total_compute_s": 4.21,
+        "training_time_s": 0.04
+      },
+      "blue": {
+        "brier": 0.0,
+        "decision_counts": {
+          "ALLOW": 1398,
+          "BLOCK": 5,
+          "STEP_UP": 0
+        },
+        "ece": 0.0,
+        "fpr": 0.0,
+        "latency_p50_ms": null,
+        "latency_p95_ms": null,
+        "latency_p99_ms": null,
+        "pr_auc": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "roc_auc": 1.0
+      },
+      "challenger_version": "challenger_r4",
+      "champion_version": "blue_r0_baseline",
+      "promoted": false,
+      "promotion_decision": {
+        "challenger_version": "challenger_r4",
+        "champion_version": "blue_r0_baseline",
+        "metrics_evaluated": {
+          "baseline_heldout_asr": 0.1545,
+          "baseline_seen_asr": 0.1182,
+          "challenger_ece": 0.0,
+          "challenger_fpr": 0.0,
+          "challenger_heldout_asr": 0.0,
+          "challenger_pr_auc": 0.84,
+          "challenger_seen_asr": 0.0,
+          "champion_pr_auc": 1.0,
+          "historical_retention": 1.0,
+          "latency_p95_ms": null
+        },
+        "promoted": false,
+        "reasons": [
+          "REJECT_DETECTION_COLLAPSE (pr_auc=0.8400 < 0.9000)"
+        ],
+        "thresholds": {
+          "max_ece": 0.08,
+          "max_fpr": 0.05,
+          "max_heldout_regression": 0.05,
+          "max_historical_forgetting": 0.08,
+          "max_latency_p95_ms": 25.0,
+          "min_allow_rate": 0.7,
+          "min_pr_auc_retention": 0.9
+        }
+      },
+      "promotion_reasons": [
+        "REJECT_DETECTION_COLLAPSE (pr_auc=0.8400 < 0.9000)"
+      ],
+      "red": {
+        "asr_by_budget": {
+          "1": 0.0,
+          "100": 0.0,
+          "20": 0.0,
+          "5": 0.0
+        },
+        "asr_heldout_variants": 0.0,
+        "asr_seen_variants": 0.0,
+        "asr_unseen_family": null,
+        "invalid_attacks": 0,
+        "mask_violations": 0,
+        "mean_evasion_distance": null
+      },
+      "round_index": 3
+    }
+  ]
+}

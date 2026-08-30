@@ -1,0 +1,118 @@
+[
+  {
+    "challenger_version": "challenger_r1",
+    "champion_version": "blue_r0_baseline",
+    "metrics_evaluated": {
+      "baseline_heldout_asr": 0.1455,
+      "baseline_seen_asr": 0.1273,
+      "challenger_ece": 0.0,
+      "challenger_fpr": 0.0,
+      "challenger_heldout_asr": 0.0,
+      "challenger_pr_auc": 0.841667,
+      "challenger_seen_asr": 0.0,
+      "champion_pr_auc": 1.0,
+      "historical_retention": 1.0,
+      "latency_p95_ms": null
+    },
+    "promoted": false,
+    "reasons": [
+      "REJECT_DETECTION_COLLAPSE (pr_auc=0.8417 < 0.9000)"
+    ],
+    "thresholds": {
+      "max_ece": 0.08,
+      "max_fpr": 0.05,
+      "max_heldout_regression": 0.05,
+      "max_historical_forgetting": 0.08,
+      "max_latency_p95_ms": 25.0,
+      "min_allow_rate": 0.7,
+      "min_pr_auc_retention": 0.9
+    }
+  },
+  {
+    "challenger_version": "challenger_r2",
+    "champion_version": "blue_r0_baseline",
+    "metrics_evaluated": {
+      "baseline_heldout_asr": 0.1364,
+      "baseline_seen_asr": 0.1364,
+      "challenger_ece": 0.0,
+      "challenger_fpr": 0.0,
+      "challenger_heldout_asr": 0.0,
+      "challenger_pr_auc": 0.755952,
+      "challenger_seen_asr": 0.0,
+      "champion_pr_auc": 1.0,
+      "historical_retention": 1.0,
+      "latency_p95_ms": null
+    },
+    "promoted": false,
+    "reasons": [
+      "REJECT_DETECTION_COLLAPSE (pr_auc=0.7560 < 0.9000)"
+    ],
+    "thresholds": {
+      "max_ece": 0.08,
+      "max_fpr": 0.05,
+      "max_heldout_regression": 0.05,
+      "max_historical_forgetting": 0.08,
+      "max_latency_p95_ms": 25.0,
+      "min_allow_rate": 0.7,
+      "min_pr_auc_retention": 0.9
+    }
+  },
+  {
+    "challenger_version": "challenger_r3",
+    "champion_version": "blue_r0_baseline",
+    "metrics_evaluated": {
+      "baseline_heldout_asr": 0.1545,
+      "baseline_seen_asr": 0.1182,
+      "challenger_ece": 0.0,
+      "challenger_fpr": 0.0,
+      "challenger_heldout_asr": 0.0,
+      "challenger_pr_auc": 0.841667,
+      "challenger_seen_asr": 0.0,
+      "champion_pr_auc": 1.0,
+      "historical_retention": 1.0,
+      "latency_p95_ms": null
+    },
+    "promoted": false,
+    "reasons": [
+      "REJECT_DETECTION_COLLAPSE (pr_auc=0.8417 < 0.9000)"
+    ],
+    "thresholds": {
+      "max_ece": 0.08,
+      "max_fpr": 0.05,
+      "max_heldout_regression": 0.05,
+      "max_historical_forgetting": 0.08,
+      "max_latency_p95_ms": 25.0,
+      "min_allow_rate": 0.7,
+      "min_pr_auc_retention": 0.9
+    }
+  },
+  {
+    "challenger_version": "challenger_r4",
+    "champion_version": "blue_r0_baseline",
+    "metrics_evaluated": {
+      "baseline_heldout_asr": 0.1545,
+      "baseline_seen_asr": 0.1182,
+      "challenger_ece": 0.0,
+      "challenger_fpr": 0.0,
+      "challenger_heldout_asr": 0.0,
+      "challenger_pr_auc": 0.84,
+      "challenger_seen_asr": 0.0,
+      "champion_pr_auc": 1.0,
+      "historical_retention": 1.0,
+      "latency_p95_ms": null
+    },
+    "promoted": false,
+    "reasons": [
+      "REJECT_DETECTION_COLLAPSE (pr_auc=0.8400 < 0.9000)"
+    ],
+    "thresholds": {
+      "max_ece": 0.08,
+      "max_fpr": 0.05,
+      "max_heldout_regression": 0.05,
+      "max_historical_forgetting": 0.08,
+      "max_latency_p95_ms": 25.0,
+      "min_allow_rate": 0.7,
+      "min_pr_auc_retention": 0.9
+    }
+  }
+]
