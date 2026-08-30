@@ -52,12 +52,12 @@ class MultiObjectivePromotionGate:
         baseline_heldout_asr: float,
         challenger_heldout_asr: float,
         historical_retention: float = 1.0,
-        latency_p95_ms: float = 1.0,
+        latency_p95_ms: float | None = None,
         policy_distribution: dict[str, float] | None = None,
     ) -> PromotionDecision:
         """Executes full multi-objective evaluation."""
         reasons: list[str] = []
-        metrics_eval: dict[str, float] = {
+        metrics_eval: dict[str, float | None] = {
             "challenger_pr_auc": challenger_blue.pr_auc or 0.0,
             "champion_pr_auc": champion_blue.pr_auc or 0.0,
             "challenger_fpr": challenger_blue.fpr or 0.0,
@@ -162,7 +162,7 @@ class MultiObjectivePromotionGate:
             )
 
         # Check 6: Latency SLA
-        if latency_p95_ms > self.config.max_latency_p95_ms:
+        if latency_p95_ms is not None and latency_p95_ms > self.config.max_latency_p95_ms:
             reasons.append(f"REJECT_EXCESSIVE_LATENCY (latency_p95={latency_p95_ms:.2f}ms > {self.config.max_latency_p95_ms:.2f}ms)")
             return PromotionDecision(
                 promoted=False,

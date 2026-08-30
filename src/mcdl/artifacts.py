@@ -350,6 +350,17 @@ def write_granular_artifacts(
             encoding="utf-8",
         )
 
+    adaptation_cost = kwargs.get("adaptation_cost")
+    if adaptation_cost is not None:
+        (d / "adaptation_cost.json").write_text(
+            canonical_json_dumps(
+                [json.loads(c.model_dump_json()) if hasattr(c, "model_dump_json") else c for c in adaptation_cost]
+                if isinstance(adaptation_cost, list)
+                else json.loads(adaptation_cost.model_dump_json()) if hasattr(adaptation_cost, "model_dump_json") else adaptation_cost
+            ),
+            encoding="utf-8",
+        )
+
     # 14. Evidence Pack Markdown
     if evidence_pack_md:
         (d / "evidence_pack.md").write_text(evidence_pack_md, encoding="utf-8")

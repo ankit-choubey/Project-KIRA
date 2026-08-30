@@ -425,7 +425,7 @@ class RedMetrics(BaseModel):
 
 
 class PromotionDecision(BaseModel):
-    """Formal audit decision from the multi-objective promotion gate."""
+    """Immutable record of multi-objective promotion gate decision."""
 
     model_config = ConfigDict(extra="forbid")
 
@@ -433,8 +433,8 @@ class PromotionDecision(BaseModel):
     champion_version: str
     challenger_version: str
     reasons: list[str] = Field(default_factory=list)
-    metrics_evaluated: dict[str, float] = Field(default_factory=dict)
-    thresholds: dict[str, float] = Field(default_factory=dict)
+    metrics_evaluated: dict[str, float | None] = Field(default_factory=dict)
+    thresholds: dict[str, float | None] = Field(default_factory=dict)
 
 
 class AdaptationCost(BaseModel):

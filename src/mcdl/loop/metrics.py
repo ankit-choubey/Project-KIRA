@@ -88,7 +88,7 @@ def compute_generalisation_metrics(
         fam_chal_held = _asr(c_h)
 
         meds = [a.med for a in c_s + c_h if a.success and a.med is not None]
-        avg_med = float(round(np.mean(meds), 4)) if meds else 0.0
+        avg_med = float(round(np.mean(meds), 4)) if meds else None
 
         family_stats[fam.value] = FamilyGeneralisation(
             family=fam,
@@ -107,7 +107,7 @@ def compute_generalisation_metrics(
 
     # Extract all successful challenger MEDs
     all_meds = [a.med for a in challenger_seen + challenger_heldout if a.success and a.med is not None]
-    overall_mean_med = float(round(np.mean(all_meds), 4)) if all_meds else 0.0
+    overall_mean_med = float(round(np.mean(all_meds), 4)) if all_meds else None
 
     # Build ASR by budget for RedMetrics
     budgets = ["1", "5", "20", "100"]
@@ -118,7 +118,7 @@ def compute_generalisation_metrics(
 
     red_metrics = RedMetrics(
         asr_by_budget=asr_by_budget,
-        asr_seen_variants=chal_seen_asr,
+        asr_seen_variants=chal_seen_variants if (chal_seen_variants := chal_seen_asr) is not None else None,
         asr_heldout_variants=chal_heldout_asr,
         mean_evasion_distance=overall_mean_med,
         mask_violations=0,
@@ -226,7 +226,7 @@ def build_coevolution_scoreboard(
                 blue_ece=r.blue.ece,
                 robustness_retention=retention,
                 plasticity=plasticity,
-                latency_p95_ms=r.blue.latency_p95_ms or 4.80,
+                latency_p95_ms=r.blue.latency_p95_ms,
                 adaptation_cost_s=cost_s,
                 champion_version=r.champion_version,
             )

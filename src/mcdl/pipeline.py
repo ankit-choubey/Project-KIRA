@@ -456,6 +456,7 @@ def run_pipeline(
         promotion_history=coev_res.promotion_decisions,
         experiment_register=exp_records,
         three_world_evaluation=three_world_eval,
+        adaptation_cost=[r.adaptation_cost for r in coev_res.rounds if r.adaptation_cost is not None],
     )
 
     # 13. Deep Schema & Cross-Artifact Validation

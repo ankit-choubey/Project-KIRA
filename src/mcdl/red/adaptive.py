@@ -246,6 +246,7 @@ class AdaptiveRedEngine:
         budget: int = 20,
         seed: int = 20260827,
         feature_extractor_state: StreamingFeatureExtractor | None = None,
+        round_idx: int = 0,
     ) -> AttackProvenance:
         """Executes budgeted, constrained adaptive adversarial search."""
         rng = np.random.default_rng(seed)
@@ -265,9 +266,11 @@ class AdaptiveRedEngine:
         orig_decision = base_decision.decision
         orig_risk = base_decision.calibrated_score
 
+        atk_id = f"atk_r{round_idx}_{source_txn.txn_id}_{family.value}_b{budget}_s{seed}"
+
         if orig_decision == Decision.ALLOW:
             return AttackProvenance(
-                attack_instance_id=f"atk_{source_txn.txn_id}_{family.value}_{budget}",
+                attack_instance_id=atk_id,
                 attack_family=family,
                 source_txn_id=source_txn.txn_id,
                 seed=seed,
@@ -355,17 +358,20 @@ class AdaptiveRedEngine:
 
             # Early stopping on successful evasion (ALLOW)
             if cand_action == Decision.ALLOW:
-                success = True
-                best_candidate = candidate
-                best_decision = cand_action
-                best_risk = cand_score
-                break
+                # Check for non-zero mutation distance
+                dist = compute_evasion_distance(source_txn, candidate)
+                if dist > 1e-6:
+                    success = True
+                    best_candidate = candidate
+                    best_decision = cand_action
+                    best_risk = cand_score
+                    break
 
-        final_cand = best_candidate or source_txn
-        med = compute_evasion_distance(source_txn, final_cand) if success else None
+        final_cand = best_candidate if success else None
+        med = compute_evasion_distance(source_txn, final_cand) if (success and final_cand is not None) else None
 
         return AttackProvenance(
-            attack_instance_id=f"atk_{source_txn.txn_id}_{family.value}_{budget}",
+            attack_instance_id=atk_id,
             attack_family=family,
             source_txn_id=source_txn.txn_id,
             seed=seed,

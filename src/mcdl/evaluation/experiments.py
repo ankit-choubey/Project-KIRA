@@ -18,15 +18,18 @@ from mcdl.blue.model import BlueDetector
 from mcdl.blue.split import temporal_split
 from mcdl.config import Config, load_config
 from mcdl.features.batch import compute_batch_features
+from mcdl.features.stream import StreamingFeatureExtractor
 from mcdl.loop.coevolution import CoevolutionLoop, CoevolutionResult
+from mcdl.loop.failure import FailureAnalyzer
 from mcdl.loop.worlds import (
     CANONICAL_ADAPTATION_FAMILIES,
     CANONICAL_HIDDEN_FAMILIES,
     build_three_world_suite,
     verify_family_isolation,
 )
+from mcdl.red.adaptive import AdaptiveRedEngine
 from mcdl.red.evaluator import CANONICAL_FAMILIES, evaluate_red_attacks
-from mcdl.schemas import AttackFamily, ExperimentRecord, Transaction
+from mcdl.schemas import AttackFamily, Decision, ExperimentRecord, Transaction
 from mcdl.world.generator import WorldResult, generate_world
 
 
@@ -86,14 +89,74 @@ def run_exp_007_b_adaptive_red_no_hardening(
     feature_df: pl.DataFrame,
     cfg: Config,
 ) -> ExperimentRecord:
-    """EXP-007-B: Adaptive Red Search without Blue hardening (Fixed Blue)."""
-    loop = CoevolutionLoop(n_rounds=2, budgets=[20], families=CANONICAL_ADAPTATION_FAMILIES, seed=cfg["seed"])
-    res = loop.run(world.transactions, world, feature_df)
+    """EXP-007-B: Adaptive Red Search without Blue hardening (Fixed Blue Detector)."""
+    split = temporal_split(feature_df, train_ratio=0.70, valid_ratio=0.15)
+    train_end_idx = len(split.train_df)
 
-    r0_asr = res.rounds[0].red.asr_seen_variants or 0.0
-    # In round 1 without hardening, weakness profile biases search
-    wp = res.weakness_profiles[0] if res.weakness_profiles else None
-    dom_cat = wp.dominant_categories[0][0] if wp and wp.dominant_categories else "None"
+    # 1. Train fixed Blue detector
+    fixed_blue = BlueDetector(n_estimators=30, max_depth=3, learning_rate=0.05, random_state=cfg["seed"])
+    fixed_blue.fit(split.train_df, split.valid_df)
+
+    # 2. Round 0: Baseline Red search against Fixed Blue
+    analyzer = FailureAnalyzer()
+    rolling_ext0 = StreamingFeatureExtractor(customers=world.customers)
+    sorted_txns = sorted(world.transactions[:train_end_idx], key=lambda t: (t.timestamp, t.txn_id))
+
+    r0_engine = AdaptiveRedEngine(
+        detector=fixed_blue,
+        customers=world.customers,
+        merchants=world.merchants,
+        mandates=world.mandates,
+        weakness_profile=None,
+    )
+
+    r0_prov_log = []
+    for t in sorted_txns:
+        snap = rolling_ext0.clone()
+        feats = snap.extract(t)
+        dec = fixed_blue.score_transaction(t, feats, mandates=world.mandates)
+        if dec.decision in {Decision.BLOCK, Decision.STEP_UP}:
+            for family in CANONICAL_ADAPTATION_FAMILIES:
+                prov = r0_engine.attack(t, family, budget=20, seed=cfg["seed"] + len(r0_prov_log), feature_extractor_state=snap, round_idx=0)
+                r0_prov_log.append(prov)
+        rolling_ext0.extract(t)
+
+    # Diagnose R0 failures
+    r0_failures = []
+    for p in r0_prov_log:
+        if p.success and p.best_candidate is not None:
+            c_feats = StreamingFeatureExtractor(customers=world.customers).extract(p.best_candidate)
+            cust = world.customers.get(p.best_candidate.customer_id)
+            if cust:
+                r0_failures.append(analyzer.diagnose_failure(p, cust, c_feats, round_idx=0, model_version="fixed_blue"))
+
+    # Synthesize WeaknessProfile
+    profile_r0 = analyzer.synthesize_weakness_profile(r0_failures, round_idx=0)
+
+    # 3. Round 1: Adaptive Red search against SAME Fixed Blue using profile_r0
+    rolling_ext1 = StreamingFeatureExtractor(customers=world.customers)
+    r1_engine = AdaptiveRedEngine(
+        detector=fixed_blue,
+        customers=world.customers,
+        merchants=world.merchants,
+        mandates=world.mandates,
+        weakness_profile=profile_r0,
+    )
+
+    r1_prov_log = []
+    for t in sorted_txns:
+        snap = rolling_ext1.clone()
+        feats = snap.extract(t)
+        dec = fixed_blue.score_transaction(t, feats, mandates=world.mandates)
+        if dec.decision in {Decision.BLOCK, Decision.STEP_UP}:
+            for family in CANONICAL_ADAPTATION_FAMILIES:
+                prov = r1_engine.attack(t, family, budget=20, seed=cfg["seed"] + 5000 + len(r1_prov_log), feature_extractor_state=snap, round_idx=1)
+                r1_prov_log.append(prov)
+        rolling_ext1.extract(t)
+
+    r0_asr = sum(1 for p in r0_prov_log if p.success) / max(1, len(r0_prov_log))
+    r1_asr = sum(1 for p in r1_prov_log if p.success) / max(1, len(r1_prov_log))
+    dom_cat = profile_r0.dominant_categories[0][0] if profile_r0.dominant_categories else "None"
 
     return ExperimentRecord(
         exp_id="EXP-007-B",
@@ -102,16 +165,17 @@ def run_exp_007_b_adaptive_red_no_hardening(
         code_commit=git_commit(),
         configuration_hash=cfg.hash,
         seed=cfg["seed"],
-        baseline_name="Static Red Search (R0)",
-        treatment_name="WeaknessProfile-Informed Adaptive Red (R1)",
+        baseline_name="Static Red Search against Fixed Blue (R0)",
+        treatment_name="WeaknessProfile-Informed Adaptive Red against Fixed Blue (R1)",
         metrics={
-            "round_0_asr": r0_asr,
-            "total_diagnosed_failures": len(res.failures),
-            "dominant_weakness_category_ratio": wp.dominant_categories[0][1] if wp and wp.dominant_categories else 0.0,
-            "near_boundary_count": float(wp.near_boundary_count if wp else 0),
+            "round_0_asr": float(round(r0_asr, 4)),
+            "round_1_adaptive_asr": float(round(r1_asr, 4)),
+            "total_diagnosed_failures": len(r0_failures),
+            "dominant_weakness_category_ratio": profile_r0.dominant_categories[0][1] if profile_r0.dominant_categories else 0.0,
+            "near_boundary_count": float(profile_r0.near_boundary_count),
         },
         result_status="RESULT",
-        conclusion=f"Adaptive Red successfully identified dominant weakness {dom_cat} and adjusted search weights.",
+        conclusion=f"Adaptive Red identified dominant weakness {dom_cat} (ASR: R0={r0_asr:.2%} -> R1={r1_asr:.2%}).",
         artifact_path="exp_007_b_adaptive_red.json",
     )
 

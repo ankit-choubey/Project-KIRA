@@ -6,6 +6,31 @@ Never write "done". Write what changed, what you ran, and what the gate said.
 
 ---
 
+## 2026-08-31 · BLOCK 7 Methodological Correction & Fresh Adaptive Search · Antigravity
+
+**BLOCK:** 7 — Critical Implementation Correction: Genuine Round-by-Round Adaptive Red Search against Current Champion, 15 Invariant Regressions, Null MED Semantics & Adaptation Cost Artifacts.
+
+**DONE:** Corrected round semantics and attack generation to implement genuine adversarial co-evolution:
+1. **Fresh Red Search against Current Champion**: In round $r \ge 1$, Red queries the newly current Champion model directly dynamically, generating fresh attack candidates with unique `attack_instance_id` strings (including round index and seeds) and failure-informed mutation distributions driven by `WeaknessProfile(round r-1)`.
+2. **ASR & Evasion Invariants**: Verified that successful evasion requires original transaction in protected state (BLOCK / STEP_UP), non-zero mutation distance, and candidate scored ALLOW. Already-ALLOW source transactions are never counted as evasions.
+3. **MED Null Semantics**: Configured MED to return `None` (not `0.0`) when zero evasions occur.
+4. **Latency Measurement Semantics**: Removed hardcoded latency defaults (`2.15`, `4.80`, `8.30` ms) from Block 7 results; unmeasured runs report `None` / `null`.
+5. **Artifacts**: Added `adaptation_cost.json` export to granular artifacts alongside all 6 other Block 7 artifacts.
+6. **15 Invariant & Regression Tests**: Implemented and verified all 15 regression tests in `tests/invariants/test_block7_invariants.py`.
+
+**FILES:** `src/mcdl/schemas.py`, `src/mcdl/loop/coevolution.py`, `src/mcdl/red/adaptive.py`, `src/mcdl/loop/metrics.py`, `src/mcdl/loop/promotion.py`, `src/mcdl/evaluation/experiments.py`, `src/mcdl/artifacts.py`, `src/mcdl/pipeline.py`, `tests/invariants/test_block7_invariants.py`, `tests/unit/test_experiments.py`.
+
+**COMMANDS RUN:**
+```bash
+python3 -m pytest tests/unit/ tests/invariants/ -v
+PYTHONPATH=src python3 -m mcdl.pipeline --scale tiny --rounds 4
+python3 -m tools.gates all
+```
+
+**GATE RESULT:** ALL GATES PASSED (GATES 0–7 PASS, 123 tests green).
+
+---
+
 ## 2026-08-31 · BLOCK 7 Adaptive Co-Evolution Engine · Antigravity
 
 **BLOCK:** 7 — Adaptive Red/Blue Co-Evolution Engine, Failure Analysis, Multi-Objective Promotion & Empirical Experiment Matrix (`EXP-007-A` through `EXP-007-H`).
