@@ -1,6 +1,6 @@
 {
-  "id": "theankitchoubey/project-kira-full-cloud-run",
-  "title": "Project KIRA — Full Authoritative Cloud Run",
+  "id": "theankitchoubey/project-kira-full-authoritative-cloud-run",
+  "title": "project-kira-full-authoritative-cloud-run",
   "code_file": "02_full_run.ipynb",
   "language": "python",
   "kernel_type": "notebook",
