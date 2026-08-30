@@ -142,15 +142,42 @@ def run_validations():
         assert "decision_classification" in g03_data
         assert "topology_verification" in g03_data
         logger.info(f"7. G-03 Fusion 4-Arm Execution: PASS (decision={g03_data['decision_classification']}, delta_rel={g03_data['estimands']['delta_rel']:+.4f})")
-        # 8. FINAL Master Evidence Synthesis Validation
-        exp.run_final(manager)
-        assert manager.get_state("FINAL") == "COMPLETED"
-        comp_path = Path("research_runs/PHASE2/FINAL/comparison_table.json")
+        # 8. S-02 Full-Scale Synthetic Validation (Dry Run)
+        import os
+        os.environ["MCDL_SCALE"] = "tiny"
+        exp.run_s02(manager)
+        assert manager.get_state("S02") == "COMPLETED"
+        s02_metrics_path = Path("research_runs/PHASE2/S02/metrics.json")
+        assert s02_metrics_path.exists()
+        logger.info("8. S-02 Dry Run Execution: PASS")
+
+        # 9. S-03 Distribution Shift / Zero-Day Robustness
+        exp.run_s03(manager)
+        assert manager.get_state("S03") == "COMPLETED"
+        s03_metrics_path = Path("research_runs/PHASE2/S03/metrics.json")
+        assert s03_metrics_path.exists()
+        logger.info("9. S-03 Zero-Day Robustness: PASS")
+
+        # 10. FINAL Master Evidence Synthesis Validation (S-04)
+        exp.run_s04(manager)
+        assert manager.get_state("S04") == "COMPLETED"
+        comp_path = Path("research_runs/PHASE2/S04/comparison_table.json")
         assert comp_path.exists()
         with open(comp_path, "r", encoding="utf-8") as f:
             comp_data = json.load(f)
-        assert "G03" in comp_data["stages_completed"]
-        logger.info(f"8. FINAL Synthesis Execution: PASS (stages={comp_data['stages_completed']})")
+        assert "S02" in comp_data["stages_completed"]
+        assert "S03" in comp_data["stages_completed"]
+        logger.info(f"10. S-04 Final Synthesis Execution: PASS (stages={comp_data['stages_completed']})")
+
+        # 11. Authoritative 22/22 Baseline Integrity Verification (Post Dry-Run)
+        from mcdl.research.phase2.validation import verify_authoritative_baseline_integrity
+        integrity_post = verify_authoritative_baseline_integrity(exp.BASELINE_RUN_DIR)
+        assert integrity_post["status"] == "PASS"
+        assert integrity_post["expected_file_count"] == 22
+        assert integrity_post["actual_file_count"] == 22
+        assert len(integrity_post["missing_files"]) == 0
+        assert len(integrity_post["hash_mismatches"]) == 0
+        logger.info("11. Post Dry-Run Baseline 22/22 Hash Integrity: PASS")
 
         logger.info("ALL PHASE 2 PRE-LAUNCH SCIENTIFIC AUDIT CHECKS PASSED.")
     except Exception as e:

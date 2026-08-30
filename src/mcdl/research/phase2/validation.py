@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import logging
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any
 
 import numpy as np
@@ -340,3 +341,164 @@ def verify_temporal_split_semantics(
         logger.error(f"Temporal split semantics FAILED: {res}")
 
     return res
+
+
+# =============================================================================
+# 4. Authoritative Baseline Artifact Integrity Verification (22/22 Artifacts)
+# =============================================================================
+def verify_authoritative_baseline_integrity(
+    baseline_dir: Path | str = Path("artifacts/run_tiny_s20260827_193f7897_40997ab"),
+) -> dict[str, Any]:
+    """Verifies SHA-256 cryptographic hashes of all authoritative baseline artifacts."""
+    import hashlib
+    import json
+
+    baseline_path = Path(baseline_dir)
+    prov_file = baseline_path / "provenance.json"
+    if not prov_file.exists():
+        return {
+            "baseline_run_id": baseline_path.name,
+            "status": "FAIL",
+            "reason": f"Baseline provenance file missing: {prov_file}",
+            "expected_file_count": 0,
+            "actual_file_count": 0,
+            "passed_files": [],
+            "missing_files": [],
+            "unexpected_files": [],
+            "hash_mismatches": [],
+        }
+
+    with open(prov_file, "r", encoding="utf-8") as f:
+        prov = json.load(f)
+
+    expected_artifacts = prov.get("artifacts", {})
+    expected_count = len(expected_artifacts)
+
+    passed_files = []
+    missing_files = []
+    hash_mismatches = []
+
+    for filename, meta in sorted(expected_artifacts.items()):
+        file_path = baseline_path / filename
+        if not file_path.exists():
+            missing_files.append(filename)
+            continue
+
+        expected_sha = meta.get("sha256")
+        h = hashlib.sha256()
+        with open(file_path, "rb") as f_in:
+            for chunk in iter(lambda: f_in.read(4096), b""):
+                h.update(chunk)
+        actual_sha = h.hexdigest()
+
+        if expected_sha and actual_sha != expected_sha:
+            hash_mismatches.append({
+                "file": filename,
+                "expected_sha256": expected_sha,
+                "actual_sha256": actual_sha,
+            })
+        else:
+            passed_files.append(filename)
+
+    actual_files = [f.name for f in baseline_path.iterdir() if f.is_file()]
+    ignored_extras = {".finalized", "provenance.json", "intent_ablation.json", "latency_benchmark.json"}
+    unexpected_files = sorted([f for f in actual_files if f not in expected_artifacts and f not in ignored_extras])
+
+    is_pass = bool(
+        len(missing_files) == 0
+        and len(hash_mismatches) == 0
+        and len(passed_files) == expected_count
+    )
+
+    return {
+        "baseline_run_id": prov.get("run_id", baseline_path.name),
+        "status": "PASS" if is_pass else "FAIL",
+        "expected_file_count": expected_count,
+        "actual_file_count": len(passed_files),
+        "passed_files": passed_files,
+        "missing_files": missing_files,
+        "unexpected_files": unexpected_files,
+        "hash_mismatches": hash_mismatches,
+    }
+
+
+# =============================================================================
+# 5. A/C/D Experimental Fairness Verification
+# =============================================================================
+def verify_acd_fairness(
+    real_graph: TemporalPaymentGraph,
+    shuffled_graph: TemporalPaymentGraph,
+    train_indices: np.ndarray,
+    val_indices: np.ndarray,
+    test_indices: np.ndarray,
+    world_c_families: set[str] | None = None,
+) -> dict[str, Any]:
+    """Verifies that Arm A, Arm C, and Arm D operate under strictly identical experimental conditions."""
+    if world_c_families is None:
+        world_c_families = {"cross_merchant_fanout", "agent_subversion"}
+
+    same_txns = (real_graph.txn_ids == shuffled_graph.txn_ids)
+    same_labels = np.array_equal(real_graph.is_fraud, shuffled_graph.is_fraud)
+    same_timestamps = np.array_equal(real_graph.timestamps, shuffled_graph.timestamps)
+    same_features = np.array_equal(real_graph.x_txn, shuffled_graph.x_txn)
+
+    train_ts = real_graph.timestamps[train_indices]
+    val_ts = real_graph.timestamps[val_indices]
+    test_ts = real_graph.timestamps[test_indices]
+
+    temporal_order = bool(np.max(train_ts) < np.min(val_ts) and np.max(val_ts) < np.min(test_ts))
+
+    test_pop = len(test_indices)
+    test_frauds = int(np.sum(real_graph.is_fraud[test_indices]))
+
+    train_fams = {real_graph.attack_families[i] for i in train_indices}
+    val_fams = {real_graph.attack_families[i] for i in val_indices}
+    world_c_clean = bool(not train_fams.intersection(world_c_families) and not val_fams.intersection(world_c_families))
+
+    topo_diff = not np.array_equal(real_graph.customer_ids, shuffled_graph.customer_ids)
+
+    all_passed = bool(
+        same_txns
+        and same_labels
+        and same_timestamps
+        and same_features
+        and temporal_order
+        and world_c_clean
+        and topo_diff
+    )
+
+    return {
+        "all_passed": all_passed,
+        "status": "PASS" if all_passed else "FAIL",
+        "same_transactions": same_txns,
+        "same_labels": same_labels,
+        "same_timestamps": same_timestamps,
+        "same_tabular_features": same_features,
+        "temporal_ordering_valid": temporal_order,
+        "test_sample_count": test_pop,
+        "test_fraud_count": test_frauds,
+        "world_c_isolation_valid": world_c_clean,
+        "topology_destroyed": topo_diff,
+    }
+
+
+# =============================================================================
+# 6. Feature Dimension Inspector
+# =============================================================================
+def get_exact_feature_dimensions(graph: TemporalPaymentGraph) -> dict[str, Any]:
+    """Inspects and returns exact input/embedding dimensions across all arms."""
+    canonical_features = list(FEATURE_NAMES)
+    canonical_count = len(canonical_features)
+    graph_embed_dim = 16
+    fusion_dim = canonical_count + graph_embed_dim
+
+    return {
+        "canonical_feature_count": canonical_count,
+        "canonical_feature_names": canonical_features,
+        "graph_embedding_dim": graph_embed_dim,
+        "fusion_input_dim": fusion_dim,
+        "arm_a_input_dim": canonical_count,
+        "arm_c_input_dim": fusion_dim,
+        "arm_d_input_dim": fusion_dim,
+    }
+
