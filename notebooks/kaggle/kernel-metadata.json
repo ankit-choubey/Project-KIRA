@@ -1,0 +1,14 @@
+{
+  "id": "theankitchoubey/project-kira-full-cloud-run",
+  "title": "Project KIRA — Full Authoritative Cloud Run",
+  "code_file": "02_full_run.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "false",
+  "enable_gpu": "false",
+  "enable_tpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": []
+}
