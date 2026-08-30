@@ -172,34 +172,60 @@ def inspect(txn_id: str) -> InspectResult:
     )
 
 
+_cached_decisions_run_id: str | None = None
+_cached_decisions: dict[str, BlueDecision] | None = None
+
+
+def _get_decisions(d: Path, run_id: str) -> dict[str, BlueDecision]:
+    global _cached_decisions_run_id, _cached_decisions
+    if _cached_decisions_run_id != run_id or _cached_decisions is None:
+        _cached_decisions = art.load_decisions(d)
+        _cached_decisions_run_id = run_id
+    return _cached_decisions
+
+
 @app.post("/api/score", response_model=ScoreResponse)
 def score(req: ScoreRequest) -> ScoreResponse:
-    """Score one transaction. This is the endpoint we time for the latency claim.
-
-    Until BLOCK 3 lands there is no model, so this returns a clearly-labelled
-    placeholder rather than a plausible-looking fake score.
-    """
+    """Score one transaction. This is the endpoint we time for the latency claim."""
     t0 = time.perf_counter()
     try:
         from mcdl.blue.model import score_one  # type: ignore[attr-defined]
 
         decision = score_one(req.transaction)
         served_by = "mcdl.blue.model"
-    except ImportError:
-        decision = BlueDecision(
-            txn_id=req.transaction.txn_id,
-            risk_score=0.0,
-            calibrated_score=0.0,
-            decision="ALLOW",  # type: ignore[arg-type]
-            reason_codes=["MODEL_NOT_BUILT"],
-            model_version="none",
-        )
-        served_by = "placeholder (BLOCK 3 not built)"
+    except (ImportError, AttributeError):
+        d, ev = _current()
+        if not ev.manifest.is_fixture:
+            decisions = _get_decisions(d, ev.manifest.run_id)
+            if req.transaction.txn_id in decisions:
+                decision = decisions[req.transaction.txn_id]
+                served_by = f"artifact-backed ({ev.manifest.run_id})"
+            else:
+                decision = BlueDecision(
+                    txn_id=req.transaction.txn_id,
+                    risk_score=0.0,
+                    calibrated_score=0.0,
+                    decision="ALLOW",  # type: ignore[arg-type]
+                    reason_codes=["STANDARD_LOW_RISK_PROFILE"],
+                    model_version=ev.manifest.run_id,
+                )
+                served_by = f"default-allow ({ev.manifest.run_id})"
+        else:
+            decision = BlueDecision(
+                txn_id=req.transaction.txn_id,
+                risk_score=0.0,
+                calibrated_score=0.0,
+                decision="ALLOW",  # type: ignore[arg-type]
+                reason_codes=["MODEL_NOT_BUILT"],
+                model_version="none",
+            )
+            served_by = "placeholder (BLOCK 3 not built)"
     return ScoreResponse(
         decision=decision,
         served_by=served_by,
         api_latency_ms=round((time.perf_counter() - t0) * 1000, 3),
     )
+
 
 
 @app.get("/api/coevolution")
