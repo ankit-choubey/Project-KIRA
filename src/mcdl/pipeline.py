@@ -419,19 +419,25 @@ def run_pipeline(
         coevo_result=coev_res,
     )
 
-    from mcdl.loop.worlds import build_three_world_suite
+    from mcdl.loop.worlds import (
+        CANONICAL_ADAPTATION_FAMILIES,
+        CANONICAL_HIDDEN_FAMILIES,
+        build_three_world_suite,
+    )
     three_world_suite = build_three_world_suite(cfg)
     three_world_eval = {
         "world_a_evolution": {
             "transaction_count": len(world.transactions),
-            "families": [f.value for f in CANONICAL_FAMILIES],
+            "families": [f.value for f in CANONICAL_ADAPTATION_FAMILIES],
         },
         "world_b_shifted_physics": {
             "description": "Shifted customer spending baselines and merchant risk tiers.",
+            "families": [f.value for f in CANONICAL_ADAPTATION_FAMILIES],
             "isolation_verified": True,
         },
         "world_c_hidden_families": {
             "description": "Withheld zero-day attack families (AGENT_SUBVERSION, CROSS_MERCHANT_FANOUT).",
+            "families": [f.value for f in CANONICAL_HIDDEN_FAMILIES],
             "isolation_verified": True,
         },
         "isolation_verified": True,
