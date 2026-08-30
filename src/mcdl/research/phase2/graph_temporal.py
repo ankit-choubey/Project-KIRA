@@ -53,7 +53,10 @@ class TemporalPaymentGraph:
     ) -> None:
         # Ensure transactions are sorted strictly in causal order (timestamp, txn_id)
         if "timestamp" in transactions_df.columns and transactions_df["timestamp"].dtype == pl.String:
-            df = transactions_df.with_columns(pl.col("timestamp").str.to_datetime())
+            try:
+                df = transactions_df.with_columns(pl.col("timestamp").str.to_datetime(time_zone="UTC"))
+            except Exception:
+                df = transactions_df.with_columns(pl.col("timestamp").str.to_datetime())
         else:
             df = transactions_df.clone()
 

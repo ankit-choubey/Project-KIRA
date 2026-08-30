@@ -128,14 +128,28 @@ def run_validations():
         # Test resume skips completed stage
         exp.run_s00(manager)
         assert manager.get_state("S00") == "COMPLETED"
-        logger.info("6. Checkpoint & Resume Mechanism: PASS")
+        # 7. G-03 Graph + Tabular Fusion 4-Arm Validation
+        exp.run_g03(manager)
+        assert manager.get_state("G03") == "COMPLETED"
+        g03_metrics_path = Path("research_runs/PHASE2/G03/metrics.json")
+        assert g03_metrics_path.exists()
+        with open(g03_metrics_path, "r", encoding="utf-8") as f:
+            g03_data = json.load(f)
+        assert "arm_a_baseline" in g03_data["arms"]
+        assert "arm_b_graph_diagnostic" in g03_data["arms"]
+        assert "arm_c_real_fusion" in g03_data["arms"]
+        assert "arm_d_shuffled_control" in g03_data["arms"]
+        assert "decision_classification" in g03_data
+        assert "topology_verification" in g03_data
+        assert g03_data["topology_verification"]["real_graph"]["node_count"] > 0
+        logger.info(f"7. G-03 Fusion 4-Arm Execution: PASS (decision={g03_data['decision_classification']}, delta_rel={g03_data['estimands']['delta_rel']:+.4f})")
+
+        logger.info("ALL PHASE 2 PRE-LAUNCH SCIENTIFIC AUDIT CHECKS PASSED.")
     except Exception as e:
-        logger.error(f"6. Checkpoint & Resume: FAIL ({e})")
+        logger.error(f"Validation step failed: {e}")
         import traceback
         traceback.print_exc()
         sys.exit(1)
-
-    logger.info("ALL PHASE 2 PRE-LAUNCH SCIENTIFIC AUDIT CHECKS PASSED.")
 
 
 if __name__ == "__main__":

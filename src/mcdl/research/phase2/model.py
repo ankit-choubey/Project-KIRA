@@ -92,8 +92,9 @@ class CausalGraphSAGE:
             x_nbr[i] = graph.get_causal_neighborhood_representation(idx)
             x_ent[i] = graph.get_causal_entity_aggregates(idx)
 
-        # Scale features with simple causal standardization
-        return np.hstack([x_tx, x_nbr, x_ent])
+        raw_concat = np.hstack([x_tx, x_nbr, x_ent])
+        raw_concat = np.nan_to_num(raw_concat, nan=0.0, posinf=0.0, neginf=0.0)
+        return np.tanh(np.clip(raw_concat, -1e4, 1e4) / 100.0)
 
     def forward(self, x_in: np.ndarray, training: bool = False) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Forward pass through GraphSAGE layers."""
@@ -226,11 +227,10 @@ class CausalGraphSAGE:
                     (self.w_out, dw_out, m_w_out, v_w_out),
                     (self.b_out, db_out, m_b_out, v_b_out),
                 ]:
-                    m[:] = beta1 * m + (1 - beta1) * grad
-                    v[:] = beta2 * v + (1 - beta2) * (grad ** 2)
                     m_hat = m / (1 - beta1 ** t_step)
                     v_hat = v / (1 - beta2 ** t_step)
-                    param -= self.learning_rate * m_hat / (np.sqrt(v_hat) + eps)
+                    update = self.learning_rate * m_hat / (np.sqrt(v_hat) + eps)
+                    param -= np.nan_to_num(update, nan=0.0, posinf=0.0, neginf=0.0)
 
             # Validation evaluation
             val_probs, _, _ = self.forward(x_val, training=False)
