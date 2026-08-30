@@ -54,6 +54,11 @@ def check_world(world: WorldResult) -> ValidityReport:
     )
 
 
+# Alias for backward compatibility
+validate_world_physics = check_world
+
+
+
 def check_transactions(
     transactions: list[Transaction],
     customers: dict[str, Customer],

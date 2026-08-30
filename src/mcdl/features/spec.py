@@ -396,3 +396,30 @@ FEATURE_SPECS: list[FeatureSpec] = [
 
 FEATURE_NAMES: list[str] = [spec.name for spec in FEATURE_SPECS]
 FEATURE_NAME_TO_SPEC: dict[str, FeatureSpec] = {spec.name: spec for spec in FEATURE_SPECS}
+
+
+def get_feature_schema() -> dict[str, Any]:
+    """Returns the canonical feature store schema specification with dynamic feature count."""
+    return {
+        "schema_version": "0.1.0",
+        "feature_count": len(FEATURE_SPECS),
+        "causal_ordering": "strictly (timestamp, txn_id) ascending",
+        "label_delay_lag_seconds": 604800,
+        "features": [
+            {
+                "name": spec.name,
+                "group": spec.group,
+                "dtype": str(spec.dtype),
+                "description": spec.description,
+                "mathematical_formula": spec.mathematical_formula,
+                "inputs": spec.inputs,
+                "state_required": spec.state_required,
+                "causal_boundary": spec.causal_boundary,
+                "first_event_default": str(spec.first_event_default),
+                "includes_current_txn": spec.includes_current_txn,
+                "requires_labels": spec.requires_labels,
+            }
+            for spec in FEATURE_SPECS
+        ],
+    }
+

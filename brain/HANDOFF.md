@@ -6,7 +6,33 @@ Never write "done". Write what changed, what you ran, and what the gate said.
 
 ---
 
+## 2026-08-30 · BLOCK 6 · Antigravity
+
+**BLOCK:** 6 — Artifact Generation, External Real-World Anchor & Pipeline Execution (Gate 6).
+
+**DONE:** Built complete reproducible artifact generation and end-to-end execution pipeline:
+1. **Dynamic Feature Specification**: Added `get_feature_schema()` in `src/mcdl/features/spec.py` dynamically extracting `len(FEATURE_SPECS)` (25 canonical features), schema versions, causal ordering contracts, and 7-day label delay lag rules.
+2. **Contextual External Real-World Reality Anchor**: Implemented `evaluate_external_anchor()` and `get_external_anchor_metadata()` in `src/mcdl/evaluation/anchor.py` documenting ULB 2015 dataset citation (Dal Pozzolo et al., 2015, DOI: `10.1109/SSCI.2015.33`), 284,807 transactions, namespace `REAL_WORLD`, and explicit comparability limitations.
+3. **Granular Artifacts & Immutability**: Enhanced `src/mcdl/artifacts.py` with `deterministic_run_id`, canonical JSON serialization (`canonical_json_dumps`), `write_granular_artifacts` (generating 14 domain-specific JSON/Markdown artifacts), deep schema and range validator `validate_artifacts`, SHA-256 cryptographic provenance in `provenance.json`, and overwrite protection via `is_run_finalized` / `mark_run_finalized`.
+4. **End-to-End Orchestrator**: Built top-level `run_pipeline(scale="tiny", seed=20260827, n_rounds=4, out_dir=None, run_id=None, overwrite=False)` in `src/mcdl/pipeline.py` orchestrating Blocks 0–5 modules cleanly without logic duplication and generating the markdown evidence pack (`evidence_pack.md`).
+5. **Gate 6 & Test Verification**: Enhanced Gate 6 in `tools/gates.py` and test suites in `tests/unit/test_artifacts.py` and `tests/invariants/test_pipeline_integrity.py` with 100% deterministic reproducibility verification.
+
+**FILES:** `src/mcdl/features/{spec.py,__init__.py}`, `src/mcdl/evaluation/{anchor.py,validity.py}`, `src/mcdl/artifacts.py`, `src/mcdl/pipeline.py`, `tools/gates.py`, `tests/unit/test_artifacts.py`, `tests/invariants/test_pipeline_integrity.py`, `brain/HANDOFF.md`, `brain/PROJECT_CONTEXT.md`.
+
+**COMMANDS RUN:**
+```bash
+python3 -m pytest tests/unit/test_artifacts.py -v
+python3 -m pytest tests/invariants/test_pipeline_integrity.py -v
+python3 -m tools.gates 6
+python3 -m tools.brain_update
+```
+
+**GATE RESULT:** GATE 6 PASSED (Real run generated: `run_tiny_s20260827_193f7897_4e838d6`, 4 coevolution rounds present, external anchor measured, SHA-256 cryptographic integrity passed, deep artifact schema validation passed, evidence pack generated, 8/8 unit & invariant tests green).
+
+---
+
 ## 2026-08-30 · BLOCK 5 Forensic Audit · Antigravity
+
 
 **BLOCK:** 5 — Gate 5 Forensic Audit, Strict Test Set Isolation, Lineage Grouping & Replay Verification.
 

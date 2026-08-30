@@ -5,13 +5,13 @@ Read this before touching anything. See `AGENTS.md` for the rules and
 
 <!-- AUTO-GENERATED BELOW - DO NOT HAND-EDIT -->
 
-_Generated 2026-08-30 03:57 from artifacts and git. Do not edit below._
+_Generated 2026-08-30 17:07 from artifacts and git. Do not edit below._
 
 ## Current state
 
-- **Last gate passed:** 5
-- **Git:** `0c3028c` on `main`
-- **Latest run:** `run_fixture_0000` — FIXTURE (not real), scale `fixture`
+- **Last gate passed:** 6
+- **Git:** `4e838d6` on `main`
+- **Latest run:** `run_tiny_s20260827_193f7897_4e838d6` — real run, scale `tiny`
 
 ## Gate ladder
 
@@ -22,14 +22,19 @@ _Generated 2026-08-30 03:57 from artifacts and git. Do not edit below._
 | 2 | features | PASS | 2026-08-30T03:45:21 |
 | 3 | blue | PASS | 2026-08-30T03:45:26 |
 | 4 | red | PASS | 2026-08-30T03:50:19 |
-| 5 | loop | PASS | 2026-08-30T03:56:48 |
-| 6 | artifacts | **FAIL** | 2026-08-30T03:45:34 |
+| 5 | loop | PASS | 2026-08-30T04:02:05 |
+| 6 | artifacts | PASS | 2026-08-30T17:07:06 |
 | 7 | submission | not run | — |
 
 ## Live metrics
 
-_Latest run is FIXTURE data. These are not measurements and must never_
-_be cited in the report, the UI, or a commit message._
+- PR-AUC `0.640716` · ECE `0.0` · FPR `0.000715`
+- ASR held-out variants `0.0162` · unseen family `not measured`
+- Minimum Evasion Distance `1.3291`
+- Latency P50/P95/P99 `not measured` / `not measured` / `not measured` ms
+- Filter L1 violations `0` · L4 C2ST row `not measured` entity `not measured`
+- Filter L3 ratios — P1 `not measured` · P2 `not measured` · P3 `not measured` · P4 `not measured` (1.0 = real)
+- External anchor: measured
 
 ## What exists
 
@@ -44,7 +49,7 @@ _be cited in the report, the UI, or a commit message._
 
 ## Open blockers
 
-- **GATE 6 is failing.** Numbers are not defensible. Do not publish.
+- None recorded. Check `brain/ERRORS.md` for anything not yet gated.
 
 ## Forbidden changes
 
