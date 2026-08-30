@@ -361,6 +361,17 @@ def write_granular_artifacts(
             encoding="utf-8",
         )
 
+    intent_ablation = kwargs.get("intent_ablation")
+    if intent_ablation is not None:
+        (d / "intent_ablation.json").write_text(
+            canonical_json_dumps(
+                json.loads(intent_ablation.model_dump_json())
+                if hasattr(intent_ablation, "model_dump_json")
+                else intent_ablation
+            ),
+            encoding="utf-8",
+        )
+
     # 14. Evidence Pack Markdown
     if evidence_pack_md:
         (d / "evidence_pack.md").write_text(evidence_pack_md, encoding="utf-8")

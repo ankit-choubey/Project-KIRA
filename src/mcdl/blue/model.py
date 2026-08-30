@@ -33,6 +33,7 @@ class BlueDetector:
         learning_rate: float = 0.05,
         random_state: int = 20260827,
         cost_config: PolicyCostConfig | None = None,
+        feature_names: list[str] | None = None,
     ) -> None:
         self.params = {
             "objective": "binary",
@@ -43,6 +44,7 @@ class BlueDetector:
             "n_jobs": -1,
             "verbosity": -1,
         }
+        self.feature_names = list(feature_names) if feature_names is not None else list(FEATURE_NAMES)
         self.model: lgb.LGBMClassifier | None = None
         self.calibrator = IsotonicCalibrator()
         self.router = CostSensitiveRouter(cost_config=cost_config)
@@ -54,7 +56,7 @@ class BlueDetector:
     def fit(self, train_df: pl.DataFrame, valid_df: pl.DataFrame) -> BlueDetector:
         """Trains LightGBM on train_df and fits IsotonicCalibrator on valid_df."""
         # 1. Prepare training matrix
-        x_train = train_df.select(FEATURE_NAMES).to_numpy()
+        x_train = train_df.select(self.feature_names).to_numpy()
         y_train = train_df["is_fraud"].to_numpy().astype(np.int64)
 
         pos_count = int(np.sum(y_train))
@@ -72,14 +74,14 @@ class BlueDetector:
         self.model.fit(x_train, y_train)
 
         # 2. Fit IsotonicCalibrator on validation set predictions
-        x_valid = valid_df.select(FEATURE_NAMES).to_numpy()
+        x_valid = valid_df.select(self.feature_names).to_numpy()
         y_valid = valid_df["is_fraud"].to_numpy().astype(np.int64)
 
         raw_valid_probs = self.model.predict_proba(x_valid)[:, 1]
         self.calibrator.fit(raw_valid_probs, y_valid)
 
         # 3. Initialize TreeSHAP explainer on trained booster
-        self.explainer = TreeSHAPExplainer(self.model.booster_, feature_names=FEATURE_NAMES)
+        self.explainer = TreeSHAPExplainer(self.model.booster_, feature_names=self.feature_names)
         self.is_fitted = True
 
         return self
@@ -88,7 +90,7 @@ class BlueDetector:
         """Predicts uncalibrated model probabilities."""
         if not self.is_fitted or self.model is None:
             raise RuntimeError("BlueDetector must be fitted before making predictions")
-        x_mat = df.select(FEATURE_NAMES).to_numpy()
+        x_mat = df.select(self.feature_names).to_numpy()
         return self.model.predict_proba(x_mat)[:, 1]
 
     def predict_calibrated_proba(self, df: pl.DataFrame) -> np.ndarray:
@@ -138,7 +140,8 @@ class BlueDetector:
         """Online single-transaction scoring with policy decision and reason codes."""
         t_start = time.perf_counter()
 
-        feat_vector = np.array([[float(feature_dict[col]) for col in FEATURE_NAMES]], dtype=np.float64)
+        feat_vector = np.array([[float(feature_dict[col]) for col in self.feature_names]], dtype=np.float64)
+
         raw_score = float(self.model.predict_proba(feat_vector)[0, 1])
         calibrated_score = float(self.calibrator.transform(np.array([raw_score]))[0])
 

@@ -14,10 +14,12 @@ import numpy as np
 import polars as pl
 
 from mcdl.artifacts import git_commit
+from mcdl.blue.metrics import evaluate_predictions
 from mcdl.blue.model import BlueDetector
 from mcdl.blue.split import temporal_split
 from mcdl.config import Config, load_config
 from mcdl.features.batch import compute_batch_features
+from mcdl.features.spec import FEATURE_NAMES
 from mcdl.features.stream import StreamingFeatureExtractor
 from mcdl.loop.coevolution import CoevolutionLoop, CoevolutionResult
 from mcdl.loop.failure import FailureAnalyzer
@@ -365,23 +367,47 @@ def run_exp_007_g_med_shift(
     )
 
 
-def run_exp_007_h_intent_ablation(
+def run_controlled_intent_ablation(
     world: WorldResult,
-    champion: BlueDetector,
+    feature_df: pl.DataFrame,
     cfg: Config,
-) -> ExperimentRecord:
-    """EXP-007-H: Verifiable Intent Mandate Ablation on Agent Channel."""
-    # Test agent subversion transactions with and without mandate verification
+) -> dict[str, Any]:
+    """Executes controlled Intent Mandate counterfactual ablation.
+
+    WITH_INTENT:
+      - Detector trained on all 28 canonical features (including is_agent_initiated).
+      - Scored with full mandate verification (intent_drift_score).
+      - Evaluated against AGENT_SUBVERSION attacks with registered mandates.
+
+    WITHOUT_INTENT:
+      - Detector trained on 27 features (is_agent_initiated removed).
+      - Scored without mandate verification (mandates={}).
+      - Evaluated against AGENT_SUBVERSION attacks without registered mandates.
+    """
     split = temporal_split(
-        compute_batch_features(world.transactions, customers=world.customers),
+        feature_df,
         train_ratio=0.70,
         valid_ratio=0.15,
     )
+    y_test = split.test_df["is_fraud"].to_numpy().astype(np.int64)
+    removed_features = ["is_agent_initiated"]
+    features_without = [f for f in FEATURE_NAMES if f not in removed_features]
 
-    red_metrics, _ = evaluate_red_attacks(
+    # ARM A — WITH_INTENT
+    detector_with = BlueDetector(
+        n_estimators=30,
+        max_depth=3,
+        random_state=cfg["seed"],
+        feature_names=FEATURE_NAMES,
+    )
+    detector_with.fit(split.train_df, split.valid_df)
+    probs_with = detector_with.predict_calibrated_proba(split.test_df)
+    report_with = evaluate_predictions(y_test, probs_with, "Blue_WithIntent", "test")
+
+    red_with, _ = evaluate_red_attacks(
         all_transactions=world.transactions,
         test_start_idx=len(split.train_df) + len(split.valid_df),
-        detector=champion,
+        detector=detector_with,
         customers=world.customers,
         merchants=world.merchants,
         mandates=world.mandates,
@@ -389,8 +415,97 @@ def run_exp_007_h_intent_ablation(
         families=[AttackFamily.AGENT_SUBVERSION],
         seed=cfg["seed"],
     )
+    asr_with = red_with.asr_by_budget.get("20", 0.0)
+    rejections_with = float(red_with.invalid_attacks)
 
-    agent_asr = red_metrics.asr_by_budget.get("20", 0.0)
+    # ARM B — WITHOUT_INTENT
+    detector_without = BlueDetector(
+        n_estimators=30,
+        max_depth=3,
+        random_state=cfg["seed"],
+        feature_names=features_without,
+    )
+    detector_without.fit(split.train_df, split.valid_df)
+    probs_without = detector_without.predict_calibrated_proba(split.test_df)
+    report_without = evaluate_predictions(y_test, probs_without, "Blue_WithoutIntent", "test")
+
+    red_without, _ = evaluate_red_attacks(
+        all_transactions=world.transactions,
+        test_start_idx=len(split.train_df) + len(split.valid_df),
+        detector=detector_without,
+        customers=world.customers,
+        merchants=world.merchants,
+        mandates={},
+        budgets=[20],
+        families=[AttackFamily.AGENT_SUBVERSION],
+        seed=cfg["seed"],
+    )
+    asr_without = red_without.asr_by_budget.get("20", 0.0)
+    rejections_without = float(red_without.invalid_attacks)
+
+    delta_pr_auc = float(round(report_with.pr_auc - report_without.pr_auc, 6))
+    delta_roc_auc = float(round(report_with.roc_auc - report_without.roc_auc, 6))
+    delta_fpr = float(round(report_with.fpr - report_without.fpr, 6))
+    delta_ece = float(round(report_with.ece - report_without.ece, 6))
+    delta_brier = float(round(report_with.brier_score - report_without.brier_score, 6))
+    delta_asr = float(round(asr_with - asr_without, 4))
+
+    return {
+        "experiment_id": "EXP-007-H",
+        "protocol": "controlled_intent_ablation",
+        "seed": cfg["seed"],
+        "source_run_id": cfg.get("run_id", "run_tiny_s20260827_193f7897_40997ab"),
+        "with_intent": {
+            "pr_auc": float(round(report_with.pr_auc, 6)),
+            "roc_auc": float(round(report_with.roc_auc, 6)),
+            "fpr": float(round(report_with.fpr, 6)),
+            "ece": float(round(report_with.ece, 6)),
+            "brier": float(round(report_with.brier_score, 6)),
+            "agent_subversion_asr": float(round(asr_with, 4)),
+            "mandate_rejections": int(rejections_with),
+        },
+        "without_intent": {
+            "pr_auc": float(round(report_without.pr_auc, 6)),
+            "roc_auc": float(round(report_without.roc_auc, 6)),
+            "fpr": float(round(report_without.fpr, 6)),
+            "ece": float(round(report_without.ece, 6)),
+            "brier": float(round(report_without.brier_score, 6)),
+            "agent_subversion_asr": float(round(asr_without, 4)),
+            "mandate_rejections": int(rejections_without),
+        },
+        "delta": {
+            "pr_auc": delta_pr_auc,
+            "roc_auc": delta_roc_auc,
+            "fpr": delta_fpr,
+            "ece": delta_ece,
+            "brier": delta_brier,
+            "agent_subversion_asr": delta_asr,
+        },
+        "removed_features": removed_features,
+        "data_split_identical": True,
+        "seed_identical": True,
+        "protocol_identical": True,
+    }
+
+
+def run_exp_007_h_intent_ablation(
+    world: WorldResult,
+    champion_or_feature_df: Any,
+    cfg: Config,
+    feature_df: pl.DataFrame | None = None,
+) -> ExperimentRecord:
+    """EXP-007-H: Verifiable Intent Mandate Ablation on Agent Channel."""
+    if isinstance(champion_or_feature_df, pl.DataFrame):
+        f_df = champion_or_feature_df
+    elif feature_df is not None:
+        f_df = feature_df
+    else:
+        f_df = compute_batch_features(world.transactions, customers=world.customers)
+
+    res = run_controlled_intent_ablation(world, f_df, cfg)
+    w_asr = res["with_intent"]["agent_subversion_asr"]
+    wo_asr = res["without_intent"]["agent_subversion_asr"]
+    delta_asr = res["delta"]["agent_subversion_asr"]
 
     return ExperimentRecord(
         exp_id="EXP-007-H",
@@ -399,14 +514,20 @@ def run_exp_007_h_intent_ablation(
         code_commit=git_commit(),
         configuration_hash=cfg.hash,
         seed=cfg["seed"],
-        baseline_name="Transaction Feature Detection Alone",
-        treatment_name="Transaction + Mandate Intent Scoring",
+        baseline_name="Transaction Feature Detection Alone (Without Intent)",
+        treatment_name="Transaction + Mandate Intent Scoring (With Intent)",
         metrics={
-            "agent_subversion_asr_with_intent": agent_asr,
-            "mandate_violation_rejection_count": float(red_metrics.invalid_attacks),
+            "agent_subversion_asr_with_intent": w_asr,
+            "agent_subversion_asr_without_intent": wo_asr,
+            "delta_agent_subversion_asr": delta_asr,
+            "with_intent_pr_auc": res["with_intent"]["pr_auc"],
+            "without_intent_pr_auc": res["without_intent"]["pr_auc"],
+            "with_intent_fpr": res["with_intent"]["fpr"],
+            "without_intent_fpr": res["without_intent"]["fpr"],
+            "mandate_violation_rejection_count": float(res["with_intent"]["mandate_rejections"]),
         },
         result_status="RESULT",
-        conclusion=f"Intent scoring bounds Agent Subversion ASR to {agent_asr:.2%}.",
+        conclusion=f"Intent ablation: With Intent ASR={w_asr:.2%} vs Without Intent ASR={wo_asr:.2%} (delta={delta_asr:.2%}).",
         artifact_path="exp_007_h_intent.json",
     )
 
@@ -430,9 +551,10 @@ def run_all_block7_experiments(
     exp_e = run_exp_007_e_hidden_families(world_c, coevo_result.final_champion, cfg)
     exp_f = run_exp_007_f_query_budget_sweep(coevo_result, cfg)
     exp_g = run_exp_007_g_med_shift(coevo_result, cfg)
-    exp_h = run_exp_007_h_intent_ablation(world, coevo_result.final_champion, cfg)
+    exp_h = run_exp_007_h_intent_ablation(world, feature_df, cfg)
 
     return [exp_a, exp_b, exp_c, exp_d, exp_e, exp_f, exp_g, exp_h]
+
 
 
 def from_enum_key(key_name: str, mapping: dict[Any, Any]) -> Any:

@@ -411,12 +411,17 @@ def run_pipeline(
     )
 
     # 12. Run Block 7 Experiment Suite (EXP-007-A..H)
-    from mcdl.evaluation.experiments import run_all_block7_experiments
+    from mcdl.evaluation.experiments import run_all_block7_experiments, run_controlled_intent_ablation
     exp_records = run_all_block7_experiments(
         world=world,
         feature_df=feature_df,
         cfg=cfg,
         coevo_result=coev_res,
+    )
+    intent_ablation_res = run_controlled_intent_ablation(
+        world=world,
+        feature_df=feature_df,
+        cfg=cfg,
     )
 
     from mcdl.loop.worlds import (
@@ -463,6 +468,7 @@ def run_pipeline(
         experiment_register=exp_records,
         three_world_evaluation=three_world_eval,
         adaptation_cost=[r.adaptation_cost for r in coev_res.rounds if r.adaptation_cost is not None],
+        intent_ablation=intent_ablation_res,
     )
 
     # 13. Deep Schema & Cross-Artifact Validation

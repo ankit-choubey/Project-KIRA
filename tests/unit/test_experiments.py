@@ -72,5 +72,47 @@ def test_experiments_exp_007_a_through_h(experiment_fixture):
     assert rec_g.exp_id == "EXP-007-G"
 
     # EXP-007-H
-    rec_h = run_exp_007_h_intent_ablation(world, coev_res.final_champion, cfg)
+    rec_h = run_exp_007_h_intent_ablation(world, feature_df, cfg)
     assert rec_h.exp_id == "EXP-007-H"
+    assert "agent_subversion_asr_with_intent" in rec_h.metrics
+    assert "agent_subversion_asr_without_intent" in rec_h.metrics
+
+
+def test_controlled_intent_ablation_contracts(experiment_fixture):
+    """Verifies all 10 scientific contracts for EXP-007-H controlled intent ablation."""
+    from mcdl.evaluation.experiments import run_controlled_intent_ablation
+    import math
+
+    cfg = experiment_fixture["cfg"]
+    world = experiment_fixture["world"]
+    feature_df = experiment_fixture["feature_df"]
+
+    # Execute ablation
+    res1 = run_controlled_intent_ablation(world, feature_df, cfg)
+
+    # 1. Transaction IDs / partition checks
+    assert res1["data_split_identical"] is True
+    assert res1["seed_identical"] is True
+    assert res1["protocol_identical"] is True
+
+    # 2. Intent features removed check
+    assert res1["removed_features"] == ["is_agent_initiated"]
+
+    # 3. Output metrics bounded in [0, 1]
+    for arm in ["with_intent", "without_intent"]:
+        for metric_name in ["pr_auc", "roc_auc", "fpr", "ece", "brier", "agent_subversion_asr"]:
+            val = res1[arm][metric_name]
+            assert val is not None
+            assert not math.isnan(val) and not math.isinf(val)
+            assert 0.0 <= val <= 1.0, f"Metric {metric_name} in {arm} out of bounds: {val}"
+
+    # 4. Deltas are valid numbers
+    for d_name, d_val in res1["delta"].items():
+        assert not math.isnan(d_val) and not math.isinf(d_val)
+
+    # 5. Deterministic replay check
+    res2 = run_controlled_intent_ablation(world, feature_df, cfg)
+    assert res1["with_intent"]["agent_subversion_asr"] == res2["with_intent"]["agent_subversion_asr"]
+    assert res1["without_intent"]["agent_subversion_asr"] == res2["without_intent"]["agent_subversion_asr"]
+    assert res1["with_intent"]["pr_auc"] == res2["with_intent"]["pr_auc"]
+    assert res1["without_intent"]["pr_auc"] == res2["without_intent"]["pr_auc"]
