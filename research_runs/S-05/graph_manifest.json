@@ -1,0 +1,15 @@
+{
+  "node_counts": {
+    "customer": 198,
+    "merchant": 80,
+    "device": 345,
+    "agent": 15,
+    "transaction": 9348
+  },
+  "edge_count": 28044,
+  "edge_types": {
+    "customer_merchant": 9348,
+    "customer_device": 9348,
+    "agent_customer": 9348
+  }
+}
