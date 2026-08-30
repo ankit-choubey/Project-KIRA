@@ -10,5 +10,15 @@
   "torch_available": false,
   "lightgbm_available": true,
   "lightgbm_version": "4.7.0",
-  "baseline_directory_exists": true
+  "baseline_directory_exists": true,
+  "software_versions": {
+    "python": "3.11.14",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "polars": "1.44.1",
+    "lightgbm": "4.7.0",
+    "sklearn": "1.9.0",
+    "backend": "CPU (NumPy vectorized)"
+  },
+  "execution_backend": "CPU (NumPy vectorized)"
 }

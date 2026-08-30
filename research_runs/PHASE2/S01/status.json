@@ -2,7 +2,7 @@
   "baseline_git_commit": "40997ab",
   "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
   "config_hash": "",
-  "end_time": "2026-08-30T22:51:56.223287+00:00",
+  "end_time": "2026-08-30T22:54:34.657851+00:00",
   "exception": null,
   "experiment_id": "S01",
   "git_commit": "test_commit",
@@ -31,6 +31,7 @@
     "world_summary.json": "9ff5bf701d116832faba11a17c01c6ae31a44042288b4c768769a9b5ec9ce175"
   },
   "metrics": {
+    "backend": "CPU (NumPy vectorized)",
     "integrity_verified": true,
     "total_expected_artifacts": 22,
     "verified_artifact_count": 22
@@ -40,10 +41,10 @@
   "peak_gpu_mb": 0,
   "peak_ram_mb": 0,
   "run_id": "test_smoke_run",
-  "runtime_sec": 0.01540062499771011,
+  "runtime_sec": 0.008569459001591895,
   "seed": 20260827,
   "stage_id": "S01",
-  "start_time": "1970-01-01T08:48:51.405956+00:00",
+  "start_time": "1970-01-01T08:51:29.847226+00:00",
   "status": "COMPLETED",
   "termination_reason": null
 }

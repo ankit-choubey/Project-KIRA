@@ -2,12 +2,13 @@
   "baseline_git_commit": "40997ab",
   "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
   "config_hash": "",
-  "end_time": "2026-08-30T22:51:56.207130+00:00",
+  "end_time": "2026-08-30T22:54:34.649087+00:00",
   "exception": null,
   "experiment_id": "S00",
   "git_commit": "test_commit",
   "input_artifact_hashes": {},
   "metrics": {
+    "backend": "CPU (NumPy vectorized)",
     "baseline_exists": true,
     "env_safe": true
   },
@@ -15,15 +16,15 @@
     "research_runs/PHASE2/S00/environment_profile.json"
   ],
   "output_sha256": {
-    "environment_profile.json": "e84c7856cb8ce52c7b846ebf6b03971e018c1bfdbfd0440fcb79855d509196a0"
+    "environment_profile.json": "dae7b300f153b5b8189534f6335f0b61aade1264985a32e373dea8e46580addb"
   },
   "peak_gpu_mb": 0,
   "peak_ram_mb": 0,
   "run_id": "test_smoke_run",
-  "runtime_sec": 0.025016499999765074,
+  "runtime_sec": 0.014166166001814418,
   "seed": 20260827,
   "stage_id": "S00",
-  "start_time": "1970-01-01T08:48:51.380184+00:00",
+  "start_time": "1970-01-01T08:51:29.832864+00:00",
   "status": "COMPLETED",
   "termination_reason": null
 }
