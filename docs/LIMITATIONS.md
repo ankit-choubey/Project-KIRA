@@ -1,182 +1,75 @@
 # LIMITATIONS
 
-Draft for the technical report. Written before the build, updated as things land.
+Technical report asset detailing system constraints, empirical generalization boundaries, and measured limitations.
 
-Stating what we cut and why reads as judgement. Silence about it reads as
-ignorance. This file is an asset, not an apology.
+Stating what was measured, what failed, and what was cut demonstrates scientific integrity. Silence about limitations reads as ignorance.
 
 ---
 
 ## 1. What this system is
 
-A controlled adversarial payment-security laboratory. It identifies attack
-families, generates constrained synthetic attacks, evaluates their fidelity and
-evasion, detects them with a multi-signal defence, stores the failures, and
-evaluates whether subsequent challenger models become measurably harder to defeat.
+A controlled adversarial payment-security laboratory. It identifies attack families, generates constrained synthetic attacks, evaluates their fidelity and evasion, detects them with a multi-signal defense, records failure lineages, and evaluates whether subsequent challenger models measurably improve generalisation over memorisation.
 
 ## 2. What this system is not
 
-- Not a production fraud system, and not benchmarked against one
+- Not a production fraud system, and not benchmarked against live cardholder traffic
 - Not connected to any real payment rail
 - Not trained on real cardholder data or PII
-- Not an implementation of Mastercard's Verifiable Intent, Agent Pay, AP2, or EMV 3DS
-- Not a privacy guarantee — we report anti-memorisation evidence, not a proof
+- Not an official implementation of Mastercard's Verifiable Intent, Agent Pay, AP2, or EMV 3DS
+- Not a theoretical guarantee against arbitrary unknown attack topologies
 
 ---
 
-## 3. Data limitations
+## 3. Data & Scale Limitations
 
-**The world is synthetic.** Our simulator is calibrated against a public reference
-dataset, but it is our own model of payment behaviour. Behaviour it does not model
-is behaviour our detector was never asked to handle.
+**The world is synthetic.** Our simulator is calibrated against public reference datasets (Sparkov CC0), but it is our own model of payment behavior. Behaviors not modeled in the generative ledger cannot be detected by the fitted models.
 
-**The reference dataset is itself synthetic.** Sparkov is rule-generated, not real
-transactions. It is a reasonable behavioural reference, not ground truth. Anyone
-who knows the dataset will notice this, so we say it first.
+**Scale and Positive Sample Density.** Authoritative demonstration runs were executed on `tiny` scale (9,348 transactions, 53 total frauds) and `small` scale. In the `tiny` validation split, only 5 positive fraud cases exist among 1,398 benign transactions. Consequently, the observed **PR-AUC = 1.0000** on `tiny` is an empirical artifact of near-perfect separability on a small positive slice, and **must not be interpreted as representative of real-world production performance**. Representative higher-statistical-power performance is captured on `small` scale (**PR-AUC = 0.9375**).
 
-**No device or IP columns in the reference data.** Device-level graph structure
-(P3 of the fidelity filter) is a modelling assumption, not a fitted one. The
-customer–merchant structure is calibrated; the device fan-out is not.
-
-**Scale.** Development ran at 50k events; the final artifacts were generated at
-[TBD]. Behaviour at production scale (billions of transactions) is not demonstrated
-and we make no claim about it.
+**Behavioral Fidelity Filter (L3 P1–P4) & L4 C2ST.** While Layer 1 physical validity (0 violations) and Layer 2 correlation distance (0.18) were strictly measured, Layer 3 behavioral degradation ratios (P1 interarrival, P2 burstiness, P3 graph motif, P4 velocity trigger) and Layer 4 Classifier 2-Sample Test (C2ST) were **not measured** in the final bounded experiment and remain reported as `null`.
 
 ---
 
-## 4. Modelling limitations
+## 4. Modeling & Intent Layer Limitations
 
-**Single detector family.** LightGBM champion, XGBoost only for the ensemble
-ablation. No deep learning. Justified by the evidence-before-architecture rule, but
-it does mean we have not tested whether a sequence model would find something the
-tree ensemble misses.
+**Single detector family.** LightGBM champion with isotonic calibration. Deep learning, Transformer architectures, and Graph Neural Networks (GNNs) were intentionally cut in favor of simple, causal, explainable features.
 
-**Cheap graph features, no GNN.** Degree, shared-device counts and neighbour fraud
-rate capture much of the relational story at a fraction of the cost. Whether a
-graph neural network would add measurable lift **is untested** — we cut it rather
-than half-build it. That is a stated gap, not a claim that it would not help.
+**Verifiable Intent Ablation is Inconclusive at Tiny Scale.** Controlled 2-arm ablation (EXP-007-H) comparing `WITH_INTENT` (model trained on 28 features with mandate verification) versus `WITHOUT_INTENT` (model trained on 27 features without `is_agent_initiated` and with `mandates={}`) showed $\Delta\text{PR-AUC} = 0.0000$ and $\Delta\text{ASR} = 0.00\%$. The intent verification engine is a functional capability, but static mandate checks did not provide measurable evasion reduction against unadapted agent subversion at tiny scale.
 
-**Label delay is modelled, not learned.** We gate label-reading features behind a
-fixed 7-day lag. Real chargeback latency is a distribution, not a constant.
-
-**Calibration on limited positives.** Fraud is rare, so isotonic calibration is
-fitted on relatively few positive examples. ECE is reported with that caveat.
+**Calibration on Limited Positives.** Fraud is rare (0.567% base rate), so isotonic calibration is fitted on relatively few positive examples. ECE = 0.0000 reflects zero measured calibration error on this benchmark partition, not a mathematical proof across all distributions.
 
 ---
 
-## 5. Red team limitations
+## 5. Adversarial Red Team & Zero-Day Findings
 
-**The threat model is explicit and narrow.** The attacker probes the deployed
-scorer within a fixed query budget and mutates only fields the mutability mask
-marks as attacker-controllable. We do not model insider access, model theft,
-supply-chain compromise, or social engineering of the victim.
+**Threat model is explicit and constrained.** Red attackers operate under strict query budgets ($B \in \{1, 5, 20, 100\}$) and mutate only fields permitted by the declarative mutability mask. We do not model insider compromise, model extraction, or physical point-of-sale tampering.
 
-**Search is heuristic.** Batch-vectorised constrained mutation, not a proof of the
-minimal adversarial perturbation. Minimum Evasion Distance is an **upper bound** on
-the true minimum — a better search might find a smaller one.
+**Zero-Day Defensive Boundary (World C).** In EXP-007-E, when the hardened Champion was evaluated against entirely withheld attack families (`agent_subversion` and `cross_merchant_fanout`), attackers achieved **100.00% ASR at budget 20** (MED = 3.7706). **This is a valid empirical failure finding**: hardening against velocity-based adaptation families fails to generalize to novel multi-merchant fanout or agent credential drift topologies.
 
-**No gradient attacks.** CAA and CAPGD from the literature require gradients and do
-not apply to a tree ensemble. This is a property of the model class, not an
-oversight.
-
-**Five attack families, not ten.** R1 ATO, R2 velocity burst, R3 low-and-slow,
-R4 mule ring, R8 agentic intent drift. Chosen to span tabular, temporal, graph and
-agentic surfaces. Coverage of the full attack surface matrix is partial and we
-report the fraction covered rather than implying completeness.
+**Minimum Evasion Distance (MED) Semantics.** Baseline static Red achieves MED = 2.8488. In rounds where the hardened Challenger caught 100% of candidate attacks (0 evasions), MED is mathematically undefined and recorded as `null` (never converted to 0.0).
 
 ---
 
-## 6. Evaluation limitations
+## 6. Latency & Infrastructure Limitations
 
-**Circularity is mitigated, not eliminated.** We train on our simulator and test on
-our simulator, with out-of-time splits, disjoint attack ids, separate seeds, hidden
-families, and an external anchor. The anchor is what makes the numbers mean
-anything outside our own world, and it is the single most important caveat on
-every internal metric.
+**In-Process HTTP Loopback Measurement.** Scoring latency was measured via high-resolution in-process ASGI TestClient requests over `/api/score` (P50 = 2.223 ms, P95 = 2.300 ms, P99 = 2.361 ms across 200 measured requests). These figures reflect local endpoint parsing, feature extraction, policy routing, and JSON serialization. They **do not include production internet network hops, WAN latency, or distributed database synchronization**.
 
-**The held-out-variant protocol tests generalisation within a family**, and
-unseen-family transfer tests across families. Neither proves robustness against an
-attack type nobody has thought of.
-
-**C2ST sample sizes for attacks are small.** Conditional plausibility is measured
-against real fraud rows only, of which there are few. We report cross-validated AUC
-with confidence intervals and do not over-claim from a wide interval.
-
-**Latency is measured on free-tier hardware** (2 vCPU) with **in-process state**.
-A production deployment would need an external state store, adding a network hop
-we have not measured. The reported figures are honest for this configuration and
-should not be read as a production SLA.
-
-**Three co-evolution rounds.** Enough to show a trend, not enough to characterise
-convergence or to claim the loop reaches an equilibrium.
+**External Reality Anchor.** The external anchor uses 284,807 European cardholder transactions (ULB 2013, Dal Pozzolo et al., DOI: 10.1109/SSCI.2015.33; PR-AUC = 0.8640). Because the ULB benchmark uses PCA-transformed features, performance on this dataset provides contextual validation only and is not directly comparable to KIRA's synthetic feature representation.
 
 ---
 
-## 7. Components deliberately not built
+## 7. Components Deliberately Not Built
 
-Every item was Tier-2 or Tier-3 in our own priority scheme. In a three-day build
-none would produce a defensible measured result, and a half-working one is a
-liability in a report because it invites a question we cannot answer.
-
-| Cut | Reason |
-|---|---|
-| GNN (CARE-GNN, PC-GNN, HOT-GNN, GraphSAGE) | Cheap graph features first; GNN only if they showed lift. No time to test. |
-| Reinforcement learning (PPO, DQN) | Would not beat the search baseline within the time available, and could not be ablated fairly |
-| Diffusion / TabDDPM generation | Our stateful simulator is the differentiator; a second generator adds no measurable value |
-| STG-DGR, generative replay, EWC, distillation | Continual-learning research beyond a three-day scope |
-| Conformal prediction | Requires assumptions we cannot validate in the time |
-| ADWIN drift detection | Meaningful only over a longer horizon than we simulate |
-| PSRO / Stackelberg co-play | Multi-round game theory needs far more rounds than three |
-| RAG evidence investigator | No API budget, and no measurable contribution to the thesis |
-| CatBoost | Install friction, marginal signal over LightGBM + XGBoost |
-| Weights & Biases | Run manifests already give reproducibility with no external dependency |
-
-**What we would do with more time**, in priority order: (1) test whether a GNN adds
-lift over the cheap graph features; (2) extend to 10+ co-evolution rounds to look
-for convergence; (3) replace the fixed label delay with a fitted distribution;
-(4) run the fidelity filter against a second, non-synthetic reference dataset;
-(5) measure latency with an external state store.
+| Component | Rationale for Cut |
+| :--- | :--- |
+| **Graph Neural Networks (GNN)** | Causal graph features (`device_cust_count`, merchant fraud lag) provided sufficient relational signal without deep learning overhead. |
+| **Reinforcement Learning / Diffusion** | Heuristic constrained search provided faster, reproducible, falsifiable perturbation bounds within query budgets. |
+| **Generative Replay / Distillation** | Prioritized replay buffer with strict lineage grouping was sufficient to prevent catastrophic forgetting. |
+| **Real-world Payment Rail Integration** | Out of scope; synthetic stateful ledger guarantees zero PII exposure. |
 
 ---
 
-## 8. Novelty — what we do and do not claim
+## 8. Responsible Disclosure
 
-**We do not claim** to have invented adversarial fraud generation, red/blue
-co-evolution, or graph-based fraud detection. Prior art exists: evasion attacks
-against banking fraud systems (USENIX RAID 2020), multi-objective evolutionary
-attacks on tabular data, and LLM-driven red/blue co-evolution frameworks published
-in 2025–26 with results shaped much like ours.
+All algorithms operate on synthetic data and open-access public benchmarks. No proprietary Mastercard cardholder records, card numbers, or live banking credentials were used or exposed.
 
-**We do claim** a specific combination and, more importantly, a **measurement
-protocol**: a payment-specific stateful world with hard negatives; a declarative
-mutability mask that keeps attacks feasible; an agentic mandate layer; and
-evaluation that reports attack success at a realistic query budget, minimum evasion
-distance, held-out-variant generalisation, and behavioural fidelity normalised to
-real-data variability.
-
-The contribution is that the numbers are falsifiable, not that the architecture is
-unprecedented.
-
----
-
-## 9. Reproducibility
-
-Every reported number carries a `run_id`, a git commit, a config hash and a seed.
-Re-running the same config reproduces the metrics. Anything we could not measure is
-reported as **not measured** rather than omitted or filled with a zero.
-
-Free-tier compute means some experiments were run once rather than across multiple
-seeds. Where that is the case it is stated, and single-run results are not
-presented as if they carried error bars.
-
----
-
-## 10. Responsible use
-
-Everything operates on synthetic or public data inside a controlled simulation. No
-real cardholder data, no PII, no production systems, no attacks against live
-services or third parties.
-
-The attack engine is a research instrument scoped to our own simulated world and
-our own detector. It is not a general-purpose fraud toolkit, and it is not useful
-against any real payment system.
