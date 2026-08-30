@@ -1,12 +1,9 @@
 {
   "baseline_git_commit": "40997ab",
   "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
-  "config_hash": "",
-  "end_time": "2026-08-30T22:51:56.223287+00:00",
-  "exception": null,
-  "experiment_id": "S01",
-  "git_commit": "test_commit",
-  "input_artifact_hashes": {
+  "environment": {},
+  "generated_at": "2026-08-30T22:51:56.223095+00:00",
+  "input_datasets": {
     "adaptation_cost.json": "c3bc8f2f3514696fc320058a69692eebc59db8fdab4d6f3b0ff5ea4f723a5e9a",
     "attack_summary.json": "f60e379395d58399789f58ee94888d5100c8aa88b2e5a3269516682af0d8cff6",
     "blue_metrics.json": "e4d27282b3f63dd0489b742842315d88e0f97477a7c6f0f720bec8ef6f030e0b",
@@ -30,20 +27,8 @@
     "weakness_profile.json": "29f2ad204b012ee772544b862cb6d174dd514211f28b31330df96d8850730757",
     "world_summary.json": "9ff5bf701d116832faba11a17c01c6ae31a44042288b4c768769a9b5ec9ce175"
   },
-  "metrics": {
-    "integrity_verified": true,
-    "total_expected_artifacts": 22,
-    "verified_artifact_count": 22
-  },
-  "output_paths": [],
-  "output_sha256": {},
-  "peak_gpu_mb": 0,
-  "peak_ram_mb": 0,
-  "run_id": "test_smoke_run",
-  "runtime_sec": 0.01540062499771011,
-  "seed": 20260827,
-  "stage_id": "S01",
-  "start_time": "1970-01-01T08:48:51.405956+00:00",
-  "status": "COMPLETED",
-  "termination_reason": null
+  "library_versions": {},
+  "namespace": "RESEARCH_PHASE2",
+  "notebook_git_commit": "test_commit",
+  "notebook_version": 1
 }

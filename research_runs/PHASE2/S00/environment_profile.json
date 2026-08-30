@@ -1,0 +1,14 @@
+{
+  "python_version": "3.11.14 (main, Jan 27 2026, 23:58:06) [Clang 21.1.4 ]",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "cpu_count": 10,
+  "gpu_available": false,
+  "gpu_count": 0,
+  "gpu_name": null,
+  "gpu_vram_gb": 0.0,
+  "ram_gb": "UNKNOWN (psutil not installed)",
+  "torch_available": false,
+  "lightgbm_available": true,
+  "lightgbm_version": "4.7.0",
+  "baseline_directory_exists": true
+}

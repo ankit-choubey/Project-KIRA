@@ -1,181 +1,256 @@
-import logging
-from typing import Any, Dict, List, Tuple
-import polars as pl
+"""Temporal-Causal Payment Graph Representation & Slicing.
+
+Implements transaction-centric heterogeneous temporal graph structures:
+Nodes:
+- transaction (28 canonical features)
+- customer (causal historical aggregates strictly < t)
+- merchant (causal historical aggregates strictly < t)
+- device (causal historical aggregates strictly < t)
+- agent (causal historical aggregates strictly < t)
+
+Edges:
+- customer -> transaction
+- transaction -> merchant
+- transaction -> device
+- agent -> transaction (if present)
+
+Strict Temporal Causality Rule:
+G(t) contains ONLY nodes, edges, aggregates, and features available strictly before timestamp t.
+"""
+
+from __future__ import annotations
+
+import json
+from dataclasses import dataclass, field
+from datetime import datetime
+from pathlib import Path
+from typing import Any
+
 import numpy as np
+import polars as pl
 
-try:
-    import torch
-    # We delay torch_geometric import so static validation passes locally without it
-    HAS_TORCH = True
-except ImportError:
-    HAS_TORCH = False
+from mcdl.features.batch import compute_batch_features
+from mcdl.features.spec import FEATURE_NAMES
 
-logger = logging.getLogger(__name__)
 
-def compute_causal_aggregates(df: pl.DataFrame, entity_col: str, t_col: str = "timestamp") -> pl.DataFrame:
-    """
-    Computes causal historical aggregates strictly UP TO t (exclusive).
-    """
-    # Sort strictly by timestamp and then txn_id to maintain causal order
-    df = df.sort([t_col, "txn_id"])
-    
-    # We want features like: count_past, sum_amount_past
-    # We must not include the current row in the aggregate for the current row.
-    
-    # We use a window function over the entity
-    res = df.with_columns([
-        (pl.col("txn_id").cum_count().over(entity_col) - 1).alias("historical_count"),
-        (pl.col("amount").cum_sum().over(entity_col) - pl.col("amount")).alias("historical_amount_sum")
-    ])
-    
-    # Ensure no negative counts (for the first transaction)
-    res = res.with_columns(
-        pl.when(pl.col("historical_count") < 0).then(0).otherwise(pl.col("historical_count")).alias("historical_count")
-    )
-    return res
+@dataclass
+class TemporalEntityState:
+    """Maintains causal aggregate state for an entity up to timestamp t."""
+    tx_count: int = 0
+    amount_sum: float = 0.0
+    fraud_count: int = 0
+    last_seen_ts: float = 0.0
+    recent_tx_indices: list[int] = field(default_factory=list)
 
-def build_temporal_graph(
-    transactions_df: pl.DataFrame,
-    features_df: pl.DataFrame,
-    train_end_t: int,
-    val_end_t: int
-):
-    """
-    Constructs a causal temporal PyG HeteroData graph.
-    transactions_df: raw transactions including entity relationships and timestamp
-    features_df: the exact 28 canonical features for each transaction
-    """
-    if not HAS_TORCH:
-        raise ImportError("PyTorch required for graph construction.")
-    from torch_geometric.data import HeteroData
-    
-    # Ensure order
-    txns = transactions_df.sort(["timestamp", "txn_id"])
-    feats = features_df.join(txns.select(["txn_id", "timestamp"]), on="txn_id").sort(["timestamp", "txn_id"])
-    
-    # 1. Map string IDs to integers
-    txn_mapping = {tid: i for i, tid in enumerate(txns["txn_id"].to_list())}
-    cust_mapping = {cid: i for i, cid in enumerate(txns["customer_id"].unique().to_list())}
-    merch_mapping = {mid: i for i, mid in enumerate(txns["merchant_id"].unique().to_list())}
-    dev_mapping = {did: i for i, did in enumerate(txns["device_id"].unique().to_list())}
-    
-    # Agents only exist for some transactions
-    agents = txns.filter(pl.col("is_agent_initiated") == True)["agent_id"].drop_nulls().unique().to_list()
-    agent_mapping = {aid: i for i, aid in enumerate(agents)}
-    
-    # 2. Extract strictly causal features for entity nodes
-    # For a static graph representing the whole timeline, PyG needs static node features.
-    # To maintain strict causality in a full static graph, each node's features must represent 
-    # its state *before* it's involved in any future edge.
-    # However, since nodes evolve, a transaction-centric approach is better:
-    # Instead of static entity nodes, we can use the transaction node itself to hold the entity's 
-    # causal state at time T, or we just use static structural edges and let the GNN aggregate.
-    # For Phase 2, we assign standard structural causal aggregates to entity nodes based on their 
-    # ENTIRE history up to the training cutoff to avoid leaking validation/test information,
-    # OR we use temporal graph networks (TGN).
-    # Since we are using GraphSAGE (static GNN), we must be very careful.
-    # The requirement: "G(t) may contain only nodes, edges, aggregates, and features that were available strictly before the prediction timestamp."
-    # Standard GraphSAGE on a static graph will pass messages from future transactions!
-    # Therefore, we MUST mask out future edges during message passing.
-    
-    data = HeteroData()
-    
-    # For this implementation, we will construct edge tensors and timestamp tensors.
-    # The actual temporal masking will be done during the forward pass or neighbor sampling.
-    
-    # Node features (transaction: 28 dims)
-    # We assume features_df contains only the 28 numerical features.
-    feature_cols = [c for c in feats.columns if c not in ("txn_id", "timestamp")]
-    data['transaction'].x = torch.tensor(feats[feature_cols].to_numpy(), dtype=torch.float32)
-    data['transaction'].timestamp = torch.tensor(txns["timestamp"].to_numpy(), dtype=torch.long)
-    data['transaction'].y = torch.tensor(txns["is_fraud"].to_numpy(), dtype=torch.float32)
-    data['transaction'].txn_id = txns["txn_id"].to_list()
-    
-    # Entity features (For now, simple aggregates up to train_end_t to strictly avoid future leak)
-    # Customer features
-    cust_aggs = compute_causal_aggregates(txns, "customer_id").filter(pl.col("timestamp") < train_end_t)
-    cust_final = cust_aggs.group_by("customer_id").last()
-    
-    cust_feat_matrix = np.zeros((len(cust_mapping), 2), dtype=np.float32)
-    for row in cust_final.iter_rows(named=True):
-        idx = cust_mapping[row["customer_id"]]
-        cust_feat_matrix[idx, 0] = row["historical_count"]
-        cust_feat_matrix[idx, 1] = row["historical_amount_sum"]
-    data['customer'].x = torch.tensor(cust_feat_matrix, dtype=torch.float32)
-    
-    # Merchant features
-    merch_aggs = compute_causal_aggregates(txns, "merchant_id").filter(pl.col("timestamp") < train_end_t)
-    merch_final = merch_aggs.group_by("merchant_id").last()
-    merch_feat_matrix = np.zeros((len(merch_mapping), 2), dtype=np.float32)
-    for row in merch_final.iter_rows(named=True):
-        idx = merch_mapping[row["merchant_id"]]
-        merch_feat_matrix[idx, 0] = row["historical_count"]
-        merch_feat_matrix[idx, 1] = row["historical_amount_sum"]
-    data['merchant'].x = torch.tensor(merch_feat_matrix, dtype=torch.float32)
-    
-    # Device features
-    dev_aggs = compute_causal_aggregates(txns, "device_id").filter(pl.col("timestamp") < train_end_t)
-    dev_final = dev_aggs.group_by("device_id").last()
-    dev_feat_matrix = np.zeros((len(dev_mapping), 2), dtype=np.float32)
-    for row in dev_final.iter_rows(named=True):
-        idx = dev_mapping[row["device_id"]]
-        dev_feat_matrix[idx, 0] = row["historical_count"]
-        dev_feat_matrix[idx, 1] = row["historical_amount_sum"]
-    data['device'].x = torch.tensor(dev_feat_matrix, dtype=torch.float32)
-    
-    # Agent features
-    agent_aggs = compute_causal_aggregates(txns.filter(pl.col("is_agent_initiated")==True), "agent_id").filter(pl.col("timestamp") < train_end_t)
-    agent_final = agent_aggs.group_by("agent_id").last()
-    agent_feat_matrix = np.zeros((len(agent_mapping), 2), dtype=np.float32)
-    for row in agent_final.iter_rows(named=True):
-        idx = agent_mapping[row["agent_id"]]
-        agent_feat_matrix[idx, 0] = row["historical_count"]
-        agent_feat_matrix[idx, 1] = row["historical_amount_sum"]
-    data['agent'].x = torch.tensor(agent_feat_matrix, dtype=torch.float32) if len(agent_mapping) > 0 else torch.empty((0, 2), dtype=torch.float32)
 
-    # 3. Edges
-    # customer -> transaction
-    c_src, t_dst = [], []
-    for c_id, t_id in zip(txns["customer_id"], txns["txn_id"]):
-        c_src.append(cust_mapping[c_id])
-        t_dst.append(txn_mapping[t_id])
-    data['customer', 'initiates', 'transaction'].edge_index = torch.tensor([c_src, t_dst], dtype=torch.long)
-    
-    # transaction -> merchant
-    t_src, m_dst = [], []
-    for t_id, m_id in zip(txns["txn_id"], txns["merchant_id"]):
-        t_src.append(txn_mapping[t_id])
-        m_dst.append(merch_mapping[m_id])
-    data['transaction', 'to', 'merchant'].edge_index = torch.tensor([t_src, m_dst], dtype=torch.long)
-    
-    # transaction -> device
-    t_src_d, d_dst = [], []
-    for t_id, d_id in zip(txns["txn_id"], txns["device_id"]):
-        t_src_d.append(txn_mapping[t_id])
-        d_dst.append(dev_mapping[d_id])
-    data['transaction', 'from', 'device'].edge_index = torch.tensor([t_src_d, d_dst], dtype=torch.long)
-    
-    # agent -> transaction
-    a_src, t_dst_a = [], []
-    agent_txns = txns.filter(pl.col("is_agent_initiated") == True)
-    for a_id, t_id in zip(agent_txns["agent_id"], agent_txns["txn_id"]):
-        if a_id in agent_mapping:
-            a_src.append(agent_mapping[a_id])
-            t_dst_a.append(txn_mapping[t_id])
-    if len(a_src) > 0:
-        data['agent', 'facilitates', 'transaction'].edge_index = torch.tensor([a_src, t_dst_a], dtype=torch.long)
+class TemporalPaymentGraph:
+    """Transaction-centric heterogeneous graph with strict causal snapshot semantics."""
+
+    def __init__(
+        self,
+        transactions_df: pl.DataFrame,
+        features_df: pl.DataFrame | None = None,
+    ) -> None:
+        # Ensure transactions are sorted strictly in causal order (timestamp, txn_id)
+        if "timestamp" in transactions_df.columns and transactions_df["timestamp"].dtype == pl.String:
+            df = transactions_df.with_columns(pl.col("timestamp").str.to_datetime())
+        else:
+            df = transactions_df.clone()
+
+        self.raw_df = df.sort(["timestamp", "txn_id"])
         
-    # Create masks
-    t_tensor = data['transaction'].timestamp
-    data['transaction'].train_mask = t_tensor < train_end_t
-    data['transaction'].val_mask = (t_tensor >= train_end_t) & (t_tensor < val_end_t)
-    data['transaction'].test_mask = t_tensor >= val_end_t
-    
-    return data, {
-        "transaction": 28,
-        "customer": 2,
-        "merchant": 2,
-        "device": 2,
-        "agent": 2
-    }
+        # Compute canonical 28 features if not provided
+        if features_df is None:
+            self.features_df = compute_batch_features(self.raw_df)
+        else:
+            self.features_df = features_df.clone()
 
+        # Align features
+        feature_cols = [c for c in FEATURE_NAMES if c in self.features_df.columns]
+        self.feature_names = feature_cols
+        
+        # Extract numpy arrays for fast vectorized causal traversal
+        self.n_txns = len(self.raw_df)
+        self.txn_ids = self.raw_df["txn_id"].to_list()
+        
+        # Convert timestamp to float seconds
+        ts_series = self.raw_df["timestamp"]
+        if ts_series.dtype == pl.Datetime:
+            # Datetime in nanoseconds or microseconds to seconds
+            self.timestamps = (ts_series.dt.epoch("ms") / 1000.0).to_numpy()
+        else:
+            self.timestamps = ts_series.cast(pl.Float64).to_numpy()
+
+        self.customer_ids = self.raw_df["customer_id"].to_list()
+        self.merchant_ids = self.raw_df["merchant_id"].to_list()
+        self.device_ids = self.raw_df["device_id"].to_list()
+        self.agent_ids = [str(a) if a is not None else "" for a in self.raw_df["agent_id"].to_list()]
+        
+
+        if "is_fraud" in self.raw_df.columns:
+            self.is_fraud = self.raw_df["is_fraud"].cast(pl.Int64).to_numpy().copy()
+        else:
+            self.is_fraud = np.zeros(self.n_txns, dtype=np.int64)
+
+        if "attack_family" in self.raw_df.columns:
+            self.attack_families = [str(f) if f is not None else "benign" for f in self.raw_df["attack_family"].to_list()]
+        else:
+            self.attack_families = ["benign"] * self.n_txns
+
+        self.x_txn = self.features_df.select(self.feature_names).to_numpy().astype(np.float64).copy()
+
+        # Replace NaNs/Infs with 0.0
+        self.x_txn = np.nan_to_num(self.x_txn, nan=0.0, posinf=0.0, neginf=0.0)
+
+        # Build entity-to-transaction index lists (strictly in causal ascending order)
+        self._build_causal_indices()
+
+    def _build_causal_indices(self) -> None:
+        """Indexes transactions by entity strictly in causal chronological order."""
+        self.cust_to_txns: dict[str, list[int]] = {}
+        self.merch_to_txns: dict[str, list[int]] = {}
+        self.dev_to_txns: dict[str, list[int]] = {}
+        self.agent_to_txns: dict[str, list[int]] = {}
+
+        for idx in range(self.n_txns):
+            c_id = self.customer_ids[idx]
+            m_id = self.merchant_ids[idx]
+            d_id = self.device_ids[idx]
+            a_id = self.agent_ids[idx]
+
+            self.cust_to_txns.setdefault(c_id, []).append(idx)
+            self.merch_to_txns.setdefault(m_id, []).append(idx)
+            self.dev_to_txns.setdefault(d_id, []).append(idx)
+            if a_id:
+                self.agent_to_txns.setdefault(a_id, []).append(idx)
+
+    def get_causal_entity_aggregates(self, txn_idx: int) -> np.ndarray:
+        """Computes causal entity aggregates strictly before event timestamp t_i.
+        
+        Returns a vector containing:
+        - Customer historical count & amount sum (strictly < t_i)
+        - Merchant historical count & amount sum (strictly < t_i)
+        - Device historical unique customer count (strictly < t_i)
+        - Agent historical count (strictly < t_i)
+        Total 7 features.
+        """
+        c_id = self.customer_ids[txn_idx]
+        m_id = self.merchant_ids[txn_idx]
+        d_id = self.device_ids[txn_idx]
+        a_id = self.agent_ids[txn_idx]
+
+        # 1. Customer history
+        c_hist = [i for i in self.cust_to_txns.get(c_id, []) if i < txn_idx]
+        c_cnt = len(c_hist)
+        c_sum = sum(self.x_txn[i, 0] for i in c_hist) if c_hist else 0.0
+
+        # 2. Merchant history
+        m_hist = [i for i in self.merch_to_txns.get(m_id, []) if i < txn_idx]
+        m_cnt = len(m_hist)
+        m_sum = sum(self.x_txn[i, 0] for i in m_hist) if m_hist else 0.0
+
+        # 3. Device history (unique customers seen strictly < t_i)
+        d_hist = [i for i in self.dev_to_txns.get(d_id, []) if i < txn_idx]
+        d_unique_cust = len({self.customer_ids[i] for i in d_hist})
+        d_cnt = len(d_hist)
+
+        # 4. Agent history
+        a_cnt = 0
+        if a_id:
+            a_hist = [i for i in self.agent_to_txns.get(a_id, []) if i < txn_idx]
+            a_cnt = len(a_hist)
+
+        return np.array([c_cnt, c_sum, m_cnt, m_sum, d_cnt, d_unique_cust, a_cnt], dtype=np.float64)
+
+    def get_relational_neighbors(self, txn_idx: int, max_neighbors: int = 10) -> list[int]:
+        """Returns indices of prior transactions sharing customer, merchant, or device strictly < t_i."""
+        c_id = self.customer_ids[txn_idx]
+        m_id = self.merchant_ids[txn_idx]
+        d_id = self.device_ids[txn_idx]
+        a_id = self.agent_ids[txn_idx]
+
+        neighbors: set[int] = set()
+        
+        # Prior customer txns
+        for i in reversed(self.cust_to_txns.get(c_id, [])):
+            if i < txn_idx:
+                neighbors.add(i)
+                if len(neighbors) >= max_neighbors:
+                    break
+
+        # Prior merchant txns
+        for i in reversed(self.merch_to_txns.get(m_id, [])):
+            if i < txn_idx:
+                neighbors.add(i)
+                if len(neighbors) >= max_neighbors * 2:
+                    break
+
+        # Prior device txns
+        for i in reversed(self.dev_to_txns.get(d_id, [])):
+            if i < txn_idx:
+                neighbors.add(i)
+                if len(neighbors) >= max_neighbors * 3:
+                    break
+
+        # Prior agent txns
+        if a_id:
+            for i in reversed(self.agent_to_txns.get(a_id, [])):
+                if i < txn_idx:
+                    neighbors.add(i)
+                    if len(neighbors) >= max_neighbors * 4:
+                        break
+
+        sorted_neighbors = sorted(neighbors)
+        return sorted_neighbors[-max_neighbors:] if len(sorted_neighbors) > max_neighbors else sorted_neighbors
+
+    def get_causal_neighborhood_representation(self, txn_idx: int) -> np.ndarray:
+        """Computes mean aggregated representation of causally connected prior transactions.
+        
+        Returns 28-dim mean vector (or 0 if no prior neighbors).
+        """
+        nbrs = self.get_relational_neighbors(txn_idx, max_neighbors=10)
+        if not nbrs:
+            return np.zeros(self.x_txn.shape[1], dtype=np.float64)
+        return np.mean(self.x_txn[nbrs], axis=0)
+
+    def summary(self) -> dict[str, Any]:
+        """Returns node, edge, and memory safety summary."""
+        n_cust = len(self.cust_to_txns)
+        n_merch = len(self.merch_to_txns)
+        n_dev = len(self.dev_to_txns)
+        n_agent = len(self.agent_to_txns)
+        n_edges = (
+            self.n_txns  # cust -> txn
+            + self.n_txns  # txn -> merch
+            + self.n_txns  # txn -> dev
+            + sum(1 for a in self.agent_ids if a)  # agent -> txn
+        )
+        mem_mb = (self.x_txn.nbytes + self.timestamps.nbytes + self.is_fraud.nbytes) / (1024 * 1024)
+
+        return {
+            "node_counts": {
+                "transaction": self.n_txns,
+                "customer": n_cust,
+                "merchant": n_merch,
+                "device": n_dev,
+                "agent": n_agent,
+                "total_nodes": self.n_txns + n_cust + n_merch + n_dev + n_agent,
+            },
+            "edge_counts": {
+                "customer_initiates_txn": self.n_txns,
+                "txn_to_merchant": self.n_txns,
+                "txn_from_device": self.n_txns,
+                "agent_facilitates_txn": sum(1 for a in self.agent_ids if a),
+                "total_edges": n_edges,
+            },
+            "feature_dims": {
+                "transaction": len(self.feature_names),
+                "customer_aggregates": 2,
+                "merchant_aggregates": 2,
+                "device_aggregates": 2,
+                "agent_aggregates": 1,
+                "total_entity_aggregates": 7,
+            },
+            "tensor_memory_mb": round(mem_mb, 4),
+            "memory_safe": mem_mb < 500.0,
+        }

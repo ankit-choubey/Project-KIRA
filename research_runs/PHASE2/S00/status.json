@@ -1,24 +1,29 @@
 {
-  "baseline_git_commit": "base_commit",
-  "baseline_run_id": "base_run",
+  "baseline_git_commit": "40997ab",
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
   "config_hash": "",
-  "end_time": "2026-08-30T22:42:05.435491+00:00",
+  "end_time": "2026-08-30T22:51:56.207130+00:00",
   "exception": null,
   "experiment_id": "S00",
-  "git_commit": "commit_123",
+  "git_commit": "test_commit",
   "input_artifact_hashes": {},
   "metrics": {
-    "test": true
+    "baseline_exists": true,
+    "env_safe": true
   },
-  "output_paths": [],
-  "output_sha256": {},
+  "output_paths": [
+    "research_runs/PHASE2/S00/environment_profile.json"
+  ],
+  "output_sha256": {
+    "environment_profile.json": "e84c7856cb8ce52c7b846ebf6b03971e018c1bfdbfd0440fcb79855d509196a0"
+  },
   "peak_gpu_mb": 0,
   "peak_ram_mb": 0,
-  "run_id": "run_test",
-  "runtime_sec": 0.00021175000074435957,
+  "run_id": "test_smoke_run",
+  "runtime_sec": 0.025016499999765074,
   "seed": 20260827,
   "stage_id": "S00",
-  "start_time": "1970-01-01T08:39:00.633842+00:00",
+  "start_time": "1970-01-01T08:48:51.380184+00:00",
   "status": "COMPLETED",
   "termination_reason": null
 }

@@ -1,87 +1,142 @@
+"""Temporal Causality & Invariance Leakage Test Suite.
+
+Implements the 4 mandatory leakage tests for G-01:
+1. Future-edge invariance: Adding future edges strictly > t does not alter prediction(t).
+2. Future-node-feature invariance: Mutating node features of future events > t does not alter prediction(t).
+3. Future-label invariance: Flipping fraud labels of future events > t does not alter prediction(t).
+4. Prediction-at-t invariance: Evaluating transaction t on the full timeline vs. a snapshot strictly <= t yields identical prediction (|delta| < 1e-12).
+"""
+
+from __future__ import annotations
+
 import logging
-import copy
 from typing import Any
 
-try:
-    import torch
-    HAS_TORCH = True
-except ImportError:
-    HAS_TORCH = False
+import numpy as np
+import polars as pl
+
+from mcdl.research.phase2.graph_temporal import TemporalPaymentGraph
+from mcdl.research.phase2.model import CausalGraphSAGE
 
 logger = logging.getLogger(__name__)
 
 
-def assert_tensor_equal(t1, t2, rtol=1e-5, atol=1e-5):
-    if not torch.allclose(t1, t2, rtol=rtol, atol=atol):
-        raise AssertionError("Tensors are not equal. Temporal leakage detected.")
+def run_temporal_leakage_tests(
+    graph: TemporalPaymentGraph,
+    model: CausalGraphSAGE,
+    eval_indices: list[int] | None = None,
+) -> dict[str, Any]:
+    """Executes the four strict temporal leakage invariance tests on real graph data and model."""
+    if eval_indices is None or len(eval_indices) == 0:
+        # Sample mid-timeline transactions for evaluation
+        n = graph.n_txns
+        eval_indices = list(range(n // 4, n // 2, max(1, n // 20)))
 
+    results: dict[str, Any] = {
+        "future_edge_invariance": False,
+        "future_node_feature_invariance": False,
+        "future_label_invariance": False,
+        "prediction_at_t_invariance": False,
+        "all_passed": False,
+        "max_delta": 0.0,
+        "eval_sample_count": len(eval_indices),
+    }
 
-def run_temporal_leakage_tests(model, data, t_val: int):
-    """
-    Validates strict temporal causality.
-    Proves that for a target transaction at timestamp t < t_val,
-    modifying information at t_future >= t_val does NOT change the prediction at t.
-    """
-    if not HAS_TORCH:
-        logger.warning("Torch not available. Skipping temporal leakage tests.")
-        return True
-
-    logger.info("Running strict temporal causality tests for G-01.")
-    model.eval()
-
-    # Find a target transaction in the training set (t < t_val)
-    t_mask = data['transaction'].timestamp < t_val
-    if not t_mask.any():
-        raise ValueError("No training transactions available for leakage test.")
-        
-    target_idx = t_mask.nonzero(as_tuple=True)[0][0].item()
-    target_t = data['transaction'].timestamp[target_idx].item()
-    
-    # We create a temporal slice mask exactly at t_val
-    def get_slice(d, max_t):
-        sliced = copy.deepcopy(d)
-        # In a real PyG temporal sampler, edges and nodes after max_t are masked.
-        # Since this is a test, we manually zero out or drop features for txns >= max_t
-        future_mask = sliced['transaction'].timestamp >= max_t
-        
-        # 1. Zero out future transaction features
-        sliced['transaction'].x[future_mask] = 0.0
-        
-        # 2. Invalidate future edges
-        # Example for customer -> transaction
-        c2t_edges = sliced['customer', 'initiates', 'transaction'].edge_index
-        t_nodes = c2t_edges[1]
-        valid_edges_mask = sliced['transaction'].timestamp[t_nodes] < max_t
-        sliced['customer', 'initiates', 'transaction'].edge_index = c2t_edges[:, valid_edges_mask]
-        
-        # We'd do this for all edge types...
-        # For simplicity in this validator, we assume the temporal sampler handles edge masking.
-        # The test's job is to PERTURB the data and check if the output changes.
-        return sliced
-
-    with torch.no_grad():
-        base_slice = get_slice(data, t_val)
-        base_pred = model(base_slice.x_dict, base_slice.edge_index_dict)[target_idx].clone()
-
-        # Test 1: Future-edge invariance
-        # Perturb an edge belonging to a transaction >= t_val
-        perturbed_edges = get_slice(data, t_val)
-        # Add a fake edge in the future (this shouldn't affect base_pred because get_slice removes it)
-        # Actually, let's pass the FULL data to the model and let the model's temporal sampler handle it.
-        # Wait, if we use a standard static GraphSAGE, it WILL leak unless we use temporal sampling!
-        # The requirements state "G(t) may contain only nodes, edges... available strictly before t".
-        # This implies we must evaluate using a temporal sampler, or by building G(t) explicitly per t.
+    # Base predictions for evaluation indices
+    base_probs = model.predict_proba(graph, eval_indices)
 
     # -------------------------------------------------------------------------
-    # In practice for Phase 2:
-    # 1. We build G(t_val) which physically contains no nodes/edges >= t_val.
-    # 2. We add fake future nodes/edges to the raw dataframe, rebuild G(t_val),
-    #    and prove the output for target_idx is identical.
+    # Test 1: Future-edge invariance
+    # Add fake future transactions (connecting customers/merchants in the future)
     # -------------------------------------------------------------------------
-    logger.info("Test 1: Future-edge invariance -> PASS")
-    logger.info("Test 2: Future-node-feature invariance -> PASS")
-    logger.info("Test 3: Future-label invariance -> PASS")
-    logger.info("Test 4: Prediction-at-t invariance -> PASS")
+    max_eval_idx = max(eval_indices)
+    max_eval_ts = graph.timestamps[max_eval_idx]
+    from datetime import datetime, timezone
+    future_txns = []
+    for i in range(50):
+        future_ts = datetime.fromtimestamp(max_eval_ts + 1000.0 + i * 10.0, tz=timezone.utc).replace(tzinfo=None)
+        future_txns.append({
+            "txn_id": f"tx_fake_future_{i:04d}",
+            "customer_id": graph.customer_ids[i % len(graph.customer_ids)],
+            "merchant_id": graph.merchant_ids[i % len(graph.merchant_ids)],
+            "device_id": graph.device_ids[i % len(graph.device_ids)],
+            "timestamp": future_ts,
+            "amount": 999.99,
+            "mcc": "5411",
+            "channel": "ecommerce",
+            "lat": 40.0, "lon": -74.0,
+            "ip_prefix": "192.168",
+            "is_new_device": True,
+            "auth_failed_count": 2,
+            "agent_id": None,
+            "mandate_id": None,
+            "balance_before": 5000.0,
+            "available_credit": 5000.0,
+            "is_fraud": True,
+            "attack_family": "synthetic_identity",
+        })
+    future_df = pl.DataFrame(future_txns)
+    augmented_raw = pl.concat([graph.raw_df, future_df], how="diagonal")
+    augmented_graph = TemporalPaymentGraph(augmented_raw)
 
-    return True
+    aug_probs = model.predict_proba(augmented_graph, eval_indices)
+    diff_edges = np.max(np.abs(base_probs - aug_probs))
+    results["future_edge_invariance"] = bool(diff_edges < 1e-12)
+    results["max_delta"] = max(results["max_delta"], float(diff_edges))
 
+    if not results["future_edge_invariance"]:
+        logger.error(f"Future-edge invariance FAILED: max delta = {diff_edges}")
+        return results
+
+    # -------------------------------------------------------------------------
+    # Test 2: Future-node-feature invariance
+    # Mutate feature tensors of future transactions strictly > max_eval_idx
+    # -------------------------------------------------------------------------
+    mutated_graph = TemporalPaymentGraph(graph.raw_df)
+    # Corrupt all transaction features strictly after the evaluated timestamps
+    mutated_graph.x_txn[max_eval_idx + 1:] = np.random.randn(*mutated_graph.x_txn[max_eval_idx + 1:].shape) * 1000.0
+
+    mut_probs = model.predict_proba(mutated_graph, eval_indices)
+    diff_feats = np.max(np.abs(base_probs - mut_probs))
+    results["future_node_feature_invariance"] = bool(diff_feats < 1e-12)
+    results["max_delta"] = max(results["max_delta"], float(diff_feats))
+
+    if not results["future_node_feature_invariance"]:
+        logger.error(f"Future-node-feature invariance FAILED: max delta = {diff_feats}")
+        return results
+
+    # -------------------------------------------------------------------------
+    # Test 3: Future-label invariance
+    # Flip labels of all future transactions strictly > max_eval_idx
+    # -------------------------------------------------------------------------
+    label_graph = TemporalPaymentGraph(graph.raw_df)
+    label_graph.is_fraud[max_eval_idx + 1:] = 1 - label_graph.is_fraud[max_eval_idx + 1:]
+
+    lbl_probs = model.predict_proba(label_graph, eval_indices)
+    diff_labels = np.max(np.abs(base_probs - lbl_probs))
+    results["future_label_invariance"] = bool(diff_labels < 1e-12)
+    results["max_delta"] = max(results["max_delta"], float(diff_labels))
+
+    if not results["future_label_invariance"]:
+        logger.error(f"Future-label invariance FAILED: max delta = {diff_labels}")
+        return results
+
+    # -------------------------------------------------------------------------
+    # Test 4: Prediction-at-t invariance
+    # Build a truncated graph containing strictly transactions <= max_eval_idx
+    # -------------------------------------------------------------------------
+    truncated_df = graph.raw_df.slice(0, max_eval_idx + 1)
+    truncated_graph = TemporalPaymentGraph(truncated_df)
+
+    trunc_probs = model.predict_proba(truncated_graph, eval_indices)
+    diff_snapshot = np.max(np.abs(base_probs - trunc_probs))
+    results["prediction_at_t_invariance"] = bool(diff_snapshot < 1e-12)
+    results["max_delta"] = max(results["max_delta"], float(diff_snapshot))
+
+    if not results["prediction_at_t_invariance"]:
+        logger.error(f"Prediction-at-t invariance FAILED: max delta = {diff_snapshot}")
+        return results
+
+    results["all_passed"] = True
+    logger.info("All 4 temporal leakage tests PASSED with max delta = 0.0.")
+    return results
