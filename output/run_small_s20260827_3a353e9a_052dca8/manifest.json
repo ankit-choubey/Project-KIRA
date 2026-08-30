@@ -1,0 +1,32 @@
+{
+  "config_hash": "3a353e9a1231",
+  "created_at": "2026-08-30T16:22:03.259403",
+  "git_commit": "052dca8",
+  "is_fixture": false,
+  "n_customers": 1000,
+  "n_merchants": 300,
+  "n_transactions": 47501,
+  "notes": "Automated Project KIRA End-to-End Execution Run",
+  "run_id": "run_small_s20260827_3a353e9a_052dca8",
+  "scale": "small",
+  "seed": 20260827,
+  "stages_completed": [
+    "world_generation",
+    "physics_validation",
+    "feature_extraction",
+    "temporal_splitting",
+    "blue_training",
+    "coevolution_loop",
+    "external_anchor"
+  ],
+  "timings_sec": {
+    "blue_training_sec": 0.11,
+    "coevolution_loop_sec": 11838.823,
+    "external_anchor_sec": 0.001,
+    "feature_extraction_sec": 0.524,
+    "physics_validation_sec": 0.278,
+    "temporal_splitting_sec": 0.004,
+    "total_duration_sec": 12001.136,
+    "world_generation_sec": 101.765
+  }
+}

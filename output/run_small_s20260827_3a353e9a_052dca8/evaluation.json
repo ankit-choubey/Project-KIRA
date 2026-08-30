@@ -1,0 +1,245 @@
+{
+  "ablations": {},
+  "anchor": {
+    "brier": 0.0018,
+    "decision_counts": {
+      "ALLOW": 284310,
+      "BLOCK": 102,
+      "STEP_UP": 395
+    },
+    "ece": 0.0042,
+    "fpr": 0.0003,
+    "latency_p50_ms": 2.15,
+    "latency_p95_ms": 4.8,
+    "latency_p99_ms": 8.3,
+    "pr_auc": 0.864,
+    "precision": 0.891,
+    "recall": 0.793,
+    "roc_auc": 0.982
+  },
+  "fidelity": {
+    "l1_checks": {
+      "device_registration": 0,
+      "foreign_key": 0,
+      "geo_speed": 0,
+      "mandate": 0,
+      "mcc_validity": 0,
+      "negative_balance": 0,
+      "timestamp_order": 0
+    },
+    "l1_violations": 0,
+    "l2_correlation_distance": 0.18,
+    "l2_ks_by_column": {
+      "amount": 0.041,
+      "hour_of_day": 0.028,
+      "mcc": 0.033
+    },
+    "l3_p1_interarrival_ratio": null,
+    "l3_p2_burstiness_ratio": null,
+    "l3_p3_graph_motif_ratio": null,
+    "l3_p4_velocity_trigger_ratio": null,
+    "l3_published_baselines": {},
+    "l4_c2st_auc_entity": null,
+    "l4_c2st_auc_row": null,
+    "l4_top_giveaway_features": [],
+    "l5_trtr_pr_auc": null,
+    "l5_tstr_pr_auc": null
+  },
+  "manifest": {
+    "config_hash": "3a353e9a1231",
+    "created_at": "2026-08-30T16:22:03.259403",
+    "git_commit": "052dca8",
+    "is_fixture": false,
+    "n_customers": 1000,
+    "n_merchants": 300,
+    "n_transactions": 47501,
+    "notes": "Automated Project KIRA End-to-End Execution Run",
+    "run_id": "run_small_s20260827_3a353e9a_052dca8",
+    "scale": "small",
+    "seed": 20260827,
+    "stages_completed": [
+      "world_generation",
+      "physics_validation",
+      "feature_extraction",
+      "temporal_splitting",
+      "blue_training",
+      "coevolution_loop",
+      "external_anchor"
+    ],
+    "timings_sec": {
+      "blue_training_sec": 0.11,
+      "coevolution_loop_sec": 11838.823,
+      "external_anchor_sec": 0.001,
+      "feature_extraction_sec": 0.524,
+      "physics_validation_sec": 0.278,
+      "temporal_splitting_sec": 0.004,
+      "total_duration_sec": 12001.136,
+      "world_generation_sec": 101.765
+    }
+  },
+  "rounds": [
+    {
+      "blue": {
+        "brier": 0.00014,
+        "decision_counts": {
+          "ALLOW": 7088,
+          "BLOCK": 38,
+          "STEP_UP": 0
+        },
+        "ece": 0.0,
+        "fpr": 0.0,
+        "latency_p50_ms": null,
+        "latency_p95_ms": null,
+        "latency_p99_ms": null,
+        "pr_auc": 0.974506,
+        "precision": 1.0,
+        "recall": 0.974359,
+        "roc_auc": 0.987737
+      },
+      "challenger_version": null,
+      "champion_version": "blue_r0_baseline",
+      "promoted": true,
+      "promotion_reasons": [
+        "INITIAL_BASELINE_MODEL"
+      ],
+      "red": {
+        "asr_by_budget": {
+          "1": 0.5331,
+          "100": 0.7772,
+          "20": 0.7772,
+          "5": 0.7288
+        },
+        "asr_heldout_variants": 0.7148,
+        "asr_seen_variants": 0.6934,
+        "asr_unseen_family": null,
+        "invalid_attacks": 0,
+        "mask_violations": 0,
+        "mean_evasion_distance": 3.167
+      },
+      "round_index": 0
+    },
+    {
+      "blue": {
+        "brier": 0.00014,
+        "decision_counts": {
+          "ALLOW": 7088,
+          "BLOCK": 38,
+          "STEP_UP": 0
+        },
+        "ece": 0.0,
+        "fpr": 0.0,
+        "latency_p50_ms": null,
+        "latency_p95_ms": null,
+        "latency_p99_ms": null,
+        "pr_auc": 0.974506,
+        "precision": 1.0,
+        "recall": 0.974359,
+        "roc_auc": 0.987737
+      },
+      "challenger_version": "challenger_r1",
+      "champion_version": "blue_r1",
+      "promoted": true,
+      "promotion_reasons": [
+        "PROMOTED_SECURITY_IMPROVEMENT",
+        "DEMONSTRATED_GENERALISATION_IMPROVEMENT"
+      ],
+      "red": {
+        "asr_by_budget": {
+          "1": 0.0,
+          "100": 0.0,
+          "20": 0.0,
+          "5": 0.0
+        },
+        "asr_heldout_variants": 0.0,
+        "asr_seen_variants": 0.0,
+        "asr_unseen_family": null,
+        "invalid_attacks": 0,
+        "mask_violations": 0,
+        "mean_evasion_distance": 0.0
+      },
+      "round_index": 1
+    },
+    {
+      "blue": {
+        "brier": 0.000406,
+        "decision_counts": {
+          "ALLOW": 7088,
+          "BLOCK": 38,
+          "STEP_UP": 0
+        },
+        "ece": 0.0,
+        "fpr": 0.000141,
+        "latency_p50_ms": null,
+        "latency_p95_ms": null,
+        "latency_p99_ms": null,
+        "pr_auc": 0.952635,
+        "precision": 0.973684,
+        "recall": 0.948718,
+        "roc_auc": 0.98698
+      },
+      "challenger_version": "challenger_r2",
+      "champion_version": "blue_r2",
+      "promoted": true,
+      "promotion_reasons": [
+        "PROMOTED_SECURITY_IMPROVEMENT",
+        "DEMONSTRATED_GENERALISATION_IMPROVEMENT"
+      ],
+      "red": {
+        "asr_by_budget": {
+          "1": 0.0,
+          "100": 0.0,
+          "20": 0.0,
+          "5": 0.0
+        },
+        "asr_heldout_variants": 0.0,
+        "asr_seen_variants": 0.0,
+        "asr_unseen_family": null,
+        "invalid_attacks": 0,
+        "mask_violations": 0,
+        "mean_evasion_distance": 0.0
+      },
+      "round_index": 2
+    },
+    {
+      "blue": {
+        "brier": 0.000414,
+        "decision_counts": {
+          "ALLOW": 7088,
+          "BLOCK": 38,
+          "STEP_UP": 0
+        },
+        "ece": 0.0,
+        "fpr": 0.000141,
+        "latency_p50_ms": null,
+        "latency_p95_ms": null,
+        "latency_p99_ms": null,
+        "pr_auc": 0.937516,
+        "precision": 0.973684,
+        "recall": 0.948718,
+        "roc_auc": 0.98695
+      },
+      "challenger_version": "challenger_r3",
+      "champion_version": "blue_r3",
+      "promoted": true,
+      "promotion_reasons": [
+        "PROMOTED_SECURITY_IMPROVEMENT",
+        "DEMONSTRATED_GENERALISATION_IMPROVEMENT"
+      ],
+      "red": {
+        "asr_by_budget": {
+          "1": 0.0,
+          "100": 0.0,
+          "20": 0.0,
+          "5": 0.0
+        },
+        "asr_heldout_variants": 0.0,
+        "asr_seen_variants": 0.0,
+        "asr_unseen_family": null,
+        "invalid_attacks": 0,
+        "mask_violations": 0,
+        "mean_evasion_distance": 0.0
+      },
+      "round_index": 3
+    }
+  ]
+}
