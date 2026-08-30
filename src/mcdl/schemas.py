@@ -65,6 +65,23 @@ class HardNegative(str, Enum):
     SHARED_FAMILY_DEVICE = "shared_family_device"
 
 
+class FailureCategory(str, Enum):
+    """Failure taxonomy (W1..W12) classifying defense blind spots and attacker evasion strategies."""
+
+    W1_VELOCITY_BLINDNESS = "W1_velocity_blindness"
+    W2_DEVICE_NOVELTY_BLINDNESS = "W2_device_novelty_blindness"
+    W3_GEOGRAPHIC_CAMOUFLAGE = "W3_geographic_camouflage"
+    W4_MERCHANT_COLLUSION = "W4_merchant_collusion"
+    W5_LOW_AND_SLOW = "W5_low_and_slow"
+    W6_GRAPH_CAMOUFLAGE = "W6_graph_camouflage"
+    W7_INTENT_DRIFT = "W7_intent_drift"
+    W8_COORDINATED_MULTI_ACCOUNT = "W8_coordinated_multi_account"
+    W9_SYNTHETIC_IDENTITY = "W9_synthetic_identity"
+    W10_AGENT_SWARM = "W10_agent_swarm"
+    W11_TEMPORAL_CAMOUFLAGE = "W11_temporal_camouflage"
+    W12_OPEN_SET_ANOMALY = "W12_open_set_anomaly"
+
+
 # --------------------------------------------------------------------------- #
 # World entities
 # --------------------------------------------------------------------------- #
@@ -276,6 +293,69 @@ class Counterfactual(BaseModel):
     human_readable: str | None = None
 
 
+class FailureRecord(BaseModel):
+    """Comprehensive, versioned failure record for diagnosed Blue blind spots."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    failure_id: str
+    attack_id: str
+    attack_family: AttackFamily
+    world_id: str = "world_a"
+    base_transaction_id: str
+
+    model_version: str = "0.1.0"
+    feature_version: str = "0.1.0"
+    policy_version: str = "0.1.0"
+
+    risk_score: float = Field(ge=0.0, le=1.0)
+    calibrated_score: float = Field(ge=0.0, le=1.0)
+    decision: Decision
+    detected: bool = False
+
+    primary_failure_category: FailureCategory
+    optional_secondary_categories: list[FailureCategory] = Field(default_factory=list)
+
+    mutable_fields: list[str] = Field(default_factory=list)
+    mutation_values: dict[str, Any] = Field(default_factory=dict)
+    mutation_distance: float = 0.0
+
+    query_count: int = 0
+    query_budget: int = 20
+    attack_cost: float = 0.0
+
+    fidelity_score: float = 1.0
+    novelty_score: float = 0.0
+    hardness_score: float = 0.0
+    boundary_proximity: float = 0.0
+    rarity_score: float = 0.0
+    priority_score: float = 0.0
+
+    intent_drift_score: float | None = None
+
+    generator_version: str = "0.1.0"
+    timestamp: datetime
+    seed: int = 0
+
+    provenance: dict[str, Any] = Field(default_factory=dict)
+
+
+class WeaknessProfile(BaseModel):
+    """Synthesized Blue weakness profile used for adaptive Red reseeding."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    round_index: int
+    total_failures: int
+    dominant_categories: list[tuple[str, float]] = Field(default_factory=list)
+    category_distribution: dict[str, float] = Field(default_factory=dict)
+    frequent_mutations: dict[str, Any] = Field(default_factory=dict)
+    near_boundary_count: int = 0
+    high_value_attack_surfaces: list[str] = Field(default_factory=list)
+    rare_successful_patterns: list[dict[str, Any]] = Field(default_factory=list)
+    reseeding_weights: dict[str, float] = Field(default_factory=dict)
+
+
 # --------------------------------------------------------------------------- #
 # Evaluation
 # --------------------------------------------------------------------------- #
@@ -344,6 +424,85 @@ class RedMetrics(BaseModel):
     invalid_attacks: int = 0
 
 
+class PromotionDecision(BaseModel):
+    """Formal audit decision from the multi-objective promotion gate."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    promoted: bool
+    champion_version: str
+    challenger_version: str
+    reasons: list[str] = Field(default_factory=list)
+    metrics_evaluated: dict[str, float] = Field(default_factory=dict)
+    thresholds: dict[str, float] = Field(default_factory=dict)
+
+
+class AdaptationCost(BaseModel):
+    """Measured computational and time cost for Red/Blue adaptation."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    attack_generation_time_s: float = 0.0
+    training_time_s: float = 0.0
+    evaluation_time_s: float = 0.0
+    total_compute_s: float = 0.0
+    retraining_steps: int = 0
+    memory_mb: float = 0.0
+
+
+class ScoreboardEntry(BaseModel):
+    """Granular round-level co-evolution scoreboard entry."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    round_index: int
+    red_asr_seen: float
+    heldout_asr: float
+    hidden_family_asr: float | None = None
+    med: float | None = None
+    fidelity_score: float = 1.0
+    novelty_score: float = 0.0
+    coverage_score: float = 1.0
+    blue_pr_auc: float | None = None
+    blue_fpr: float | None = None
+    blue_ece: float | None = None
+    robustness_retention: float = 1.0
+    plasticity: float = 0.0
+    latency_p95_ms: float | None = None
+    adaptation_cost_s: float = 0.0
+    champion_version: str = "blue_r0"
+
+
+class ExperimentRecord(BaseModel):
+    """Reproducible experiment record for EXP-007-A..H evidence ladder."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    exp_id: str
+    hypothesis: str
+    dataset_world_version: str
+    code_commit: str
+    configuration_hash: str
+    seed: int
+    baseline_name: str
+    treatment_name: str
+    metrics: dict[str, float] = Field(default_factory=dict)
+    result_status: Literal["VERIFIED", "TARGET", "RESULT", "TARGET_NOT_MET"]
+    conclusion: str
+    artifact_path: str
+
+
+class ThreeWorldResult(BaseModel):
+    """Evaluation summary across World A (Evolution), World B (Shifted Physics), and World C (Hidden)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    world_a_evolution: dict[str, Any] = Field(default_factory=dict)
+    world_b_shifted_physics: dict[str, Any] = Field(default_factory=dict)
+    world_c_hidden_families: dict[str, Any] = Field(default_factory=dict)
+    isolation_verified: bool = True
+
+
 class RoundResult(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -354,6 +513,8 @@ class RoundResult(BaseModel):
     promotion_reasons: list[str] = Field(default_factory=list)
     blue: BlueMetrics
     red: RedMetrics
+    promotion_decision: PromotionDecision | None = None
+    adaptation_cost: AdaptationCost | None = None
 
 
 class RunManifest(BaseModel):

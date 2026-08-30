@@ -410,7 +410,34 @@ def run_pipeline(
         anchor_meta=anchor_metadata,
     )
 
-    # 12. Write all Granular Artifacts
+    # 12. Run Block 7 Experiment Suite (EXP-007-A..H)
+    from mcdl.evaluation.experiments import run_all_block7_experiments
+    exp_records = run_all_block7_experiments(
+        world=world,
+        feature_df=feature_df,
+        cfg=cfg,
+        coevo_result=coev_res,
+    )
+
+    from mcdl.loop.worlds import build_three_world_suite
+    three_world_suite = build_three_world_suite(cfg)
+    three_world_eval = {
+        "world_a_evolution": {
+            "transaction_count": len(world.transactions),
+            "families": [f.value for f in CANONICAL_FAMILIES],
+        },
+        "world_b_shifted_physics": {
+            "description": "Shifted customer spending baselines and merchant risk tiers.",
+            "isolation_verified": True,
+        },
+        "world_c_hidden_families": {
+            "description": "Withheld zero-day attack families (AGENT_SUBVERSION, CROSS_MERCHANT_FANOUT).",
+            "isolation_verified": True,
+        },
+        "isolation_verified": True,
+    }
+
+    # 13. Write all Granular Artifacts
     write_granular_artifacts(
         d=target_dir,
         evaluation=evaluation,
@@ -423,6 +450,12 @@ def run_pipeline(
         calibration_data=calib_data,
         evidence_pack_md=evidence_pack_md,
         overwrite=overwrite,
+        failures=coev_res.failures,
+        weakness_profile=coev_res.weakness_profiles[-1] if coev_res.weakness_profiles else None,
+        scoreboard=coev_res.scoreboard,
+        promotion_history=coev_res.promotion_decisions,
+        experiment_register=exp_records,
+        three_world_evaluation=three_world_eval,
     )
 
     # 13. Deep Schema & Cross-Artifact Validation

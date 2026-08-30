@@ -6,6 +6,55 @@ Never write "done". Write what changed, what you ran, and what the gate said.
 
 ---
 
+## 2026-08-31 · BLOCK 7 Adaptive Co-Evolution Engine · Antigravity
+
+**BLOCK:** 7 — Adaptive Red/Blue Co-Evolution Engine, Failure Analysis, Multi-Objective Promotion & Empirical Experiment Matrix (`EXP-007-A` through `EXP-007-H`).
+
+**DONE:** Implemented full adaptive co-evolution layer and scientific evidence verification ladder:
+1. **12-Class Failure Taxonomy (W1..W12) & Weakness Profiling**: Built `FailureAnalyzer` in `src/mcdl/loop/failure.py` mapping evasions to $W_1$–$W_{12}$ failure categories, computing composite priority scores ($w_H \cdot H + w_N \cdot N + w_B \cdot B + w_R \cdot R$), and synthesizing `WeaknessProfile` objects for Red reseeding.
+2. **Prioritized Replay Buffer**: Upgraded `ReplayBuffer` in `src/mcdl/loop/replay.py` with priority-weighted sampling (`sample_prioritized`) and strict zero-metadata feature extraction (`to_feature_rows`).
+3. **Weakness-Driven Adaptive Red Engine**: Implemented `AdaptiveRedEngine` in `src/mcdl/red/adaptive.py` dynamically biasing mutation distributions and search operators towards diagnosed defensive vulnerabilities while strictly enforcing physical constraints, mutability masks, and query budget limits.
+4. **Three-World Multi-Objective Suite**: Implemented `build_three_world_suite` in `src/mcdl/loop/worlds.py` with runtime zero-day assertion $\text{AdaptationFamilies} \cap \text{HiddenFamilies} = \emptyset$.
+5. **Multi-Objective Promotion Gate & Automated Rollback**: Built `MultiObjectivePromotionGate` in `src/mcdl/loop/promotion.py` tracking Detection (PR-AUC), Robustness (Held-out ASR), Calibration (ECE $\le 0.08$), Anti-Forgetting (Retention $\ge 0.95$), FPR ($\le 0.05$), Approval Rate ($\ge 70\%$), and Latency ($P_{95} \le 25\text{ ms}$) with deterministic rollback.
+6. **Block 7 Experiment Matrix (EXP-007-A..H)**: Implemented complete suite in `src/mcdl/evaluation/experiments.py` executing and registering all 8 empirical experiments with reproducible manifests.
+7. **Granular Artifacts & Scoreboards**: Updated `src/mcdl/artifacts.py` and `src/mcdl/pipeline.py` emitting `failures.json`, `weakness_profile.json`, `scoreboard.json`, `promotion_history.json`, `experiment_register.json`, and `three_world_evaluation.json`.
+8. **Test Suites & Invariants**: Created unit tests (`tests/unit/test_failure_analysis.py`, `tests/unit/test_adaptive_red.py`, `tests/unit/test_promotion_gate.py`, `tests/unit/test_experiments.py`) and all 10 invariant tests in `tests/invariants/test_block7_invariants.py`.
+
+**FILES:** `src/mcdl/schemas.py`, `src/mcdl/loop/failure.py`, `src/mcdl/loop/replay.py`, `src/mcdl/red/adaptive.py`, `src/mcdl/loop/worlds.py`, `src/mcdl/loop/promotion.py`, `src/mcdl/loop/metrics.py`, `src/mcdl/loop/coevolution.py`, `src/mcdl/evaluation/experiments.py`, `src/mcdl/artifacts.py`, `src/mcdl/pipeline.py`, `tools/run_coevolution.py`, `tools/run_experiments.py`, `tests/unit/test_failure_analysis.py`, `tests/unit/test_adaptive_red.py`, `tests/unit/test_promotion_gate.py`, `tests/unit/test_experiments.py`, `tests/invariants/test_block7_invariants.py`, `docs/experiments/EXPERIMENT_REGISTER.md`, `docs/research/CLAIM_REGISTER.md`, `docs/architecture/COEVOLUTION_ENGINE.md`.
+
+**COMMANDS RUN:**
+```bash
+python3 -m pytest tests/unit/test_failure_analysis.py tests/unit/test_adaptive_red.py tests/unit/test_promotion_gate.py tests/unit/test_experiments.py tests/invariants/test_block7_invariants.py -v
+PYTHONPATH=src python3 -m mcdl.pipeline
+python3 -m tools.gates all
+```
+
+**GATE RESULT:** ALL GATES PASSED (GATES 0–7 PASS, 116 unit/invariant tests green).
+
+---
+
+## 2026-08-30 · BLOCK 6 Authoritative Cloud Run · Antigravity
+
+**BLOCK:** 6 — Authoritative Cloud Execution Pipeline & Bundle Extraction (`02_full_run.ipynb`).
+
+**DONE:** Successfully executed the end-to-end cloud pipeline on Kaggle CPU (Version 7, commit `9cfa1e1`):
+1. **Cloud Runtime Execution**: Executed `run_pipeline(scale="tiny", seed=20260827, n_rounds=4, overwrite=True)` in 318 seconds (~5.3 minutes) on Linux x86_64 with 31.35 GB RAM.
+2. **Artifact Packaging & Integrity**: Generated all 17 granular JSON/Markdown artifacts, validated deep schema conformance, verified 100% SHA-256 cryptographic hashes in `provenance.json`, and packaged `project_kira_artifacts.tar.gz` (0.72 MB).
+3. **Local Ingestion**: Pulled cloud artifacts into `artifacts/run_tiny_s20260827_193f7897_9cfa1e1`, updated `artifacts/LATEST`, verified Gate 6, bound all claims in `brain/CLAIMS.md`, and updated `brain/PROJECT_CONTEXT.md`.
+
+**FILES:** `notebooks/kaggle/02_full_run.ipynb`, `artifacts/run_tiny_s20260827_193f7897_9cfa1e1/*`, `artifacts/project_kira_artifacts.tar.gz`, `brain/CLAIMS.md`, `brain/PROJECT_CONTEXT.md`, `brain/HANDOFF.md`.
+
+**COMMANDS RUN:**
+```bash
+kaggle kernels output theankitchoubey/project-kira-full-authoritative-cloud-run -p kaggle_artifacts
+python3 -m tools.gates 6
+python3 -m tools.brain_update
+```
+
+**GATE RESULT:** GATE 6 PASSED — Authoritative Cloud Run `run_tiny_s20260827_193f7897_9cfa1e1` verified with complete cryptographic provenance.
+
+---
+
 ## 2026-08-30 · BLOCK 6 · Antigravity
 
 **BLOCK:** 6 — Artifact Generation, External Real-World Anchor & Pipeline Execution (Gate 6).

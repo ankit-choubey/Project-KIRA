@@ -93,3 +93,17 @@ ledger state. Proving balance validity through pre-state sequences prevents post
 feature leakage into training datasets while strictly catching ledger transition bugs.
 
 **Rules out:** Adding `balance_after` to `Transaction` or manufacturing fake post-event fields.
+
+### D-009 · Adaptive Red/Blue Co-Evolution with Failure Diagnosis and Strict Zero-Day Isolation
+
+**Decision:** Block 7 implements genuine adaptive co-evolution using:
+1. **12-Class Failure Taxonomy (W1..W12)**: Systematically classifies defensive blind spots (velocity blindness, low-and-slow, intent drift, geo camouflage, multi-account coordination).
+2. **Failure-Driven WeaknessProfiles**: Round $r$ Red search distributions and mutation ranges are dynamically re-seeded based on Round $r-1$ observed failures, avoiding memorized replays.
+3. **Prioritized Replay Hardening**: Replay buffer samples evasions proportional to a composite priority score ($\text{hardness}, \text{novelty}, \text{boundary\_proximity}, \text{rarity}$), converting to observable features with zero metadata leakage.
+4. **Three-World Evaluation & Zero-Day Isolation**: World A (Evolution), World B (Shifted Physics), and World C (Hidden Families) enforce hard runtime isolation $\text{Adaptation} \cap \text{Hidden} = \emptyset$.
+5. **Multi-Objective Promotion Gate with Deterministic Rollback**: Challenger promotion requires meeting PR-AUC, Held-out ASR reduction, FPR ($\le 0.05$), ECE ($\le 0.08$), Retention ($\ge 0.95$), and Latency budgets. Failed promotions trigger automated rollback.
+6. **No Architecture Bloat**: Excludes GNN, RL (PPO/DQN), Diffusion, LLMs, and Generative Replay, maintaining pure constrained mutation search, LightGBM, isotonic calibration, and cost-sensitive Bayesian routing.
+
+**Why:** Real-world payment defense requires measurable, generalizable robustness against adaptive adversaries without destroying legitimate transaction approval or introducing unmaintainable complex models.
+
+**Rules out:** Fake adaptation (random seeds without weakness feedback), circular evaluation (testing on training attack variants), unisolated zero-day claims, and architecture bloat.

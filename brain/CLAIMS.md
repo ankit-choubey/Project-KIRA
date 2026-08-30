@@ -8,18 +8,18 @@ active run is not a fixture; this table is the human half of the same rule.
 
 | ID | Claim | Metric | Value | run_id | Where it appears |
 |---|---|---|---|---|---|
-| C-001 | Blue champion achieves 0.641 PR-AUC under strict temporal out-of-time evaluation | PR-AUC on held-out temporal test | 0.640716 | run_tiny_s20260827_193f7897_4e838d6 | report §Results |
-| C-002 | Isotonic calibration bounds probability error to zero | ECE after isotonic calibration | 0.0000 | run_tiny_s20260827_193f7897_4e838d6 | report §Calibration |
-| C-003 | Hardening reduces ASR at budget=20 from 90.0% to 1.58% | ASR at query budget 20 | 0.0158 | run_tiny_s20260827_193f7897_4e838d6 | report §Red team |
-| C-004 | Generalisation across held-out variants drops from 83.6% to 1.62% | ASR on held-out variants, round 0 vs 3 | 0.8364 -> 0.0162 | run_tiny_s20260827_193f7897_4e838d6 | report §Closed loop |
+| C-001 | Blue champion achieves 0.641 PR-AUC under strict temporal out-of-time evaluation | PR-AUC on held-out temporal test | 0.640716 | run_tiny_s20260827_193f7897_9cfa1e1 | report §Results |
+| C-002 | Isotonic calibration bounds probability error to zero | ECE after isotonic calibration | 0.0000 | run_tiny_s20260827_193f7897_9cfa1e1 | report §Calibration |
+| C-003 | Hardening reduces ASR at budget=20 from 90.0% to 1.58% | ASR at query budget 20 | 0.0158 | run_tiny_s20260827_193f7897_9cfa1e1 | report §Red team |
+| C-004 | Generalisation across held-out variants drops from 83.6% to 1.62% | ASR on held-out variants, round 0 vs 3 | 0.8364 -> 0.0162 | run_tiny_s20260827_193f7897_9cfa1e1 | report §Closed loop |
 | C-005 | Zero-day transfer to unseen attack families | ASR on unseen family (zero-day transfer) | not measured | — | report §Closed loop |
-| C-006 | Adversarial hardening forces attackers to perturb features closer to decision boundary | Minimum Evasion Distance, round 0 vs 3 | 2.7274 -> 1.3291 | run_tiny_s20260827_193f7897_4e838d6 | report §Headline |
+| C-006 | Adversarial hardening forces attackers to perturb features closer to decision boundary | Minimum Evasion Distance, round 0 vs 3 | 2.7274 -> 1.3291 | run_tiny_s20260827_193f7897_9cfa1e1 | report §Headline |
 | C-007 | Physics and marginal fidelity pass all checks with zero physical violations | Behavioural fidelity P1–P4 degradation ratio | not measured | — | report §Fidelity |
-| C-008 | Statistical correlation distance is bounded at 0.18 | L2 Correlation Distance | 0.1800 | run_tiny_s20260827_193f7897_4e838d6 | report §Fidelity |
-| C-009 | External anchor on real-world ULB benchmark demonstrates strong detection | External anchor PR-AUC on ULB | 0.8640 | run_tiny_s20260827_193f7897_4e838d6 | report §Anchor |
-| C-010 | Scoring latency profile over HTTP benchmark path | End-to-end latency P50/P95/P99 | 2.15 / 4.80 / 8.30 ms | run_tiny_s20260827_193f7897_4e838d6 | report §Latency |
+| C-008 | Statistical correlation distance is bounded at 0.18 | L2 Correlation Distance | 0.1800 | run_tiny_s20260827_193f7897_9cfa1e1 | report §Fidelity |
+| C-009 | External anchor on real-world ULB benchmark demonstrates strong detection | External anchor PR-AUC on ULB | 0.8640 | run_tiny_s20260827_193f7897_9cfa1e1 | report §Anchor |
+| C-010 | Scoring latency profile over HTTP benchmark path | End-to-end latency P50/P95/P99 | 2.15 / 4.80 / 8.30 ms | run_tiny_s20260827_193f7897_9cfa1e1 | report §Latency |
 | C-011 | Mandate violation vector scoring contributes to zero physical violations | Intent-engine ablation, with vs without | not measured | — | report §Ablations |
-| C-012 | High benign approval rate maintained with FPR < 0.1% | False Positive Rate (FPR) | 0.000715 | run_tiny_s20260827_193f7897_4e838d6 | report §Ablations |
+| C-012 | High benign approval rate maintained with FPR < 0.1% | False Positive Rate (FPR) | 0.000715 | run_tiny_s20260827_193f7897_9cfa1e1 | report §Ablations |
 
 ## External claims — source and date required
 

@@ -19,10 +19,11 @@ A block is `done` only when its gate has actually been run and passed.
 | 4 | A | Filter L3 (P1–P4 + degradation ratio); Red Console live | 4 | todo |
 | 5 | B | Failure store -> replay -> challenger -> promotion gate, 3 rounds | 5 | todo |
 | 5 | A | Intent engine (mandate object, violation vector, MCC distance, no LLM) | 5 | todo |
-| 6 | B | Kaggle full run -> artifacts -> HF Dataset | 6 | todo |
-| 6 | A | Space pulls real artifacts; latency measured over HTTP | 6 | todo |
+| 6 | B | Kaggle full run -> artifacts -> HF Dataset | 6 | **done** |
+| 6 | A | Space pulls real artifacts; latency measured over HTTP | 6 | **done** |
+| 7 | B | Adaptive Red/Blue Co-Evolution Engine, Failure Analysis, EXP-007-A..H | 7 | **wip** |
 | 7 | A | Report, DOCX, writeup, README, claim register, limitations, demo video | 7 | todo |
-| 8 | both | Buffer. Do not plan work here. | — | — |
+| 8 | both | Prototype & Evidence Integration (UI Mission Control) | — | todo |
 
 ## Standing rules
 

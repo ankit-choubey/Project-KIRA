@@ -123,6 +123,60 @@ export interface RoundResult {
   promotion_reasons: string[];
   blue: BlueMetrics;
   red: RedMetrics;
+  promotion_decision?: PromotionDecision | null;
+  adaptation_cost?: AdaptationCost | null;
+}
+
+export interface PromotionDecision {
+  promoted: boolean;
+  champion_version: string;
+  challenger_version: string;
+  reasons: string[];
+  metrics_evaluated: Record<string, number>;
+  thresholds: Record<string, number>;
+}
+
+export interface AdaptationCost {
+  attack_generation_time_s: number;
+  training_time_s: number;
+  evaluation_time_s: number;
+  total_compute_s: number;
+  retraining_steps: number;
+  memory_mb: number;
+}
+
+export interface ScoreboardEntry {
+  round_index: number;
+  red_asr_seen: number;
+  heldout_asr: number;
+  hidden_family_asr: number | null;
+  med: number | null;
+  fidelity_score: number;
+  novelty_score: number;
+  coverage_score: number;
+  blue_pr_auc: number | null;
+  blue_fpr: number | null;
+  blue_ece: number | null;
+  robustness_retention: number;
+  plasticity: number;
+  latency_p95_ms: number | null;
+  adaptation_cost_s: number;
+  champion_version: string;
+}
+
+export interface ExperimentRecord {
+  exp_id: string;
+  hypothesis: string;
+  dataset_world_version: string;
+  code_commit: string;
+  configuration_hash: string;
+  seed: number;
+  baseline_name: string;
+  treatment_name: string;
+  metrics: Record<string, number>;
+  result_status: "VERIFIED" | "TARGET" | "RESULT" | "TARGET_NOT_MET";
+  conclusion: string;
+  artifact_path: string;
 }
 
 export interface FidelityReport {

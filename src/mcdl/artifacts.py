@@ -228,6 +228,7 @@ def write_granular_artifacts(
     calibration_data: dict[str, Any] | None = None,
     evidence_pack_md: str | None = None,
     overwrite: bool = False,
+    **kwargs: Any,
 ) -> None:
     """Writes all individual domain-specific artifacts and generates provenance checksums."""
     if is_run_finalized(d) and not overwrite:
@@ -306,11 +307,54 @@ def write_granular_artifacts(
         encoding="utf-8",
     )
 
-    # 13. Evidence Pack Markdown
+    # 13. Block 7 Granular Artifacts (if provided)
+    failures = kwargs.get("failures")
+    if failures is not None:
+        (d / "failures.json").write_text(
+            canonical_json_dumps([json.loads(f.model_dump_json()) if hasattr(f, "model_dump_json") else f for f in failures]),
+            encoding="utf-8",
+        )
+
+    weakness_profile = kwargs.get("weakness_profile")
+    if weakness_profile is not None:
+        (d / "weakness_profile.json").write_text(
+            canonical_json_dumps(json.loads(weakness_profile.model_dump_json()) if hasattr(weakness_profile, "model_dump_json") else weakness_profile),
+            encoding="utf-8",
+        )
+
+    scoreboard = kwargs.get("scoreboard")
+    if scoreboard is not None:
+        (d / "scoreboard.json").write_text(
+            canonical_json_dumps([json.loads(s.model_dump_json()) if hasattr(s, "model_dump_json") else s for s in scoreboard]),
+            encoding="utf-8",
+        )
+
+    promotion_history = kwargs.get("promotion_history")
+    if promotion_history is not None:
+        (d / "promotion_history.json").write_text(
+            canonical_json_dumps([json.loads(p.model_dump_json()) if hasattr(p, "model_dump_json") else p for p in promotion_history]),
+            encoding="utf-8",
+        )
+
+    experiment_register = kwargs.get("experiment_register")
+    if experiment_register is not None:
+        (d / "experiment_register.json").write_text(
+            canonical_json_dumps([json.loads(e.model_dump_json()) if hasattr(e, "model_dump_json") else e for e in experiment_register]),
+            encoding="utf-8",
+        )
+
+    three_world_eval = kwargs.get("three_world_evaluation")
+    if three_world_eval is not None:
+        (d / "three_world_evaluation.json").write_text(
+            canonical_json_dumps(json.loads(three_world_eval.model_dump_json()) if hasattr(three_world_eval, "model_dump_json") else three_world_eval),
+            encoding="utf-8",
+        )
+
+    # 14. Evidence Pack Markdown
     if evidence_pack_md:
         (d / "evidence_pack.md").write_text(evidence_pack_md, encoding="utf-8")
 
-    # 14. Provenance Manifest (Hashes of all above files)
+    # 15. Provenance Manifest (Hashes of all above files)
     prov = generate_provenance_manifest(d)
     (d / "provenance.json").write_text(canonical_json_dumps(prov), encoding="utf-8")
 
