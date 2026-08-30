@@ -981,7 +981,7 @@ def run_final(manager: CheckpointManager) -> None:
         final_dir.mkdir(parents=True, exist_ok=True)
 
         master_results = {}
-        for s in ["S00", "S01", "A01", "A02", "G01", "G02", "G04", "G05"]:
+        for s in ["S00", "S01", "A01", "A02", "G01", "G02", "G03", "G04", "G05"]:
             s_file = PHASE2_DIR / s / "status.json"
             if s_file.exists():
                 try:
@@ -1018,7 +1018,8 @@ def run_final(manager: CheckpointManager) -> None:
             "- Temporal Split Integrity: Strict out-of-time ordering (train < val < test) and disjoint partitions mathematically verified.\n"
             "- A-01 confirms PR-AUC sensitivity across 1d, 3d, 7d, 14d label delay windows.\n"
             "- A-02 multi-seed statistical evaluation quantifies variance across seeds without cherry-picking.\n"
-            "- G-05 graph topology ablation isolates relational graph uplift from shuffled control.\n\n"
+            "- G-05 graph topology ablation isolates relational graph uplift from shuffled control.\n"
+            "- G-03 4-arm causal fusion evaluates incremental relational predictive value against shuffled topology controls.\n\n"
             "## 3. WHAT REMAINS UNMEASURED\n"
             "- Tier C RL (R-01) and LLM (LLM-01) exploratory components remain isolated and time-gated.\n"
         )

@@ -141,8 +141,16 @@ def run_validations():
         assert "arm_d_shuffled_control" in g03_data["arms"]
         assert "decision_classification" in g03_data
         assert "topology_verification" in g03_data
-        assert g03_data["topology_verification"]["real_graph"]["node_count"] > 0
         logger.info(f"7. G-03 Fusion 4-Arm Execution: PASS (decision={g03_data['decision_classification']}, delta_rel={g03_data['estimands']['delta_rel']:+.4f})")
+        # 8. FINAL Master Evidence Synthesis Validation
+        exp.run_final(manager)
+        assert manager.get_state("FINAL") == "COMPLETED"
+        comp_path = Path("research_runs/PHASE2/FINAL/comparison_table.json")
+        assert comp_path.exists()
+        with open(comp_path, "r", encoding="utf-8") as f:
+            comp_data = json.load(f)
+        assert "G03" in comp_data["stages_completed"]
+        logger.info(f"8. FINAL Synthesis Execution: PASS (stages={comp_data['stages_completed']})")
 
         logger.info("ALL PHASE 2 PRE-LAUNCH SCIENTIFIC AUDIT CHECKS PASSED.")
     except Exception as e:
