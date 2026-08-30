@@ -1,0 +1,24 @@
+{
+  "baseline_git_commit": "base_commit",
+  "baseline_run_id": "base_run",
+  "config_hash": "",
+  "end_time": "2026-08-30T22:42:05.435491+00:00",
+  "exception": null,
+  "experiment_id": "S00",
+  "git_commit": "commit_123",
+  "input_artifact_hashes": {},
+  "metrics": {
+    "test": true
+  },
+  "output_paths": [],
+  "output_sha256": {},
+  "peak_gpu_mb": 0,
+  "peak_ram_mb": 0,
+  "run_id": "run_test",
+  "runtime_sec": 0.00021175000074435957,
+  "seed": 20260827,
+  "stage_id": "S00",
+  "start_time": "1970-01-01T08:39:00.633842+00:00",
+  "status": "COMPLETED",
+  "termination_reason": null
+}
