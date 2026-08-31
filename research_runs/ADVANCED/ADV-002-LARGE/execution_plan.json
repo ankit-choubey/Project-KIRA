@@ -1,0 +1,50 @@
+{
+  "experiment_id": "ADV-002-LARGE",
+  "execution_scope": "CLOUD_ONLY",
+  "total_campaigns": 10,
+  "rounds_per_campaign": 100,
+  "agents_per_round": 5,
+  "attempts_per_campaign": 500,
+  "total_attempts": 5000,
+  "execution_stages": [
+    {
+      "stage_id": "STG_01_INIT",
+      "name": "Environment and Baseline Ingestion",
+      "actions": [
+        "Load frozen Blue detector (artifacts/run_tiny_s20260827_193f7897_40997ab)",
+        "Ingest 10,000 historical attempts from ADV-001 attack memory (read-only)",
+        "Verify SHA-256 integrity of ADV-001 memory",
+        "Extract 10 blocked/step-up candidate transactions from test split"
+      ]
+    },
+    {
+      "stage_id": "STG_02_SWARM_CAMPAIGNS",
+      "name": "Multi-Agent Stateful Campaigns",
+      "actions": [
+        "Iterate campaigns 1..10 for each candidate target",
+        "Execute 100 rounds per campaign across 5 specialized agents",
+        "Evaluate mutations via RedSearchEngine against BlueDetector",
+        "Compute multi-objective rewards and assign terminal outcomes",
+        "Update private agent state and append to shared memory",
+        "Persist atomic checkpoints per round to disk"
+      ]
+    },
+    {
+      "stage_id": "STG_03_AUDIT_SYNTHESIS",
+      "name": "Synthesis and Integrity Verification",
+      "actions": [
+        "Compute aggregate swarm metrics and behavioral adaptation metrics",
+        "Verify terminal outcome accounting closure (sum == 5,000)",
+        "Verify ADV-001 read-only memory SHA-256 integrity",
+        "Verify baseline 22/22 artifact SHA-256 integrity",
+        "Persist final metrics.json, adaptation_metrics.json, and evidence package"
+      ]
+    }
+  ],
+  "checkpointing_policy": {
+    "frequency": "PER_ROUND",
+    "atomic_write": true,
+    "resumable": true,
+    "overwrite_protection": true
+  }
+}

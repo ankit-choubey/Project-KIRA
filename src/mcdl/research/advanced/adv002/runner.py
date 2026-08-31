@@ -66,11 +66,13 @@ class ADV002Runner:
     def __init__(
         self,
         scale: ADV002Scale | str = ADV002Scale.SMOKE,
+        mode: str = "adaptive_memory",
         base_seed: int = 20260831,
         output_dir: Path | str | None = None,
         adv001_memory_path: Path | str | None = None,
     ) -> None:
         self.scale = ADV002Scale(scale) if isinstance(scale, str) else scale
+        self.mode = mode
         self.base_seed = base_seed
         self.output_dir = Path(output_dir) if output_dir else REPO_ROOT / "research_runs" / "ADVANCED" / "ADV-002"
         self.adv001_memory_path = Path(adv001_memory_path) if adv001_memory_path else REPO_ROOT / "research_runs" / "ADVANCED" / "ADV-001" / "attack_memory.jsonl"
@@ -86,6 +88,7 @@ class ADV002Runner:
         print("=" * 70)
         print("ADV-002 RESOLVED CONFIGURATION:")
         print(f"  Scale: {self.scale.value}")
+        print(f"  Mode: {self.mode}")
         print(f"  Agents: 5 stateful specialized agents")
         print(f"  Rounds per Agent: {rounds_per_campaign}")
         print(f"  Targets: {n_targets}")
@@ -153,7 +156,7 @@ class ADV002Runner:
 
         # 4. Instantiate Swarm Agents, Policy, and Evaluator
         agents = create_canonical_agent_swarm(base_seed=self.base_seed)
-        policy = DeterministicAdaptivePolicy(PolicyConfig())
+        policy = DeterministicAdaptivePolicy(PolicyConfig(mode=self.mode))
         evaluator = SwarmEvaluator(engine=red_engine, blue_model_version="run_tiny_s20260827_193f7897_40997ab")
 
         # 5. Configure Scheduler
@@ -296,18 +299,20 @@ class ADV002Runner:
         }
 
 
-def run_adv002(scale: str = "smoke", seed: int = 20260831) -> dict[str, Any]:
-    runner = ADV002Runner(scale=scale, base_seed=seed)
+def run_adv002(scale: str = "smoke", mode: str = "adaptive_memory", seed: int = 20260831, output_dir: Path | str | None = None) -> dict[str, Any]:
+    runner = ADV002Runner(scale=scale, mode=mode, base_seed=seed, output_dir=output_dir)
     return runner.run()
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="ADV-002 Stateful Swarm Runner")
     parser.add_argument("--scale", type=str, default="smoke", choices=["smoke", "standard", "large"])
+    parser.add_argument("--mode", type=str, default="adaptive_memory", choices=["adaptive_memory", "static_control", "memory_disabled"])
     parser.add_argument("--seed", type=int, default=20260831)
+    parser.add_argument("--output-dir", type=str, default=None)
     args = parser.parse_args()
 
-    result = run_adv002(scale=args.scale, seed=args.seed)
+    result = run_adv002(scale=args.scale, mode=args.mode, seed=args.seed, output_dir=args.output_dir)
     print(json.dumps(result["metrics"], indent=2))
 
 

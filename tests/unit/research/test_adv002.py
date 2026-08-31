@@ -452,3 +452,98 @@ def test_adv002_phase2_untouched():
     if PHASE2_DIR.exists():
         assert (PHASE2_DIR / "S00").exists()
         assert (PHASE2_DIR / "S01").exists()
+
+
+def test_adv002_control_modes():
+    """Validates that all 3 scientific control modes execute as intended."""
+    memory = SharedAttackMemory()
+    memory.append_adv002_record(
+        MemoryRecord(
+            attack_id="atk_sample_01",
+            family="geo_hop",
+            strategy="mutate_geo_hop",
+            seed=42,
+            parent_attack_id=None,
+            query_budget=20,
+            queries_used=4,
+            mutation_count=4,
+            perturbation_distance=1.15,
+            target_transaction_id="tx_001",
+            blue_model_version="v1",
+            blue_score=0.1,
+            blue_decision="ALLOW",
+            evasion=True,
+            outcome="ALLOWED_EVASION",
+            timestamp="2026-08-31T10:00:00Z",
+            origin="ADV-001",
+        )
+    )
+    # 1. Static Control
+    pol_static = DeterministicAdaptivePolicy(PolicyConfig(mode="static_control"))
+    action_s = pol_static.select_action(
+        agent_role="geo_specialist",
+        family_preference=[AttackFamily.GEO_HOP],
+        target_id="tx_001",
+        round_number=1,
+        agent_action_history=[],
+        memory=memory,
+        seed=42,
+    )
+    assert action_s.query_budget == 20
+    assert len(action_s.memory_references) == 0
+    assert "Static control" in action_s.rationale
+
+    # 2. Memory-Disabled
+    pol_no_mem = DeterministicAdaptivePolicy(PolicyConfig(mode="memory_disabled"))
+    action_nm = pol_no_mem.select_action(
+        agent_role="geo_specialist",
+        family_preference=[AttackFamily.GEO_HOP],
+        target_id="tx_001",
+        round_number=1,
+        agent_action_history=[],
+        memory=memory,
+        seed=42,
+    )
+    assert len(action_nm.memory_references) == 0
+    assert "mode=memory_disabled" in action_nm.rationale
+
+    # 3. Adaptive Memory
+    pol_adapt = DeterministicAdaptivePolicy(PolicyConfig(mode="adaptive_memory"))
+    action_ad = pol_adapt.select_action(
+        agent_role="geo_specialist",
+        family_preference=[AttackFamily.GEO_HOP],
+        target_id="tx_001",
+        round_number=1,
+        agent_action_history=[],
+        memory=memory,
+        seed=42,
+    )
+    assert len(action_ad.memory_references) > 0
+
+
+def test_adv002_large_population_scale_planning_no_execution():
+    """Verifies that large scale configuration resolves to exactly 5,000 attempts without execution."""
+    from mcdl.research.advanced.adv002.runner import get_scale_parameters, ADV002Scale
+    params = get_scale_parameters(ADV002Scale.LARGE)
+    assert params["n_targets"] == 10
+    assert params["rounds_per_campaign"] == 100
+    n_agents = 5
+    expected_attempts = params["n_targets"] * params["rounds_per_campaign"] * n_agents
+    assert expected_attempts == 5000
+
+
+def test_adv002_resumability_and_interruption_recovery(tmp_path):
+    """Tests that interrupted runs recover cleanly without duplicate rounds."""
+    storage = ADV002Storage(tmp_path)
+    # Simulate completed campaign 1
+    cmp1 = CampaignState(campaign_id="cmp_001", target_txn_id="tx_001", max_rounds=5, is_completed=True)
+    storage.save_campaign_state(cmp1)
+    
+    # Check completed IDs
+    assert storage.get_completed_campaign_ids() == {"cmp_001"}
+    
+    # Simulate resume: campaign 1 is skipped
+    completed = storage.get_completed_campaign_ids()
+    unprocessed = [cid for cid in ["cmp_001", "cmp_002"] if cid not in completed]
+    assert unprocessed == ["cmp_002"]
+

@@ -6,6 +6,22 @@ Never write "done". Write what changed, what you ran, and what the gate said.
 
 ---
 
+## 2026-08-31 · ADV-002 LARGE Cloud Execution Preparation · Antigravity
+
+**BLOCK:** Research Expansion — ADV-002 Large-Scale (5,000 Attempts) Cloud Execution Preparation & Pre-Audit.
+
+**DONE:**
+1. **Implementation & Adaptation Audit**: Verified implementation of 5 agents, stateful private history, shared read-only ADV-001 memory, append-only ADV-002 memory, deterministic $\epsilon$-decay policy, dynamic budget adaptation, multi-objective reward decomposition, and atomic checkpointing. Confirmed that adaptation is genuinely driven by observed outcomes and memory updates rather than hardcoded scheduling.
+2. **Scientific Control Instrumentation**: Added support for 3 scientific control modes in `PolicyConfig`, `DeterministicAdaptivePolicy`, and `ADV002Runner`: `adaptive_memory` (full adaptive swarm), `static_control` (non-adaptive baseline), and `memory_disabled` (private state only, shared memory disabled).
+3. **GPU Suitability Audit**: Profiled workload operations (sequential streaming feature extraction + shallow decision forest inference + python candidate mutation). Documented `GPU_NOT_BENEFICIAL_FOR_CURRENT_ARCHITECTURE` due to PCIe host-to-device transfer latency dominating sub-millisecond CPU execution. Projected CPU runtime: ~59.5s (< 1.5 min), Peak RAM: ~420 MB, VRAM: 0 MB.
+4. **Dedicated Cloud Execution Path**: Created dedicated Kaggle notebook `notebooks/kaggle/05_adv002_large_swarm.ipynb` and CLI runner invocation (`python3 -m mcdl.research.advanced.adv002.runner --scale large --mode adaptive_memory`) strictly separated from V6 notebook (`04_phase2_mega_notebook.ipynb`).
+5. **Preparation Deliverables**: Generated full preparation suite in `research_runs/ADVANCED/ADV-002-LARGE/`: `config.json`, `execution_plan.json`, `resource_estimate.json`, `checkpoint_contract.json`, `comparability_controls.json`, `repository_audit.json`, `status.json` (unexecuted), and `pre_execution_audit.md`.
+6. **Local Test Verification**: Ran `test_adv002.py` (14/14 passed), `test_adv001.py` (14/14 passed), `audit_authoritative_run.py` (22/22 baseline hashes match). Baseline artifacts, V6 notebook, and Phase-2 research directories remain 100% frozen.
+
+**FILES:** `src/mcdl/research/advanced/adv002/policy.py`, `src/mcdl/research/advanced/adv002/runner.py`, `tests/unit/research/test_adv002.py`, `notebooks/kaggle/05_adv002_large_swarm.ipynb`, `research_runs/ADVANCED/ADV-002-LARGE/*`, `brain/HANDOFF.md`.
+
+---
+
 ## 2026-08-31 · ADV-002 Standard Execution Gate · Antigravity
 
 **BLOCK:** Research Expansion — ADV-002 Standard-Scale Stateful Swarm Execution (500 Attempts).

@@ -20,6 +20,7 @@ from mcdl.schemas import AttackFamily
 class PolicyConfig:
     """Hyperparameters governing deterministic adaptive selection."""
 
+    mode: str = "adaptive_memory"  # 'adaptive_memory' | 'static_control' | 'memory_disabled'
     base_exploration_rate: float = 0.25
     min_exploration_rate: float = 0.05
     exploration_decay: float = 0.90
@@ -82,58 +83,90 @@ class DeterministicAdaptivePolicy:
         memory: SharedAttackMemory,
         seed: int,
     ) -> PolicyAction:
-        """Selects attack family and query budget deterministically based on memory and state."""
+        """Selects attack family and query budget deterministically based on memory, controls, and state."""
+        all_families = list(CANONICAL_FAMILIES)
+        mode = self.config.mode
+
+        # -------------------------------------------------------------
+        # Control 1: STATIC CONTROL (No adaptation, fixed budget)
+        # -------------------------------------------------------------
+        if mode == "static_control":
+            # Select deterministically according to fixed agent preference or uniform round-robin
+            pref_fams = family_preference if family_preference else all_families
+            chosen_family = pref_fams[(round_number - 1) % len(pref_fams)]
+            strategy_name = self.STRATEGY_MAP.get(chosen_family, "mutate_burst_drain")
+            probs = {f.value: (1.0 / len(all_families)) for f in all_families}
+            return PolicyAction(
+                family=chosen_family,
+                strategy_name=strategy_name,
+                query_budget=self.config.default_budget,
+                is_exploration=False,
+                selection_probabilities=probs,
+                memory_references=[],
+                rationale=f"Static control mode: fixed default budget={self.config.default_budget} and static sequence",
+            )
+
+        # -------------------------------------------------------------
+        # Control 2 & Active: MEMORY-DISABLED vs ADAPTIVE-MEMORY
+        # -------------------------------------------------------------
         rng = np.random.default_rng(seed)
         eps = self.get_exploration_rate(round_number)
         roll = rng.random()
         is_exploration = (roll < eps)
 
-        all_families = list(CANONICAL_FAMILIES)
-        failed_configs = memory.get_failed_configurations(target_id)
-        failed_fams = {f["family"] for f in failed_configs}
+        failed_fams: set[str] = set()
+        if mode == "adaptive_memory":
+            failed_configs = memory.get_failed_configurations(target_id)
+            failed_fams = {f["family"] for f in failed_configs}
+        elif mode == "memory_disabled":
+            # Use only private history
+            failed_fams = {
+                a["family"] for a in agent_action_history
+                if a.get("target_transaction_id") == target_id and a.get("outcome") in ("BLOCKED", "STEP_UP")
+            }
 
-        # 1. Compute empirical family scores from memory and agent preference
+        # 1. Compute empirical family scores from memory/history and agent preference
         family_scores: dict[str, float] = {}
-        memory_refs: list[str] = []
-
         for fam in all_families:
             fam_str = fam.value
-            global_asr = memory.get_family_success_rate(fam_str)
-            target_asr = memory.get_family_success_rate(fam_str, target_id=target_id)
+            if mode == "adaptive_memory":
+                global_asr = memory.get_family_success_rate(fam_str)
+                target_asr = memory.get_family_success_rate(fam_str, target_id=target_id)
+            else:  # memory_disabled: strictly private history
+                fam_history = [a for a in agent_action_history if a.get("family") == fam_str]
+                target_history = [a for a in fam_history if a.get("target_transaction_id") == target_id]
+                global_asr = float(np.mean([1.0 if a.get("evasion") else 0.0 for a in fam_history])) if fam_history else 0.0
+                target_asr = float(np.mean([1.0 if a.get("evasion") else 0.0 for a in target_history])) if target_history else 0.0
 
-            # Combined score with higher weight on target-specific performance
             combined_asr = (target_asr * 0.7) + (global_asr * 0.3)
             pref_boost = 1.5 if fam in family_preference else 1.0
             fail_penalty = (1.0 - self.config.failure_penalty_weight) if fam_str in failed_fams else 1.0
 
-            # Base score with floor to prevent complete starvation
             score = (combined_asr ** self.config.family_weight_power) * pref_boost * fail_penalty + 0.05
             family_scores[fam_str] = round(score, 6)
 
-        # Normalize probabilities
         total_score = sum(family_scores.values())
         probs = {f: round(s / total_score, 6) for f, s in family_scores.items()}
 
         # 2. Select Family
         if is_exploration:
-            # Deterministic exploration across eligible families
             fam_keys = sorted(family_scores.keys())
             chosen_fam_str = rng.choice(fam_keys)
-            rationale = f"Exploration round (eps={eps:.3f}, roll={roll:.3f}): selected underrepresented family {chosen_fam_str}"
+            rationale = f"Exploration round (mode={mode}, eps={eps:.3f}, roll={roll:.3f}): selected family {chosen_fam_str}"
         else:
-            # Exploitation: select highest probability with deterministic tie-breaking
             sorted_fams = sorted(family_scores.items(), key=lambda item: (-item[1], item[0]))
             chosen_fam_str = sorted_fams[0][0]
-            rationale = f"Exploitation round: selected top-scoring family {chosen_fam_str} (score={family_scores[chosen_fam_str]:.4f})"
+            rationale = f"Exploitation round (mode={mode}): selected top-scoring family {chosen_fam_str} (score={family_scores[chosen_fam_str]:.4f})"
 
         chosen_family = next(f for f in all_families if f.value == chosen_fam_str)
 
-        # 3. Retrieve Memory References
-        best_records = memory.get_best_perturbations(chosen_fam_str, limit=3)
-        memory_refs = [r.attack_id for r in best_records]
+        # 3. Retrieve Memory References (only if adaptive_memory)
+        memory_refs: list[str] = []
+        if mode == "adaptive_memory":
+            best_records = memory.get_best_perturbations(chosen_fam_str, limit=3)
+            memory_refs = [r.attack_id for r in best_records]
 
         # 4. Adaptive Budget Selection
-        # If previous attempts on this family were blocked near threshold (e.g. Blue score 0.4-0.6), increase budget
         chosen_budget = self.config.default_budget
         recent_family_attempts = [
             a for a in agent_action_history
@@ -146,15 +179,12 @@ class DeterministicAdaptivePolicy:
             last_budget = last_attempt.get("query_budget", self.config.default_budget)
 
             if last_attempt.get("evasion", False):
-                # If already evaded, attempt lower budget for efficiency
                 chosen_budget = max(1, last_budget // 4)
-                rationale += f"; downscaling budget to {chosen_budget} to minimize query cost on known evasion"
+                rationale += f"; downscaling budget to {chosen_budget} to minimize query cost"
             elif last_score < 0.60 and last_budget < 100:
-                # Borderline block/step-up: escalate budget
                 chosen_budget = min(100, last_budget * 4 if last_budget > 1 else 5)
                 rationale += f"; escalating budget to {chosen_budget} (borderline score={last_score:.3f})"
             elif last_score >= 0.90 and len(recent_family_attempts) >= 2:
-                # Severe block with multiple tries: switch to minimal probe
                 chosen_budget = 5
                 rationale += f"; setting probe budget {chosen_budget} due to high resistance"
 

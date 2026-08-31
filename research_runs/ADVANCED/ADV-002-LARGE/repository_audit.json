@@ -1,0 +1,75 @@
+{
+  "experiment_id": "ADV-002-LARGE",
+  "name": "Stateful Adversarial Swarm Large Scale Preparation",
+  "audit_timestamp": "2026-08-31T17:30:00Z",
+  "base_git_commit": "6c7a67f",
+  "execution_readiness": "PREPARED_FOR_CLOUD_EXECUTION_UNEXECUTED",
+  "components": {
+    "module_isolation": {
+      "status": "IMPLEMENTED",
+      "path": "src/mcdl/research/advanced/adv002/",
+      "files_count": 9,
+      "touches_core_red_blue": false
+    },
+    "agent_swarm": {
+      "status": "IMPLEMENTED",
+      "specialists": [
+        "velocity_specialist",
+        "geo_specialist",
+        "merchant_specialist",
+        "agent_subversion_specialist",
+        "hybrid_adaptive"
+      ],
+      "deterministic_seeding": true,
+      "isolated_state": true
+    },
+    "shared_attack_memory": {
+      "status": "IMPLEMENTED",
+      "ingests_adv001": true,
+      "adv001_read_only": true,
+      "adv002_append_only": true,
+      "indexed_retrieval": true
+    },
+    "adaptive_policy": {
+      "status": "IMPLEMENTED",
+      "rl_free": true,
+      "deterministic": true,
+      "inspectable": true,
+      "bounded_exploration": true,
+      "supports_controls": true
+    },
+    "campaign_mechanics": {
+      "status": "IMPLEMENTED",
+      "multi_round": true,
+      "target_count": 10,
+      "rounds_per_campaign": 100,
+      "planned_attempts": 5000,
+      "adaptation_event_tracking": true,
+      "atomic_checkpointing": true
+    },
+    "evaluator_and_reward": {
+      "status": "IMPLEMENTED",
+      "multi_objective_reward": true,
+      "transparent_breakdown": true,
+      "adaptation_metrics": true
+    },
+    "test_suite": {
+      "status": "TESTED",
+      "test_path": "tests/unit/research/test_adv002.py",
+      "tests_passed": 14,
+      "tests_failed": 0
+    },
+    "large_swarm_workload": {
+      "status": "UNEXECUTED_ON_LOCAL_MACHINE",
+      "reason": "Local execution restricted to preparation only; awaiting authorized cloud execution."
+    }
+  },
+  "safety_verifications": {
+    "no_rl_agent": true,
+    "no_real_financial_interaction": true,
+    "no_external_network_calls": true,
+    "adv001_memory_untouched": true,
+    "phase2_notebooks_untouched": true,
+    "phase2_artifacts_untouched": true
+  }
+}
