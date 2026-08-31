@@ -174,20 +174,24 @@ def test_s04_structured_claims_reconciliation(clean_manager):
         assert "experiment_id" in c
         assert "dataset_id" in c
         assert "scale" in c
-        assert "seed" in c
+        assert "world_seed" in c
+        assert "model_seed" in c
         assert "metric_name" in c
         assert "classification" in c
+        assert "artifact_path" in c
+        assert "git_sha" in c
         assert c["classification"] in valid_classifications
 
 
 def test_s02_forced_arm_failure_resilience(clean_manager, monkeypatch):
-    # Pre-populate Arm A as completed
+    # Pre-populate Arm A as completed with all 4 required files
     seed_dir = PHASE2_DIR / "S02" / "seed_20260827"
     arm_a_dir = seed_dir / "arm_A"
     arm_a_dir.mkdir(parents=True, exist_ok=True)
     
     (arm_a_dir / "status.json").write_text(json.dumps({"status": "COMPLETED"}))
     (arm_a_dir / "metrics.json").write_text(json.dumps({"pr_auc": 0.99, "roc_auc": 0.99, "fpr": 0.01, "ece": 0.01, "brier": 0.01}))
+    (arm_a_dir / "provenance.json").write_text(json.dumps({"arm": "arm_A"}))
     np.save(arm_a_dir / "test_probs.npy", np.array([0.1, 0.9]))
 
     # Monkeypatch CausalGraphTabularFusion to force failure on Arm C
@@ -208,4 +212,28 @@ def test_s02_forced_arm_failure_resilience(clean_manager, monkeypatch):
     status_c = json.loads((arm_c_dir / "status.json").read_text())
     assert status_c["status"] == "FAILED"
     assert "Forced OOM/Failure in Arm C" in status_c["error"]
+
+
+def test_s02_timeout_enforcement(clean_manager, monkeypatch):
+    # Monkeypatch time.monotonic to simulate timeout during Arm A fit
+    real_monotonic = exp.time.monotonic
+    call_count = {"count": 0}
+
+    def mock_monotonic():
+        call_count["count"] += 1
+        if call_count["count"] > 3:
+            return real_monotonic() + 8000.0  # Exceeds 7200s budget
+        return real_monotonic()
+
+    monkeypatch.setattr(exp.time, "monotonic", mock_monotonic)
+
+    exp.run_s02(clean_manager)
+    assert clean_manager.get_state("S02") in ("TIMEOUT", "FAILED")
+
+    # Status should reflect TIMEOUT
+    seed_dir = PHASE2_DIR / "S02" / "seed_20260827"
+    arm_a_status = seed_dir / "arm_A" / "status.json"
+    if arm_a_status.exists():
+        status_data = json.loads(arm_a_status.read_text())
+        assert status_data["status"] in ("TIMEOUT", "FAILED")
 

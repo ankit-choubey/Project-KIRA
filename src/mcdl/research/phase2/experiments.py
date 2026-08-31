@@ -981,10 +981,19 @@ def run_s02(manager: CheckpointManager) -> None:
     Enforces per-arm checkpointing: seed_<seed>/arm_<arm>/.
     """
     stage_id = "S02"
-    with StageExecution(manager, stage_id, budget_seconds=7200) as stage:
+    budget_seconds = 7200
+    with StageExecution(manager, stage_id, budget_seconds=budget_seconds) as stage:
         if stage.should_skip:
             return
         logger.info("Executing S-02 Full-Scale KIRA Synthetic World Validation...")
+
+        stage_start = time.monotonic()
+        stage_deadline = stage_start + budget_seconds
+
+        def check_timeout(op_name: str) -> None:
+            if time.monotonic() >= stage_deadline:
+                logger.warning(f"Stage S-02 budget ({budget_seconds}s) exceeded before {op_name}.")
+                raise TimeoutError(f"Stage S-02 budget ({budget_seconds}s) exceeded before {op_name}.")
 
         import os
         scale = os.environ.get("MCDL_SCALE", "full")
@@ -995,6 +1004,8 @@ def run_s02(manager: CheckpointManager) -> None:
         integrity_report = verify_authoritative_baseline_integrity(BASELINE_RUN_DIR)
         if integrity_report["status"] != "PASS":
             raise RuntimeError(f"Baseline integrity verification failed: {integrity_report}")
+
+        check_timeout("dataset_generation")
 
         # 2. Load or generate dataset
         if scale in ("tiny", "small"):
@@ -1039,6 +1050,7 @@ def run_s02(manager: CheckpointManager) -> None:
             seed_dir = s02_dir / f"seed_{s}"
             seed_dir.mkdir(parents=True, exist_ok=True)
 
+            check_timeout(f"shuffled_topology_graph_seed_{s}")
             shuff_g = create_shuffled_topology_graph(real_graph, seed=s)
             
             # Verify A/C/D fairness
@@ -1053,20 +1065,32 @@ def run_s02(manager: CheckpointManager) -> None:
             arm_metrics: dict[str, Any] = {}
             arm_probs: dict[str, np.ndarray] = {}
 
-            # --- Arm A: Tabular Baseline ---
+            # --- Arm A: Full-Scale Tabular Reference ---
             arm_a_dir = seed_dir / "arm_A"
             arm_a_dir.mkdir(parents=True, exist_ok=True)
             status_a_path = arm_a_dir / "status.json"
             metrics_a_path = arm_a_dir / "metrics.json"
+            prov_a_path = arm_a_dir / "provenance.json"
+            probs_a_path = arm_a_dir / "test_probs.npy"
 
-            if status_a_path.exists() and json.loads(status_a_path.read_text()).get("status") == "COMPLETED" and metrics_a_path.exists():
+            if (
+                status_a_path.exists()
+                and json.loads(status_a_path.read_text(encoding="utf-8")).get("status") == "COMPLETED"
+                and metrics_a_path.exists()
+                and probs_a_path.exists()
+                and prov_a_path.exists()
+            ):
                 logger.info(f"S-02 seed {s} Arm A already COMPLETED. Resuming from disk.")
-                metrics_a = json.loads(metrics_a_path.read_text())
-                probs_a = np.load(arm_a_dir / "test_probs.npy") if (arm_a_dir / "test_probs.npy").exists() else None
+                metrics_a = json.loads(metrics_a_path.read_text(encoding="utf-8"))
+                probs_a = np.load(probs_a_path)
             else:
+                check_timeout(f"arm_a_fit_seed_{s}")
                 config_a = {
                     "arm": "arm_A",
-                    "model_type": "LightGBM",
+                    "arm_name": "FULL_SCALE_TABULAR_REFERENCE",
+                    "model_type": "LightGBM_FullScaleReference",
+                    "authoritative_baseline_run_id": manager.baseline_run_id,
+                    "evaluation_semantics": "multi-model-seed evaluation on a fixed synthetic world",
                     "n_estimators": 100,
                     "max_depth": 4,
                     "num_leaves": 15,
@@ -1080,29 +1104,38 @@ def run_s02(manager: CheckpointManager) -> None:
                 with open(status_a_path, "w", encoding="utf-8") as f:
                     json.dump({"status": "RUNNING", "start_time": time.time()}, f, indent=2)
 
-                clf_a = lgb.LGBMClassifier(n_estimators=100, max_depth=4, num_leaves=15, learning_rate=0.05, random_state=s, verbose=-1)
-                clf_a.fit(real_graph.x_txn[train_indices], real_graph.is_fraud[train_indices])
-                val_probs_a = clf_a.predict_proba(real_graph.x_txn[val_indices])[:, 1]
-                cal_a = IsotonicCalibrator()
-                cal_a.fit(val_probs_a, real_graph.is_fraud[val_indices])
-                probs_a = cal_a.transform(clf_a.predict_proba(real_graph.x_txn[test_indices])[:, 1])
-                np.save(arm_a_dir / "test_probs.npy", probs_a)
-                metrics_a = evaluate_arm_metrics(probs_a, y_test, seed=s)
-                with open(metrics_a_path, "w", encoding="utf-8") as f:
-                    json.dump(metrics_a, f, indent=2)
+                try:
+                    clf_a = lgb.LGBMClassifier(n_estimators=100, max_depth=4, num_leaves=15, learning_rate=0.05, random_state=s, verbose=-1)
+                    clf_a.fit(real_graph.x_txn[train_indices], real_graph.is_fraud[train_indices])
+                    check_timeout(f"arm_a_calibration_seed_{s}")
+                    val_probs_a = clf_a.predict_proba(real_graph.x_txn[val_indices])[:, 1]
+                    cal_a = IsotonicCalibrator()
+                    cal_a.fit(val_probs_a, real_graph.is_fraud[val_indices])
+                    probs_a = cal_a.transform(clf_a.predict_proba(real_graph.x_txn[test_indices])[:, 1])
+                    np.save(probs_a_path, probs_a)
+                    metrics_a = evaluate_arm_metrics(probs_a, y_test, seed=s)
+                    with open(metrics_a_path, "w", encoding="utf-8") as f:
+                        json.dump(metrics_a, f, indent=2)
 
-                prov_a = {
-                    "arm": "arm_A",
-                    "model_seed": s,
-                    "world_seed": world_seed,
-                    "scale": scale,
-                    "generated_at": datetime.now(timezone.utc).isoformat(),
-                    "software_versions": _get_software_versions(),
-                }
-                with open(arm_a_dir / "provenance.json", "w", encoding="utf-8") as f:
-                    json.dump(prov_a, f, indent=2)
-                with open(status_a_path, "w", encoding="utf-8") as f:
-                    json.dump({"status": "COMPLETED", "completed_at": time.time()}, f, indent=2)
+                    prov_a = {
+                        "arm": "arm_A",
+                        "arm_name": "FULL_SCALE_TABULAR_REFERENCE",
+                        "authoritative_baseline_run_id": manager.baseline_run_id,
+                        "model_seed": s,
+                        "world_seed": world_seed,
+                        "scale": scale,
+                        "generated_at": datetime.now(timezone.utc).isoformat(),
+                        "software_versions": _get_software_versions(),
+                    }
+                    with open(prov_a_path, "w", encoding="utf-8") as f:
+                        json.dump(prov_a, f, indent=2)
+                    with open(status_a_path, "w", encoding="utf-8") as f:
+                        json.dump({"status": "COMPLETED", "completed_at": time.time()}, f, indent=2)
+                except Exception as exc:
+                    err_status = "TIMEOUT" if isinstance(exc, TimeoutError) else "FAILED"
+                    with open(status_a_path, "w", encoding="utf-8") as f:
+                        json.dump({"status": err_status, "error": str(exc)}, f, indent=2)
+                    raise exc
 
             arm_metrics["arm_a_baseline"] = metrics_a
             arm_probs["arm_a"] = probs_a
@@ -1112,12 +1145,21 @@ def run_s02(manager: CheckpointManager) -> None:
             arm_c_dir.mkdir(parents=True, exist_ok=True)
             status_c_path = arm_c_dir / "status.json"
             metrics_c_path = arm_c_dir / "metrics.json"
+            prov_c_path = arm_c_dir / "provenance.json"
+            probs_c_path = arm_c_dir / "test_probs.npy"
 
-            if status_c_path.exists() and json.loads(status_c_path.read_text()).get("status") == "COMPLETED" and metrics_c_path.exists():
+            if (
+                status_c_path.exists()
+                and json.loads(status_c_path.read_text(encoding="utf-8")).get("status") == "COMPLETED"
+                and metrics_c_path.exists()
+                and probs_c_path.exists()
+                and prov_c_path.exists()
+            ):
                 logger.info(f"S-02 seed {s} Arm C already COMPLETED. Resuming from disk.")
-                metrics_c = json.loads(metrics_c_path.read_text())
-                probs_c = np.load(arm_c_dir / "test_probs.npy") if (arm_c_dir / "test_probs.npy").exists() else None
+                metrics_c = json.loads(metrics_c_path.read_text(encoding="utf-8"))
+                probs_c = np.load(probs_c_path)
             else:
+                check_timeout(f"arm_c_fit_seed_{s}")
                 config_c = {
                     "arm": "arm_C",
                     "model_type": "CausalGraphTabularFusion",
@@ -1135,7 +1177,7 @@ def run_s02(manager: CheckpointManager) -> None:
                     model_c = CausalGraphTabularFusion(seed=s)
                     model_c.fit(real_graph, train_indices, val_indices)
                     probs_c = model_c.predict_proba(real_graph, test_indices)
-                    np.save(arm_c_dir / "test_probs.npy", probs_c)
+                    np.save(probs_c_path, probs_c)
                     metrics_c = evaluate_arm_metrics(probs_c, y_test, seed=s)
                     with open(metrics_c_path, "w", encoding="utf-8") as f:
                         json.dump(metrics_c, f, indent=2)
@@ -1148,13 +1190,14 @@ def run_s02(manager: CheckpointManager) -> None:
                         "generated_at": datetime.now(timezone.utc).isoformat(),
                         "software_versions": _get_software_versions(),
                     }
-                    with open(arm_c_dir / "provenance.json", "w", encoding="utf-8") as f:
+                    with open(prov_c_path, "w", encoding="utf-8") as f:
                         json.dump(prov_c, f, indent=2)
                     with open(status_c_path, "w", encoding="utf-8") as f:
                         json.dump({"status": "COMPLETED", "completed_at": time.time()}, f, indent=2)
                 except Exception as exc:
+                    err_status = "TIMEOUT" if isinstance(exc, TimeoutError) else "FAILED"
                     with open(status_c_path, "w", encoding="utf-8") as f:
-                        json.dump({"status": "FAILED", "error": str(exc)}, f, indent=2)
+                        json.dump({"status": err_status, "error": str(exc)}, f, indent=2)
                     raise exc
 
             arm_metrics["arm_c_real_fusion"] = metrics_c
@@ -1165,12 +1208,21 @@ def run_s02(manager: CheckpointManager) -> None:
             arm_d_dir.mkdir(parents=True, exist_ok=True)
             status_d_path = arm_d_dir / "status.json"
             metrics_d_path = arm_d_dir / "metrics.json"
+            prov_d_path = arm_d_dir / "provenance.json"
+            probs_d_path = arm_d_dir / "test_probs.npy"
 
-            if status_d_path.exists() and json.loads(status_d_path.read_text()).get("status") == "COMPLETED" and metrics_d_path.exists():
+            if (
+                status_d_path.exists()
+                and json.loads(status_d_path.read_text(encoding="utf-8")).get("status") == "COMPLETED"
+                and metrics_d_path.exists()
+                and probs_d_path.exists()
+                and prov_d_path.exists()
+            ):
                 logger.info(f"S-02 seed {s} Arm D already COMPLETED. Resuming from disk.")
-                metrics_d = json.loads(metrics_d_path.read_text())
-                probs_d = np.load(arm_d_dir / "test_probs.npy") if (arm_d_dir / "test_probs.npy").exists() else None
+                metrics_d = json.loads(metrics_d_path.read_text(encoding="utf-8"))
+                probs_d = np.load(probs_d_path)
             else:
+                check_timeout(f"arm_d_fit_seed_{s}")
                 config_d = {
                     "arm": "arm_D",
                     "model_type": "CausalGraphTabularFusion (Shuffled)",
@@ -1188,7 +1240,7 @@ def run_s02(manager: CheckpointManager) -> None:
                     model_d = CausalGraphTabularFusion(seed=s)
                     model_d.fit(shuff_g, train_indices, val_indices)
                     probs_d = model_d.predict_proba(shuff_g, test_indices)
-                    np.save(arm_d_dir / "test_probs.npy", probs_d)
+                    np.save(probs_d_path, probs_d)
                     metrics_d = evaluate_arm_metrics(probs_d, y_test, seed=s)
                     with open(metrics_d_path, "w", encoding="utf-8") as f:
                         json.dump(metrics_d, f, indent=2)
@@ -1201,19 +1253,21 @@ def run_s02(manager: CheckpointManager) -> None:
                         "generated_at": datetime.now(timezone.utc).isoformat(),
                         "software_versions": _get_software_versions(),
                     }
-                    with open(arm_d_dir / "provenance.json", "w", encoding="utf-8") as f:
+                    with open(prov_d_path, "w", encoding="utf-8") as f:
                         json.dump(prov_d, f, indent=2)
                     with open(status_d_path, "w", encoding="utf-8") as f:
                         json.dump({"status": "COMPLETED", "completed_at": time.time()}, f, indent=2)
                 except Exception as exc:
+                    err_status = "TIMEOUT" if isinstance(exc, TimeoutError) else "FAILED"
                     with open(status_d_path, "w", encoding="utf-8") as f:
-                        json.dump({"status": "FAILED", "error": str(exc)}, f, indent=2)
+                        json.dump({"status": err_status, "error": str(exc)}, f, indent=2)
                     raise exc
 
             arm_metrics["arm_d_shuffled_control"] = metrics_d
             arm_probs["arm_d"] = probs_d
 
             # Compute pairwise estimands
+            check_timeout(f"bootstrap_seed_{s}")
             d_rel = metrics_c["pr_auc"] - metrics_a["pr_auc"]
             d_topo = metrics_c["pr_auc"] - metrics_d["pr_auc"]
             
@@ -1334,19 +1388,29 @@ def run_s03(manager: CheckpointManager) -> None:
 
         # 3. Partition transactions enforcing strict zero-day isolation
         n = real_graph.n_txns
-        train_val_candidates = [i for i, f in enumerate(real_graph.attack_families) if f not in world_c_families and i < int(0.85 * n)]
-        train_indices = np.array([i for i in train_val_candidates if i < int(0.70 * n)], dtype=int)
-        val_indices = np.array([i for i in train_val_candidates if i >= int(0.70 * n)], dtype=int)
-        world_c_indices = np.array([i for i, f in enumerate(real_graph.attack_families) if f in world_c_families], dtype=int)
+        train_indices_raw = np.arange(int(0.70 * n))
+        val_indices_raw = np.arange(int(0.70 * n), int(0.85 * n))
+        test_indices = np.arange(int(0.85 * n), n)
+
+        train_hidden = int(sum(1 for i in train_indices_raw if real_graph.attack_families[i] in world_c_families))
+        val_hidden = int(sum(1 for i in val_indices_raw if real_graph.attack_families[i] in world_c_families))
+        test_hidden_indices = np.array([i for i in test_indices if real_graph.attack_families[i] in world_c_families], dtype=int)
+        test_hidden_count = len(test_hidden_indices)
+
+        # Enforce zero hidden family in train/val splits
+        train_indices = np.array([i for i in train_indices_raw if real_graph.attack_families[i] not in world_c_families], dtype=int)
+        val_indices = np.array([i for i in val_indices_raw if real_graph.attack_families[i] not in world_c_families], dtype=int)
+
+        assert sum(1 for i in train_indices if real_graph.attack_families[i] in world_c_families) == 0, "World C contamination in training split!"
+        assert sum(1 for i in val_indices if real_graph.attack_families[i] in world_c_families) == 0, "World C contamination in validation split!"
+
+        world_c_indices = test_hidden_indices
+        n_c = test_hidden_count
 
         train_fams = sorted(list({real_graph.attack_families[i] for i in train_indices}))
         val_fams = sorted(list({real_graph.attack_families[i] for i in val_indices}))
 
-        assert not set(train_fams).intersection(world_c_families), "World C contamination in training split!"
-        assert not set(val_fams).intersection(world_c_families), "World C contamination in validation split!"
-
         # Counts
-        n_c = len(world_c_indices)
         total_attacks = int(sum(1 for f in real_graph.attack_families if f != "benign"))
         per_fam_counts = {}
         for f in set(real_graph.attack_families):
@@ -1364,37 +1428,39 @@ def run_s03(manager: CheckpointManager) -> None:
         model_c.fit(real_graph, train_indices, val_indices)
 
         # 5. Evaluate on World C
-        if n_c > 0:
-            probs_a = cal_a.transform(clf_a.predict_proba(real_graph.x_txn[world_c_indices])[:, 1])
-            probs_c = model_c.predict_proba(real_graph, world_c_indices)
-
-            asr_a = float(np.sum(probs_a < 0.20) / n_c)
-            asr_c = float(np.sum(probs_c < 0.20) / n_c)
-            rob_delta = float(asr_c - asr_a)
-
-            if n_c >= 30:
-                status = "EVALUATED"
-                # Bootstrap CI for ASR difference
-                rng = np.random.RandomState(model_seed)
-                boot_deltas = []
-                for _ in range(1000):
-                    b_idx = rng.randint(0, n_c, size=n_c)
-                    b_asr_a = np.sum(probs_a[b_idx] < 0.20) / n_c
-                    b_asr_c = np.sum(probs_c[b_idx] < 0.20) / n_c
-                    boot_deltas.append(b_asr_c - b_asr_a)
-                ci = {
-                    "ci_lower": float(np.percentile(boot_deltas, 2.5)),
-                    "ci_upper": float(np.percentile(boot_deltas, 97.5)),
-                }
-            else:
-                status = "LOW_SAMPLE"
-                ci = None
-        else:
+        if n_c == 0:
             asr_a = None
             asr_c = None
             rob_delta = None
             ci = None
             status = "LOW_SAMPLE"
+        elif n_c < 30:
+            probs_a = cal_a.transform(clf_a.predict_proba(real_graph.x_txn[world_c_indices])[:, 1])
+            probs_c = model_c.predict_proba(real_graph, world_c_indices)
+            asr_a = float(np.sum(probs_a < 0.20) / n_c)
+            asr_c = float(np.sum(probs_c < 0.20) / n_c)
+            rob_delta = float(asr_c - asr_a)
+            ci = None
+            status = "LOW_SAMPLE"
+        else:
+            probs_a = cal_a.transform(clf_a.predict_proba(real_graph.x_txn[world_c_indices])[:, 1])
+            probs_c = model_c.predict_proba(real_graph, world_c_indices)
+            asr_a = float(np.sum(probs_a < 0.20) / n_c)
+            asr_c = float(np.sum(probs_c < 0.20) / n_c)
+            rob_delta = float(asr_c - asr_a)
+            # Bootstrap CI for ASR difference
+            rng = np.random.RandomState(model_seed)
+            boot_deltas = []
+            for _ in range(1000):
+                b_idx = rng.randint(0, n_c, size=n_c)
+                b_asr_a = np.sum(probs_a[b_idx] < 0.20) / n_c
+                b_asr_c = np.sum(probs_c[b_idx] < 0.20) / n_c
+                boot_deltas.append(b_asr_c - b_asr_a)
+            ci = {
+                "ci_lower": float(np.percentile(boot_deltas, 2.5)),
+                "ci_upper": float(np.percentile(boot_deltas, 97.5)),
+            }
+            status = "EVALUATED"
 
         s03_metrics = {
             "git_commit_sha": manager.git_commit,
@@ -1405,6 +1471,9 @@ def run_s03(manager: CheckpointManager) -> None:
             "model_seed": model_seed,
             "world_c_zero_day": {
                 "sample_count": n_c,
+                "hidden_family_count_train": train_hidden,
+                "hidden_family_count_val": val_hidden,
+                "hidden_family_count_test": test_hidden_count,
                 "total_attack_count": total_attacks,
                 "per_family_attack_count": per_fam_counts,
                 "asr_arm_a_baseline": asr_a,
@@ -1418,6 +1487,7 @@ def run_s03(manager: CheckpointManager) -> None:
                 "validation_families": val_fams,
                 "hidden_zero_day_families": sorted(list(world_c_families)),
             },
+            "decision_classification": status,
         }
 
         s03_dir = PHASE2_DIR / stage_id
@@ -1435,16 +1505,17 @@ def run_s03(manager: CheckpointManager) -> None:
 
 
 # =============================================================================
-# S-04: Final Scientific Reconciliation & Evidence Assembly
+# S-04: Master Scientific Reconciliation
 # =============================================================================
 def run_s04(manager: CheckpointManager) -> None:
-    """S-04: Final Scientific Reconciliation & Evidence Assembly.
+    """S-04: Master Scientific Reconciliation.
 
-    Consumes all scientific result artifacts across Phase 2 stages and baseline Block 7 artifacts,
-    building a structured, traceable evidence hierarchy with formal classifications.
+    Synthesizes traceable evidence across all Phase 2 stages and baseline Block 7 artifacts,
+    generating structured evidence hierarchy: master_results.json, comparison_table.json,
+    and evidence_report.md.
     """
     stage_id = "S04"
-    with StageExecution(manager, stage_id, budget_seconds=1500) as stage:
+    with StageExecution(manager, stage_id, budget_seconds=600) as stage:
         if stage.should_skip:
             return
         logger.info("Executing S-04 Final Scientific Reconciliation...")
@@ -1510,15 +1581,16 @@ def run_s04(manager: CheckpointManager) -> None:
             "experiment_id": "EXP_BASELINE_BLUE",
             "dataset_id": "KIRA_SYNTHETIC_TINY",
             "scale": "tiny",
-            "seed": 20260827,
+            "world_seed": 20260827,
+            "model_seed": 20260827,
             "sample_count": 1403,
-            "fraud_count": 70,
+            "positive_count": 70,
             "metric_name": "pr_auc",
             "metric_value": blue_pr_auc,
             "confidence_interval": None,
             "p_value": None,
             "artifact_path": str(BASELINE_RUN_DIR / "blue_metrics.json"),
-            "git_commit": manager.baseline_git_commit,
+            "git_sha": manager.baseline_git_commit,
             "classification": "MEASURED" if blue_pr_auc is not None else "NOT_MEASURED",
         })
 
@@ -1532,15 +1604,16 @@ def run_s04(manager: CheckpointManager) -> None:
             "experiment_id": "S00",
             "dataset_id": "KIRA_SYNTHETIC_TINY",
             "scale": "tiny",
-            "seed": 20260827,
+            "world_seed": 20260827,
+            "model_seed": 20260827,
             "sample_count": s00_res.get("sample_count", 5),
-            "fraud_count": None,
+            "positive_count": None,
             "metric_name": "global_max_delta",
             "metric_value": s00_res.get("global_max_delta", 0.0),
             "confidence_interval": None,
             "p_value": None,
             "artifact_path": "research_runs/PHASE2/S00/status.json",
-            "git_commit": manager.git_commit,
+            "git_sha": manager.git_commit,
             "classification": "MEASURED" if s00_pass is not None else "NOT_MEASURED",
         })
 
@@ -1554,15 +1627,16 @@ def run_s04(manager: CheckpointManager) -> None:
             "experiment_id": "G01",
             "dataset_id": "KIRA_SYNTHETIC_TINY",
             "scale": "tiny",
-            "seed": 20260827,
+            "world_seed": 20260827,
+            "model_seed": 20260827,
             "sample_count": g01_m.get("sample_count"),
-            "fraud_count": g01_m.get("fraud_count"),
+            "positive_count": g01_m.get("fraud_count"),
             "metric_name": "pr_auc",
             "metric_value": g01_pr,
             "confidence_interval": g01_m.get("pr_auc_ci_95"),
             "p_value": None,
             "artifact_path": "research_runs/PHASE2/G01/metrics.json",
-            "git_commit": manager.git_commit,
+            "git_sha": manager.git_commit,
             "classification": "MEASURED" if g01_pr is not None else "NOT_MEASURED",
         })
 
@@ -1578,15 +1652,16 @@ def run_s04(manager: CheckpointManager) -> None:
             "experiment_id": "G03",
             "dataset_id": "KIRA_SYNTHETIC_TINY",
             "scale": "tiny",
-            "seed": 20260827,
+            "world_seed": 20260827,
+            "model_seed": 20260827,
             "sample_count": 1403,
-            "fraud_count": None,
+            "positive_count": 70,
             "metric_name": "delta_rel",
             "metric_value": g03_estimands.get("delta_rel"),
             "confidence_interval": None,
             "p_value": g03_estimands.get("p_value_bootstrap"),
             "artifact_path": "research_runs/PHASE2/G03/metrics.json",
-            "git_commit": manager.git_commit,
+            "git_sha": manager.git_commit,
             "classification": g03_dec if g03_dec else "NOT_MEASURED",
         })
 
@@ -1602,15 +1677,16 @@ def run_s04(manager: CheckpointManager) -> None:
             "experiment_id": "S02",
             "dataset_id": "KIRA_SYNTHETIC_FULL" if s02_m.get("dataset_scale") == "full" else f"KIRA_SYNTHETIC_{s02_m.get('dataset_scale', 'TINY').upper()}",
             "scale": s02_m.get("dataset_scale", "tiny"),
-            "seed": 20260827,
+            "world_seed": 20260827,
+            "model_seed": 20260827,
             "sample_count": 1403,
-            "fraud_count": None,
+            "positive_count": None,
             "metric_name": "delta_rel",
             "metric_value": s02_estimands.get("delta_rel"),
             "confidence_interval": None,
             "p_value": s02_estimands.get("p_value_bootstrap"),
             "artifact_path": "research_runs/PHASE2/S02/metrics.json",
-            "git_commit": manager.git_commit,
+            "git_sha": manager.git_commit,
             "classification": s02_dec if s02_dec else "NOT_MEASURED",
         })
 
@@ -1625,15 +1701,16 @@ def run_s04(manager: CheckpointManager) -> None:
             "experiment_id": "S03",
             "dataset_id": f"KIRA_SYNTHETIC_{s03_m.get('dataset_scale', 'TINY').upper()}",
             "scale": s03_m.get("dataset_scale", "tiny"),
-            "seed": 20260827,
+            "world_seed": 20260827,
+            "model_seed": 20260827,
             "sample_count": s03_wc.get("sample_count", 0),
-            "fraud_count": s03_wc.get("total_attack_count"),
+            "positive_count": s03_wc.get("total_attack_count"),
             "metric_name": "robustness_delta",
             "metric_value": s03_wc.get("robustness_delta"),
             "confidence_interval": s03_wc.get("confidence_interval_95"),
             "p_value": None,
             "artifact_path": "research_runs/PHASE2/S03/metrics.json",
-            "git_commit": manager.git_commit,
+            "git_sha": manager.git_commit,
             "classification": s03_status if s03_status else "NOT_MEASURED",
         })
 
