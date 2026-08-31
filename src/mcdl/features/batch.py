@@ -174,7 +174,7 @@ def compute_batch_features(
                     "home_lon": float(cust.home_lon),
                     "credit_limit": float(cust.credit_limit),
                 })
-            cust_df = pl.DataFrame(cust_rows)
+            cust_df = pl.DataFrame(cust_rows, infer_schema_length=None)
         elif isinstance(customers, pl.DataFrame):
             cust_df = customers
         else:

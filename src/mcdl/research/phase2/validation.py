@@ -196,7 +196,7 @@ def run_temporal_leakage_tests(
             "is_fraud": True,
             "attack_family": "synthetic_identity",
         })
-    future_df = pl.DataFrame(future_txns)
+    future_df = pl.DataFrame(future_txns, infer_schema_length=None)
     augmented_raw = pl.concat([graph.raw_df, future_df], how="diagonal")
     augmented_graph = TemporalPaymentGraph(augmented_raw)
 

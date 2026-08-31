@@ -72,7 +72,7 @@ class TemporalPaymentGraph:
                         "is_fraud": bool(getattr(t, "is_fraud", False)),
                         "attack_family": getattr(t, "attack_family", None),
                     })
-            transactions_df = pl.DataFrame(records)
+            transactions_df = pl.DataFrame(records, infer_schema_length=None)
 
         # Ensure transactions are sorted strictly in causal order (timestamp, txn_id)
         if "timestamp" in transactions_df.columns and transactions_df["timestamp"].dtype == pl.String:
