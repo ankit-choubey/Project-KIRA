@@ -33,3 +33,9 @@ Thumbs.db
 research_runs/**/*.pkl
 research_runs/**/*.bin
 research_runs/**/*.ckpt
+
+# Skill toolkits - local development only
+.skills/
+ui-ux-pro-max-skill/
+ui-ux-pro-max-skill*
+

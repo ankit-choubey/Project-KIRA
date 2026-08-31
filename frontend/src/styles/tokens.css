@@ -1,0 +1,90 @@
+:root {
+  /* Fonts */
+  --font-sans: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SF Mono', Consolas, Menlo, monospace;
+
+  /* Spacing Grid (8px based) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Radius (Deliberately restrained: 4px chips, 6px cards, max 8px) */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  /* Easing & Motion */
+  --ease-standard: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --duration-fast: 100ms;
+  --duration-base: 180ms;
+  --duration-slow: 280ms;
+
+  /* LIGHT THEME (Default) */
+  --ground: #FAFBFC;
+  --surface: #FFFFFF;
+  --surface-2: #F4F6F8;
+  --surface-3: #EDF1F5;
+  --border: #E1E6EB;
+  --border-2: #C9D2DA;
+  --ink: #14181C;
+  --ink-2: #4A5560;
+  --muted: #78848F;
+  
+  --accent: #14607A;
+  --accent-soft: #E4F0F4;
+  --accent-hover: #0F495D;
+  --accent-ink: #FFFFFF;
+
+  /* Semantic - Decisions only */
+  --allow: #1B7A4B;
+  --allow-soft: #E3F2EA;
+  --step-up: #8A5B0F;
+  --step-up-soft: #F7EDD9;
+  --block: #A32D1E;
+  --block-soft: #F8E3DF;
+
+  /* Shadows */
+  --shadow-subtle: 0 1px 2px rgba(20, 24, 28, 0.05);
+  --shadow-card: 0 1px 3px rgba(20, 24, 28, 0.06), 0 1px 2px rgba(20, 24, 28, 0.04);
+  --shadow-drawer: -4px 0 24px rgba(20, 24, 28, 0.12);
+
+  /* Max Width */
+  --content-max-width: 1180px;
+}
+
+[data-theme="dark"] {
+  --ground: #0E1216;
+  --surface: #161C22;
+  --surface-2: #1D252C;
+  --surface-3: #242E37;
+  --border: #28323A;
+  --border-2: #3A4750;
+  --ink: #E6ECF1;
+  --ink-2: #AFBCC6;
+  --muted: #7B8894;
+
+  --accent: #4FB8D0;
+  --accent-soft: #10333D;
+  --accent-hover: #67C7DE;
+  --accent-ink: #0E1216;
+
+  /* Semantic - Decisions only */
+  --allow: #5CC98D;
+  --allow-soft: #102A1D;
+  --step-up: #DDAF5C;
+  --step-up-soft: #2C2413;
+  --block: #E88476;
+  --block-soft: #2E1815;
+
+  /* Shadows */
+  --shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-drawer: -4px 0 28px rgba(0, 0, 0, 0.6);
+}

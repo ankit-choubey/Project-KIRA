@@ -6,6 +6,36 @@ Never write "done". Write what changed, what you ran, and what the gate said.
 
 ---
 
+## 2026-08-31 · Live Hugging Face Backend Integration & Competition UI Deployment · Antigravity
+
+**BLOCK:** Live HF Backend Integration, 10 Audited Hero Numbers, Swarm & Transferability Suites.
+
+**DONE:**
+1. **Live Hugging Face Backend Connection Verified**:
+   - Connected `frontend/.env.production` and `frontend/.env.development` to live HF space `https://ankit-choubey-project-kira.hf.space`.
+   - Verified live API endpoints returning 200 OK:
+     - `GET /api/health` -> `status: "ok"`, `is_fixture: false`, `run_id: "run_tiny_s20260827_193f7897_40997ab"`.
+     - `GET /api/stream` -> 9,348 transactions.
+     - `GET /api/artifact/manifest.json` -> 200 OK.
+     - `POST /api/score` -> Real-time LightGBM inference executed in 6.35ms (`ALLOW`, risk: 0.0116).
+2. **10 Audited Headline Hero Tiles (Mission Control)**:
+   - Added the 10 audited numbers: 284,807 ULB transactions, 50,000 synthetic evaluations, 15,000 swarm attempts, 10,000 ADV-001 attacks, +10.08 pp memory effect, +1.98 pp graph fusion uplift ($p=0.046$), 50% TI reduction, 100% Zero-Day ASR, 0/28,044 leakage violations, 225 automated tests green.
+3. **ADV-002 Stateful Swarm Intelligence & ADV-004 Transfer Matrix (Attack Engine)**:
+   - 3-arm controlled comparison (Adaptive Memory 19.68% vs Static 9.60% vs Memory Disabled 10.44%).
+   - 5x5 Cross-family vulnerability transfer matrix across all 5 attack families.
+4. **Operational Resilience & Threat Intelligence (Real-World & Invariance)**:
+   - TI-001 Synthetic Threat Intelligence enrichment (-50% relative ASR reduction).
+   - OPS-002 Telemetry degradation (missing device -> governed Step-Up fallback).
+   - DRIFT statistical distribution monitor (4,674 observations, KS = 0.1119, $p < 0.05$).
+5. **Interactive "See KIRA Think" Pipeline Overhaul**:
+   - 4 spacious pipeline stage cards with 3 real transaction scenarios, live probe console, and animated risk gauge.
+6. **Production Build**:
+   - `npm run build` executed in 874ms with 0 errors, updating `frontend/dist/`.
+
+**FILES:** `frontend/.env.production`, `frontend/.env.development`, `frontend/src/sections/*`, `frontend/src/data/metrics.registry.ts`, `frontend/dist/*`, `brain/HANDOFF.md`.
+
+---
+
 ## 2026-08-31 · Project KIRA Final Scientific Audit, Evidence Reconciliation & Repository Freeze · Antigravity
 
 **BLOCK:** Final Mile — Canonical Evidence Reconciliation, Full Verification Suite, and Repository Freeze.
@@ -30,6 +60,42 @@ Never write "done". Write what changed, what you ran, and what the gate said.
    - Final verdict: **`READY_FOR_SUBMISSION`**.
 
 **FILES:** `research_runs/ADVANCED/FINAL/*`, `docs/FINAL_SUBMISSION_MATRIX.md`, `brain/HANDOFF.md`.
+
+---
+
+## 2026-08-31 · UI/UX Pro Max Frontend Rebuild & Provenance System · Antigravity
+
+**BLOCK:** Frontend Rebuild — Institutional Data-Dense Adversarial Payment Security Instrument.
+
+**DONE:**
+1. **Design System & Visual Architecture**:
+   - Implemented UI UX Pro Max data-dense design tokens (`Public Sans` + `IBM Plex Mono`, Light default `--ground: #FAFBFC` + Dark `--ground: #0E1216` themes, 8px grid, sharp 4px/6px radii, semantic decision palette with zero decorative neons or emojis).
+   - Built single-page scrolling layout with sticky navigation (`#mission`, `#loop`, `#attack-console`, `#weakness`, `#three-worlds`, `#experiments`, `#monitor`, `#evidence`).
+2. **Metric Registry & Provenance Traceability**:
+   - Built authoritative `metrics.registry.ts` mapping all displayed metrics to exact JSON artifacts, paths, formatting, and classification tags (`MEASURED`, `EXP-007-A`..`H`, `REAL-WORLD DATA`, `FAILURE FINDING`, `LOOPBACK BENCHMARK`, `LIVE`, `SHA-256 VERIFIED`).
+   - Implemented interactive `EvidenceDrawer.tsx` revealing JSON source, path, raw value, run ID, git commit, config hash, seed, hypothesis, baseline, and treatment.
+   - Enforced null safety: `null` / `undefined` renders as *not measured*, never 0.
+3. **8 Interactive Sections**:
+   - **01 Mission Control**: 6 primary stat tiles + system triad architecture.
+   - **02 The Loop**: 4-round Co-evolution interactive player with explicit `REJECT_DETECTION_COLLAPSE` safety gate banner, comparison table, and rollback verification.
+   - **03 Attack Console**: Interactive probe stepper (1..20 probes) with live risk delta, MED calculation, strict business rule mask check, and original vs mutated feature diff.
+   - **04 Weakness Board**: 12-class weakness taxonomy (W1..W12) distribution, failure share bars, and reseeding weights.
+   - **05 Three Worlds**: World A (standard adaptation), World B (shifted physics), and World C (hidden zero-day) with 100% failure finding analysis.
+   - **06 Experiment Register**: EXP-007-A through EXP-007-H controlled experiment cards with hypotheses, baselines, treatments, and conclusions.
+   - **07 Transaction Monitor**: Searchable/filterable stream with decision chips and single transaction inspector modal.
+   - **08 Evidence & Provenance**: Cryptographic run manifest, SHA-256 hash table checked against `provenance.json`, L1..L5 causal fidelity tests, and stated research limitations.
+4. **Data Adapter & Integration**:
+   - Unified `source.ts` supporting both Static Replay (`./data/*.json`) and Live API (`/api/*`).
+   - Copied canonical artifact JSONs into `frontend/public/data/` and generated 50-row `stream.json`.
+   - Updated `artifacts/LATEST` to `run_tiny_s20260827_193f7897_40997ab`.
+   - Verified `GET /api/artifacts`, `GET /api/artifact/{name}`, `GET /api/health` returning 200 OK.
+5. **Testing & Verification**:
+   - TypeScript compilation: 0 errors (`npm run build`). Production bundle created in `frontend/dist/`.
+   - Backend API suite: `pytest tests/e2e/test_api.py` passed 27/27.
+   - Preview server verified on `http://localhost:4173/` and backend static mount verified on `http://localhost:8000/`.
+
+**FILES:** `frontend/src/*`, `frontend/public/data/*`, `frontend/index.html`, `.gitignore`, `artifacts/LATEST`, `brain/HANDOFF.md`.
+>>>>>>> Stashed changes
 
 ---
 
