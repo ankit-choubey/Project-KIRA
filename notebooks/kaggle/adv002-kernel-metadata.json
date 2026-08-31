@@ -1,0 +1,14 @@
+{
+  "id": "theankitchoubey/project-kira-adv002-large-swarm",
+  "title": "project-kira-adv002-large-swarm",
+  "code_file": "05_adv002_large_swarm.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "true",
+  "enable_gpu": "false",
+  "enable_tpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": []
+}
