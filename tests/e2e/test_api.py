@@ -12,6 +12,10 @@ import pytest
 from fastapi.testclient import TestClient
 
 from mcdl.config import REPO_ROOT
+import sys
+
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 DIST = REPO_ROOT / "frontend" / "dist"
 
@@ -92,8 +96,28 @@ class TestUnbuiltBlocks:
         assert "MODEL_NOT_BUILT" in body["decision"]["reason_codes"]
         assert "placeholder" in body["served_by"]
 
+    def test_score_response_schema_completeness(self, client):
+        txn = client.get("/api/stream?limit=1").json()["rows"][0]["transaction"]
+        res = client.post("/api/score", json={"transaction": txn})
+        assert res.status_code == 200
+        body = res.json()
+        assert "decision" in body
+        assert "served_by" in body
+        assert "api_latency_ms" in body
+        assert isinstance(body["api_latency_ms"], float)
+        assert body["decision"]["decision"] in ("ALLOW", "STEP_UP", "BLOCK")
+
     def test_attack_501s_until_red_exists(self, client):
         assert client.post("/api/attack", json={"family": "R1_ato"}).status_code == 501
+
+    def test_config_endpoint_returns_valid_structure(self, client):
+        res = client.get("/api/config")
+        assert res.status_code == 200
+        body = res.json()
+        assert "scale" in body
+        assert "families" in body
+        assert "hidden_from_blue" in body
+        assert "query_budgets" in body
 
 
 @pytest.mark.skipif(not DIST.is_dir(), reason="frontend not built; run `make frontend`")
@@ -117,3 +141,4 @@ class TestStaticRouting:
     def test_api_still_wins_over_static(self, client):
         res = client.get("/api/health")
         assert res.headers["content-type"].startswith("application/json")
+
