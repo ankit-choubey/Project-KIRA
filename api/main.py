@@ -10,9 +10,11 @@ every /api route, or it swallows the API and the UI shows an empty page.
 
 from __future__ import annotations
 
+import json
 import sys
 import time
 from pathlib import Path
+from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
@@ -206,10 +208,10 @@ def score(req: ScoreRequest) -> ScoreResponse:
                     risk_score=0.0,
                     calibrated_score=0.0,
                     decision="ALLOW",  # type: ignore[arg-type]
-                    reason_codes=["STANDARD_LOW_RISK_PROFILE"],
-                    model_version=ev.manifest.run_id,
+                    reason_codes=["UNMEASURED_TRANSACTION_FALLBACK"],
+                    model_version=f"{ev.manifest.run_id}:unmeasured-fallback",
                 )
-                served_by = f"default-allow ({ev.manifest.run_id})"
+                served_by = f"artifact-fallback-unmeasured ({ev.manifest.run_id})"
         else:
             decision = BlueDecision(
                 txn_id=req.transaction.txn_id,
@@ -225,6 +227,38 @@ def score(req: ScoreRequest) -> ScoreResponse:
         served_by=served_by,
         api_latency_ms=round((time.perf_counter() - t0) * 1000, 3),
     )
+
+
+@app.get("/api/artifacts")
+def artifacts() -> dict[str, Any]:
+    d, ev = _current()
+    files = sorted(p.name for p in d.glob("*.json") if not p.name.startswith("."))
+    return {
+        "run_id": ev.manifest.run_id,
+        "is_fixture": ev.manifest.is_fixture,
+        "artifacts": files,
+    }
+
+
+@app.get("/api/artifact/{name}")
+def get_artifact(name: str) -> Any:
+    d, ev = _current()
+    clean_name = name.removesuffix(".json")
+    if not clean_name.replace("-", "").replace("_", "").isalnum():
+        raise HTTPException(status_code=404, detail=f"invalid artifact name '{name}'")
+
+    target = (d / f"{clean_name}.json").resolve()
+    if not target.is_file() or not target.is_relative_to(d.resolve()):
+        raise HTTPException(
+            status_code=404, detail=f"artifact '{name}' not found in {ev.manifest.run_id}"
+        )
+
+    try:
+        return json.loads(target.read_text(encoding="utf-8"))
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500, detail=f"failed to read artifact '{name}': {exc}"
+        ) from exc
 
 
 

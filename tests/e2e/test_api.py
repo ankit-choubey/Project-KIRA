@@ -126,6 +126,73 @@ class TestUnbuiltBlocks:
         assert "query_budgets" in body
 
 
+class TestGenericArtifacts:
+    def test_artifacts_list(self, client):
+        res = client.get("/api/artifacts")
+        assert res.status_code == 200
+        body = res.json()
+        assert "run_id" in body
+        assert "artifacts" in body
+        assert isinstance(body["artifacts"], list)
+        assert "manifest.json" in body["artifacts"] or "evaluation.json" in body["artifacts"]
+
+    def test_get_artifact_known(self, client):
+        res = client.get("/api/artifact/evaluation")
+        assert res.status_code == 200
+        data = res.json()
+        assert "manifest" in data or "rounds" in data
+
+        # Also support explicit .json suffix
+        res_ext = client.get("/api/artifact/evaluation.json")
+        assert res_ext.status_code == 200
+        assert res_ext.json() == data
+
+    def test_get_artifact_unknown_404s(self, client):
+        res = client.get("/api/artifact/nonexistent_file")
+        assert res.status_code == 404
+        assert "not found" in res.json()["detail"].lower()
+
+    def test_get_artifact_path_traversal_blocked(self, client):
+        # Traversal attempts should be blocked and 404
+        res = client.get("/api/artifact/..%2F..%2Fmain")
+        assert res.status_code == 404
+
+        res2 = client.get("/api/artifact/.env")
+        assert res2.status_code == 404
+
+
+class TestScoreFallbackSemantics:
+    def test_fallback_on_unknown_transaction_in_real_run(self, client, monkeypatch):
+        # Emulate non-fixture run without live model to verify fallback label
+        from datetime import datetime, timezone
+        from api import main
+        from mcdl.schemas import RunManifest, EvaluationResult, FidelityReport
+
+        mock_manifest = RunManifest(
+            run_id="run_tiny_mock",
+            created_at=datetime.now(timezone.utc),
+            scale="tiny",
+            is_fixture=False,
+            git_commit="mock_commit",
+            config_hash="mock_hash",
+            seed=20260827,
+        )
+        mock_fidelity = FidelityReport(l1_violations=0)
+        mock_eval = EvaluationResult(manifest=mock_manifest, fidelity=mock_fidelity, rounds=[])
+        monkeypatch.setattr(main, "_current", lambda: (REPO_ROOT / "artifacts" / "run_fixture_0000", mock_eval))
+        monkeypatch.setattr(main, "_get_decisions", lambda d, r: {})
+
+        txn = client.get("/api/stream?limit=1").json()["rows"][0]["transaction"]
+        txn["txn_id"] = "TXN_UNKNOWN_9999"
+
+        res = client.post("/api/score", json={"transaction": txn})
+        assert res.status_code == 200
+        body = res.json()
+        assert "artifact-fallback-unmeasured" in body["served_by"]
+        assert "UNMEASURED_TRANSACTION_FALLBACK" in body["decision"]["reason_codes"]
+        assert "unmeasured-fallback" in body["decision"]["model_version"]
+
+
 @pytest.mark.skipif(not DIST.is_dir(), reason="frontend not built; run `make frontend`")
 class TestStaticRouting:
     """The two bugs that only appear in front of a judge."""
