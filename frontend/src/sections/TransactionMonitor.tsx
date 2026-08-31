@@ -13,7 +13,7 @@ export const TransactionMonitor: React.FC = () => {
   const [inspectRow, setInspectRow] = useState<StreamRow | null>(null);
 
   useEffect(() => {
-    source.stream(0, 50).then((res) => {
+    source.stream(0, 50).then((res: StreamPage) => {
       setStreamData(res);
       setLoading(false);
     });
@@ -21,7 +21,7 @@ export const TransactionMonitor: React.FC = () => {
 
   const rows = streamData?.rows || [];
 
-  const filteredRows = rows.filter((r) => {
+  const filteredRows = rows.filter((r: StreamRow) => {
     const dec = r.decision?.decision || (r.transaction.is_fraud ? "BLOCK" : "ALLOW");
     if (filterDecision !== "ALL" && dec !== filterDecision) return false;
     if (searchTerm) {
@@ -115,7 +115,7 @@ export const TransactionMonitor: React.FC = () => {
                 </td>
               </tr>
             ) : (
-              filteredRows.map((r) => {
+              filteredRows.map((r: StreamRow) => {
                 const t = r.transaction;
                 const d = r.decision;
                 const dec = d?.decision || (t.is_fraud ? "BLOCK" : "ALLOW");

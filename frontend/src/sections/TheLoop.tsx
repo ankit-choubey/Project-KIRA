@@ -26,7 +26,7 @@ export const TheLoop: React.FC = () => {
   }, [isPlaying, maxRound]);
 
   const currentRoundData = rounds[selectedRound];
-  const currentScoreboard = scoreboard?.find((s) => s.round_index === selectedRound);
+  const currentScoreboard = scoreboard?.find((s: ScoreboardEntry) => s.round_index === selectedRound);
 
   return (
     <Section
@@ -56,7 +56,7 @@ export const TheLoop: React.FC = () => {
           </div>
 
           <div className="round-pills-row">
-            {rounds.map((_, idx) => (
+            {rounds.map((_: unknown, idx: number) => (
               <button
                 key={idx}
                 type="button"

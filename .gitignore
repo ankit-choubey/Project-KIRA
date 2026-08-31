@@ -13,7 +13,7 @@ venv/
 kaggle.json
 
 # Reference data is downloaded, not committed (also keeps licences clean)
-data/
+/data/
 
 # Generated artifacts. artifacts/demo/ and authoritative baseline are committed.
 artifacts/*

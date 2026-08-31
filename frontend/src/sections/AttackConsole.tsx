@@ -16,7 +16,7 @@ export const AttackConsole: React.FC = () => {
   const [attackCompleted, setAttackCompleted] = useState<boolean>(true);
 
   const samples = attackSummary?.samples || [];
-  const activeSample: AttackSample = samples.find((s) => s.family === selectedFamily) || samples[0] || {
+  const activeSample: AttackSample = samples.find((s: AttackSample) => s.family === selectedFamily) || samples[0] || {
     attack_id: "atk_s20260827_001",
     family: "amount_drift",
     target_txn_id: "tx_00008408",
@@ -240,7 +240,7 @@ export const AttackConsole: React.FC = () => {
                 { field: "amount", original_value: "$840.50", mutated_value: "$412.20", delta: "-50.96%" },
                 { field: "mcc", original_value: "5732 (Electronics)", mutated_value: "5411 (Grocery)", delta: "Category Shift" },
                 { field: "auth_failed_count", original_value: 2, mutated_value: 0, delta: "-2" },
-              ]).map((m, idx) => (
+              ]).map((m: any, idx: number) => (
                 <tr key={idx}>
                   <td><strong>{m.field}</strong></td>
                   <td className="num mono" style={{ color: "var(--block)" }}>{String(m.original_value)}</td>
