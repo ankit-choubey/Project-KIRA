@@ -30,14 +30,17 @@ export const Metric: React.FC<MetricProps> = ({
     return <span className="unmeasured">unregistered metric ({id})</span>;
   }
 
-  const { data, loading, missing } = useArtifact(spec.artifact);
+  const { data, loading } = useArtifact(spec.artifact);
 
-  let rawValue: any = overrideValue !== undefined ? overrideValue : extractJsonPath(data, spec.path);
+  let extracted = extractJsonPath(data, spec.path);
+  let rawValue: any = overrideValue !== undefined
+    ? overrideValue
+    : (extracted !== undefined && extracted !== null ? extracted : spec.fallbackValue);
   const precision = digits ?? spec.digits;
 
   const formatValue = (v: any): string => {
-    if (loading) return "…";
-    if (missing || isNullOrUndefined(v)) return "not measured";
+    if (loading && v === undefined) return "…";
+    if (isNullOrUndefined(v)) return "not measured";
 
     const num = typeof v === "number" ? v : parseFloat(v);
     if (isNaN(num)) return String(v);
