@@ -766,3 +766,35 @@ flag is surfaced on every response and unmeasured fields return `null`, not `0`.
 - **ADV-002 Large** (15,000 attempts) successfully demonstrated shared memory gain (+9.24% ASR) and adaptation gain (+10.08% ASR).
 - **ADV-003** (10 rounds) successfully demonstrated the adaptive defense curve. The `adaptive_challenger` reduced evasion to 76.00% while passing the anti-forgetting gate.
 - All empirical evidence extracted, audited, and committed to `main` at `6320c2d`.
+
+---
+
+## 2026-08-31 — HF Frontend 4-Page Integration Fix
+
+**Author**: Antigravity  
+**Commit**: 64aa156 (`fix(artifacts): restore LATEST pointer`)  
+**Prior commit**: 514102b (`fix(api): serve real attack results from artifacts`)
+
+### Problem
+Three backend endpoints were causing the HF frontend to show stale/fixture data or errors:
+1. `POST /api/attack` — returned HTTP 501 ("Red engine not built"). Red Console showed error panel.
+2. `GET /api/config` — returned config-file families (`R1_ato`, `R2_velocity_burst` etc.) which had no pre-computed failures, causing attack lookups to fail.
+3. `GET /api/coevolution` — returned round data from `evaluation.json` without merging `coevolution_metrics.json`, so `family_breakdown` was empty.
+
+### Fix (api/main.py only — no scientific code touched)
+- **`/api/attack`**: Now serves artifact-backed replay from `failures.json` (480 pre-computed attacks). Maps requested family name flexibly (config-style names fall back gracefully). Returns ASR, MED, and 10 representative attacks with provenance.
+- **`/api/config`**: Overrides families from `attack_summary.json` (actual run families: `burst_drain`, `slow_siphon`, `geo_hop`, `agent_subversion`, `cross_merchant_fanout`) and budgets from the same file.
+- **`/api/coevolution`**: Merges `coevolution_metrics.json` per-round `family_breakdown`, `heldout_asr`, and `seen_asr` into the round response.
+
+### Verification
+- All 27 API e2e tests pass.
+- 4-page smoke test: Inspector, Red Console, Co-Evolution, Evidence — all `PASS`.
+- Gate 0: 170 unit + 27 e2e tests `PASS`.
+- Baseline 22/22 SHA-256 integrity: `PASS`.
+- `artifacts/LATEST` committed as `run_tiny_s20260827_193f7897_40997ab`.
+
+### Warning
+`make gate 0` rewrites `artifacts/LATEST` to `run_fixture_0000` locally as part of fixture tests. After running Gate 0, restore with:
+```bash
+echo "run_tiny_s20260827_193f7897_40997ab" > artifacts/LATEST
+```
