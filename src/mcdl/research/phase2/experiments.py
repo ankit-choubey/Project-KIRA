@@ -996,7 +996,7 @@ def run_s02(manager: CheckpointManager) -> None:
                 raise TimeoutError(f"Stage S-02 budget ({budget_seconds}s) exceeded before {op_name}.")
 
         import os
-        scale = os.environ.get("MCDL_SCALE", "full")
+        scale = os.environ.get("MCDL_SCALE", "small")
         world_seed = 20260827
         model_seeds = [20260827, 42, 12345]
 
@@ -1008,7 +1008,7 @@ def run_s02(manager: CheckpointManager) -> None:
         check_timeout("dataset_generation")
 
         # 2. Load or generate dataset
-        if scale in ("tiny", "small"):
+        if scale == "tiny":
             df = _load_baseline_transactions()
             real_graph = TemporalPaymentGraph(df)
         else:
@@ -1363,7 +1363,7 @@ def run_s03(manager: CheckpointManager) -> None:
         logger.info("Executing S-03 Distribution Shift / Zero-Day Robustness...")
 
         import os
-        scale = os.environ.get("MCDL_SCALE", "full")
+        scale = os.environ.get("MCDL_SCALE", "small")
         world_seed = 20260827
         model_seed = 20260827
 
@@ -1373,7 +1373,7 @@ def run_s03(manager: CheckpointManager) -> None:
             raise RuntimeError(f"Baseline integrity verification failed: {integrity_report}")
 
         # 2. Load or generate dataset
-        if scale in ("tiny", "small"):
+        if scale == "tiny":
             df = _load_baseline_transactions()
             real_graph = TemporalPaymentGraph(df)
         else:
