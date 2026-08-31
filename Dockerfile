@@ -10,6 +10,7 @@ FROM python:3.11-slim
 
 # Spaces run the container as uid 1000. Create that user before anything is
 # copied, or every COPY lands root-owned and the app cannot read its own files.
+RUN apt-get update && apt-get install -y --no-install-recommends libgomp1 && rm -rf /var/lib/apt/lists/*
 RUN useradd -m -u 1000 user
 USER user
 ENV HOME=/home/user \

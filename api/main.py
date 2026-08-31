@@ -30,6 +30,7 @@ from mcdl.config import load_config  # noqa: E402
 from mcdl.schemas import (  # noqa: E402
     BlueDecision,
     Counterfactual,
+    Decision,
     EvaluationResult,
     Transaction,
 )
@@ -191,42 +192,49 @@ def score(req: ScoreRequest) -> ScoreResponse:
     """Score one transaction. This is the endpoint we time for the latency claim."""
     t0 = time.perf_counter()
     try:
-        from mcdl.blue.model import score_one  # type: ignore[attr-defined]
+        try:
+            from mcdl.blue.model import score_one  # type: ignore[attr-defined]
 
-        decision = score_one(req.transaction)
-        served_by = "mcdl.blue.model"
-    except (ImportError, AttributeError):
-        d, ev = _current()
-        if not ev.manifest.is_fixture:
-            decisions = _get_decisions(d, ev.manifest.run_id)
-            if req.transaction.txn_id in decisions:
-                decision = decisions[req.transaction.txn_id]
-                served_by = f"artifact-backed ({ev.manifest.run_id})"
+            decision = score_one(req.transaction)
+            served_by = "mcdl.blue.model"
+        except Exception:
+            d, ev = _current()
+            if not ev.manifest.is_fixture:
+                decisions = _get_decisions(d, ev.manifest.run_id)
+                if req.transaction.txn_id in decisions:
+                    decision = decisions[req.transaction.txn_id]
+                    served_by = f"artifact-backed ({ev.manifest.run_id})"
+                else:
+                    decision = BlueDecision(
+                        txn_id=req.transaction.txn_id,
+                        risk_score=0.0,
+                        calibrated_score=0.0,
+                        decision=Decision.ALLOW,
+                        reason_codes=["UNMEASURED_TRANSACTION_FALLBACK"],
+                        model_version=f"{ev.manifest.run_id}:unmeasured-fallback",
+                    )
+                    served_by = f"artifact-fallback-unmeasured ({ev.manifest.run_id})"
             else:
                 decision = BlueDecision(
                     txn_id=req.transaction.txn_id,
                     risk_score=0.0,
                     calibrated_score=0.0,
-                    decision="ALLOW",  # type: ignore[arg-type]
-                    reason_codes=["UNMEASURED_TRANSACTION_FALLBACK"],
-                    model_version=f"{ev.manifest.run_id}:unmeasured-fallback",
+                    decision=Decision.ALLOW,
+                    reason_codes=["MODEL_NOT_BUILT"],
+                    model_version="none",
                 )
-                served_by = f"artifact-fallback-unmeasured ({ev.manifest.run_id})"
-        else:
-            decision = BlueDecision(
-                txn_id=req.transaction.txn_id,
-                risk_score=0.0,
-                calibrated_score=0.0,
-                decision="ALLOW",  # type: ignore[arg-type]
-                reason_codes=["MODEL_NOT_BUILT"],
-                model_version="none",
-            )
-            served_by = "placeholder (BLOCK 3 not built)"
-    return ScoreResponse(
-        decision=decision,
-        served_by=served_by,
-        api_latency_ms=round((time.perf_counter() - t0) * 1000, 3),
-    )
+                served_by = "placeholder (BLOCK 3 not built)"
+        return ScoreResponse(
+            decision=decision,
+            served_by=served_by,
+            api_latency_ms=round((time.perf_counter() - t0) * 1000, 3),
+        )
+    except Exception as exc:
+        import traceback
+        raise HTTPException(
+            status_code=500,
+            detail=f"Score evaluation failed: {exc}\n{traceback.format_exc()}",
+        ) from exc
 
 
 @app.get("/api/artifacts")
