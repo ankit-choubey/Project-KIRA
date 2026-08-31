@@ -1,0 +1,14 @@
+{
+  "id": "theankitchoubey/project-kira-adv003-adaptive-defense",
+  "title": "project-kira-adv003-adaptive-defense",
+  "code_file": "06_adv003_adaptive_defense.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "true",
+  "enable_gpu": "false",
+  "enable_tpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": []
+}
