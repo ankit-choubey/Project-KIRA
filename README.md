@@ -19,14 +19,14 @@ pinned: false
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-005571?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Polars](https://img.shields.io/badge/Polars-Vectorized_Engine-CD792C?style=for-the-badge&logo=polars&logoColor=white)](https://pola.rs)
 [![LightGBM](https://img.shields.io/badge/LightGBM-Gradient_Boosting-2E7D32?style=for-the-badge)](https://lightgbm.readthedocs.io)
-[![Test Suite](https://img.shields.io/badge/tests-75_passed-2E7D32?style=for-the-badge)](./tests/)
-[![Security Gates](https://img.shields.io/badge/gates-0_through_7_verified-14607A?style=for-the-badge)](./tools/gates.py)
+[![Test Suite](https://img.shields.io/badge/tests-75_passed-2E7D32?style=for-the-badge)](https://github.com/ankit-choubey/Project-KIRA/tree/main/tests)
+[![Security Gates](https://img.shields.io/badge/gates-0_through_7_verified-14607A?style=for-the-badge)](https://github.com/ankit-choubey/Project-KIRA/blob/main/tools/gates.py)
 
 <br/>
 
 **Mastercard AI Defense Lab (Project KIRA)** is an institutional-grade payment-security laboratory designed to evaluate, stress-test, and harden transaction intelligence models against realistic, budget-constrained adversarial evasion attacks. Built around a stateful synthetic payment world, KIRA simulates continuous Red vs. Blue co-evolution, measures true generalization versus memorization, and enforces strict temporal-causal integrity across every metric.
 
-[Explore Space](https://huggingface.co/spaces/ankit-choubey/Project-KIRA) • [Architecture](#2-system-architecture--closed-loop-control-flow) • [Scientific Invariants](#3-core-scientific-invariants) • [Benchmarks](#5-empirical-benchmark-matrix) • [Quickstart](#6-developer-quickstart--execution)
+[🚀 Live Web App](https://ankit-choubey-project-kira.hf.space) • [🤗 Hugging Face Space](https://huggingface.co/spaces/ankit-choubey/Project-KIRA) • [⚡ Interactive API Docs](https://ankit-choubey-project-kira.hf.space/docs) • [🔍 REST API Index](https://ankit-choubey-project-kira.hf.space/api) • [💻 GitHub Repository](https://github.com/ankit-choubey/Project-KIRA)
 
 <br/>
 
@@ -245,7 +245,7 @@ python3 run_phase2_smoke_tests.py
 1. **Controlled Simulation**: All experiments execute purely on synthetic payment graphs or public open-source benchmark data (ULB CC0).
 2. **Zero PII / Zero Live Integration**: No real cardholder data, personal identifiable information, or live banking switches are accessed.
 3. **Defensive Research Focus**: Attack mutators are constrained to evaluating detector robustness; no exploit payloads or infrastructure attacks are generated.
-4. **Scope Integrity**: Findings reflect synthetic world distributions and specified query budgets. For comprehensive details, see [`docs/LIMITATIONS.md`](./docs/LIMITATIONS.md).
+4. **Scope Integrity**: Findings reflect synthetic world distributions and specified query budgets. For comprehensive details, see [`docs/LIMITATIONS.md`](https://github.com/ankit-choubey/Project-KIRA/blob/main/docs/LIMITATIONS.md).
 
 ---
 

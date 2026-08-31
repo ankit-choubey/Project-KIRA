@@ -111,6 +111,47 @@ def _current():
         raise HTTPException(status_code=503, detail=str(exc)) from exc
 
 
+@app.get("/api")
+@app.get("/api/")
+def api_root() -> dict[str, Any]:
+    """Root API directory endpoint detailing available services and active run."""
+    try:
+        d, ev = _current()
+        run_id = ev.manifest.run_id
+        is_fixture = ev.manifest.is_fixture
+        scale = ev.manifest.scale
+    except Exception:
+        run_id = None
+        is_fixture = False
+        scale = "unknown"
+
+    return {
+        "service": "Mastercard AI Defense Lab (Project KIRA) API",
+        "status": "online",
+        "version": "0.1.0",
+        "active_run_id": run_id,
+        "is_fixture": is_fixture,
+        "scale": scale,
+        "docs_url": "/docs",
+        "redoc_url": "/redoc",
+        "openapi_url": "/openapi.json",
+        "endpoints": {
+            "health": "/api/health",
+            "config": "/api/config",
+            "runs": "/api/runs",
+            "stream": "/api/stream",
+            "transaction": "/api/transaction/{txn_id}",
+            "score": "/api/score",
+            "coevolution": "/api/coevolution",
+            "evidence": "/api/evidence",
+            "attack": "/api/attack",
+            "artifacts": "/api/artifacts",
+            "artifact": "/api/artifact/{name}",
+        },
+    }
+
+
+@app.get("/health", response_model=Health, include_in_schema=False)
 @app.get("/api/health", response_model=Health)
 def health() -> Health:
     try:

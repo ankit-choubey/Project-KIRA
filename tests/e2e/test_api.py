@@ -215,3 +215,18 @@ class TestStaticRouting:
         res = client.get("/api/health")
         assert res.headers["content-type"].startswith("application/json")
 
+    def test_api_root_returns_json_directory(self, client):
+        res = client.get("/api")
+        assert res.status_code == 200
+        assert res.headers["content-type"].startswith("application/json")
+        body = res.json()
+        assert "endpoints" in body
+        assert body["status"] == "online"
+
+    def test_health_alias_returns_json(self, client):
+        res = client.get("/health")
+        assert res.status_code == 200
+        assert res.headers["content-type"].startswith("application/json")
+        body = res.json()
+        assert "status" in body
+
