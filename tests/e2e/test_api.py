@@ -42,6 +42,11 @@ class TestHealth:
         # placeholder numbers start looking like measurements.
         assert client.get("/api/health").json()["is_fixture"] is True
 
+    def test_runs_endpoint(self, client):
+        body = client.get("/api/runs").json()
+        assert "runs" in body
+        assert isinstance(body["runs"], list)
+
 
 class TestStream:
     def test_returns_rows_and_total(self, client):
@@ -55,6 +60,7 @@ class TestStream:
 
     def test_limit_is_bounded(self, client):
         assert client.get("/api/stream?limit=99999").status_code == 422
+        assert client.get("/api/stream?offset=-1").status_code == 422
 
 
 class TestInspect:
