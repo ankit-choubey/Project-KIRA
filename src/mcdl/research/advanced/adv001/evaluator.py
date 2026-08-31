@@ -7,7 +7,7 @@ outcome classifications, computes ASR and MED, and calculates 95% bootstrap CIs.
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any
 import numpy as np
 
@@ -53,7 +53,7 @@ def evaluate_single_attempt(
     feature_extractor_state: StreamingFeatureExtractor | None = None,
 ) -> AttackAttemptResult:
     """Executes a single planned attack attempt through the Red engine."""
-    t_now = datetime.utcnow().isoformat() + "Z"
+    t_now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
     try:
         prov: AttackProvenance = engine.attack(
@@ -64,18 +64,40 @@ def evaluate_single_attempt(
             feature_extractor_state=feature_extractor_state,
         )
 
+        # Strict evasion condition: prov.success AND final decision is ALLOW AND not source-already-allowed
+        is_allow = (
+            prov.final_decision == Decision.ALLOW
+            or getattr(prov.final_decision, "value", "") == "ALLOW"
+            or str(prov.final_decision) == "ALLOW"
+            or str(prov.final_decision) == "Decision.ALLOW"
+        )
+        is_step_up = (
+            prov.final_decision == Decision.STEP_UP
+            or getattr(prov.final_decision, "value", "") == "STEP_UP"
+            or str(prov.final_decision) == "STEP_UP"
+            or str(prov.final_decision) == "Decision.STEP_UP"
+        )
+        is_block = (
+            prov.final_decision == Decision.BLOCK
+            or getattr(prov.final_decision, "value", "") == "BLOCK"
+            or str(prov.final_decision) == "BLOCK"
+            or str(prov.final_decision) == "Decision.BLOCK"
+        )
+
+        is_evasion = bool(prov.success) and is_allow and ("SOURCE_ALREADY_ALLOWED" not in prov.rejection_reasons)
+
         # Map to outcome taxonomy
-        if prov.success and prov.final_decision == Decision.ALLOW:
+        if is_evasion:
             outcome = "ALLOWED_EVASION"
-        elif prov.final_decision == Decision.STEP_UP:
-            outcome = "STEP_UP"
-        elif prov.final_decision == Decision.BLOCK:
-            outcome = "BLOCKED"
         elif prov.invalid_mutations > 0 and prov.valid_mutations == 0:
             if any("IMMUTABLE" in r for r in prov.rejection_reasons):
                 outcome = "INVALID_MUTATION"
             else:
                 outcome = "FAILED_MUTATION"
+        elif is_step_up:
+            outcome = "STEP_UP"
+        elif is_block:
+            outcome = "BLOCKED"
         else:
             outcome = "BLOCKED"
 
@@ -101,12 +123,12 @@ def evaluate_single_attempt(
             query_budget=plan.query_budget,
             queries_used=prov.queries_used,
             mutation_count=prov.mutations_attempted,
-            perturbation_distance=float(prov.med) if prov.med is not None else None,
+            perturbation_distance=float(prov.med) if (prov.med is not None and is_evasion) else None,
             target_transaction_id=plan.source_txn.txn_id,
             blue_model_version=blue_model_version,
             blue_score=float(prov.final_risk),
             blue_decision=prov.final_decision.value if hasattr(prov.final_decision, "value") else str(prov.final_decision),
-            evasion=bool(prov.success),
+            evasion=is_evasion,
             outcome=outcome,
             timestamp=t_now,
             provenance=prov_dict,

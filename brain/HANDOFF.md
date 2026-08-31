@@ -6,6 +6,58 @@ Never write "done". Write what changed, what you ran, and what the gate said.
 
 ---
 
+## 2026-08-31 · ADV-002 Stateful Adversarial Swarm Foundation · Antigravity
+
+**BLOCK:** Research Expansion — ADV-002 Stateful Adversarial Swarm Foundation & Architecture.
+
+**DONE:**
+1. **Isolated Module Structure**: Created `src/mcdl/research/advanced/adv002/` with `__init__.py`, `agents.py`, `campaign.py`, `memory.py`, `policy.py`, `scheduler.py`, `evaluator.py`, `runner.py`, and `storage.py`. Zero modifications to core `src/mcdl/red/` or `src/mcdl/blue/`.
+2. **Attacker Swarm**: Implemented 5 specialized deterministic stateful agents (`velocity_specialist`, `geo_specialist`, `merchant_specialist`, `agent_subversion_specialist`, `hybrid_adaptive`) with private state isolation and deterministic seeds.
+3. **Shared Attack Memory**: Implemented multi-indexed memory store ingesting 10,000 ADV-001 attempts in read-only mode (`origin="ADV-001"`) with append-only support for ADV-002 additions (`origin="ADV-002"`).
+4. **Deterministic Adaptive Policy**: Implemented inspectable, non-RL policy with $\epsilon$-decay exploration, empirical family-success weighting, budget escalation/probing, and deterministic tie-breaking.
+5. **Campaign Mechanics & Sequential Adaptation**: Built `CampaignManager` tracking multi-round state transitions, best perturbation distances, and adaptation events (`FAMILY_SWITCH`, `BUDGET_ADJUSTMENT`).
+6. **Multi-Objective Reward Function**: Implemented explicit transparent reward decomposition ($R = R_{\text{evasion}} + P_{\text{perturbation}} + P_{\text{query}} + P_{\text{decision}}$) balancing evasion success, perturbation distance, and query efficiency.
+7. **Storage & Resumability**: Built atomic checkpointing in `research_runs/ADVANCED/ADV-002/` skipping completed campaigns without round duplication.
+8. **Testing & Verification**: Created `tests/unit/research/test_adv002.py` with 11/11 tests passing. Ran `test_adv001.py` (14/14 passed) and `run_phase2_smoke_tests.py` (100% green).
+9. **Evidence & Post-Audit Artifacts**: Generated `comparability_adv001.json`, `repository_audit.json`, `evidence.md`, and `post_audit.md` (verdict: `READY_FOR_EXECUTION`).
+
+**FILES:** `src/mcdl/research/advanced/adv002/*`, `tests/unit/research/test_adv002.py`, `research_runs/ADVANCED/ADV-002/*`, `brain/HANDOFF.md`.
+
+---
+
+## 2026-08-31 · ADV-001 Final Semantic Hardening & Post-Audit · Antigravity
+
+**BLOCK:** Research Expansion — ADV-001 Final Semantic Hardening & Reproducibility Verification.
+
+**DONE:**
+1. **Evasion Semantics Hardening**: Hardened `src/mcdl/research/advanced/adv001/evaluator.py` guaranteeing `evasion == True` if and only if `outcome == "ALLOWED_EVASION"`, `prov.success == True`, and `blue_decision == "ALLOW"`. Eliminated any drift or inconsistent provenance states. Added 3 targeted unit regression tests in `tests/unit/research/test_adv001.py` (14/14 unit tests passing).
+2. **Attempt Semantics & Composition**: Analyzed `attack_memory.jsonl` and generated `research_runs/ADVANCED/ADV-001/attempt_semantics.json` with exact empirical counts:
+   - Total attempts: 10,000
+   - Unique attack IDs: 10,000 (`atk_adv001_000001` .. `atk_adv001_010000`)
+   - Unique deterministic seeds: 10,000
+   - Unique source transactions: 10 (1,000 attempts per transaction)
+   - Unique `(source_txn, family, budget)` grid configurations: 200 ($10 \times 5 \times 4$)
+   - Repetitions per grid point: 50 independent seed trajectories
+   - Duplicate combinations count: 9,800 ($10,000 - 200$)
+   - Evaluated candidate mutations: 197,900 valid, 0 invalid.
+3. **Deterministic Population Distributions**:
+   - Family counts: 2,000 each for `burst_drain`, `slow_siphon`, `geo_hop`, `agent_subversion`, `cross_merchant_fanout`.
+   - Budget counts: 2,500 each for budgets $1, 5, 20, 100$.
+   - Grid cell counts: Exactly 500 attempts per `(family, budget)` pair across all 20 cells.
+4. **Outcome Accounting Closure**: Proved exact 100.0% partition closure:
+   - `ALLOWED_EVASION`: 600 (6.00%)
+   - `BLOCKED`: 9,100 (91.00%)
+   - `STEP_UP`: 300 (3.00%)
+   - `FAILED_MUTATION`: 0, `INVALID_MUTATION`: 0, `ERROR`: 0, `TIMEOUT`: 0, `UNKNOWN`: 0.
+   - Sum: $600 + 9,100 + 300 = 10,000$.
+5. **Attack Memory Completeness**: Verified all 10 canonical fields present across 100% of records in `attack_memory.jsonl` with zero missing values.
+6. **Scientific Audit Report**: Updated `research_runs/ADVANCED/ADV-001/post_audit.md` with exact semantics, population breakdowns, accounting proofs, limitations, and verdict `CONDITIONAL_PASS`.
+7. **Verification**: Executed `pytest tests/unit/research/test_adv001.py -v` (14 passed) and `python3 run_phase2_smoke_tests.py` (all checks passed).
+
+**FILES:** `src/mcdl/research/advanced/adv001/evaluator.py`, `tests/unit/research/test_adv001.py`, `research_runs/ADVANCED/ADV-001/attempt_semantics.json`, `research_runs/ADVANCED/ADV-001/post_audit.md`, `brain/HANDOFF.md`.
+
+---
+
 ## 2026-08-31 · PHASE 1 Real-World Scientific Validation (Sparkov Reference) · Antigravity
 
 **BLOCK:** Research Expansion — Real-World Validation (S-02, S-03, S-04, S-05) Completed on Kaggle Cloud.

@@ -323,3 +323,255 @@ def test_adv001_protected_baseline_integrity():
         artifacts = prov.get("artifacts", {})
         assert len(artifacts) == 22
         assert prov.get("artifact_count") == 22
+
+
+def test_adv001_evasion_semantics_rigorous(sample_candidates):
+    """Evasion == True is possible ONLY when prov.success is True AND final decision is ALLOW."""
+    from unittest.mock import MagicMock
+    from mcdl.red.search import AttackProvenance
+    from mcdl.research.advanced.adv001.evaluator import evaluate_single_attempt
+    from mcdl.research.advanced.adv001.population import AttackPlan
+
+    txns, customers = sample_candidates
+    source_txn = txns[0]
+    cust = customers["c_test_01"]
+    plan = AttackPlan(
+        attack_id="atk_test_evasion",
+        family=AttackFamily.GEO_HOP,
+        strategy_name="mutate_geo_hop",
+        seed=12345,
+        parent_attack_id=None,
+        query_budget=20,
+        source_txn=source_txn,
+        customer=cust,
+    )
+
+    mock_engine = MagicMock()
+
+    # Case 1: Valid Evasion (prov.success=True, final_decision=ALLOW, non-zero perturbation)
+    mock_engine.attack.return_value = AttackProvenance(
+        attack_instance_id="atk_inst_1",
+        attack_family=AttackFamily.GEO_HOP,
+        source_txn_id=source_txn.txn_id,
+        seed=12345,
+        query_budget=20,
+        queries_used=4,
+        mutations_attempted=4,
+        valid_mutations=4,
+        invalid_mutations=0,
+        original_decision=Decision.BLOCK,
+        final_decision=Decision.ALLOW,
+        original_risk=0.95,
+        final_risk=0.15,
+        med=1.234,
+        success=True,
+        rejection_reasons=[],
+    )
+    res = evaluate_single_attempt(plan, mock_engine, {}, {})
+    assert res.evasion is True
+    assert res.outcome == "ALLOWED_EVASION"
+    assert res.blue_decision == "ALLOW"
+    assert res.perturbation_distance == 1.234
+
+    # Case 2: Inconsistent Provenance (prov.success=True, but final_decision=BLOCK)
+    mock_engine.attack.return_value = AttackProvenance(
+        attack_instance_id="atk_inst_2",
+        attack_family=AttackFamily.GEO_HOP,
+        source_txn_id=source_txn.txn_id,
+        seed=12345,
+        query_budget=20,
+        queries_used=20,
+        mutations_attempted=20,
+        valid_mutations=20,
+        invalid_mutations=0,
+        original_decision=Decision.BLOCK,
+        final_decision=Decision.BLOCK,
+        original_risk=0.95,
+        final_risk=0.85,
+        med=None,
+        success=True,  # Inconsistent flag
+        rejection_reasons=[],
+    )
+    res = evaluate_single_attempt(plan, mock_engine, {}, {})
+    assert res.evasion is False
+    assert res.outcome == "BLOCKED"
+    assert res.blue_decision == "BLOCK"
+    assert res.perturbation_distance is None
+
+    # Case 3: Inconsistent Provenance (prov.success=True, but final_decision=STEP_UP)
+    mock_engine.attack.return_value = AttackProvenance(
+        attack_instance_id="atk_inst_3",
+        attack_family=AttackFamily.GEO_HOP,
+        source_txn_id=source_txn.txn_id,
+        seed=12345,
+        query_budget=20,
+        queries_used=20,
+        mutations_attempted=20,
+        valid_mutations=20,
+        invalid_mutations=0,
+        original_decision=Decision.BLOCK,
+        final_decision=Decision.STEP_UP,
+        original_risk=0.95,
+        final_risk=0.60,
+        med=None,
+        success=True,  # Inconsistent flag
+        rejection_reasons=[],
+    )
+    res = evaluate_single_attempt(plan, mock_engine, {}, {})
+    assert res.evasion is False
+    assert res.outcome == "STEP_UP"
+    assert res.blue_decision == "STEP_UP"
+    assert res.perturbation_distance is None
+
+    # Case 4: Source already allowed (prov.success=False, rejection_reasons has SOURCE_ALREADY_ALLOWED)
+    mock_engine.attack.return_value = AttackProvenance(
+        attack_instance_id="atk_inst_4",
+        attack_family=AttackFamily.GEO_HOP,
+        source_txn_id=source_txn.txn_id,
+        seed=12345,
+        query_budget=20,
+        queries_used=0,
+        mutations_attempted=0,
+        valid_mutations=0,
+        invalid_mutations=0,
+        original_decision=Decision.ALLOW,
+        final_decision=Decision.ALLOW,
+        original_risk=0.10,
+        final_risk=0.10,
+        med=None,
+        success=False,
+        rejection_reasons=["SOURCE_ALREADY_ALLOWED"],
+    )
+    res = evaluate_single_attempt(plan, mock_engine, {}, {})
+    assert res.evasion is False
+    assert res.outcome == "BLOCKED"
+    assert res.perturbation_distance is None
+
+    # Case 5: Generation Failure (Invalid Mutation due to IMMUTABLE field)
+    mock_engine.attack.return_value = AttackProvenance(
+        attack_instance_id="atk_inst_5",
+        attack_family=AttackFamily.GEO_HOP,
+        source_txn_id=source_txn.txn_id,
+        seed=12345,
+        query_budget=20,
+        queries_used=0,
+        mutations_attempted=1,
+        valid_mutations=0,
+        invalid_mutations=1,
+        original_decision=Decision.BLOCK,
+        final_decision=Decision.BLOCK,
+        original_risk=0.90,
+        final_risk=0.90,
+        med=None,
+        success=False,
+        rejection_reasons=["IMMUTABLE_FIELD_TOUCHED"],
+    )
+    res = evaluate_single_attempt(plan, mock_engine, {}, {})
+    assert res.evasion is False
+    assert res.outcome == "INVALID_MUTATION"
+
+    # Case 6: Generation Failure (Failed Physical Constraint)
+    mock_engine.attack.return_value = AttackProvenance(
+        attack_instance_id="atk_inst_6",
+        attack_family=AttackFamily.GEO_HOP,
+        source_txn_id=source_txn.txn_id,
+        seed=12345,
+        query_budget=20,
+        queries_used=0,
+        mutations_attempted=1,
+        valid_mutations=0,
+        invalid_mutations=1,
+        original_decision=Decision.BLOCK,
+        final_decision=Decision.BLOCK,
+        original_risk=0.90,
+        final_risk=0.90,
+        med=None,
+        success=False,
+        rejection_reasons=["EXCEEDS_CREDIT_LIMIT"],
+    )
+    res = evaluate_single_attempt(plan, mock_engine, {}, {})
+    assert res.evasion is False
+    assert res.outcome == "FAILED_MUTATION"
+
+
+def test_adv001_outcome_accounting_closure():
+    """Validates complete partition accounting: total == ALLOWED_EVASION + BLOCKED + STEP_UP + FAILED_MUTATION + INVALID_MUTATION + ERROR + TIMEOUT."""
+    outcomes = [
+        "ALLOWED_EVASION",
+        "BLOCKED",
+        "STEP_UP",
+        "FAILED_MUTATION",
+        "INVALID_MUTATION",
+        "ERROR",
+        "TIMEOUT",
+    ]
+    results = [
+        AttackAttemptResult(
+            attack_id=f"atk_{i}",
+            family="geo_hop",
+            strategy="mutate_geo_hop",
+            seed=i,
+            parent_attack_id=None,
+            query_budget=20,
+            queries_used=1,
+            mutation_count=1,
+            perturbation_distance=1.0 if out == "ALLOWED_EVASION" else None,
+            target_transaction_id="tx_1",
+            blue_model_version="test_v1",
+            blue_score=0.1 if out == "ALLOWED_EVASION" else 0.9,
+            blue_decision="ALLOW" if out == "ALLOWED_EVASION" else "BLOCK",
+            evasion=(out == "ALLOWED_EVASION"),
+            outcome=out,
+            timestamp="2026-08-31T10:00:00Z",
+            provenance={},
+        )
+        for i, out in enumerate(outcomes)
+    ]
+
+    stats = compute_population_statistics(results)
+    assert stats["total_attempts"] == 7
+    total_reconstructed = (
+        stats["allowed_evasion_count"]
+        + stats["blocked_count"]
+        + stats["step_up_count"]
+        + stats["generation_failures"]
+        + stats["error_count"]
+        + stats["outcome_distribution"].get("TIMEOUT", 0)
+    )
+    assert total_reconstructed == stats["total_attempts"]
+
+
+def test_adv001_population_grid_and_round_robin(sample_candidates):
+    """Verifies deterministic round-robin population distribution across 10 txns x 5 families x 4 budgets."""
+    txns, customers = sample_candidates
+    # Extend to 10 transactions
+    all_txns = txns + [
+        t.model_copy(update={"txn_id": f"tx_extra_{i:03d}"}) for i, t in enumerate(txns)
+    ]
+    assert len(all_txns) == 10
+
+    plans = generate_population_plans(all_txns, customers, target_count=10000, base_seed=20260831)
+    assert len(plans) == 10000
+
+    from collections import Counter
+    fam_counts = Counter(p.family.value for p in plans)
+    budget_counts = Counter(p.query_budget for p in plans)
+    txn_counts = Counter(p.source_txn.txn_id for p in plans)
+    grid_counts = Counter((p.source_txn.txn_id, p.family.value, p.query_budget) for p in plans)
+
+    # 5 families * 2000 = 10000
+    for fam in CANONICAL_FAMILIES:
+        assert fam_counts[fam.value] == 2000
+
+    # 4 budgets * 2500 = 10000
+    for b in [1, 5, 20, 100]:
+        assert budget_counts[b] == 2500
+
+    # 10 transactions * 1000 = 10000
+    for t in all_txns:
+        assert txn_counts[t.txn_id] == 1000
+
+    # 200 grid combinations * 50 repetitions = 10000
+    assert len(grid_counts) == 200
+    assert set(grid_counts.values()) == {50}
+
