@@ -48,9 +48,32 @@ class TemporalPaymentGraph:
 
     def __init__(
         self,
-        transactions_df: pl.DataFrame,
+        transactions_df: pl.DataFrame | list[Any],
         features_df: pl.DataFrame | None = None,
     ) -> None:
+        if isinstance(transactions_df, list):
+            records = []
+            for t in transactions_df:
+                if isinstance(t, dict):
+                    records.append(t)
+                elif hasattr(t, "model_dump"):
+                    records.append(t.model_dump())
+                else:
+                    records.append({
+                        "txn_id": getattr(t, "txn_id", ""),
+                        "customer_id": getattr(t, "customer_id", ""),
+                        "merchant_id": getattr(t, "merchant_id", ""),
+                        "device_id": getattr(t, "device_id", ""),
+                        "timestamp": getattr(t, "timestamp", ""),
+                        "amount": float(getattr(t, "amount", 0.0)),
+                        "currency": getattr(t, "currency", "USD"),
+                        "mcc": getattr(t, "mcc", "5411"),
+                        "channel": getattr(t, "channel", "pos"),
+                        "is_fraud": bool(getattr(t, "is_fraud", False)),
+                        "attack_family": getattr(t, "attack_family", None),
+                    })
+            transactions_df = pl.DataFrame(records)
+
         # Ensure transactions are sorted strictly in causal order (timestamp, txn_id)
         if "timestamp" in transactions_df.columns and transactions_df["timestamp"].dtype == pl.String:
             try:
