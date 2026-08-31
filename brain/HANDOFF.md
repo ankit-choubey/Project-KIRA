@@ -6,6 +6,24 @@ Never write "done". Write what changed, what you ran, and what the gate said.
 
 ---
 
+## 2026-08-31 · ADV-002 Standard Execution Gate · Antigravity
+
+**BLOCK:** Research Expansion — ADV-002 Standard-Scale Stateful Swarm Execution (500 Attempts).
+
+**DONE:**
+1. **Resolved Population Execution**: Executed `python3 -m mcdl.research.advanced.adv002.runner --scale standard` across 5 campaigns, 5 agents, 20 rounds on 5 candidate targets (exactly 500 attack attempts).
+2. **Real KIRA Execution Path**: Fully traced through real `StreamingFeatureExtractor` history, real `BlueDetector` scoring, real `RedSearchEngine` candidate generation and constraint checking, and real policy-memory feedback.
+3. **Behavioral Adaptation Proof**: Measured 515 total adaptation events (60 family switches, 455 budget adjustments), 1,410 memory references retrieved, 94.00% overall memory reuse rate, 100.00% successful-memory reuse rate, and 100.00% failed-pattern avoidance rate.
+4. **Outcome Accounting Closure**: 150 `ALLOWED_EVASION` (30.00%), 256 `BLOCKED` (51.20%), 94 `STEP_UP` (18.80%), 0 `FAILED_MUTATION`, 0 `INVALID_MUTATION`, 0 `ERROR`, 0 `TIMEOUT` (sum: 500 / 500 = 100.0%).
+5. **Memory & Baseline Integrity**: Verified SHA-256 of ADV-001 `attack_memory.jsonl` is 100% identical before and after run (`7f37b59333a82d8fd04ab4e3582435cb798fa6e97cbcd1dc248122967e8087f7`, 10,000 records). 22/22 baseline artifacts untouched.
+6. **Efficiency**: 5.945s total runtime, 84.10 attempts/sec throughput, 11.89 ms mean scoring latency.
+7. **Verification**: `test_adv002.py` (11 passed), `test_adv001.py` (14 passed), `run_phase2_smoke_tests.py` (all passed). Bit-for-bit reproducibility verified.
+8. **Artifacts Saved**: `metrics.json`, `adaptation_metrics.json`, `integrity.json`, `comparability_adv001.json`, `evidence.md`, `post_audit.md` (verdict: `PASS`).
+
+**FILES:** `src/mcdl/research/advanced/adv002/*`, `research_runs/ADVANCED/ADV-002/*`, `brain/HANDOFF.md`.
+
+---
+
 ## 2026-08-31 · ADV-002 Stateful Adversarial Swarm Foundation · Antigravity
 
 **BLOCK:** Research Expansion — ADV-002 Stateful Adversarial Swarm Foundation & Architecture.

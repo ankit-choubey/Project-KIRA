@@ -1,0 +1,3016 @@
+{
+  "campaign_id": "cmp_adv002_0003_tx_00008408",
+  "target_txn_id": "tx_00008408",
+  "max_rounds": 20,
+  "current_round": 20,
+  "cumulative_attacks": 100,
+  "cumulative_successes": 50,
+  "cumulative_failures": 50,
+  "cumulative_queries": 364,
+  "best_perturbation_distance": 1.158134,
+  "last_family": "geo_hop",
+  "last_budget": 1,
+  "last_outcome": "BLOCKED",
+  "last_blue_decision": "BLOCK",
+  "last_blue_score": 1.0,
+  "agent_states": {
+    "agent_velocity_01": {
+      "agent_id": "agent_velocity_01",
+      "role": "velocity_specialist",
+      "seed": 21060650,
+      "family_preference": [
+        "burst_drain",
+        "slow_siphon"
+      ],
+      "cumulative_attacks": 60,
+      "cumulative_successes": 11,
+      "cumulative_failures": 49,
+      "cumulative_queries": 1353,
+      "cumulative_reward": -14.4055,
+      "recent_outcomes": [
+        "BLOCKED",
+        "ALLOWED_EVASION",
+        "BLOCKED",
+        "ALLOWED_EVASION",
+        "BLOCKED",
+        "ALLOWED_EVASION",
+        "BLOCKED",
+        "ALLOWED_EVASION",
+        "BLOCKED",
+        "ALLOWED_EVASION"
+      ],
+      "recent_rewards": [
+        -0.65,
+        0.7636,
+        -0.65,
+        0.7583,
+        -0.65,
+        0.7623,
+        -0.65,
+        0.757,
+        -0.65,
+        0.7591
+      ],
+      "current_strategy_state": {
+        "preferred_budget": 20,
+        "last_evasion_distance": 1.208669,
+        "adaptation_count": 0
+      }
+    },
+    "agent_geo_01": {
+      "agent_id": "agent_geo_01",
+      "role": "geo_specialist",
+      "seed": 21860469,
+      "family_preference": [
+        "geo_hop"
+      ],
+      "cumulative_attacks": 60,
+      "cumulative_successes": 10,
+      "cumulative_failures": 50,
+      "cumulative_queries": 1309,
+      "cumulative_reward": -16.1154,
+      "recent_outcomes": [
+        "ALLOWED_EVASION",
+        "BLOCKED",
+        "ALLOWED_EVASION",
+        "BLOCKED",
+        "ALLOWED_EVASION",
+        "BLOCKED",
+        "ALLOWED_EVASION",
+        "BLOCKED",
+        "ALLOWED_EVASION",
+        "BLOCKED"
+      ],
+      "recent_rewards": [
+        0.7642,
+        -0.65,
+        0.7581,
+        -0.65,
+        0.7569,
+        -0.65,
+        0.76,
+        -0.65,
+        0.7624,
+        -0.65
+      ],
+      "current_strategy_state": {
+        "preferred_budget": 20,
+        "last_evasion_distance": 1.175627,
+        "adaptation_count": 0
+      }
+    },
+    "agent_merchant_01": {
+      "agent_id": "agent_merchant_01",
+      "role": "merchant_specialist",
+      "seed": 22660288,
+      "family_preference": [
+        "cross_merchant_fanout"
+      ],
+      "cumulative_attacks": 60,
+      "cumulative_successes": 10,
+      "cumulative_failures": 50,
+      "cumulative_queries": 1309,
+      "cumulative_reward": -16.117,
+      "recent_outcomes": [
+        "BLOCKED",
+        "ALLOWED_EVASION",
+        "BLOCKED",
+        "ALLOWED_EVASION",
+        "BLOCKED",
+        "ALLOWED_EVASION",
+        "BLOCKED",
+        "ALLOWED_EVASION",
+        "BLOCKED",
+        "BLOCKED"
+      ],
+      "recent_rewards": [
+        -0.65,
+        0.7608,
+        -0.65,
+        0.7602,
+        -0.65,
+        0.7596,
+        -0.65,
+        0.7595,
+        -0.65,
+        -0.65
+      ],
+      "current_strategy_state": {
+        "preferred_budget": 20,
+        "last_evasion_distance": 1.205034,
+        "adaptation_count": 0
+      }
+    },
+    "agent_subversion_01": {
+      "agent_id": "agent_subversion_01",
+      "role": "agent_subversion_specialist",
+      "seed": 23460107,
+      "family_preference": [
+        "agent_subversion"
+      ],
+      "cumulative_attacks": 60,
+      "cumulative_successes": 10,
+      "cumulative_failures": 50,
+      "cumulative_queries": 1309,
+      "cumulative_reward": -16.1165,
+      "recent_outcomes": [
+        "ALLOWED_EVASION",
+        "BLOCKED",
+        "ALLOWED_EVASION",
+        "BLOCKED",
+        "ALLOWED_EVASION",
+        "BLOCKED",
+        "ALLOWED_EVASION",
+        "BLOCKED",
+        "ALLOWED_EVASION",
+        "BLOCKED"
+      ],
+      "recent_rewards": [
+        0.7626,
+        -0.65,
+        0.7573,
+        -0.65,
+        0.7597,
+        -0.65,
+        0.7597,
+        -0.65,
+        0.7567,
+        -0.65
+      ],
+      "current_strategy_state": {
+        "preferred_budget": 20,
+        "last_evasion_distance": 1.233388,
+        "adaptation_count": 0
+      }
+    },
+    "agent_hybrid_01": {
+      "agent_id": "agent_hybrid_01",
+      "role": "hybrid_adaptive",
+      "seed": 24259926,
+      "family_preference": [
+        "burst_drain",
+        "slow_siphon",
+        "geo_hop",
+        "agent_subversion",
+        "cross_merchant_fanout"
+      ],
+      "cumulative_attacks": 60,
+      "cumulative_successes": 9,
+      "cumulative_failures": 51,
+      "cumulative_queries": 1264,
+      "cumulative_reward": -18.1304,
+      "recent_outcomes": [
+        "BLOCKED",
+        "ALLOWED_EVASION",
+        "BLOCKED",
+        "BLOCKED",
+        "ALLOWED_EVASION",
+        "BLOCKED",
+        "ALLOWED_EVASION",
+        "BLOCKED",
+        "ALLOWED_EVASION",
+        "BLOCKED"
+      ],
+      "recent_rewards": [
+        -0.65,
+        0.7595,
+        -0.65,
+        -0.65,
+        0.7566,
+        -0.65,
+        0.758,
+        -0.65,
+        0.7635,
+        -0.65
+      ],
+      "current_strategy_state": {
+        "preferred_budget": 20,
+        "last_evasion_distance": 1.165274,
+        "adaptation_count": 0
+      }
+    }
+  },
+  "round_history": [
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 1,
+      "agent_id": "agent_velocity_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 20,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.242214,
+      "reward": 0.8458,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.478782Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 1,
+      "agent_id": "agent_geo_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 20,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.187218,
+      "reward": 0.8513,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.482022Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 1,
+      "agent_id": "agent_merchant_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 20,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.253375,
+      "reward": 0.8447,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.485014Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 1,
+      "agent_id": "agent_subversion_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 20,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.160275,
+      "reward": 0.854,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.487940Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 1,
+      "agent_id": "agent_hybrid_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 20,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.182617,
+      "reward": 0.8517,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.491720Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 2,
+      "agent_id": "agent_velocity_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.199805,
+      "reward": 0.76,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.494854Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 2,
+      "agent_id": "agent_geo_01",
+      "target_txn_id": "tx_00008408",
+      "family": "cross_merchant_fanout",
+      "query_budget": 20,
+      "queries_used": 20,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": true,
+      "memory_references": [],
+      "timestamp": "2026-08-31T11:49:33.497839Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 2,
+      "agent_id": "agent_merchant_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.174374,
+      "reward": 0.7626,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.506670Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 2,
+      "agent_id": "agent_subversion_01",
+      "target_txn_id": "tx_00008408",
+      "family": "slow_siphon",
+      "query_budget": 20,
+      "queries_used": 20,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": true,
+      "memory_references": [],
+      "timestamp": "2026-08-31T11:49:33.509707Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 2,
+      "agent_id": "agent_hybrid_01",
+      "target_txn_id": "tx_00008408",
+      "family": "cross_merchant_fanout",
+      "query_budget": 20,
+      "queries_used": 20,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": true,
+      "memory_references": [],
+      "timestamp": "2026-08-31T11:49:33.519094Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 3,
+      "agent_id": "agent_velocity_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.527273Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 3,
+      "agent_id": "agent_geo_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.215418,
+      "reward": 0.7585,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.529314Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 3,
+      "agent_id": "agent_merchant_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.545331Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 3,
+      "agent_id": "agent_subversion_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.203078,
+      "reward": 0.7597,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.547486Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 3,
+      "agent_id": "agent_hybrid_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.202668,
+      "reward": 0.7597,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.550695Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 4,
+      "agent_id": "agent_velocity_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.250485,
+      "reward": 0.755,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.554260Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 4,
+      "agent_id": "agent_geo_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.557411Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 4,
+      "agent_id": "agent_merchant_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.236461,
+      "reward": 0.7564,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.559700Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 4,
+      "agent_id": "agent_subversion_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.562800Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 4,
+      "agent_id": "agent_hybrid_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.564848Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 5,
+      "agent_id": "agent_velocity_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.567022Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 5,
+      "agent_id": "agent_geo_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.213858,
+      "reward": 0.7586,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.569356Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 5,
+      "agent_id": "agent_merchant_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.572560Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 5,
+      "agent_id": "agent_subversion_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.246725,
+      "reward": 0.7553,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.574695Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 5,
+      "agent_id": "agent_hybrid_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.234387,
+      "reward": 0.7566,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.577893Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 6,
+      "agent_id": "agent_velocity_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.18639,
+      "reward": 0.7614,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.580949Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 6,
+      "agent_id": "agent_geo_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.584208Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 6,
+      "agent_id": "agent_merchant_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.227131,
+      "reward": 0.7573,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.586405Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 6,
+      "agent_id": "agent_subversion_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.589413Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 6,
+      "agent_id": "agent_hybrid_01",
+      "target_txn_id": "tx_00008408",
+      "family": "burst_drain",
+      "query_budget": 20,
+      "queries_used": 20,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": true,
+      "memory_references": [],
+      "timestamp": "2026-08-31T11:49:33.591537Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 7,
+      "agent_id": "agent_velocity_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.599718Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 7,
+      "agent_id": "agent_geo_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.216316,
+      "reward": 0.7584,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.601951Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 7,
+      "agent_id": "agent_merchant_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": true,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.605109Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 7,
+      "agent_id": "agent_subversion_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.246534,
+      "reward": 0.7553,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.607343Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 7,
+      "agent_id": "agent_hybrid_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.610720Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 8,
+      "agent_id": "agent_velocity_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.161033,
+      "reward": 0.7639,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.612948Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 8,
+      "agent_id": "agent_geo_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.616175Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 8,
+      "agent_id": "agent_merchant_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.191599,
+      "reward": 0.7608,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.618546Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 8,
+      "agent_id": "agent_subversion_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.621838Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 8,
+      "agent_id": "agent_hybrid_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.227948,
+      "reward": 0.7572,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.624027Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 9,
+      "agent_id": "agent_velocity_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.627336Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 9,
+      "agent_id": "agent_geo_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.237578,
+      "reward": 0.7562,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.629575Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 9,
+      "agent_id": "agent_merchant_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.632845Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 9,
+      "agent_id": "agent_subversion_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.168116,
+      "reward": 0.7632,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.635304Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 9,
+      "agent_id": "agent_hybrid_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.638583Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 10,
+      "agent_id": "agent_velocity_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.219422,
+      "reward": 0.7581,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.640909Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 10,
+      "agent_id": "agent_geo_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.644368Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 10,
+      "agent_id": "agent_merchant_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.188723,
+      "reward": 0.7611,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.646688Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 10,
+      "agent_id": "agent_subversion_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.649978Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 10,
+      "agent_id": "agent_hybrid_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.231888,
+      "reward": 0.7568,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.652505Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 11,
+      "agent_id": "agent_velocity_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.655931Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 11,
+      "agent_id": "agent_geo_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.158134,
+      "reward": 0.7642,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.658330Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 11,
+      "agent_id": "agent_merchant_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.661926Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 11,
+      "agent_id": "agent_subversion_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.173859,
+      "reward": 0.7626,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.664323Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 11,
+      "agent_id": "agent_hybrid_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.667899Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 12,
+      "agent_id": "agent_velocity_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.163666,
+      "reward": 0.7636,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.670372Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 12,
+      "agent_id": "agent_geo_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.673797Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 12,
+      "agent_id": "agent_merchant_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.191909,
+      "reward": 0.7608,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.676451Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 12,
+      "agent_id": "agent_subversion_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.679979Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 12,
+      "agent_id": "agent_hybrid_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.205417,
+      "reward": 0.7595,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.682438Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 13,
+      "agent_id": "agent_velocity_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.686106Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 13,
+      "agent_id": "agent_geo_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.21861,
+      "reward": 0.7581,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.688660Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 13,
+      "agent_id": "agent_merchant_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.692271Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 13,
+      "agent_id": "agent_subversion_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.227024,
+      "reward": 0.7573,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.694912Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 13,
+      "agent_id": "agent_hybrid_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.698399Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 14,
+      "agent_id": "agent_velocity_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.217325,
+      "reward": 0.7583,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.701215Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 14,
+      "agent_id": "agent_geo_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.704908Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 14,
+      "agent_id": "agent_merchant_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.197903,
+      "reward": 0.7602,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.707451Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 14,
+      "agent_id": "agent_subversion_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.711218Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 14,
+      "agent_id": "agent_hybrid_01",
+      "target_txn_id": "tx_00008408",
+      "family": "cross_merchant_fanout",
+      "query_budget": 20,
+      "queries_used": 20,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": true,
+      "memory_references": [],
+      "timestamp": "2026-08-31T11:49:33.713767Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 15,
+      "agent_id": "agent_velocity_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.722624Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 15,
+      "agent_id": "agent_geo_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.231014,
+      "reward": 0.7569,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.725401Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 15,
+      "agent_id": "agent_merchant_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.729121Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 15,
+      "agent_id": "agent_subversion_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.203442,
+      "reward": 0.7597,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.731806Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 15,
+      "agent_id": "agent_hybrid_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.234054,
+      "reward": 0.7566,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.735652Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 16,
+      "agent_id": "agent_velocity_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.176607,
+      "reward": 0.7623,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.739327Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 16,
+      "agent_id": "agent_geo_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.743023Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 16,
+      "agent_id": "agent_merchant_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.204045,
+      "reward": 0.7596,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.745788Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 16,
+      "agent_id": "agent_subversion_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.749434Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 16,
+      "agent_id": "agent_hybrid_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.752230Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 17,
+      "agent_id": "agent_velocity_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.754984Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 17,
+      "agent_id": "agent_geo_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.200066,
+      "reward": 0.76,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.757817Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 17,
+      "agent_id": "agent_merchant_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.761720Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 17,
+      "agent_id": "agent_subversion_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.202588,
+      "reward": 0.7597,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.764427Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 17,
+      "agent_id": "agent_hybrid_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.220198,
+      "reward": 0.758,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.768376Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 18,
+      "agent_id": "agent_velocity_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.230015,
+      "reward": 0.757,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.772204Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 18,
+      "agent_id": "agent_geo_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.776041Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 18,
+      "agent_id": "agent_merchant_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.205034,
+      "reward": 0.7595,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.779249Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 18,
+      "agent_id": "agent_subversion_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.783440Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 18,
+      "agent_id": "agent_hybrid_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.786481Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 19,
+      "agent_id": "agent_velocity_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.789337Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 19,
+      "agent_id": "agent_geo_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.175627,
+      "reward": 0.7624,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.792438Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 19,
+      "agent_id": "agent_merchant_01",
+      "target_txn_id": "tx_00008408",
+      "family": "cross_merchant_fanout",
+      "query_budget": 20,
+      "queries_used": 20,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": true,
+      "memory_references": [],
+      "timestamp": "2026-08-31T11:49:33.796403Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 19,
+      "agent_id": "agent_subversion_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.233388,
+      "reward": 0.7567,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.805594Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 19,
+      "agent_id": "agent_hybrid_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.165274,
+      "reward": 0.7635,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.809840Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 20,
+      "agent_id": "agent_velocity_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 5,
+      "queries_used": 4,
+      "evasion": true,
+      "outcome": "ALLOWED_EVASION",
+      "blue_score": 0.0,
+      "blue_decision": "ALLOW",
+      "perturbation_distance": 1.208669,
+      "reward": 0.7591,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.813791Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 20,
+      "agent_id": "agent_geo_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.817827Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 20,
+      "agent_id": "agent_merchant_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.820878Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 20,
+      "agent_id": "agent_subversion_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.823858Z"
+    },
+    {
+      "campaign_id": "cmp_adv002_0003_tx_00008408",
+      "round_number": 20,
+      "agent_id": "agent_hybrid_01",
+      "target_txn_id": "tx_00008408",
+      "family": "geo_hop",
+      "query_budget": 1,
+      "queries_used": 1,
+      "evasion": false,
+      "outcome": "BLOCKED",
+      "blue_score": 1.0,
+      "blue_decision": "BLOCK",
+      "perturbation_distance": null,
+      "reward": -0.65,
+      "is_exploration": false,
+      "memory_references": [
+        "atk_adv001_007474",
+        "atk_adv001_000574",
+        "atk_adv001_007674"
+      ],
+      "timestamp": "2026-08-31T11:49:33.826918Z"
+    }
+  ],
+  "adaptation_events": [
+    {
+      "round": 2,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 20,
+      "to_budget": 5,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 2,
+      "type": "FAMILY_SWITCH",
+      "from_family": "geo_hop",
+      "to_family": "cross_merchant_fanout",
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 2,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 20,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 2,
+      "type": "FAMILY_SWITCH",
+      "from_family": "cross_merchant_fanout",
+      "to_family": "geo_hop",
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 2,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 20,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 2,
+      "type": "FAMILY_SWITCH",
+      "from_family": "geo_hop",
+      "to_family": "slow_siphon",
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 2,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 20,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 2,
+      "type": "FAMILY_SWITCH",
+      "from_family": "slow_siphon",
+      "to_family": "cross_merchant_fanout",
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 3,
+      "type": "FAMILY_SWITCH",
+      "from_family": "cross_merchant_fanout",
+      "to_family": "geo_hop",
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 3,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 20,
+      "to_budget": 1,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 3,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 3,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 3,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 4,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 4,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 4,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 5,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 5,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 5,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 6,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 6,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 6,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 6,
+      "type": "FAMILY_SWITCH",
+      "from_family": "geo_hop",
+      "to_family": "burst_drain",
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 6,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 20,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 7,
+      "type": "FAMILY_SWITCH",
+      "from_family": "burst_drain",
+      "to_family": "geo_hop",
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 7,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 20,
+      "to_budget": 1,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 7,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 7,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 7,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 7,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 8,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 8,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 8,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 8,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 8,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 9,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 9,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 9,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 9,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 9,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 10,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 10,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 10,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 10,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 10,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 11,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 11,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 11,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 11,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 11,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 12,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 12,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 12,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 12,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 12,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 13,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 13,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 13,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 13,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 13,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 14,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 14,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 14,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 14,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 14,
+      "type": "FAMILY_SWITCH",
+      "from_family": "geo_hop",
+      "to_family": "cross_merchant_fanout",
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 14,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 20,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 15,
+      "type": "FAMILY_SWITCH",
+      "from_family": "cross_merchant_fanout",
+      "to_family": "geo_hop",
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 15,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 20,
+      "to_budget": 1,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 15,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 15,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 15,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 16,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 16,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 16,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 17,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 17,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 17,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 18,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 18,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 18,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 19,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 1,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 19,
+      "type": "FAMILY_SWITCH",
+      "from_family": "geo_hop",
+      "to_family": "cross_merchant_fanout",
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 19,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 20,
+      "prior_outcome": "ALLOWED_EVASION"
+    },
+    {
+      "round": 19,
+      "type": "FAMILY_SWITCH",
+      "from_family": "cross_merchant_fanout",
+      "to_family": "geo_hop",
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 19,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 20,
+      "to_budget": 5,
+      "prior_outcome": "BLOCKED"
+    },
+    {
+      "round": 20,
+      "type": "BUDGET_ADJUSTMENT",
+      "from_budget": 5,
+      "to_budget": 1,
+      "prior_outcome": "ALLOWED_EVASION"
+    }
+  ],
+  "is_completed": true
+}

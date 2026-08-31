@@ -1,0 +1,8 @@
+{
+  "scale": "standard",
+  "n_targets": 5,
+  "rounds_per_campaign": 20,
+  "base_seed": 20260831,
+  "agents_count": 5,
+  "total_expected_attempts": 500
+}
