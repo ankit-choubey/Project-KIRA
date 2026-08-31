@@ -1,0 +1,21 @@
+{
+  "experiment_id": "ADV-002",
+  "scale": "large",
+  "mode": "static_control",
+  "comparison_target": "ADV-001",
+  "shared_components": [
+    "Blue detector model (run_tiny_s20260827_193f7897_40997ab)",
+    "5 Canonical attack families (burst_drain, slow_siphon, geo_hop, agent_subversion, cross_merchant_fanout)",
+    "Layer-1 physical constraints and mutability masks",
+    "Distance computation metric (normalized Euclidean space)",
+    "Underlying RedSearchEngine candidate generation"
+  ],
+  "structural_differences": [
+    "ADV-001 used non-adaptive static round-robin grid search (10k independent attempts)",
+    "ADV-002 implements stateful sequential campaigns with multi-agent coordination",
+    "ADV-002 dynamically updates family selection and query budgets via shared memory",
+    "ADV-002 measures multi-objective rewards (evasion + distance + query efficiency)"
+  ],
+  "comparability_verdict": "NOT_DIRECTLY_COMPARABLE_IN_AGGREGATE",
+  "rationale": "ADV-002 introduces campaign-level adaptation and sequential statefulness, evaluating behavioral evolution rather than static population coverage."
+}

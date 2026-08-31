@@ -1,10 +1,10 @@
 {
+  "status": "COMPLETED",
   "experiment_id": "ADV-002-LARGE",
-  "status": "PREPARED_FOR_CLOUD_EXECUTION",
-  "total_attacks_planned": 5000,
-  "total_attacks_executed": 0,
-  "aggregate_asr": null,
-  "metrics": null,
-  "adaptation_metrics": null,
-  "execution_timestamp": null
+  "scale": "large",
+  "total_attempts_executed": 15000,
+  "adaptive_asr": 0.1968,
+  "static_asr": 0.096,
+  "nomem_asr": 0.1044,
+  "timestamp": "2026-08-31T13:31:15.553542Z"
 }

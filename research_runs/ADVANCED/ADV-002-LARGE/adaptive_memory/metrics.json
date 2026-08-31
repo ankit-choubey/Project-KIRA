@@ -1,0 +1,878 @@
+{
+  "population": {
+    "agents": 5,
+    "campaigns": 10,
+    "rounds": 100,
+    "attacks": 5000,
+    "targets": 10,
+    "families": [
+      "agent_subversion",
+      "burst_drain",
+      "cross_merchant_fanout",
+      "geo_hop",
+      "slow_siphon"
+    ],
+    "budgets": [
+      1,
+      5,
+      20,
+      80,
+      100
+    ]
+  },
+  "defense": {
+    "aggregate_asr": 0.1968,
+    "asr_by_agent": {
+      "agent_velocity_01": 0.2,
+      "agent_geo_01": 0.2,
+      "agent_merchant_01": 0.196,
+      "agent_subversion_01": 0.196,
+      "agent_hybrid_01": 0.192
+    },
+    "asr_by_family": {
+      "geo_hop": 0.2041,
+      "cross_merchant_fanout": 0.0,
+      "slow_siphon": 0.0,
+      "burst_drain": 0.0,
+      "agent_subversion": 0.0
+    },
+    "asr_by_budget": {
+      "1": 0.0,
+      "5": 0.9718,
+      "20": 0.0139,
+      "80": 0.0,
+      "100": 0.0
+    },
+    "asr_by_round": {
+      "1": 0.4,
+      "2": 0.16,
+      "3": 0.24,
+      "4": 0.16,
+      "5": 0.24,
+      "6": 0.16,
+      "7": 0.16,
+      "8": 0.24,
+      "9": 0.16,
+      "10": 0.24,
+      "11": 0.16,
+      "12": 0.24,
+      "13": 0.16,
+      "14": 0.16,
+      "15": 0.24,
+      "16": 0.16,
+      "17": 0.24,
+      "18": 0.16,
+      "19": 0.24,
+      "20": 0.08,
+      "21": 0.32,
+      "22": 0.08,
+      "23": 0.32,
+      "24": 0.08,
+      "25": 0.24,
+      "26": 0.16,
+      "27": 0.24,
+      "28": 0.16,
+      "29": 0.24,
+      "30": 0.16,
+      "31": 0.24,
+      "32": 0.16,
+      "33": 0.16,
+      "34": 0.24,
+      "35": 0.16,
+      "36": 0.24,
+      "37": 0.16,
+      "38": 0.24,
+      "39": 0.16,
+      "40": 0.24,
+      "41": 0.16,
+      "42": 0.24,
+      "43": 0.16,
+      "44": 0.24,
+      "45": 0.16,
+      "46": 0.24,
+      "47": 0.16,
+      "48": 0.24,
+      "49": 0.16,
+      "50": 0.24,
+      "51": 0.16,
+      "52": 0.24,
+      "53": 0.16,
+      "54": 0.24,
+      "55": 0.16,
+      "56": 0.16,
+      "57": 0.16,
+      "58": 0.24,
+      "59": 0.08,
+      "60": 0.32,
+      "61": 0.08,
+      "62": 0.32,
+      "63": 0.08,
+      "64": 0.32,
+      "65": 0.08,
+      "66": 0.32,
+      "67": 0.08,
+      "68": 0.24,
+      "69": 0.16,
+      "70": 0.16,
+      "71": 0.24,
+      "72": 0.16,
+      "73": 0.24,
+      "74": 0.08,
+      "75": 0.24,
+      "76": 0.16,
+      "77": 0.24,
+      "78": 0.16,
+      "79": 0.24,
+      "80": 0.16,
+      "81": 0.24,
+      "82": 0.16,
+      "83": 0.16,
+      "84": 0.24,
+      "85": 0.08,
+      "86": 0.32,
+      "87": 0.08,
+      "88": 0.32,
+      "89": 0.0,
+      "90": 0.4,
+      "91": 0.0,
+      "92": 0.4,
+      "93": 0.0,
+      "94": 0.4,
+      "95": 0.0,
+      "96": 0.4,
+      "97": 0.0,
+      "98": 0.4,
+      "99": 0.0,
+      "100": 0.4
+    },
+    "blocked_percentage": 61.04,
+    "step_up_percentage": 19.28,
+    "outcome_distribution": {
+      "STEP_UP": 964,
+      "BLOCKED": 3052,
+      "ALLOWED_EVASION": 984
+    }
+  },
+  "efficiency": {
+    "total_queries": 80660,
+    "median_queries": 4.0,
+    "p95_queries": 100.0,
+    "mean_perturbation_distance": 1.2049,
+    "median_perturbation_distance": 1.2039,
+    "p95_perturbation_distance": 1.2534,
+    "best_perturbation_distance": 1.1301,
+    "mean_reward": -0.2694,
+    "runtime_sec": 329.217,
+    "throughput_attempts_per_sec": 15.19,
+    "mean_scoring_latency_ms": 65.84,
+    "timeout_triggered": false
+  },
+  "agent_metrics": {
+    "agent_velocity_01": {
+      "attempts": 1000,
+      "evasions": 200,
+      "asr": 0.2,
+      "median_queries": 4.0,
+      "mean_reward": -0.2639,
+      "median_perturbation": 1.2034
+    },
+    "agent_geo_01": {
+      "attempts": 1000,
+      "evasions": 200,
+      "asr": 0.2,
+      "median_queries": 4.0,
+      "mean_reward": -0.264,
+      "median_perturbation": 1.2042
+    },
+    "agent_merchant_01": {
+      "attempts": 1000,
+      "evasions": 196,
+      "asr": 0.196,
+      "median_queries": 4.0,
+      "mean_reward": -0.2708,
+      "median_perturbation": 1.2039
+    },
+    "agent_subversion_01": {
+      "attempts": 1000,
+      "evasions": 196,
+      "asr": 0.196,
+      "median_queries": 4.0,
+      "mean_reward": -0.2707,
+      "median_perturbation": 1.2038
+    },
+    "agent_hybrid_01": {
+      "attempts": 1000,
+      "evasions": 192,
+      "asr": 0.192,
+      "median_queries": 4.0,
+      "mean_reward": -0.2777,
+      "median_perturbation": 1.2042
+    }
+  },
+  "family_metrics": {
+    "geo_hop": {
+      "attempts": 4820,
+      "evasions": 984,
+      "asr": 0.2041
+    },
+    "cross_merchant_fanout": {
+      "attempts": 90,
+      "evasions": 0,
+      "asr": 0.0
+    },
+    "slow_siphon": {
+      "attempts": 10,
+      "evasions": 0,
+      "asr": 0.0
+    },
+    "burst_drain": {
+      "attempts": 40,
+      "evasions": 0,
+      "asr": 0.0
+    },
+    "agent_subversion": {
+      "attempts": 40,
+      "evasions": 0,
+      "asr": 0.0
+    }
+  },
+  "budget_metrics": {
+    "1": {
+      "attempts": 944,
+      "evasions": 0,
+      "asr": 0.0
+    },
+    "5": {
+      "attempts": 992,
+      "evasions": 964,
+      "asr": 0.9718
+    },
+    "20": {
+      "attempts": 1437,
+      "evasions": 20,
+      "asr": 0.0139
+    },
+    "80": {
+      "attempts": 823,
+      "evasions": 0,
+      "asr": 0.0
+    },
+    "100": {
+      "attempts": 804,
+      "evasions": 0,
+      "asr": 0.0
+    }
+  },
+  "round_metrics": {
+    "1": {
+      "attempts": 50,
+      "evasions": 20,
+      "asr": 0.4,
+      "mean_reward": 0.0545
+    },
+    "2": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3554
+    },
+    "3": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2072
+    },
+    "4": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3195
+    },
+    "5": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2065
+    },
+    "6": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3316
+    },
+    "7": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3194
+    },
+    "8": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2066
+    },
+    "9": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3191
+    },
+    "10": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2063
+    },
+    "11": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3189
+    },
+    "12": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.207
+    },
+    "13": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3194
+    },
+    "14": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3316
+    },
+    "15": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2068
+    },
+    "16": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3198
+    },
+    "17": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2071
+    },
+    "18": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3195
+    },
+    "19": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2187
+    },
+    "20": {
+      "attempts": 50,
+      "evasions": 4,
+      "asr": 0.08,
+      "mean_reward": -0.4322
+    },
+    "21": {
+      "attempts": 50,
+      "evasions": 16,
+      "asr": 0.32,
+      "mean_reward": -0.0948
+    },
+    "22": {
+      "attempts": 50,
+      "evasions": 4,
+      "asr": 0.08,
+      "mean_reward": -0.4323
+    },
+    "23": {
+      "attempts": 50,
+      "evasions": 16,
+      "asr": 0.32,
+      "mean_reward": -0.0941
+    },
+    "24": {
+      "attempts": 50,
+      "evasions": 4,
+      "asr": 0.08,
+      "mean_reward": -0.4325
+    },
+    "25": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.219
+    },
+    "26": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3194
+    },
+    "27": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2067
+    },
+    "28": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3196
+    },
+    "29": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2064
+    },
+    "30": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3192
+    },
+    "31": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.207
+    },
+    "32": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3199
+    },
+    "33": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3316
+    },
+    "34": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2061
+    },
+    "35": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3194
+    },
+    "36": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.207
+    },
+    "37": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3193
+    },
+    "38": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2071
+    },
+    "39": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3191
+    },
+    "40": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2068
+    },
+    "41": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3194
+    },
+    "42": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2068
+    },
+    "43": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3198
+    },
+    "44": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2061
+    },
+    "45": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3197
+    },
+    "46": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2065
+    },
+    "47": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.32
+    },
+    "48": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2064
+    },
+    "49": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3194
+    },
+    "50": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2067
+    },
+    "51": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3195
+    },
+    "52": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2063
+    },
+    "53": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3194
+    },
+    "54": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2069
+    },
+    "55": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3195
+    },
+    "56": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3316
+    },
+    "57": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.332
+    },
+    "58": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2071
+    },
+    "59": {
+      "attempts": 50,
+      "evasions": 4,
+      "asr": 0.08,
+      "mean_reward": -0.4442
+    },
+    "60": {
+      "attempts": 50,
+      "evasions": 16,
+      "asr": 0.32,
+      "mean_reward": -0.0942
+    },
+    "61": {
+      "attempts": 50,
+      "evasions": 4,
+      "asr": 0.08,
+      "mean_reward": -0.4323
+    },
+    "62": {
+      "attempts": 50,
+      "evasions": 16,
+      "asr": 0.32,
+      "mean_reward": -0.0935
+    },
+    "63": {
+      "attempts": 50,
+      "evasions": 4,
+      "asr": 0.08,
+      "mean_reward": -0.4321
+    },
+    "64": {
+      "attempts": 50,
+      "evasions": 16,
+      "asr": 0.32,
+      "mean_reward": -0.0938
+    },
+    "65": {
+      "attempts": 50,
+      "evasions": 4,
+      "asr": 0.08,
+      "mean_reward": -0.4322
+    },
+    "66": {
+      "attempts": 50,
+      "evasions": 16,
+      "asr": 0.32,
+      "mean_reward": -0.0941
+    },
+    "67": {
+      "attempts": 50,
+      "evasions": 4,
+      "asr": 0.08,
+      "mean_reward": -0.4324
+    },
+    "68": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2183
+    },
+    "69": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3312
+    },
+    "70": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3195
+    },
+    "71": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.207
+    },
+    "72": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3192
+    },
+    "73": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2187
+    },
+    "74": {
+      "attempts": 50,
+      "evasions": 4,
+      "asr": 0.08,
+      "mean_reward": -0.4443
+    },
+    "75": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2061
+    },
+    "76": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3195
+    },
+    "77": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2064
+    },
+    "78": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.319
+    },
+    "79": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2063
+    },
+    "80": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3196
+    },
+    "81": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2068
+    },
+    "82": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3194
+    },
+    "83": {
+      "attempts": 50,
+      "evasions": 8,
+      "asr": 0.16,
+      "mean_reward": -0.3315
+    },
+    "84": {
+      "attempts": 50,
+      "evasions": 12,
+      "asr": 0.24,
+      "mean_reward": -0.2065
+    },
+    "85": {
+      "attempts": 50,
+      "evasions": 4,
+      "asr": 0.08,
+      "mean_reward": -0.4443
+    },
+    "86": {
+      "attempts": 50,
+      "evasions": 16,
+      "asr": 0.32,
+      "mean_reward": -0.0938
+    },
+    "87": {
+      "attempts": 50,
+      "evasions": 4,
+      "asr": 0.08,
+      "mean_reward": -0.4325
+    },
+    "88": {
+      "attempts": 50,
+      "evasions": 16,
+      "asr": 0.32,
+      "mean_reward": -0.0942
+    },
+    "89": {
+      "attempts": 50,
+      "evasions": 0,
+      "asr": 0.0,
+      "mean_reward": -0.557
+    },
+    "90": {
+      "attempts": 50,
+      "evasions": 20,
+      "asr": 0.4,
+      "mean_reward": 0.0187
+    },
+    "91": {
+      "attempts": 50,
+      "evasions": 0,
+      "asr": 0.0,
+      "mean_reward": -0.545
+    },
+    "92": {
+      "attempts": 50,
+      "evasions": 20,
+      "asr": 0.4,
+      "mean_reward": 0.0183
+    },
+    "93": {
+      "attempts": 50,
+      "evasions": 0,
+      "asr": 0.0,
+      "mean_reward": -0.545
+    },
+    "94": {
+      "attempts": 50,
+      "evasions": 20,
+      "asr": 0.4,
+      "mean_reward": 0.0184
+    },
+    "95": {
+      "attempts": 50,
+      "evasions": 0,
+      "asr": 0.0,
+      "mean_reward": -0.545
+    },
+    "96": {
+      "attempts": 50,
+      "evasions": 20,
+      "asr": 0.4,
+      "mean_reward": 0.0194
+    },
+    "97": {
+      "attempts": 50,
+      "evasions": 0,
+      "asr": 0.0,
+      "mean_reward": -0.545
+    },
+    "98": {
+      "attempts": 50,
+      "evasions": 20,
+      "asr": 0.4,
+      "mean_reward": 0.0193
+    },
+    "99": {
+      "attempts": 50,
+      "evasions": 0,
+      "asr": 0.0,
+      "mean_reward": -0.545
+    },
+    "100": {
+      "attempts": 50,
+      "evasions": 20,
+      "asr": 0.4,
+      "mean_reward": 0.0185
+    }
+  },
+  "total_campaigns": 10,
+  "total_agents": 5,
+  "total_rounds": 100,
+  "total_attacks": 5000,
+  "aggregate_asr": 0.1968,
+  "outcome_distribution": {
+    "STEP_UP": 964,
+    "BLOCKED": 3052,
+    "ALLOWED_EVASION": 984
+  }
+}

@@ -2,12 +2,8 @@
   "experiment_id": "ADV-003",
   "scale": "large",
   "n_rounds": 10,
-  "n_train_targets": 25,
-  "n_val_targets": 25,
-  "n_heldout_targets": 25,
   "budget": 50,
   "base_seed": 20260831,
-  "arms": ["static_blue", "adaptive_challenger", "replay_control"],
   "gate_config": {
     "min_asr_reduction": 0.0,
     "max_legacy_degradation": 0.02,

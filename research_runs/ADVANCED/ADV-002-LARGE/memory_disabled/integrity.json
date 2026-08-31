@@ -1,0 +1,16 @@
+{
+  "experiment_id": "ADV-002",
+  "scale": "large",
+  "mode": "memory_disabled",
+  "adv001_memory_sha256_before": "7f37b59333a82d8fd04ab4e3582435cb798fa6e97cbcd1dc248122967e8087f7",
+  "adv001_memory_sha256_after": "7f37b59333a82d8fd04ab4e3582435cb798fa6e97cbcd1dc248122967e8087f7",
+  "adv001_records_before": 10000,
+  "adv001_records_after": 10000,
+  "adv001_intact": true,
+  "total_adv002_attempts": 5000,
+  "unique_adv002_attack_ids": 5000,
+  "accounting_closure_sum": 5000,
+  "accounting_verified": true,
+  "runtime_sec": 254.231,
+  "throughput_attempts_per_sec": 19.67
+}

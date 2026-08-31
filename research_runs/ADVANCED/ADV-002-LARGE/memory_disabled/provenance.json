@@ -1,0 +1,12 @@
+{
+  "experiment_id": "ADV-002",
+  "scale": "large",
+  "mode": "memory_disabled",
+  "base_seed": 20260831,
+  "git_commit": "22bde659e441b0f9851ebdc1ffbc2c796bde78ca",
+  "timestamp": "2026-08-31T13:31:15.265593Z",
+  "adv001_memory_records_ingested": 10000,
+  "adv002_memory_records_added": 5000,
+  "runtime_sec": 254.231,
+  "throughput_attempts_per_sec": 19.67
+}
