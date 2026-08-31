@@ -668,3 +668,8 @@ flag is surfaced on every response and unmeasured fields return `null`, not `0`.
   build the stateful world in `src/mcdl/world/`. Target: gate 1.
 - **A** -> BLOCK 1: build the five React views against the fixture API, run
   `make frontend`, deploy the Space. Target: `/api/health` 200 from the public URL.
+
+### 2026-08-31 ADV-002 and ADV-003 Cloud Executions Completed
+- **ADV-002 Large** (15,000 attempts) successfully demonstrated shared memory gain (+9.24% ASR) and adaptation gain (+10.08% ASR).
+- **ADV-003** (10 rounds) successfully demonstrated the adaptive defense curve. The `adaptive_challenger` reduced evasion to 76.00% while passing the anti-forgetting gate.
+- All empirical evidence extracted, audited, and committed to `main` at `6320c2d`.
