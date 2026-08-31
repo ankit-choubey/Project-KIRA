@@ -1,0 +1,33 @@
+{
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "status": "PASS",
+  "expected_file_count": 22,
+  "actual_file_count": 22,
+  "passed_files": [
+    "adaptation_cost.json",
+    "attack_summary.json",
+    "blue_metrics.json",
+    "calibration.json",
+    "coevolution_metrics.json",
+    "decisions.json",
+    "evaluation.json",
+    "evidence_pack.md",
+    "experiment_register.json",
+    "external_anchor.json",
+    "failures.json",
+    "feature_schema.json",
+    "manifest.json",
+    "policy_metrics.json",
+    "promotion_history.json",
+    "red_metrics.json",
+    "sample_transactions.json",
+    "scoreboard.json",
+    "three_world_evaluation.json",
+    "transactions.json",
+    "weakness_profile.json",
+    "world_summary.json"
+  ],
+  "missing_files": [],
+  "unexpected_files": [],
+  "hash_mismatches": []
+}
