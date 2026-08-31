@@ -228,6 +228,22 @@ export interface AppConfig {
   config_hash: string;
 }
 
+export interface ScoreRequest {
+  transaction: Transaction;
+}
+
+export interface ScoreResponse {
+  decision: BlueDecision;
+  served_by: string;
+  api_latency_ms: number;
+}
+
+export interface RedAttackResult {
+  attack_id?: string;
+  status?: string;
+  [key: string]: any;
+}
+
 // --------------------------------------------------------------------------- //
 
 export class ApiError extends Error {
@@ -253,6 +269,24 @@ async function get<T>(path: string): Promise<T> {
   return res.json() as Promise<T>;
 }
 
+async function post<T>(path: string, payload: unknown): Promise<T> {
+  const res = await fetch(path, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    let detail = res.statusText;
+    try {
+      detail = (await res.json()).detail ?? detail;
+    } catch {
+      /* body was not json; keep statusText */
+    }
+    throw new ApiError(detail, res.status);
+  }
+  return res.json() as Promise<T>;
+}
+
 export const api = {
   health: () => get<Health>("/api/health"),
   config: () => get<AppConfig>("/api/config"),
@@ -263,6 +297,11 @@ export const api = {
   coevolution: () =>
     get<{ run_id: string; is_fixture: boolean; rounds: RoundResult[] }>("/api/coevolution"),
   evidence: () => get<EvaluationResult>("/api/evidence"),
+  artifacts: () =>
+    get<{ run_id: string; is_fixture: boolean; artifacts: string[] }>("/api/artifacts"),
+  artifact: <T = unknown>(name: string) => get<T>(`/api/artifact/${encodeURIComponent(name)}`),
+  score: (req: ScoreRequest) => post<ScoreResponse>("/api/score", req),
+  attack: (payload: Record<string, unknown>) => post<RedAttackResult>("/api/attack", payload),
 };
 
 /** Render a possibly-unmeasured number. Never returns "0" for null. */
