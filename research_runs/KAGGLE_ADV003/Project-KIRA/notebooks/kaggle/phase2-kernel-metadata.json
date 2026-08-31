@@ -1,0 +1,16 @@
+{
+  "id": "theankitchoubey/project-kira-phase2-mega-notebook",
+  "title": "project-kira-phase2-mega-notebook",
+  "code_file": "04_phase2_mega_notebook.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "true",
+  "enable_gpu": "false",
+  "enable_tpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": [
+    "kartik2112/fraud-detection"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}

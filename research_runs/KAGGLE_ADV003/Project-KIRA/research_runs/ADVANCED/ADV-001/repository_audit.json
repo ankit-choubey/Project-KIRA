@@ -1,0 +1,83 @@
+{
+  "audit_version": "1.0.0",
+  "experiment_id": "ADV-001",
+  "generated_at": "2026-08-31T10:20:00Z",
+  "reused_components": {
+    "red_engine": {
+      "class": "mcdl.red.search.RedSearchEngine",
+      "module": "src/mcdl/red/search.py",
+      "description": "Constrained black-box query-budgeted attack optimization against Blue detector"
+    },
+    "mutation_strategies": {
+      "function": "mcdl.red.strategies.generate_candidate_mutation",
+      "module": "src/mcdl/red/strategies.py",
+      "family_mutators": [
+        "mutate_burst_drain",
+        "mutate_slow_siphon",
+        "mutate_geo_hop",
+        "mutate_agent_subversion",
+        "mutate_cross_merchant_fanout"
+      ]
+    },
+    "attack_families": {
+      "enum": "mcdl.schemas.AttackFamily",
+      "canonical_list": "mcdl.red.evaluator.CANONICAL_FAMILIES",
+      "supported_families": [
+        "burst_drain",
+        "slow_siphon",
+        "geo_hop",
+        "agent_subversion",
+        "cross_merchant_fanout"
+      ]
+    },
+    "mutability_masks": {
+      "mapping": "mcdl.red.mask.FAMILY_MUTABLE_FIELDS",
+      "immutable_fields": "mcdl.red.mask.IMMUTABLE_FIELDS",
+      "validator": "mcdl.red.mask.check_mask_violations",
+      "physics_validator": "mcdl.red.search.validate_physical_candidate"
+    },
+    "distance_metric": {
+      "function": "mcdl.red.distance.compute_evasion_distance",
+      "module": "src/mcdl/red/distance.py",
+      "definition": "Euclidean distance in normalized mutable continuous/categorical space"
+    },
+    "blue_detector": {
+      "class": "mcdl.blue.model.BlueDetector",
+      "module": "src/mcdl/blue/model.py",
+      "scoring_method": "score_transaction",
+      "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab"
+    },
+    "policy_router": {
+      "class": "mcdl.blue.policy.CostSensitiveRouter",
+      "decisions": ["ALLOW", "STEP_UP", "BLOCK"]
+    },
+    "provenance_schema": {
+      "dataclass": "mcdl.red.search.AttackProvenance",
+      "fields": [
+        "attack_instance_id",
+        "attack_family",
+        "source_txn_id",
+        "seed",
+        "query_budget",
+        "queries_used",
+        "mutations_attempted",
+        "valid_mutations",
+        "invalid_mutations",
+        "original_decision",
+        "final_decision",
+        "original_risk",
+        "final_risk",
+        "med",
+        "success",
+        "rejection_reasons"
+      ]
+    }
+  },
+  "safety_invariants": {
+    "zero_retraining": true,
+    "no_modifications_to_core": true,
+    "isolated_namespace": "src/mcdl/research/advanced/adv001/",
+    "isolated_output_dir": "research_runs/ADVANCED/ADV-001/",
+    "exp_007_a_preserved": true
+  }
+}

@@ -1,0 +1,310 @@
+{
+  "population": {
+    "agents": 5,
+    "campaigns": 5,
+    "rounds": 20,
+    "attacks": 500,
+    "targets": 5,
+    "families": [
+      "burst_drain",
+      "cross_merchant_fanout",
+      "geo_hop",
+      "slow_siphon"
+    ],
+    "budgets": [
+      1,
+      5,
+      20,
+      80,
+      100
+    ]
+  },
+  "defense": {
+    "aggregate_asr": 0.3,
+    "asr_by_agent": {
+      "agent_velocity_01": 0.33,
+      "agent_geo_01": 0.3,
+      "agent_merchant_01": 0.3,
+      "agent_subversion_01": 0.3,
+      "agent_hybrid_01": 0.27
+    },
+    "asr_by_family": {
+      "geo_hop": 0.3191,
+      "cross_merchant_fanout": 0.0,
+      "slow_siphon": 0.0,
+      "burst_drain": 0.0
+    },
+    "asr_by_budget": {
+      "1": 0.0,
+      "5": 1.0,
+      "20": 0.1339,
+      "80": 0.0,
+      "100": 0.0
+    },
+    "asr_by_round": {
+      "1": 0.6,
+      "2": 0.24,
+      "3": 0.36,
+      "4": 0.24,
+      "5": 0.36,
+      "6": 0.24,
+      "7": 0.24,
+      "8": 0.36,
+      "9": 0.24,
+      "10": 0.36,
+      "11": 0.24,
+      "12": 0.36,
+      "13": 0.24,
+      "14": 0.24,
+      "15": 0.36,
+      "16": 0.24,
+      "17": 0.36,
+      "18": 0.24,
+      "19": 0.36,
+      "20": 0.12
+    },
+    "blocked_percentage": 51.2,
+    "step_up_percentage": 18.8,
+    "outcome_distribution": {
+      "STEP_UP": 94,
+      "BLOCKED": 256,
+      "ALLOWED_EVASION": 150
+    }
+  },
+  "efficiency": {
+    "total_queries": 7272,
+    "median_queries": 4.0,
+    "p95_queries": 100.0,
+    "mean_perturbation_distance": 1.2037,
+    "median_perturbation_distance": 1.2033,
+    "p95_perturbation_distance": 1.2514,
+    "best_perturbation_distance": 1.1303,
+    "mean_reward": -0.138,
+    "runtime_sec": 5.945,
+    "throughput_attempts_per_sec": 84.1,
+    "mean_scoring_latency_ms": 11.89
+  },
+  "agent_metrics": {
+    "agent_velocity_01": {
+      "attempts": 100,
+      "evasions": 33,
+      "asr": 0.33,
+      "median_queries": 4.0,
+      "mean_reward": -0.0921,
+      "median_perturbation": 1.2033
+    },
+    "agent_geo_01": {
+      "attempts": 100,
+      "evasions": 30,
+      "asr": 0.3,
+      "median_queries": 4.0,
+      "mean_reward": -0.1373,
+      "median_perturbation": 1.2038
+    },
+    "agent_merchant_01": {
+      "attempts": 100,
+      "evasions": 30,
+      "asr": 0.3,
+      "median_queries": 4.0,
+      "mean_reward": -0.1375,
+      "median_perturbation": 1.2045
+    },
+    "agent_subversion_01": {
+      "attempts": 100,
+      "evasions": 30,
+      "asr": 0.3,
+      "median_queries": 4.0,
+      "mean_reward": -0.1373,
+      "median_perturbation": 1.203
+    },
+    "agent_hybrid_01": {
+      "attempts": 100,
+      "evasions": 27,
+      "asr": 0.27,
+      "median_queries": 4.0,
+      "mean_reward": -0.1858,
+      "median_perturbation": 1.2031
+    }
+  },
+  "family_metrics": {
+    "geo_hop": {
+      "attempts": 470,
+      "evasions": 150,
+      "asr": 0.3191
+    },
+    "cross_merchant_fanout": {
+      "attempts": 20,
+      "evasions": 0,
+      "asr": 0.0
+    },
+    "slow_siphon": {
+      "attempts": 5,
+      "evasions": 0,
+      "asr": 0.0
+    },
+    "burst_drain": {
+      "attempts": 5,
+      "evasions": 0,
+      "asr": 0.0
+    }
+  },
+  "budget_metrics": {
+    "1": {
+      "attempts": 132,
+      "evasions": 0,
+      "asr": 0.0
+    },
+    "5": {
+      "attempts": 135,
+      "evasions": 135,
+      "asr": 1.0
+    },
+    "20": {
+      "attempts": 112,
+      "evasions": 15,
+      "asr": 0.1339
+    },
+    "80": {
+      "attempts": 63,
+      "evasions": 0,
+      "asr": 0.0
+    },
+    "100": {
+      "attempts": 58,
+      "evasions": 0,
+      "asr": 0.0
+    }
+  },
+  "round_metrics": {
+    "1": {
+      "attempts": 25,
+      "evasions": 15,
+      "asr": 0.6,
+      "mean_reward": 0.3395
+    },
+    "2": {
+      "attempts": 25,
+      "evasions": 6,
+      "asr": 0.24,
+      "mean_reward": -0.2574
+    },
+    "3": {
+      "attempts": 25,
+      "evasions": 9,
+      "asr": 0.36,
+      "mean_reward": -0.0532
+    },
+    "4": {
+      "attempts": 25,
+      "evasions": 6,
+      "asr": 0.24,
+      "mean_reward": -0.2218
+    },
+    "5": {
+      "attempts": 25,
+      "evasions": 9,
+      "asr": 0.36,
+      "mean_reward": -0.0525
+    },
+    "6": {
+      "attempts": 25,
+      "evasions": 6,
+      "asr": 0.24,
+      "mean_reward": -0.2339
+    },
+    "7": {
+      "attempts": 25,
+      "evasions": 6,
+      "asr": 0.24,
+      "mean_reward": -0.2219
+    },
+    "8": {
+      "attempts": 25,
+      "evasions": 9,
+      "asr": 0.36,
+      "mean_reward": -0.0522
+    },
+    "9": {
+      "attempts": 25,
+      "evasions": 6,
+      "asr": 0.24,
+      "mean_reward": -0.221
+    },
+    "10": {
+      "attempts": 25,
+      "evasions": 9,
+      "asr": 0.36,
+      "mean_reward": -0.052
+    },
+    "11": {
+      "attempts": 25,
+      "evasions": 6,
+      "asr": 0.24,
+      "mean_reward": -0.2205
+    },
+    "12": {
+      "attempts": 25,
+      "evasions": 9,
+      "asr": 0.36,
+      "mean_reward": -0.0527
+    },
+    "13": {
+      "attempts": 25,
+      "evasions": 6,
+      "asr": 0.24,
+      "mean_reward": -0.2217
+    },
+    "14": {
+      "attempts": 25,
+      "evasions": 6,
+      "asr": 0.24,
+      "mean_reward": -0.2338
+    },
+    "15": {
+      "attempts": 25,
+      "evasions": 9,
+      "asr": 0.36,
+      "mean_reward": -0.0528
+    },
+    "16": {
+      "attempts": 25,
+      "evasions": 6,
+      "asr": 0.24,
+      "mean_reward": -0.222
+    },
+    "17": {
+      "attempts": 25,
+      "evasions": 9,
+      "asr": 0.36,
+      "mean_reward": -0.053
+    },
+    "18": {
+      "attempts": 25,
+      "evasions": 6,
+      "asr": 0.24,
+      "mean_reward": -0.2219
+    },
+    "19": {
+      "attempts": 25,
+      "evasions": 9,
+      "asr": 0.36,
+      "mean_reward": -0.0644
+    },
+    "20": {
+      "attempts": 25,
+      "evasions": 3,
+      "asr": 0.12,
+      "mean_reward": -0.3909
+    }
+  },
+  "total_campaigns": 5,
+  "total_agents": 5,
+  "total_rounds": 20,
+  "total_attacks": 500,
+  "aggregate_asr": 0.3,
+  "outcome_distribution": {
+    "STEP_UP": 94,
+    "BLOCKED": 256,
+    "ALLOWED_EVASION": 150
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "dataset_name": "Sparkov Credit Card Fraud Benchmark",
+  "source_url": "https://kaggle.com/datasets/kartik2112/fraud-detection",
+  "license": "CC0 1.0 Universal",
+  "access_date": "2026-08-30",
+  "sha256_content_hash": "12d553ab19440c752d2531ee1af44bb64f12cc3d3839f1649f19e81c230545f0",
+  "namespace": "REAL_WORLD",
+  "sample_count": 50000,
+  "positive_count": 199,
+  "fraud_rate": 0.00398,
+  "split_method": "file_split",
+  "file_name": "fraudTest.csv",
+  "total_rows_scanned": 50000
+}

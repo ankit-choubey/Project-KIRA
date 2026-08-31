@@ -1,0 +1,181 @@
+{
+  "git_commit_sha": "c10e358409a88659f0bd2623ed9ba1de24ffbeeb",
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "execution_backend": "CPU (NumPy vectorized)",
+  "feature_spec_version": "1.0.0",
+  "graph_summary": {
+    "node_counts": {
+      "transaction": 9348,
+      "customer": 198,
+      "merchant": 80,
+      "device": 345,
+      "agent": 14,
+      "total_nodes": 9985
+    },
+    "edge_counts": {
+      "customer_initiates_txn": 9348,
+      "txn_to_merchant": 9348,
+      "txn_from_device": 9348,
+      "agent_facilitates_txn": 35,
+      "total_edges": 28079
+    },
+    "feature_dims": {
+      "transaction": 25,
+      "customer_aggregates": 2,
+      "merchant_aggregates": 2,
+      "device_aggregates": 2,
+      "agent_aggregates": 1,
+      "total_entity_aggregates": 7
+    },
+    "tensor_memory_mb": 1.9256,
+    "memory_safe": true
+  },
+  "node_feature_schemas": {
+    "transaction": [
+      "amount",
+      "log_amount",
+      "hour_of_day",
+      "day_of_week",
+      "is_weekend",
+      "dist_from_home_km",
+      "dist_from_prev_txn_km",
+      "time_since_prev_txn_seconds",
+      "speed_kmh",
+      "cust_velocity_1h_count",
+      "cust_velocity_1h_sum",
+      "cust_velocity_6h_count",
+      "cust_velocity_6h_sum",
+      "cust_velocity_24h_count",
+      "cust_velocity_24h_sum",
+      "merch_velocity_1h_count",
+      "merch_velocity_24h_count",
+      "cust_avg_amount_hist",
+      "cust_amount_to_avg_ratio",
+      "balance_utilization",
+      "is_new_device",
+      "device_cust_count",
+      "auth_failed_count",
+      "is_agent_initiated",
+      "merch_fraud_rate_7d_lag"
+    ],
+    "customer": [
+      "historical_count",
+      "historical_amount_sum"
+    ],
+    "merchant": [
+      "historical_count",
+      "historical_amount_sum"
+    ],
+    "device": [
+      "historical_count",
+      "unique_customer_count"
+    ],
+    "agent": [
+      "historical_count"
+    ]
+  },
+  "model_architecture": "2-layer CausalGraphSAGE (NumPy relational aggregation)",
+  "model_parameters": 6017,
+  "feature_causality_audit": {
+    "test_name": "feature_level_temporal_causality",
+    "sample_count": 5,
+    "target_indices": [
+      1869,
+      3271,
+      4674,
+      6076,
+      7478
+    ],
+    "features_evaluated_count": 25,
+    "tolerance": 1e-09,
+    "global_max_delta": 0.0,
+    "per_feature_max_deltas": {
+      "amount": 0.0,
+      "log_amount": 0.0,
+      "hour_of_day": 0.0,
+      "day_of_week": 0.0,
+      "is_weekend": 0.0,
+      "dist_from_home_km": 0.0,
+      "dist_from_prev_txn_km": 0.0,
+      "time_since_prev_txn_seconds": 0.0,
+      "speed_kmh": 0.0,
+      "cust_velocity_1h_count": 0.0,
+      "cust_velocity_1h_sum": 0.0,
+      "cust_velocity_6h_count": 0.0,
+      "cust_velocity_6h_sum": 0.0,
+      "cust_velocity_24h_count": 0.0,
+      "cust_velocity_24h_sum": 0.0,
+      "merch_velocity_1h_count": 0.0,
+      "merch_velocity_24h_count": 0.0,
+      "cust_avg_amount_hist": 0.0,
+      "cust_amount_to_avg_ratio": 0.0,
+      "balance_utilization": 0.0,
+      "is_new_device": 0.0,
+      "device_cust_count": 0.0,
+      "auth_failed_count": 0.0,
+      "is_agent_initiated": 0.0,
+      "merch_fraud_rate_7d_lag": 0.0
+    },
+    "failed_feature_count": 0,
+    "status": "PASS",
+    "passed": true
+  },
+  "split_verification": {
+    "test_name": "temporal_split_semantics",
+    "total_transactions": 9348,
+    "train_count": 6543,
+    "val_count": 1402,
+    "test_count": 1403,
+    "train_fraud_count": 38,
+    "val_fraud_count": 5,
+    "test_fraud_count": 10,
+    "max_train_ts": "2026-01-21 15:04:29.968573",
+    "min_val_ts": "2026-01-21 15:16:26.782516",
+    "max_val_ts": "2026-01-26 06:42:40.161659",
+    "min_test_ts": "2026-01-26 06:46:09.376273",
+    "out_of_time_valid": true,
+    "disjoint_splits_valid": true,
+    "status": "PASS",
+    "passed": true
+  },
+  "graph_leakage_audit": {
+    "test_suite": "graph_temporal_leakage_invariance",
+    "tolerance": 1e-12,
+    "eval_sample_count": 6,
+    "tests": {
+      "future_edge_invariance": {
+        "max_delta": 0.0,
+        "tolerance": 1e-12,
+        "sample_count": 6,
+        "status": "PASS"
+      },
+      "future_node_feature_invariance": {
+        "max_delta": 0.0,
+        "tolerance": 1e-12,
+        "sample_count": 6,
+        "status": "PASS"
+      },
+      "future_label_invariance": {
+        "max_delta": 0.0,
+        "tolerance": 1e-12,
+        "sample_count": 6,
+        "status": "PASS"
+      },
+      "prediction_at_t_invariance": {
+        "max_delta": 0.0,
+        "tolerance": 1e-12,
+        "sample_count": 6,
+        "status": "PASS"
+      }
+    },
+    "all_passed": true,
+    "global_max_delta": 0.0,
+    "status": "PASS"
+  },
+  "train_stats": {
+    "epochs_trained": 6,
+    "best_val_pr_auc": 0.0033627021181095794,
+    "parameter_count": 6017,
+    "scale_pos_weight": 171.18421052631578
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "status": "EXECUTED_WITH_DETERMINISTIC_FALLBACK",
+  "proposals_generated": 3,
+  "validation_passed": 3,
+  "mask_rejections": 1,
+  "physics_rejections": 0,
+  "accepted_hypotheses": 3,
+  "runtime": 2.3125001462176442e-05,
+  "proposals": [
+    {
+      "target_family": "burst_drain",
+      "original": {
+        "amount": 5000.0,
+        "timestamp_delta": 5
+      },
+      "masked": {
+        "amount": 5000.0
+      },
+      "enforced": {
+        "amount": 5000.0
+      },
+      "rationale": "DETERMINISTIC_FALLBACK_GENERATOR"
+    },
+    {
+      "target_family": "geo_hop",
+      "original": {
+        "ip_prefix": "203.0.113.5",
+        "device_id": "new_device_999"
+      },
+      "masked": {
+        "ip_prefix": "203.0.113.5",
+        "device_id": "new_device_999"
+      },
+      "enforced": {
+        "ip_prefix": "203.0.113.5",
+        "device_id": "new_device_999"
+      },
+      "rationale": "DETERMINISTIC_FALLBACK_GENERATOR"
+    },
+    {
+      "target_family": "agent_subversion",
+      "original": {
+        "amount": 10.0
+      },
+      "masked": {
+        "amount": 10.0
+      },
+      "enforced": {
+        "amount": 10.0
+      },
+      "rationale": "DETERMINISTIC_FALLBACK_GENERATOR"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "git_commit_sha": "ab721f9d464456cb6f936f3f9466c7975671a319",
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "execution_backend": "CPU (NumPy vectorized)",
+  "families": {
+    "synthetic_identity": {
+      "count": 0,
+      "status": "NOT_PRESENT_IN_TEST_SPLIT"
+    },
+    "botnet_takeover": {
+      "count": 0,
+      "status": "NOT_PRESENT_IN_TEST_SPLIT"
+    },
+    "authorized_push_payment": {
+      "count": 0,
+      "status": "NOT_PRESENT_IN_TEST_SPLIT"
+    },
+    "agent_subversion": {
+      "count": 0,
+      "status": "NOT_PRESENT_IN_TEST_SPLIT"
+    },
+    "cross_merchant_fanout": {
+      "count": 0,
+      "status": "NOT_PRESENT_IN_TEST_SPLIT"
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "audit_timestamp": "2026-08-31T16:42:56.828284+00:00",
+  "methodological_distinction": "Strict separation between attack attempts, synthetic populations, multi-arm swarms, and human/real-world attackers.",
+  "populations": [
+    {
+      "population_id": "BASELINE_EXP007A",
+      "label": "EXP-007-A Vulnerability Discovery",
+      "attack_attempts": 200,
+      "attacker_type": "Black-box budgeted sequential greedy optimizer",
+      "target_count": 10,
+      "families": [
+        "burst_drain",
+        "slow_siphon",
+        "geo_hop",
+        "agent_subversion",
+        "cross_merchant_fanout"
+      ],
+      "total_evasions": 183,
+      "aggregate_asr": 0.9667,
+      "notes": "Evaluated pre-defense vulnerabilities on candidate transactions."
+    },
+    {
+      "population_id": "ADV001_ATTACK_POPULATION_10K",
+      "label": "ADV-001 Large-Scale Constrained Synthetic Attacks",
+      "attack_attempts": 10000,
+      "attacker_type": "Multi-family budgeted mutation search",
+      "target_count": 500,
+      "families": [
+        "burst_drain",
+        "slow_siphon",
+        "geo_hop",
+        "agent_subversion",
+        "cross_merchant_fanout"
+      ],
+      "total_evasions": 600,
+      "aggregate_asr": 0.06,
+      "notes": "10,000 synthetic attack attempts across 5 attack families with Layer-1 physics constraints."
+    },
+    {
+      "population_id": "ADV002_SWARM_LARGE_15K",
+      "label": "ADV-002 Stateful Multi-Agent Adversarial Swarm",
+      "attack_attempts": 15000,
+      "attacker_type": "Multi-agent swarm with shared associative episodic memory vs static vs disabled",
+      "target_count": 10,
+      "arms": {
+        "adaptive_memory": {
+          "attempts": 5000,
+          "evasions": 984,
+          "asr": 0.1968,
+          "median_queries": 4.0
+        },
+        "static_control": {
+          "attempts": 5000,
+          "evasions": 480,
+          "asr": 0.096,
+          "median_queries": 20.0
+        },
+        "memory_disabled": {
+          "attempts": 5000,
+          "evasions": 522,
+          "asr": 0.1044,
+          "median_queries": 4.0
+        }
+      },
+      "comparisons": {
+        "adaptive_vs_static_uplift": "+10.08% ASR",
+        "adaptive_vs_memory_disabled_uplift": "+9.24% ASR"
+      },
+      "notes": "Executed on Kaggle Cloud CPU. Proves memory-enabled swarm behavioral adaptation."
+    },
+    {
+      "population_id": "ADV003_ADAPTIVE_DEFENSE_CURVE",
+      "label": "ADV-003 Closed-Loop Defensive Evolution",
+      "attack_attempts": 375,
+      "attacker_type": "Multi-round adaptive adversarial evaluation",
+      "rounds": 5,
+      "arms": [
+        "adaptive_challenger",
+        "naive_retrain",
+        "static_blue"
+      ],
+      "findings": "Adaptive challenger retains 0.0% legacy ASR while naive retrain exhibits catastrophic forgetting on novel attack families.",
+      "notes": "Executed on Kaggle Cloud CPU."
+    }
+  ],
+  "prohibitions_enforced": [
+    "Never describe 10,000 synthetic attempts as '10,000 real-world hackers'.",
+    "Never pool ADV-001 and ADV-002 populations without stratified lineage separation.",
+    "Never represent local ASGI test throughput as cloud production capacity."
+  ]
+}

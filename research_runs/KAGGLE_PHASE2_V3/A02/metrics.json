@@ -1,0 +1,36 @@
+{
+  "git_commit_sha": "c10e358409a88659f0bd2623ed9ba1de24ffbeeb",
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "execution_backend": "CPU (NumPy vectorized)",
+  "seeds_evaluated": [
+    20260827,
+    42,
+    12345
+  ],
+  "pr_auc": {
+    "mean": 1.0,
+    "std": 0.0,
+    "min": 1.0,
+    "max": 1.0
+  },
+  "roc_auc": {
+    "mean": 1.0,
+    "std": 0.0,
+    "min": 1.0,
+    "max": 1.0
+  },
+  "brier": {
+    "mean": 0.0003,
+    "std": 0.0
+  },
+  "ece": {
+    "mean": 0.0005,
+    "std": 0.0
+  },
+  "flags": {
+    "LOW_SAMPLE": true,
+    "UNDERPOWERED": false,
+    "HIGH_VARIANCE": false,
+    "INCONCLUSIVE": false
+  }
+}

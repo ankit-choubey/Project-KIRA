@@ -1,0 +1,308 @@
+{
+  "baseline_git_commit": "40997ab",
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "config_hash": "",
+  "end_time": "2026-08-31T11:51:30.373382+00:00",
+  "exception": null,
+  "experiment_id": "S02",
+  "git_commit": "ab721f9d464456cb6f936f3f9466c7975671a319",
+  "input_artifact_hashes": {
+    "baseline_provenance": "c6e7271840db64c20e32fb78b817879f7f485d0684c50ad93ba06dd29b35ca2d"
+  },
+  "metrics": {
+    "automated_interpretation": "Causal relational graph information provides statistically validated incremental predictive value beyond KIRA's tabular detector, driven by genuine network topology.",
+    "baseline_integrity": {
+      "actual_file_count": 22,
+      "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+      "expected_file_count": 22,
+      "hash_mismatches": [],
+      "missing_files": [],
+      "passed_files": [
+        "adaptation_cost.json",
+        "attack_summary.json",
+        "blue_metrics.json",
+        "calibration.json",
+        "coevolution_metrics.json",
+        "decisions.json",
+        "evaluation.json",
+        "evidence_pack.md",
+        "experiment_register.json",
+        "external_anchor.json",
+        "failures.json",
+        "feature_schema.json",
+        "manifest.json",
+        "policy_metrics.json",
+        "promotion_history.json",
+        "red_metrics.json",
+        "sample_transactions.json",
+        "scoreboard.json",
+        "three_world_evaluation.json",
+        "transactions.json",
+        "weakness_profile.json",
+        "world_summary.json"
+      ],
+      "status": "PASS",
+      "unexpected_files": []
+    },
+    "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+    "dataset_scale": "small",
+    "dataset_world_seed": 20260827,
+    "decision_classification": "SUCCESS",
+    "evaluation_semantics": "multi-model-seed evaluation on a fixed synthetic world",
+    "execution_backend": "CPU (NumPy vectorized)",
+    "feature_dimensions": {
+      "arm_a_input_dim": 25,
+      "arm_c_input_dim": 41,
+      "arm_d_input_dim": 41,
+      "canonical_feature_count": 25,
+      "canonical_feature_names": [
+        "amount",
+        "log_amount",
+        "hour_of_day",
+        "day_of_week",
+        "is_weekend",
+        "dist_from_home_km",
+        "dist_from_prev_txn_km",
+        "time_since_prev_txn_seconds",
+        "speed_kmh",
+        "cust_velocity_1h_count",
+        "cust_velocity_1h_sum",
+        "cust_velocity_6h_count",
+        "cust_velocity_6h_sum",
+        "cust_velocity_24h_count",
+        "cust_velocity_24h_sum",
+        "merch_velocity_1h_count",
+        "merch_velocity_24h_count",
+        "cust_avg_amount_hist",
+        "cust_amount_to_avg_ratio",
+        "balance_utilization",
+        "is_new_device",
+        "device_cust_count",
+        "auth_failed_count",
+        "is_agent_initiated",
+        "merch_fraud_rate_7d_lag"
+      ],
+      "fusion_input_dim": 41,
+      "graph_embedding_dim": 16
+    },
+    "git_commit_sha": "ab721f9d464456cb6f936f3f9466c7975671a319",
+    "model_seeds_evaluated": [
+      20260827,
+      42,
+      12345
+    ],
+    "multi_seed_results": {
+      "42": {
+        "arm_a_baseline": {
+          "brier": 0.0005161592201302738,
+          "ece": 0.00024409141407678457,
+          "fpr": 0.0004238485447866629,
+          "pr_auc": 0.9607444553163731,
+          "pr_auc_ci_95": {
+            "ci_lower": 0.9058829391891424,
+            "ci_upper": 0.9955157416625187,
+            "mean": 0.960827549413943,
+            "std": 0.023844568944022322
+          },
+          "roc_auc": 0.997845436564001
+        },
+        "arm_c_real_fusion": {
+          "brier": 0.0004878688518531179,
+          "ece": 0.0005151126317527811,
+          "fpr": 0.00014128284826222097,
+          "pr_auc": 0.9583514256766537,
+          "pr_auc_ci_95": {
+            "ci_lower": 0.901298185941043,
+            "ci_upper": 1.0,
+            "mean": 0.9596415660420882,
+            "std": 0.025981649621336072
+          },
+          "roc_auc": 0.999770415371574
+        },
+        "arm_d_shuffled_control": {
+          "brier": 0.00021312982187763997,
+          "ece": 0.0002018941527215685,
+          "fpr": 0.0,
+          "pr_auc": 0.9804357021996616,
+          "pr_auc_ci_95": {
+            "ci_lower": 0.9338638729808186,
+            "ci_upper": 1.0,
+            "mean": 0.9802908749651169,
+            "std": 0.01995832523953771
+          },
+          "roc_auc": 0.9988962277479514
+        },
+        "estimands": {
+          "delta_rel": -0.0024,
+          "delta_topology": -0.0221,
+          "p_value_bootstrap": 0.897
+        },
+        "model_seed": 42,
+        "world_seed": 20260827
+      },
+      "12345": {
+        "arm_a_baseline": {
+          "brier": 0.0005161592201302738,
+          "ece": 0.00024409141407678457,
+          "fpr": 0.0004238485447866629,
+          "pr_auc": 0.9607444553163731,
+          "pr_auc_ci_95": {
+            "ci_lower": 0.9083912547976063,
+            "ci_upper": 0.9941202399360002,
+            "mean": 0.9615301623291355,
+            "std": 0.02309124572219248
+          },
+          "roc_auc": 0.997845436564001
+        },
+        "arm_c_real_fusion": {
+          "brier": 0.0002559331763848476,
+          "ece": 0.0005549806815325845,
+          "fpr": 0.0,
+          "pr_auc": 0.9975470957613815,
+          "pr_auc_ci_95": {
+            "ci_lower": 0.9917182998839809,
+            "ci_upper": 1.0,
+            "mean": 0.9976552605704062,
+            "std": 0.0023705547219061806
+          },
+          "roc_auc": 0.9999838113403032
+        },
+        "arm_d_shuffled_control": {
+          "brier": 0.000500172983196707,
+          "ece": 0.0003020480372175197,
+          "fpr": 0.0004238485447866629,
+          "pr_auc": 0.9778450445218738,
+          "pr_auc_ci_95": {
+            "ci_lower": 0.9452766665582331,
+            "ci_upper": 0.9978240156740653,
+            "mean": 0.9783097578686678,
+            "std": 0.014192713769837067
+          },
+          "roc_auc": 0.9998366417066967
+        },
+        "estimands": {
+          "delta_rel": 0.0368,
+          "delta_topology": 0.0197,
+          "p_value_bootstrap": 0.055
+        },
+        "model_seed": 12345,
+        "world_seed": 20260827
+      },
+      "20260827": {
+        "arm_a_baseline": {
+          "brier": 0.0005161592201302738,
+          "ece": 0.00024409141407678457,
+          "fpr": 0.0004238485447866629,
+          "pr_auc": 0.9607444553163731,
+          "pr_auc_ci_95": {
+            "ci_lower": 0.9049324415059595,
+            "ci_upper": 0.994691429417877,
+            "mean": 0.9616422756493007,
+            "std": 0.023676876471113675
+          },
+          "roc_auc": 0.997845436564001
+        },
+        "arm_c_real_fusion": {
+          "brier": 0.00029889619090940557,
+          "ece": 0.00021668020607277486,
+          "fpr": 0.00014128284826222097,
+          "pr_auc": 0.9805144371345029,
+          "pr_auc_ci_95": {
+            "ci_lower": 0.9385632239581482,
+            "ci_upper": 1.0,
+            "mean": 0.9812583451931003,
+            "std": 0.01735981805657112
+          },
+          "roc_auc": 0.9997130192144673
+        },
+        "arm_d_shuffled_control": {
+          "brier": 0.0003742695698595627,
+          "ece": 8.827977678544363e-05,
+          "fpr": 0.00028256569652444194,
+          "pr_auc": 0.9720636604476773,
+          "pr_auc_ci_95": {
+            "ci_lower": 0.9218095282764619,
+            "ci_upper": 1.0,
+            "mean": 0.9730127533308573,
+            "std": 0.021411917260823275
+          },
+          "roc_auc": 0.9973641918621079
+        },
+        "estimands": {
+          "delta_rel": 0.0198,
+          "delta_topology": 0.0085,
+          "p_value_bootstrap": 0.046
+        },
+        "model_seed": 20260827,
+        "world_seed": 20260827
+      }
+    },
+    "primary_seed_arms": {
+      "arm_a_baseline": {
+        "brier": 0.0005161592201302738,
+        "ece": 0.00024409141407678457,
+        "fpr": 0.0004238485447866629,
+        "pr_auc": 0.9607444553163731,
+        "pr_auc_ci_95": {
+          "ci_lower": 0.9049324415059595,
+          "ci_upper": 0.994691429417877,
+          "mean": 0.9616422756493007,
+          "std": 0.023676876471113675
+        },
+        "roc_auc": 0.997845436564001
+      },
+      "arm_c_real_fusion": {
+        "brier": 0.00029889619090940557,
+        "ece": 0.00021668020607277486,
+        "fpr": 0.00014128284826222097,
+        "pr_auc": 0.9805144371345029,
+        "pr_auc_ci_95": {
+          "ci_lower": 0.9385632239581482,
+          "ci_upper": 1.0,
+          "mean": 0.9812583451931003,
+          "std": 0.01735981805657112
+        },
+        "roc_auc": 0.9997130192144673
+      },
+      "arm_d_shuffled_control": {
+        "brier": 0.0003742695698595627,
+        "ece": 8.827977678544363e-05,
+        "fpr": 0.00028256569652444194,
+        "pr_auc": 0.9720636604476773,
+        "pr_auc_ci_95": {
+          "ci_lower": 0.9218095282764619,
+          "ci_upper": 1.0,
+          "mean": 0.9730127533308573,
+          "std": 0.021411917260823275
+        },
+        "roc_auc": 0.9973641918621079
+      },
+      "estimands": {
+        "delta_rel": 0.0198,
+        "delta_topology": 0.0085,
+        "p_value_bootstrap": 0.046
+      },
+      "model_seed": 20260827,
+      "world_seed": 20260827
+    }
+  },
+  "output_paths": [
+    "research_runs/PHASE2/S02/metrics.json",
+    "research_runs/PHASE2/S02/integrity.json",
+    "research_runs/PHASE2/S02/feature_dimensions.json"
+  ],
+  "output_sha256": {
+    "feature_dimensions.json": "30cda9c160d3192c3717a2d45c0a4bf51b1f9d832e6f3f8d199ca650900ed50f",
+    "integrity.json": "069de12bc91d623e65ba61e48c27939ef9873a5d060007d30cc52d3ad2be9aa2",
+    "metrics.json": "a59475a504c0086f94bd5c5f996b8cfd9afb30b2c4b693a5ab0aeda2b501978e"
+  },
+  "peak_gpu_mb": 0,
+  "peak_ram_mb": 0,
+  "run_id": "phase2_1788176761",
+  "runtime_sec": 262.160474786,
+  "seed": 20260827,
+  "stage_id": "S02",
+  "start_time": "1970-01-01T00:11:18.181265+00:00",
+  "status": "COMPLETED",
+  "termination_reason": null
+}

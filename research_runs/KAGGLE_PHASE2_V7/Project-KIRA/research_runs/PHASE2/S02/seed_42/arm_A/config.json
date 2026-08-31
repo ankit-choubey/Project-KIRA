@@ -1,0 +1,14 @@
+{
+  "arm": "arm_A",
+  "arm_name": "FULL_SCALE_TABULAR_REFERENCE",
+  "model_type": "LightGBM_FullScaleReference",
+  "authoritative_baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "evaluation_semantics": "multi-model-seed evaluation on a fixed synthetic world",
+  "n_estimators": 100,
+  "max_depth": 4,
+  "num_leaves": 15,
+  "learning_rate": 0.05,
+  "model_seed": 42,
+  "world_seed": 20260827,
+  "input_dim": 25
+}

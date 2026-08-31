@@ -1,0 +1,27 @@
+{
+  "experiment_id": "TI-001",
+  "metrics": {
+    "baseline": {
+      "PR_AUC": 1.0,
+      "FPR": 0.0,
+      "ASR": 0.1333,
+      "Brier": 0.0007,
+      "false_positive_change": 0.0,
+      "time_to_detection": 0.0
+    },
+    "with_ti": {
+      "PR_AUC": 1.0,
+      "FPR": 0.2376,
+      "ASR": 0.0667,
+      "Brier": 0.0036,
+      "false_positive_change": 0.2376,
+      "time_to_detection": 0.0
+    }
+  },
+  "deltas": {
+    "ASR_reduction": 0.0666,
+    "FPR_increase": 0.2376
+  },
+  "status": "COMPLETED",
+  "runtime": 1.9944105409995245
+}

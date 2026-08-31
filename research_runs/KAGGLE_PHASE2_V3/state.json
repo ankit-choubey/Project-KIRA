@@ -1,0 +1,20 @@
+{
+  "A01": "COMPLETED",
+  "A02": "COMPLETED",
+  "G01": "COMPLETED",
+  "G02": "COMPLETED",
+  "G03": "COMPLETED",
+  "G04": "COMPLETED",
+  "G05": "COMPLETED",
+  "LLM01": "COMPLETED",
+  "R01": "COMPLETED",
+  "S00": "COMPLETED",
+  "S01": "COMPLETED",
+  "S02": "FAILED",
+  "S02_reason": "'list' object has no attribute 'columns'",
+  "S02_traceback": "Traceback (most recent call last):\n  File \"/kaggle/working/Project-KIRA/src/mcdl/research/phase2/experiments.py\", line 1009, in run_s02\n    real_graph = TemporalPaymentGraph(world.transactions)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/kaggle/working/Project-KIRA/src/mcdl/research/phase2/graph_temporal.py\", line 55, in __init__\n    if \"timestamp\" in transactions_df.columns and transactions_df[\"timestamp\"].dtype == pl.String:\n                      ^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: 'list' object has no attribute 'columns'\n",
+  "S03": "FAILED",
+  "S03_reason": "'list' object has no attribute 'columns'",
+  "S03_traceback": "Traceback (most recent call last):\n  File \"/kaggle/working/Project-KIRA/src/mcdl/research/phase2/experiments.py\", line 1331, in run_s03\n    real_graph = TemporalPaymentGraph(world.transactions)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/kaggle/working/Project-KIRA/src/mcdl/research/phase2/graph_temporal.py\", line 55, in __init__\n    if \"timestamp\" in transactions_df.columns and transactions_df[\"timestamp\"].dtype == pl.String:\n                      ^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: 'list' object has no attribute 'columns'\n",
+  "S04": "COMPLETED"
+}

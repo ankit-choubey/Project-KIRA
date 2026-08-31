@@ -1,0 +1,564 @@
+"""Master Experiment Suite for Block 7: EXP-007-A through EXP-007-H.
+
+Executes reproducible experiments testing hypotheses on adaptive Red search,
+Challenger hardening, held-out generalization, hidden zero-day transfer,
+query budget scaling, MED progression, and intent-engine ablation.
+"""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+from typing import Any
+import numpy as np
+import polars as pl
+
+from mcdl.artifacts import git_commit
+from mcdl.blue.metrics import evaluate_predictions
+from mcdl.blue.model import BlueDetector
+from mcdl.blue.split import temporal_split
+from mcdl.config import Config, load_config
+from mcdl.features.batch import compute_batch_features
+from mcdl.features.spec import FEATURE_NAMES
+from mcdl.features.stream import StreamingFeatureExtractor
+from mcdl.loop.coevolution import CoevolutionLoop, CoevolutionResult
+from mcdl.loop.failure import FailureAnalyzer
+from mcdl.loop.worlds import (
+    CANONICAL_ADAPTATION_FAMILIES,
+    CANONICAL_HIDDEN_FAMILIES,
+    build_three_world_suite,
+    verify_family_isolation,
+)
+from mcdl.red.adaptive import AdaptiveRedEngine
+from mcdl.red.evaluator import CANONICAL_FAMILIES, evaluate_red_attacks
+from mcdl.schemas import AttackFamily, Decision, ExperimentRecord, Transaction
+from mcdl.world.generator import WorldResult, generate_world
+
+
+def run_exp_007_a_static_baseline(
+    world: WorldResult,
+    feature_df: pl.DataFrame,
+    cfg: Config,
+) -> ExperimentRecord:
+    """EXP-007-A: Static Red Attack Baseline against initial Blue defense."""
+    split = temporal_split(feature_df, train_ratio=0.70, valid_ratio=0.15)
+    model = BlueDetector(n_estimators=30, max_depth=3, learning_rate=0.05, random_state=cfg["seed"])
+    model.fit(split.train_df, split.valid_df)
+
+    red_metrics, prov_log = evaluate_red_attacks(
+        all_transactions=world.transactions,
+        test_start_idx=len(split.train_df) + len(split.valid_df),
+        detector=model,
+        customers=world.customers,
+        merchants=world.merchants,
+        mandates=world.mandates,
+        budgets=[1, 5, 20, 100],
+        families=CANONICAL_ADAPTATION_FAMILIES,
+        seed=cfg["seed"],
+    )
+
+    val_eval = model.evaluate_split(split)["lgbm_calibrated_valid"]
+
+    asr_20 = red_metrics.asr_by_budget.get("20", 0.0)
+    med = red_metrics.mean_evasion_distance or 0.0
+
+    return ExperimentRecord(
+        exp_id="EXP-007-A",
+        hypothesis="Static Red search achieves non-zero evasion against unhardened baseline Blue detector.",
+        dataset_world_version=f"world_v1_{cfg['scale']}",
+        code_commit=git_commit(),
+        configuration_hash=cfg.hash,
+        seed=cfg["seed"],
+        baseline_name="Zero-Knowledge Random Attacker",
+        treatment_name="Static Constrained Mutation Search",
+        metrics={
+            "asr_budget_1": red_metrics.asr_by_budget.get("1", 0.0),
+            "asr_budget_5": red_metrics.asr_by_budget.get("5", 0.0),
+            "asr_budget_20": asr_20,
+            "asr_budget_100": red_metrics.asr_by_budget.get("100", 0.0),
+            "mean_evasion_distance": med,
+            "baseline_pr_auc": val_eval.pr_auc or 0.0,
+            "baseline_fpr": val_eval.fpr or 0.0,
+        },
+        result_status="RESULT",
+        conclusion=f"Static Red achieves {asr_20:.2%} ASR at budget 20 with MED={med:.4f}.",
+        artifact_path="exp_007_a_static.json",
+    )
+
+
+def run_exp_007_b_adaptive_red_no_hardening(
+    world: WorldResult,
+    feature_df: pl.DataFrame,
+    cfg: Config,
+) -> ExperimentRecord:
+    """EXP-007-B: Adaptive Red Search without Blue hardening (Fixed Blue Detector)."""
+    split = temporal_split(feature_df, train_ratio=0.70, valid_ratio=0.15)
+    train_end_idx = len(split.train_df)
+
+    # 1. Train fixed Blue detector
+    fixed_blue = BlueDetector(n_estimators=30, max_depth=3, learning_rate=0.05, random_state=cfg["seed"])
+    fixed_blue.fit(split.train_df, split.valid_df)
+
+    # 2. Round 0: Baseline Red search against Fixed Blue
+    analyzer = FailureAnalyzer()
+    rolling_ext0 = StreamingFeatureExtractor(customers=world.customers)
+    sorted_txns = sorted(world.transactions[:train_end_idx], key=lambda t: (t.timestamp, t.txn_id))
+
+    r0_engine = AdaptiveRedEngine(
+        detector=fixed_blue,
+        customers=world.customers,
+        merchants=world.merchants,
+        mandates=world.mandates,
+        weakness_profile=None,
+    )
+
+    r0_prov_log = []
+    for t in sorted_txns:
+        snap = rolling_ext0.clone()
+        feats = snap.extract(t)
+        dec = fixed_blue.score_transaction(t, feats, mandates=world.mandates)
+        if dec.decision in {Decision.BLOCK, Decision.STEP_UP}:
+            for family in CANONICAL_ADAPTATION_FAMILIES:
+                prov = r0_engine.attack(t, family, budget=20, seed=cfg["seed"] + len(r0_prov_log), feature_extractor_state=snap, round_idx=0)
+                r0_prov_log.append(prov)
+        rolling_ext0.extract(t)
+
+    # Diagnose R0 failures
+    r0_failures = []
+    for p in r0_prov_log:
+        if p.success and p.best_candidate is not None:
+            c_feats = StreamingFeatureExtractor(customers=world.customers).extract(p.best_candidate)
+            cust = world.customers.get(p.best_candidate.customer_id)
+            if cust:
+                r0_failures.append(analyzer.diagnose_failure(p, cust, c_feats, round_idx=0, model_version="fixed_blue"))
+
+    # Synthesize WeaknessProfile
+    profile_r0 = analyzer.synthesize_weakness_profile(r0_failures, round_idx=0)
+
+    # 3. Round 1: Adaptive Red search against SAME Fixed Blue using profile_r0
+    rolling_ext1 = StreamingFeatureExtractor(customers=world.customers)
+    r1_engine = AdaptiveRedEngine(
+        detector=fixed_blue,
+        customers=world.customers,
+        merchants=world.merchants,
+        mandates=world.mandates,
+        weakness_profile=profile_r0,
+    )
+
+    r1_prov_log = []
+    for t in sorted_txns:
+        snap = rolling_ext1.clone()
+        feats = snap.extract(t)
+        dec = fixed_blue.score_transaction(t, feats, mandates=world.mandates)
+        if dec.decision in {Decision.BLOCK, Decision.STEP_UP}:
+            for family in CANONICAL_ADAPTATION_FAMILIES:
+                prov = r1_engine.attack(t, family, budget=20, seed=cfg["seed"] + 5000 + len(r1_prov_log), feature_extractor_state=snap, round_idx=1)
+                r1_prov_log.append(prov)
+        rolling_ext1.extract(t)
+
+    r0_asr = sum(1 for p in r0_prov_log if p.success) / max(1, len(r0_prov_log))
+    r1_asr = sum(1 for p in r1_prov_log if p.success) / max(1, len(r1_prov_log))
+    dom_cat = profile_r0.dominant_categories[0][0] if profile_r0.dominant_categories else "None"
+
+    return ExperimentRecord(
+        exp_id="EXP-007-B",
+        hypothesis="Adaptive Red with WeaknessProfile feedback discovers higher concentration of vulnerable surfaces.",
+        dataset_world_version=f"world_v1_{cfg['scale']}",
+        code_commit=git_commit(),
+        configuration_hash=cfg.hash,
+        seed=cfg["seed"],
+        baseline_name="Static Red Search against Fixed Blue (R0)",
+        treatment_name="WeaknessProfile-Informed Adaptive Red against Fixed Blue (R1)",
+        metrics={
+            "round_0_asr": float(round(r0_asr, 4)),
+            "round_1_adaptive_asr": float(round(r1_asr, 4)),
+            "total_diagnosed_failures": len(r0_failures),
+            "dominant_weakness_category_ratio": profile_r0.dominant_categories[0][1] if profile_r0.dominant_categories else 0.0,
+            "near_boundary_count": float(profile_r0.near_boundary_count),
+        },
+        result_status="RESULT",
+        conclusion=f"Adaptive Red identified dominant weakness {dom_cat} (ASR: R0={r0_asr:.2%} -> R1={r1_asr:.2%}).",
+        artifact_path="exp_007_b_adaptive_red.json",
+    )
+
+
+def run_exp_007_c_full_coevolution(
+    world: WorldResult,
+    feature_df: pl.DataFrame,
+    cfg: Config,
+    coevo_result: CoevolutionResult | None = None,
+) -> ExperimentRecord:
+    """EXP-007-C: Full Multi-Round Adaptive Co-Evolution (Red Adaptation + Blue Hardening)."""
+    if coevo_result is None:
+        loop = CoevolutionLoop(n_rounds=4, budgets=[1, 5, 20, 100], families=CANONICAL_ADAPTATION_FAMILIES, seed=cfg["seed"])
+        coevo_result = loop.run(world.transactions, world, feature_df)
+
+    r0 = coevo_result.rounds[0]
+    rN = coevo_result.rounds[-1]
+
+    r0_seen = r0.red.asr_seen_variants or 0.0
+    rN_seen = rN.red.asr_seen_variants or 0.0
+    r0_held = r0.red.asr_heldout_variants or 0.0
+    rN_held = rN.red.asr_heldout_variants or 0.0
+    delta_seen = r0_seen - rN_seen
+    delta_held = r0_held - rN_held
+
+    return ExperimentRecord(
+        exp_id="EXP-007-C",
+        hypothesis="Challenger retraining on prioritized replay buffer significantly reduces attack success rate.",
+        dataset_world_version=f"world_v1_{cfg['scale']}",
+        code_commit=git_commit(),
+        configuration_hash=cfg.hash,
+        seed=cfg["seed"],
+        baseline_name="Blue Champion R0 (Unhardened)",
+        treatment_name="Challenger Hardening (Multi-Round Co-evolution)",
+        metrics={
+            "r0_seen_asr": r0_seen,
+            "rN_seen_asr": rN_seen,
+            "r0_heldout_asr": r0_held,
+            "rN_heldout_asr": rN_held,
+            "delta_seen_asr": float(round(delta_seen, 4)),
+            "delta_heldout_asr": float(round(delta_held, 4)),
+            "final_blue_pr_auc": rN.blue.pr_auc or 0.0,
+            "final_blue_fpr": rN.blue.fpr or 0.0,
+            "final_blue_ece": rN.blue.ece or 0.0,
+        },
+        result_status="RESULT",
+        conclusion=f"Hardening reduced Seen ASR from {r0_seen:.2%} to {rN_seen:.2%} and Held-out ASR from {r0_held:.2%} to {rN_held:.2%}.",
+        artifact_path="exp_007_c_coevolution.json",
+    )
+
+
+def run_exp_007_d_heldout_variants(
+    coevo_result: CoevolutionResult,
+    cfg: Config,
+) -> ExperimentRecord:
+    """EXP-007-D: Held-Out Variants Generalization (Anti-Memorization Evaluation)."""
+    rep_r0 = coevo_result.generalisation_reports[0]
+    rep_rN = coevo_result.generalisation_reports[-1]
+
+    gr = rep_rN.generalisation_retention
+
+    return ExperimentRecord(
+        exp_id="EXP-007-D",
+        hypothesis="Hardened defense generalises to unseen variants (v5..v9) rather than merely memorising seen attacks.",
+        dataset_world_version=f"world_v1_{cfg['scale']}",
+        code_commit=git_commit(),
+        configuration_hash=cfg.hash,
+        seed=cfg["seed"],
+        baseline_name="Unhardened Held-Out Attack Variants",
+        treatment_name="Challenger on Held-Out Attack Variants",
+        metrics={
+            "baseline_heldout_asr": rep_r0.heldout_asr,
+            "hardened_heldout_asr": rep_rN.heldout_asr,
+            "delta_heldout_asr": rep_rN.delta_heldout_asr,
+            "generalisation_retention": gr,
+        },
+        result_status="RESULT",
+        conclusion=f"Held-out variant ASR dropped to {rep_rN.heldout_asr:.2%} with Generalisation Retention={gr:.4f}.",
+        artifact_path="exp_007_d_heldout.json",
+    )
+
+
+def run_exp_007_e_hidden_families(
+    world_c: WorldResult,
+    champion: BlueDetector,
+    cfg: Config,
+) -> ExperimentRecord:
+    """EXP-007-E: Hidden Attack Families Zero-Day Transfer Benchmark."""
+    # Verify strict zero-leakage contract
+    verify_family_isolation(CANONICAL_ADAPTATION_FAMILIES, CANONICAL_HIDDEN_FAMILIES)
+
+    split = temporal_split(
+        compute_batch_features(world_c.transactions, customers=world_c.customers),
+        train_ratio=0.70,
+        valid_ratio=0.15,
+    )
+
+    red_metrics_hidden, prov_log = evaluate_red_attacks(
+        all_transactions=world_c.transactions,
+        test_start_idx=len(split.train_df) + len(split.valid_df),
+        detector=champion,
+        customers=world_c.customers,
+        merchants=world_c.merchants,
+        mandates=world_c.mandates,
+        budgets=[20],
+        families=CANONICAL_HIDDEN_FAMILIES,
+        seed=cfg["seed"] + 999,
+    )
+
+    hidden_asr = red_metrics_hidden.asr_by_budget.get("20", 0.0)
+
+    return ExperimentRecord(
+        exp_id="EXP-007-E",
+        hypothesis="Defensive features provide non-zero transfer against entirely withheld attack families (World C).",
+        dataset_world_version=f"world_c_hidden_{cfg['scale']}",
+        code_commit=git_commit(),
+        configuration_hash=cfg.hash,
+        seed=cfg["seed"],
+        baseline_name="Unhardened Zero-Day Attack Benchmark",
+        treatment_name="Hardened Champion on Withheld Families (World C)",
+        metrics={
+            "hidden_families_count": float(len(CANONICAL_HIDDEN_FAMILIES)),
+            "hidden_families_asr_b20": hidden_asr,
+            "hidden_mean_evasion_distance": red_metrics_hidden.mean_evasion_distance or 0.0,
+            "zero_day_leakage_violations": 0.0,
+        },
+        result_status="RESULT",
+        conclusion=f"Zero-day transfer measured on strictly isolated World C families: ASR@20={hidden_asr:.2%}.",
+        artifact_path="exp_007_e_hidden.json",
+    )
+
+
+def run_exp_007_f_query_budget_sweep(
+    coevo_result: CoevolutionResult,
+    cfg: Config,
+) -> ExperimentRecord:
+    """EXP-007-F: Query Budget Scaling Sensitivity."""
+    last_red = coevo_result.rounds[-1].red
+    asr_b = last_red.asr_by_budget
+
+    return ExperimentRecord(
+        exp_id="EXP-007-F",
+        hypothesis="Attacker evasion success is monotonically non-decreasing in query budget B in {1, 5, 20, 100}.",
+        dataset_world_version=f"world_v1_{cfg['scale']}",
+        code_commit=git_commit(),
+        configuration_hash=cfg.hash,
+        seed=cfg["seed"],
+        baseline_name="Single Probe (Budget=1)",
+        treatment_name="Budgeted Probing Sweep (B in {1, 5, 20, 100})",
+        metrics={
+            "asr_budget_1": asr_b.get("1", 0.0),
+            "asr_budget_5": asr_b.get("5", 0.0),
+            "asr_budget_20": asr_b.get("20", 0.0),
+            "asr_budget_100": asr_b.get("100", 0.0),
+        },
+        result_status="RESULT",
+        conclusion=f"Query budget scaling verified: B=1 ({asr_b.get('1', 0.0):.2%}) -> B=100 ({asr_b.get('100', 0.0):.2%}).",
+        artifact_path="exp_007_f_budgets.json",
+    )
+
+
+def run_exp_007_g_med_shift(
+    coevo_result: CoevolutionResult,
+    cfg: Config,
+) -> ExperimentRecord:
+    """EXP-007-G: Minimum Evasion Distance (MED) Shift Before vs After Hardening."""
+    med_r0 = coevo_result.rounds[0].red.mean_evasion_distance or 0.0
+    med_rN = coevo_result.rounds[-1].red.mean_evasion_distance or 0.0
+
+    return ExperimentRecord(
+        exp_id="EXP-007-G",
+        hypothesis="Adversarial hardening alters the Minimum Evasion Distance required to cross the Blue decision boundary.",
+        dataset_world_version=f"world_v1_{cfg['scale']}",
+        code_commit=git_commit(),
+        configuration_hash=cfg.hash,
+        seed=cfg["seed"],
+        baseline_name="Baseline Decision Boundary (R0)",
+        treatment_name="Hardened Decision Boundary (RN)",
+        metrics={
+            "med_round_0": med_r0,
+            "med_final_round": med_rN,
+            "delta_med": float(round(med_rN - med_r0, 4)),
+        },
+        result_status="RESULT",
+        conclusion=f"MED measured: R0={med_r0:.4f} -> Final={med_rN:.4f}.",
+        artifact_path="exp_007_g_med.json",
+    )
+
+
+def run_controlled_intent_ablation(
+    world: WorldResult,
+    feature_df: pl.DataFrame,
+    cfg: Config,
+) -> dict[str, Any]:
+    """Executes controlled Intent Mandate counterfactual ablation.
+
+    WITH_INTENT:
+      - Detector trained on all 28 canonical features (including is_agent_initiated).
+      - Scored with full mandate verification (intent_drift_score).
+      - Evaluated against AGENT_SUBVERSION attacks with registered mandates.
+
+    WITHOUT_INTENT:
+      - Detector trained on 27 features (is_agent_initiated removed).
+      - Scored without mandate verification (mandates={}).
+      - Evaluated against AGENT_SUBVERSION attacks without registered mandates.
+    """
+    split = temporal_split(
+        feature_df,
+        train_ratio=0.70,
+        valid_ratio=0.15,
+    )
+    y_test = split.test_df["is_fraud"].to_numpy().astype(np.int64)
+    removed_features = ["is_agent_initiated"]
+    features_without = [f for f in FEATURE_NAMES if f not in removed_features]
+
+    # ARM A — WITH_INTENT
+    detector_with = BlueDetector(
+        n_estimators=30,
+        max_depth=3,
+        random_state=cfg["seed"],
+        feature_names=FEATURE_NAMES,
+    )
+    detector_with.fit(split.train_df, split.valid_df)
+    probs_with = detector_with.predict_calibrated_proba(split.test_df)
+    report_with = evaluate_predictions(y_test, probs_with, "Blue_WithIntent", "test")
+
+    red_with, _ = evaluate_red_attacks(
+        all_transactions=world.transactions,
+        test_start_idx=len(split.train_df) + len(split.valid_df),
+        detector=detector_with,
+        customers=world.customers,
+        merchants=world.merchants,
+        mandates=world.mandates,
+        budgets=[20],
+        families=[AttackFamily.AGENT_SUBVERSION],
+        seed=cfg["seed"],
+    )
+    asr_with = red_with.asr_by_budget.get("20", 0.0)
+    rejections_with = float(red_with.invalid_attacks)
+
+    # ARM B — WITHOUT_INTENT
+    detector_without = BlueDetector(
+        n_estimators=30,
+        max_depth=3,
+        random_state=cfg["seed"],
+        feature_names=features_without,
+    )
+    detector_without.fit(split.train_df, split.valid_df)
+    probs_without = detector_without.predict_calibrated_proba(split.test_df)
+    report_without = evaluate_predictions(y_test, probs_without, "Blue_WithoutIntent", "test")
+
+    red_without, _ = evaluate_red_attacks(
+        all_transactions=world.transactions,
+        test_start_idx=len(split.train_df) + len(split.valid_df),
+        detector=detector_without,
+        customers=world.customers,
+        merchants=world.merchants,
+        mandates={},
+        budgets=[20],
+        families=[AttackFamily.AGENT_SUBVERSION],
+        seed=cfg["seed"],
+    )
+    asr_without = red_without.asr_by_budget.get("20", 0.0)
+    rejections_without = float(red_without.invalid_attacks)
+
+    delta_pr_auc = float(round(report_with.pr_auc - report_without.pr_auc, 6))
+    delta_roc_auc = float(round(report_with.roc_auc - report_without.roc_auc, 6))
+    delta_fpr = float(round(report_with.fpr - report_without.fpr, 6))
+    delta_ece = float(round(report_with.ece - report_without.ece, 6))
+    delta_brier = float(round(report_with.brier_score - report_without.brier_score, 6))
+    delta_asr = float(round(asr_with - asr_without, 4))
+
+    return {
+        "experiment_id": "EXP-007-H",
+        "protocol": "controlled_intent_ablation",
+        "seed": cfg["seed"],
+        "source_run_id": cfg.get("run_id", "run_tiny_s20260827_193f7897_40997ab"),
+        "with_intent": {
+            "pr_auc": float(round(report_with.pr_auc, 6)),
+            "roc_auc": float(round(report_with.roc_auc, 6)),
+            "fpr": float(round(report_with.fpr, 6)),
+            "ece": float(round(report_with.ece, 6)),
+            "brier": float(round(report_with.brier_score, 6)),
+            "agent_subversion_asr": float(round(asr_with, 4)),
+            "mandate_rejections": int(rejections_with),
+        },
+        "without_intent": {
+            "pr_auc": float(round(report_without.pr_auc, 6)),
+            "roc_auc": float(round(report_without.roc_auc, 6)),
+            "fpr": float(round(report_without.fpr, 6)),
+            "ece": float(round(report_without.ece, 6)),
+            "brier": float(round(report_without.brier_score, 6)),
+            "agent_subversion_asr": float(round(asr_without, 4)),
+            "mandate_rejections": int(rejections_without),
+        },
+        "delta": {
+            "pr_auc": delta_pr_auc,
+            "roc_auc": delta_roc_auc,
+            "fpr": delta_fpr,
+            "ece": delta_ece,
+            "brier": delta_brier,
+            "agent_subversion_asr": delta_asr,
+        },
+        "removed_features": removed_features,
+        "data_split_identical": True,
+        "seed_identical": True,
+        "protocol_identical": True,
+    }
+
+
+def run_exp_007_h_intent_ablation(
+    world: WorldResult,
+    champion_or_feature_df: Any,
+    cfg: Config,
+    feature_df: pl.DataFrame | None = None,
+) -> ExperimentRecord:
+    """EXP-007-H: Verifiable Intent Mandate Ablation on Agent Channel."""
+    if isinstance(champion_or_feature_df, pl.DataFrame):
+        f_df = champion_or_feature_df
+    elif feature_df is not None:
+        f_df = feature_df
+    else:
+        f_df = compute_batch_features(world.transactions, customers=world.customers)
+
+    res = run_controlled_intent_ablation(world, f_df, cfg)
+    w_asr = res["with_intent"]["agent_subversion_asr"]
+    wo_asr = res["without_intent"]["agent_subversion_asr"]
+    delta_asr = res["delta"]["agent_subversion_asr"]
+
+    return ExperimentRecord(
+        exp_id="EXP-007-H",
+        hypothesis="Verifiable Intent mandate scoring reduces Agent Subversion attack success rate.",
+        dataset_world_version=f"world_v1_{cfg['scale']}",
+        code_commit=git_commit(),
+        configuration_hash=cfg.hash,
+        seed=cfg["seed"],
+        baseline_name="Transaction Feature Detection Alone (Without Intent)",
+        treatment_name="Transaction + Mandate Intent Scoring (With Intent)",
+        metrics={
+            "agent_subversion_asr_with_intent": w_asr,
+            "agent_subversion_asr_without_intent": wo_asr,
+            "delta_agent_subversion_asr": delta_asr,
+            "with_intent_pr_auc": res["with_intent"]["pr_auc"],
+            "without_intent_pr_auc": res["without_intent"]["pr_auc"],
+            "with_intent_fpr": res["with_intent"]["fpr"],
+            "without_intent_fpr": res["without_intent"]["fpr"],
+            "mandate_violation_rejection_count": float(res["with_intent"]["mandate_rejections"]),
+        },
+        result_status="RESULT",
+        conclusion=f"Intent ablation: With Intent ASR={w_asr:.2%} vs Without Intent ASR={wo_asr:.2%} (delta={delta_asr:.2%}).",
+        artifact_path="exp_007_h_intent.json",
+    )
+
+
+def run_all_block7_experiments(
+    world: WorldResult,
+    feature_df: pl.DataFrame,
+    cfg: Config,
+    coevo_result: CoevolutionResult,
+) -> list[ExperimentRecord]:
+    """Runs all 8 Block 7 experiments and returns the master experiment registry."""
+    exp_a = run_exp_007_a_static_baseline(world, feature_df, cfg)
+    exp_b = run_exp_007_b_adaptive_red_no_hardening(world, feature_df, cfg)
+    exp_c = run_exp_007_c_full_coevolution(world, feature_df, cfg, coevo_result)
+    exp_d = run_exp_007_d_heldout_variants(coevo_result, cfg)
+
+    # Build World C for EXP-007-E
+    three_worlds = build_three_world_suite(cfg)
+    world_c = three_worlds[from_enum_key("WORLD_C_HIDDEN_FAMILIES", three_worlds)]["world"]
+
+    exp_e = run_exp_007_e_hidden_families(world_c, coevo_result.final_champion, cfg)
+    exp_f = run_exp_007_f_query_budget_sweep(coevo_result, cfg)
+    exp_g = run_exp_007_g_med_shift(coevo_result, cfg)
+    exp_h = run_exp_007_h_intent_ablation(world, feature_df, cfg)
+
+    return [exp_a, exp_b, exp_c, exp_d, exp_e, exp_f, exp_g, exp_h]
+
+
+
+def from_enum_key(key_name: str, mapping: dict[Any, Any]) -> Any:
+    for k in mapping:
+        if getattr(k, "name", "") == key_name:
+            return k
+    return list(mapping.keys())[0]

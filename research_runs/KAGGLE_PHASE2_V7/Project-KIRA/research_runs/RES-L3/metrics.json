@@ -1,0 +1,48 @@
+{
+  "status": "MEASURED_SYNTHETIC_ONLY",
+  "sample_count_synthetic": 9348,
+  "sample_count_real": 0,
+  "p1_interarrival": {
+    "synthetic": {
+      "mean_dt": 277.2514386683642,
+      "std_dt": 225.31391630087865,
+      "p50_dt": 225.10872101783752,
+      "count": 9347
+    },
+    "real": null,
+    "ratio": null
+  },
+  "p2_burstiness": {
+    "synthetic": {
+      "burstiness_coeff": -0.1033,
+      "mu": 277.2514,
+      "sigma": 225.3139,
+      "count": 9347
+    },
+    "real": null,
+    "ratio": null
+  },
+  "p3_graph_motifs": {
+    "synthetic": {
+      "total_devices": 345,
+      "shared_device_count": 7,
+      "shared_device_ratio": 0.0203,
+      "total_merchants": 80,
+      "shared_merchant_count": 80
+    },
+    "real": null,
+    "ratio": null
+  },
+  "p4_velocity_triggers": {
+    "synthetic": {
+      "trigger_count": 591,
+      "trigger_rate": 0.063222,
+      "total_events": 9348
+    },
+    "real": null,
+    "ratio": null
+  },
+  "comparability_note": "Real dataset not mounted locally (REMOTE_DATA_REQUIRED for cloud evaluation).",
+  "experiment_id": "RES-L3",
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab"
+}

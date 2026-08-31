@@ -1,0 +1,86 @@
+{
+  "full_telemetry": {
+    "PR_AUC": 1.0,
+    "FPR": 1.0,
+    "ASR": 0.0,
+    "Brier": 0.0007,
+    "decision_distribution": {
+      "ALLOW": 0,
+      "STEP_UP": 2805,
+      "BLOCK": 0
+    },
+    "fallback_activated": false
+  },
+  "missing_device": {
+    "PR_AUC": 0.849,
+    "FPR": 1.0,
+    "ASR": 0.0,
+    "Brier": 0.0035,
+    "decision_distribution": {
+      "ALLOW": 0,
+      "STEP_UP": 2805,
+      "BLOCK": 0
+    },
+    "fallback_activated": true
+  },
+  "missing_ip": {
+    "PR_AUC": 0.9637,
+    "FPR": 1.0,
+    "ASR": 0.0,
+    "Brier": 0.0012,
+    "decision_distribution": {
+      "ALLOW": 0,
+      "STEP_UP": 2805,
+      "BLOCK": 0
+    },
+    "fallback_activated": true
+  },
+  "missing_merchant_history": {
+    "PR_AUC": 1.0,
+    "FPR": 1.0,
+    "ASR": 0.0,
+    "Brier": 0.0007,
+    "decision_distribution": {
+      "ALLOW": 0,
+      "STEP_UP": 2805,
+      "BLOCK": 0
+    },
+    "fallback_activated": true
+  },
+  "partial_graph": {
+    "PR_AUC": 1.0,
+    "FPR": 1.0,
+    "ASR": 0.0,
+    "Brier": 0.0007,
+    "decision_distribution": {
+      "ALLOW": 0,
+      "STEP_UP": 2805,
+      "BLOCK": 0
+    },
+    "fallback_activated": true
+  },
+  "delayed_label_state": {
+    "PR_AUC": 0.8463,
+    "FPR": 1.0,
+    "ASR": 0.0,
+    "Brier": 0.0053,
+    "decision_distribution": {
+      "ALLOW": 0,
+      "STEP_UP": 2805,
+      "BLOCK": 0
+    },
+    "fallback_activated": true
+  },
+  "multiple_missing_signals": {
+    "PR_AUC": 0.849,
+    "FPR": 1.0,
+    "ASR": 0.0,
+    "Brier": 0.0035,
+    "decision_distribution": {
+      "ALLOW": 0,
+      "STEP_UP": 2805,
+      "BLOCK": 0
+    },
+    "fallback_activated": true
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "detection": {
+    "baseline_pr_auc_tiny": 1.0,
+    "baseline_pr_auc_small": 0.9375,
+    "baseline_roc_auc": 1.0,
+    "baseline_ece": 0.0,
+    "baseline_brier": 0.0,
+    "fpr_at_95_recall": 0.0,
+    "ulb_external_pr_auc": 0.864,
+    "ulb_external_fpr": 0.0003
+  },
+  "adversarial_attacks": {
+    "exp007a_asr_budget_1": 0.3333,
+    "exp007a_asr_budget_5": 0.7667,
+    "exp007a_asr_budget_20": 0.9667,
+    "exp007a_asr_budget_100": 0.9667,
+    "exp007a_med": 2.8488,
+    "adv001_10k_aggregate_asr": 0.06,
+    "adv001_10k_geo_hop_asr": 0.3,
+    "adv001_10k_other_families_asr": 0.0,
+    "adv002_swarm_adaptive_asr": 0.1968,
+    "adv002_swarm_static_asr": 0.096,
+    "adv002_swarm_disabled_asr": 0.1044,
+    "adv002_adaptive_vs_static_delta": 0.1008
+  },
+  "defense_and_coevolution": {
+    "baseline_heldout_asr": 0.1455,
+    "hardened_challenger_heldout_asr": 0.0,
+    "adv003_anti_forgetting_status": "NO_FORGETTING",
+    "world_c_zero_day_asr": 1.0,
+    "intent_ablation_delta_asr": 0.0
+  },
+  "operations": {
+    "loopback_p50_ms": 2.223,
+    "loopback_p95_ms": 2.3,
+    "loopback_p99_ms": 2.361,
+    "ops001_local_degradation_point_req_s": 1000.0,
+    "ops001_cloud_capacity": null,
+    "ag001_mode": "DETERMINISTIC_FALLBACK"
+  }
+}

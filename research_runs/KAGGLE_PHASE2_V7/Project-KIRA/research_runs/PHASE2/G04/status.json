@@ -1,0 +1,39 @@
+{
+  "baseline_git_commit": "40997ab",
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "config_hash": "",
+  "end_time": "2026-08-31T11:46:13.188744+00:00",
+  "exception": null,
+  "experiment_id": "G04",
+  "git_commit": "ab721f9d464456cb6f936f3f9466c7975671a319",
+  "input_artifact_hashes": {},
+  "metrics": {
+    "asr_at_20": 1.0,
+    "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+    "customer_overlap_count": 0,
+    "customer_overlap_ratio": 0.0,
+    "execution_backend": "CPU (NumPy vectorized)",
+    "git_commit_sha": "ab721f9d464456cb6f936f3f9466c7975671a319",
+    "status": "LOW_SAMPLE",
+    "world_c_families": [
+      "agent_subversion",
+      "cross_merchant_fanout"
+    ],
+    "world_c_sample_count": 0
+  },
+  "output_paths": [
+    "research_runs/PHASE2/G04/metrics.json"
+  ],
+  "output_sha256": {
+    "metrics.json": "501e868b62e98f4192811dc1b55b616c86f584d63fe6ed5c897bf4a23ea210b2"
+  },
+  "peak_gpu_mb": 0,
+  "peak_ram_mb": 0,
+  "run_id": "phase2_1788176761",
+  "runtime_sec": 2.1989441050000096,
+  "seed": 20260827,
+  "stage_id": "G04",
+  "start_time": "1970-01-01T00:10:20.958158+00:00",
+  "status": "COMPLETED",
+  "termination_reason": null
+}

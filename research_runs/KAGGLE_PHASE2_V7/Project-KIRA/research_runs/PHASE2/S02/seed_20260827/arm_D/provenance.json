@@ -1,0 +1,16 @@
+{
+  "arm": "arm_D",
+  "model_seed": 20260827,
+  "world_seed": 20260827,
+  "scale": "small",
+  "generated_at": "2026-08-31T11:49:51.541964+00:00",
+  "software_versions": {
+    "python": "3.12.13",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "numpy": "2.0.2",
+    "polars": "1.35.2",
+    "lightgbm": "4.6.0",
+    "sklearn": "1.6.1",
+    "backend": "CPU (NumPy vectorized)"
+  }
+}

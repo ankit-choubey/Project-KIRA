@@ -1,0 +1,221 @@
+[
+  {
+    "challenger_version": null,
+    "champion_version": "blue_r0_baseline",
+    "family_breakdown": {
+      "agent_subversion": {
+        "delta_heldout_asr": 0.0,
+        "delta_seen_asr": 0.0,
+        "heldout_asr": 0.8182,
+        "mean_med": 3.5508,
+        "seen_asr": 0.6364
+      },
+      "burst_drain": {
+        "delta_heldout_asr": 0.0,
+        "delta_seen_asr": 0.0,
+        "heldout_asr": 0.65,
+        "mean_med": 1.7635,
+        "seen_asr": 0.6458
+      },
+      "cross_merchant_fanout": {
+        "delta_heldout_asr": 0.0,
+        "delta_seen_asr": 0.0,
+        "heldout_asr": 0.913,
+        "mean_med": 3.1148,
+        "seen_asr": 0.8095
+      },
+      "geo_hop": {
+        "delta_heldout_asr": 0.0,
+        "delta_seen_asr": 0.0,
+        "heldout_asr": 0.75,
+        "mean_med": 1.2221,
+        "seen_asr": 0.72
+      },
+      "slow_siphon": {
+        "delta_heldout_asr": 0.0,
+        "delta_seen_asr": 0.0,
+        "heldout_asr": 0.9904,
+        "mean_med": 3.5263,
+        "seen_asr": 1.0
+      }
+    },
+    "generalisation_retention": 1.0,
+    "heldout_asr": 0.8364,
+    "policy_distribution": {
+      "ALLOW": 0.9964,
+      "BLOCK": 0.0036,
+      "STEP_UP": 0.0
+    },
+    "promoted": true,
+    "promotion_reasons": [
+      "INITIAL_BASELINE_MODEL"
+    ],
+    "round_index": 0,
+    "seen_asr": 0.75
+  },
+  {
+    "challenger_version": "challenger_r1",
+    "champion_version": "blue_r1",
+    "family_breakdown": {
+      "agent_subversion": {
+        "delta_heldout_asr": 0.75,
+        "delta_seen_asr": 0.7083,
+        "heldout_asr": 0.0,
+        "mean_med": 0.0,
+        "seen_asr": 0.0
+      },
+      "burst_drain": {
+        "delta_heldout_asr": 0.6023,
+        "delta_seen_asr": 0.6818,
+        "heldout_asr": 0.0,
+        "mean_med": 0.0,
+        "seen_asr": 0.0
+      },
+      "cross_merchant_fanout": {
+        "delta_heldout_asr": 0.9167,
+        "delta_seen_asr": 0.8,
+        "heldout_asr": 0.0,
+        "mean_med": 0.0,
+        "seen_asr": 0.0
+      },
+      "geo_hop": {
+        "delta_heldout_asr": 0.75,
+        "delta_seen_asr": 0.7105,
+        "heldout_asr": 0.0,
+        "mean_med": 0.0,
+        "seen_asr": 0.0
+      },
+      "slow_siphon": {
+        "delta_heldout_asr": 1.0,
+        "delta_seen_asr": 0.99,
+        "heldout_asr": 0.0,
+        "mean_med": 0.0,
+        "seen_asr": 0.0
+      }
+    },
+    "generalisation_retention": 1.0203,
+    "heldout_asr": 0.0,
+    "policy_distribution": {
+      "ALLOW": 0.9964,
+      "BLOCK": 0.0036,
+      "STEP_UP": 0.0
+    },
+    "promoted": true,
+    "promotion_reasons": [
+      "PROMOTED_SECURITY_IMPROVEMENT",
+      "DEMONSTRATED_GENERALISATION_IMPROVEMENT"
+    ],
+    "round_index": 1,
+    "seen_asr": 0.0
+  },
+  {
+    "challenger_version": "challenger_r2",
+    "champion_version": "blue_r2",
+    "family_breakdown": {
+      "agent_subversion": {
+        "delta_heldout_asr": 0.3026,
+        "delta_seen_asr": 0.4342,
+        "heldout_asr": 0.0,
+        "mean_med": 0.0,
+        "seen_asr": 0.0
+      },
+      "burst_drain": {
+        "delta_heldout_asr": 0.4675,
+        "delta_seen_asr": 0.47,
+        "heldout_asr": 0.0,
+        "mean_med": 0.0,
+        "seen_asr": 0.0
+      },
+      "cross_merchant_fanout": {
+        "delta_heldout_asr": 0.6933,
+        "delta_seen_asr": 0.5812,
+        "heldout_asr": 0.0,
+        "mean_med": 0.0,
+        "seen_asr": 0.0
+      },
+      "geo_hop": {
+        "delta_heldout_asr": 0.4408,
+        "delta_seen_asr": 0.5066,
+        "heldout_asr": 0.0,
+        "mean_med": 0.0,
+        "seen_asr": 0.0
+      },
+      "slow_siphon": {
+        "delta_heldout_asr": 0.8783,
+        "delta_seen_asr": 0.8783,
+        "heldout_asr": 0.0,
+        "mean_med": 0.0,
+        "seen_asr": 0.0
+      }
+    },
+    "generalisation_retention": 0.968,
+    "heldout_asr": 0.0,
+    "policy_distribution": {
+      "ALLOW": 0.9964,
+      "BLOCK": 0.0021,
+      "STEP_UP": 0.0014
+    },
+    "promoted": true,
+    "promotion_reasons": [
+      "PROMOTED_SECURITY_IMPROVEMENT",
+      "DEMONSTRATED_GENERALISATION_IMPROVEMENT"
+    ],
+    "round_index": 2,
+    "seen_asr": 0.0
+  },
+  {
+    "challenger_version": "challenger_r3",
+    "champion_version": "blue_r3",
+    "family_breakdown": {
+      "agent_subversion": {
+        "delta_heldout_asr": 0.5811,
+        "delta_seen_asr": 0.5856,
+        "heldout_asr": 0.0,
+        "mean_med": 0.0,
+        "seen_asr": 0.0
+      },
+      "burst_drain": {
+        "delta_heldout_asr": 0.3515,
+        "delta_seen_asr": 0.5095,
+        "heldout_asr": 0.1128,
+        "mean_med": 1.3291,
+        "seen_asr": 0.0457
+      },
+      "cross_merchant_fanout": {
+        "delta_heldout_asr": 0.9286,
+        "delta_seen_asr": 0.8821,
+        "heldout_asr": 0.0,
+        "mean_med": 0.0,
+        "seen_asr": 0.0
+      },
+      "geo_hop": {
+        "delta_heldout_asr": 0.5164,
+        "delta_seen_asr": 0.4754,
+        "heldout_asr": 0.0,
+        "mean_med": 0.0,
+        "seen_asr": 0.0
+      },
+      "slow_siphon": {
+        "delta_heldout_asr": 0.6143,
+        "delta_seen_asr": 0.5974,
+        "heldout_asr": 0.0,
+        "mean_med": 0.0,
+        "seen_asr": 0.0
+      }
+    },
+    "generalisation_retention": 1.0007,
+    "heldout_asr": 0.0162,
+    "policy_distribution": {
+      "ALLOW": 0.9964,
+      "BLOCK": 0.0036,
+      "STEP_UP": 0.0
+    },
+    "promoted": true,
+    "promotion_reasons": [
+      "PROMOTED_SECURITY_IMPROVEMENT",
+      "DEMONSTRATED_GENERALISATION_IMPROVEMENT"
+    ],
+    "round_index": 3,
+    "seen_asr": 0.0087
+  }
+]

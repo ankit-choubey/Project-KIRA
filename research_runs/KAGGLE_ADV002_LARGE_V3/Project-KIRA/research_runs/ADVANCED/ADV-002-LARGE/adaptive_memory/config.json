@@ -1,0 +1,9 @@
+{
+  "scale": "large",
+  "mode": "adaptive_memory",
+  "n_targets": 10,
+  "rounds_per_campaign": 100,
+  "base_seed": 20260831,
+  "agents_count": 5,
+  "total_expected_attempts": 5000
+}

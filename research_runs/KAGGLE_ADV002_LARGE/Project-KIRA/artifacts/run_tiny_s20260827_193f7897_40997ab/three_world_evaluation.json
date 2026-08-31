@@ -1,0 +1,28 @@
+{
+  "isolation_verified": true,
+  "world_a_evolution": {
+    "families": [
+      "burst_drain",
+      "slow_siphon",
+      "geo_hop"
+    ],
+    "transaction_count": 9348
+  },
+  "world_b_shifted_physics": {
+    "description": "Shifted customer spending baselines and merchant risk tiers.",
+    "families": [
+      "burst_drain",
+      "slow_siphon",
+      "geo_hop"
+    ],
+    "isolation_verified": true
+  },
+  "world_c_hidden_families": {
+    "description": "Withheld zero-day attack families (AGENT_SUBVERSION, CROSS_MERCHANT_FANOUT).",
+    "families": [
+      "agent_subversion",
+      "cross_merchant_fanout"
+    ],
+    "isolation_verified": true
+  }
+}

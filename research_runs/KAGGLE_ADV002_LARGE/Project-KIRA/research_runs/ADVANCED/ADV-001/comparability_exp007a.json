@@ -1,0 +1,70 @@
+{
+  "audit_type": "EXP_007_A_COMPARABILITY_AUDIT",
+  "experiment_id": "ADV-001",
+  "comparison_target": "EXP-007-A",
+  "generated_at": "2026-08-31T10:28:00Z",
+  "comparability_verdict": "NOT_DIRECTLY_COMPARABLE_AGGREGATE",
+  "summary_statement": "ADV-001 reuses identical mutation operators, distance metrics, mutability masks, and Blue model definitions, but evaluates across a wider stratified population (50 candidate transactions, 10,000 attempts) rather than EXP-007-A's 10 selected source transactions (200 attempts).",
+  "dimensions": {
+    "attack_families": {
+      "status": "MATCH",
+      "detail": "Both evaluate the exact 5 canonical families: burst_drain, slow_siphon, geo_hop, agent_subversion, cross_merchant_fanout"
+    },
+    "strategy_definitions": {
+      "status": "MATCH",
+      "detail": "Both use functions from src/mcdl/red/strategies.py"
+    },
+    "mutation_operators": {
+      "status": "MATCH",
+      "detail": "Identical candidate perturbation generators"
+    },
+    "feature_masks": {
+      "status": "MATCH",
+      "detail": "Both enforce FAMILY_MUTABLE_FIELDS and IMMUTABLE_FIELDS via check_mask_violations"
+    },
+    "query_semantics": {
+      "status": "MATCH",
+      "detail": "Both treat each evaluated mutation candidate as a single black-box query"
+    },
+    "query_budgets": {
+      "status": "MATCH",
+      "detail": "Both evaluate query budgets [1, 5, 20, 100]"
+    },
+    "target_transactions": {
+      "status": "DIFFERENT",
+      "detail": "EXP-007-A evaluated 10 source transactions; ADV-001 sampled across 50 blocked/challenged transactions to support 10,000 attempts"
+    },
+    "blue_model_version": {
+      "status": "MATCH",
+      "detail": "Both evaluate against unhardened baseline LightGBM Blue detector"
+    },
+    "distance_metric": {
+      "status": "MATCH",
+      "detail": "Both use mcdl.red.distance.compute_evasion_distance"
+    },
+    "normalization": {
+      "status": "MATCH",
+      "detail": "Normalized continuous deltas + categorical Hamming distance"
+    },
+    "success_definition": {
+      "status": "MATCH",
+      "detail": "Successful evasion defined strictly as final_decision == Decision.ALLOW"
+    },
+    "temporal_state": {
+      "status": "MATCH",
+      "detail": "Both evaluate streaming feature states at transaction timestamp without future leakage"
+    },
+    "world_state": {
+      "status": "MATCH",
+      "detail": "Both generated under tiny synthetic world with seed 20260827"
+    },
+    "seed_semantics": {
+      "status": "DIFFERENT",
+      "detail": "EXP-007-A used seed 20260827 offset per instance; ADV-001 used derived master seed 20260831"
+    }
+  },
+  "med_comparability": {
+    "status": "NOT_DIRECTLY_COMPARABLE",
+    "explanation": "ADV-001 MED=1.2032 reflects successful evasions solely from geo_hop (600 successful evasions), whereas EXP-007-A MED=2.8488 reflected successful evasions across agent_subversion and burst_drain on 10 source cases."
+  }
+}

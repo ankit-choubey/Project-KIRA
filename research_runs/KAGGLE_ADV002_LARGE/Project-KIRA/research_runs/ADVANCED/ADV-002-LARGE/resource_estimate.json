@@ -1,0 +1,31 @@
+{
+  "experiment_id": "ADV-002-LARGE",
+  "empirical_basis": {
+    "standard_run_attempts": 500,
+    "standard_run_duration_sec": 5.945,
+    "measured_throughput_attempts_per_sec": 84.10,
+    "measured_latency_ms_per_attempt": 11.89
+  },
+  "workload_profile": {
+    "feature_extraction": "CPU_BOUND (Streaming per-customer stateful dictionary/polars calculations)",
+    "inference_engine": "CPU_BOUND (LightGBM decision trees with depth=5 on single-row vectors, ~0.05ms)",
+    "mutation_engine": "CPU_BOUND (Python candidate mutation and Layer-1 physical constraints)",
+    "policy_decision": "CPU_BOUND (Deterministic non-RL weighting and memory lookups)"
+  },
+  "gpu_suitability_audit": {
+    "verdict": "GPU_NOT_BENEFICIAL_FOR_CURRENT_ARCHITECTURE",
+    "rationale": "Inference consists of single-sample evaluations of a 100-tree shallow decision forest intertwined with sequential streaming feature extractor updates. Host-to-device PCIe transfer overhead (5-10ms) exceeds total single-core CPU execution time (~0.05ms). GPU acceleration would degrade latency rather than improve it.",
+    "gpu_vram_required_mb": 0,
+    "gpu_expected_runtime_sec": null
+  },
+  "projections": {
+    "total_attempts": 5000,
+    "projected_cpu_runtime_sec": 59.45,
+    "projected_cpu_runtime_minutes": 0.99,
+    "projected_runtime_with_io_sec": 75.0,
+    "projected_peak_ram_mb": 420.0,
+    "projected_disk_output_mb": 12.5,
+    "recommended_hardware": "Kaggle CPU / 2-core Cloud Instance",
+    "estimated_compute_cost_usd": 0.005
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "runtime_report_version": "1.0.0",
+  "execution": {
+    "kaggle_kernel": "theankitchoubey/project-kira-phase2-mega-notebook",
+    "kaggle_version": 7,
+    "status": "KernelWorkerStatus.COMPLETE",
+    "git_commit": "ab721f9d464456cb6f936f3f9466c7975671a319",
+    "execution_backend": "CPU (NumPy vectorized)",
+    "scale": "small",
+    "target_events": 50000,
+    "actual_transactions_evaluated": 47501,
+    "world_seed": 20260827,
+    "model_seeds": [20260827, 42, 12345],
+    "total_wall_clock_time_minutes": 8.5,
+    "timeout_budget_minutes": 45.0,
+    "timeout_margin_minutes": 36.5
+  },
+  "stage_statuses": {
+    "S00": "COMPLETED",
+    "S01": "COMPLETED",
+    "A01": "COMPLETED",
+    "A02": "COMPLETED",
+    "G01": "COMPLETED",
+    "G02": "COMPLETED",
+    "G03": "COMPLETED",
+    "G04": "COMPLETED",
+    "G05": "COMPLETED",
+    "LLM01": "COMPLETED",
+    "R01": "COMPLETED",
+    "S02": "COMPLETED",
+    "S03": "COMPLETED",
+    "S04": "COMPLETED"
+  },
+  "s02_results": {
+    "arm_a_pr_auc": 0.9607,
+    "arm_c_pr_auc": 0.9805,
+    "arm_d_pr_auc": 0.9721,
+    "delta_rel": 0.0198,
+    "delta_topology": 0.0085,
+    "p_value_bootstrap": 0.046,
+    "decision_classification": "SUCCESS"
+  },
+  "s03_results": {
+    "world_c_samples": 0,
+    "hidden_families": ["agent_subversion", "cross_merchant_fanout"],
+    "decision_classification": "LOW_SAMPLE"
+  },
+  "s04_synthesis": {
+    "baseline_integrity_verified": true,
+    "claims_count": 6,
+    "artifacts_generated": [
+      "master_results.json",
+      "comparison_table.json",
+      "evidence_report.md",
+      "integrity.json",
+      "provenance.json"
+    ]
+  }
+}

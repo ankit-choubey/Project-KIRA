@@ -1,0 +1,277 @@
+{
+  "git_commit_sha": "ab721f9d464456cb6f936f3f9466c7975671a319",
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "execution_backend": "CPU (NumPy vectorized)",
+  "dataset_scale": "small",
+  "evaluation_semantics": "multi-model-seed evaluation on a fixed synthetic world",
+  "dataset_world_seed": 20260827,
+  "model_seeds_evaluated": [
+    20260827,
+    42,
+    12345
+  ],
+  "feature_dimensions": {
+    "canonical_feature_count": 25,
+    "canonical_feature_names": [
+      "amount",
+      "log_amount",
+      "hour_of_day",
+      "day_of_week",
+      "is_weekend",
+      "dist_from_home_km",
+      "dist_from_prev_txn_km",
+      "time_since_prev_txn_seconds",
+      "speed_kmh",
+      "cust_velocity_1h_count",
+      "cust_velocity_1h_sum",
+      "cust_velocity_6h_count",
+      "cust_velocity_6h_sum",
+      "cust_velocity_24h_count",
+      "cust_velocity_24h_sum",
+      "merch_velocity_1h_count",
+      "merch_velocity_24h_count",
+      "cust_avg_amount_hist",
+      "cust_amount_to_avg_ratio",
+      "balance_utilization",
+      "is_new_device",
+      "device_cust_count",
+      "auth_failed_count",
+      "is_agent_initiated",
+      "merch_fraud_rate_7d_lag"
+    ],
+    "graph_embedding_dim": 16,
+    "fusion_input_dim": 41,
+    "arm_a_input_dim": 25,
+    "arm_c_input_dim": 41,
+    "arm_d_input_dim": 41
+  },
+  "baseline_integrity": {
+    "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+    "status": "PASS",
+    "expected_file_count": 22,
+    "actual_file_count": 22,
+    "passed_files": [
+      "adaptation_cost.json",
+      "attack_summary.json",
+      "blue_metrics.json",
+      "calibration.json",
+      "coevolution_metrics.json",
+      "decisions.json",
+      "evaluation.json",
+      "evidence_pack.md",
+      "experiment_register.json",
+      "external_anchor.json",
+      "failures.json",
+      "feature_schema.json",
+      "manifest.json",
+      "policy_metrics.json",
+      "promotion_history.json",
+      "red_metrics.json",
+      "sample_transactions.json",
+      "scoreboard.json",
+      "three_world_evaluation.json",
+      "transactions.json",
+      "weakness_profile.json",
+      "world_summary.json"
+    ],
+    "missing_files": [],
+    "unexpected_files": [],
+    "hash_mismatches": []
+  },
+  "primary_seed_arms": {
+    "model_seed": 20260827,
+    "world_seed": 20260827,
+    "arm_a_baseline": {
+      "pr_auc": 0.9607444553163731,
+      "roc_auc": 0.997845436564001,
+      "fpr": 0.0004238485447866629,
+      "ece": 0.00024409141407678457,
+      "brier": 0.0005161592201302738,
+      "pr_auc_ci_95": {
+        "ci_lower": 0.9049324415059595,
+        "ci_upper": 0.994691429417877,
+        "mean": 0.9616422756493007,
+        "std": 0.023676876471113675
+      }
+    },
+    "arm_c_real_fusion": {
+      "pr_auc": 0.9805144371345029,
+      "roc_auc": 0.9997130192144673,
+      "fpr": 0.00014128284826222097,
+      "ece": 0.00021668020607277486,
+      "brier": 0.00029889619090940557,
+      "pr_auc_ci_95": {
+        "ci_lower": 0.9385632239581482,
+        "ci_upper": 1.0,
+        "mean": 0.9812583451931003,
+        "std": 0.01735981805657112
+      }
+    },
+    "arm_d_shuffled_control": {
+      "pr_auc": 0.9720636604476773,
+      "roc_auc": 0.9973641918621079,
+      "fpr": 0.00028256569652444194,
+      "ece": 8.827977678544363e-05,
+      "brier": 0.0003742695698595627,
+      "pr_auc_ci_95": {
+        "ci_lower": 0.9218095282764619,
+        "ci_upper": 1.0,
+        "mean": 0.9730127533308573,
+        "std": 0.021411917260823275
+      }
+    },
+    "estimands": {
+      "delta_rel": 0.0198,
+      "delta_topology": 0.0085,
+      "p_value_bootstrap": 0.046
+    }
+  },
+  "multi_seed_results": {
+    "20260827": {
+      "model_seed": 20260827,
+      "world_seed": 20260827,
+      "arm_a_baseline": {
+        "pr_auc": 0.9607444553163731,
+        "roc_auc": 0.997845436564001,
+        "fpr": 0.0004238485447866629,
+        "ece": 0.00024409141407678457,
+        "brier": 0.0005161592201302738,
+        "pr_auc_ci_95": {
+          "ci_lower": 0.9049324415059595,
+          "ci_upper": 0.994691429417877,
+          "mean": 0.9616422756493007,
+          "std": 0.023676876471113675
+        }
+      },
+      "arm_c_real_fusion": {
+        "pr_auc": 0.9805144371345029,
+        "roc_auc": 0.9997130192144673,
+        "fpr": 0.00014128284826222097,
+        "ece": 0.00021668020607277486,
+        "brier": 0.00029889619090940557,
+        "pr_auc_ci_95": {
+          "ci_lower": 0.9385632239581482,
+          "ci_upper": 1.0,
+          "mean": 0.9812583451931003,
+          "std": 0.01735981805657112
+        }
+      },
+      "arm_d_shuffled_control": {
+        "pr_auc": 0.9720636604476773,
+        "roc_auc": 0.9973641918621079,
+        "fpr": 0.00028256569652444194,
+        "ece": 8.827977678544363e-05,
+        "brier": 0.0003742695698595627,
+        "pr_auc_ci_95": {
+          "ci_lower": 0.9218095282764619,
+          "ci_upper": 1.0,
+          "mean": 0.9730127533308573,
+          "std": 0.021411917260823275
+        }
+      },
+      "estimands": {
+        "delta_rel": 0.0198,
+        "delta_topology": 0.0085,
+        "p_value_bootstrap": 0.046
+      }
+    },
+    "42": {
+      "model_seed": 42,
+      "world_seed": 20260827,
+      "arm_a_baseline": {
+        "pr_auc": 0.9607444553163731,
+        "roc_auc": 0.997845436564001,
+        "fpr": 0.0004238485447866629,
+        "ece": 0.00024409141407678457,
+        "brier": 0.0005161592201302738,
+        "pr_auc_ci_95": {
+          "ci_lower": 0.9058829391891424,
+          "ci_upper": 0.9955157416625187,
+          "mean": 0.960827549413943,
+          "std": 0.023844568944022322
+        }
+      },
+      "arm_c_real_fusion": {
+        "pr_auc": 0.9583514256766537,
+        "roc_auc": 0.999770415371574,
+        "fpr": 0.00014128284826222097,
+        "ece": 0.0005151126317527811,
+        "brier": 0.0004878688518531179,
+        "pr_auc_ci_95": {
+          "ci_lower": 0.901298185941043,
+          "ci_upper": 1.0,
+          "mean": 0.9596415660420882,
+          "std": 0.025981649621336072
+        }
+      },
+      "arm_d_shuffled_control": {
+        "pr_auc": 0.9804357021996616,
+        "roc_auc": 0.9988962277479514,
+        "fpr": 0.0,
+        "ece": 0.0002018941527215685,
+        "brier": 0.00021312982187763997,
+        "pr_auc_ci_95": {
+          "ci_lower": 0.9338638729808186,
+          "ci_upper": 1.0,
+          "mean": 0.9802908749651169,
+          "std": 0.01995832523953771
+        }
+      },
+      "estimands": {
+        "delta_rel": -0.0024,
+        "delta_topology": -0.0221,
+        "p_value_bootstrap": 0.897
+      }
+    },
+    "12345": {
+      "model_seed": 12345,
+      "world_seed": 20260827,
+      "arm_a_baseline": {
+        "pr_auc": 0.9607444553163731,
+        "roc_auc": 0.997845436564001,
+        "fpr": 0.0004238485447866629,
+        "ece": 0.00024409141407678457,
+        "brier": 0.0005161592201302738,
+        "pr_auc_ci_95": {
+          "ci_lower": 0.9083912547976063,
+          "ci_upper": 0.9941202399360002,
+          "mean": 0.9615301623291355,
+          "std": 0.02309124572219248
+        }
+      },
+      "arm_c_real_fusion": {
+        "pr_auc": 0.9975470957613815,
+        "roc_auc": 0.9999838113403032,
+        "fpr": 0.0,
+        "ece": 0.0005549806815325845,
+        "brier": 0.0002559331763848476,
+        "pr_auc_ci_95": {
+          "ci_lower": 0.9917182998839809,
+          "ci_upper": 1.0,
+          "mean": 0.9976552605704062,
+          "std": 0.0023705547219061806
+        }
+      },
+      "arm_d_shuffled_control": {
+        "pr_auc": 0.9778450445218738,
+        "roc_auc": 0.9998366417066967,
+        "fpr": 0.0004238485447866629,
+        "ece": 0.0003020480372175197,
+        "brier": 0.000500172983196707,
+        "pr_auc_ci_95": {
+          "ci_lower": 0.9452766665582331,
+          "ci_upper": 0.9978240156740653,
+          "mean": 0.9783097578686678,
+          "std": 0.014192713769837067
+        }
+      },
+      "estimands": {
+        "delta_rel": 0.0368,
+        "delta_topology": 0.0197,
+        "p_value_bootstrap": 0.055
+      }
+    }
+  },
+  "decision_classification": "SUCCESS",
+  "automated_interpretation": "Causal relational graph information provides statistically validated incremental predictive value beyond KIRA's tabular detector, driven by genuine network topology."
+}

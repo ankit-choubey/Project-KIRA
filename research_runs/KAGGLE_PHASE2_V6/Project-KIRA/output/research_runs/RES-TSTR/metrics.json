@@ -1,0 +1,22 @@
+{
+  "status": "COMPLETE",
+  "tstr": {
+    "pr_auc": 0.0271,
+    "roc_auc": 0.7597,
+    "ece": 0.001641,
+    "brier": 0.003932,
+    "n_train_synthetic": 9348,
+    "n_test_real": 50000,
+    "n_test_real_fraud": 199
+  },
+  "trtr": {
+    "pr_auc": 0.406,
+    "roc_auc": 0.9708,
+    "ece": 0.00636,
+    "brier": 0.0034,
+    "n_train_real": 29448
+  },
+  "delta_pr_auc": -0.3789,
+  "experiment_id": "RES-TSTR-REAL",
+  "target_namespace": "REAL_WORLD (Sparkov)"
+}

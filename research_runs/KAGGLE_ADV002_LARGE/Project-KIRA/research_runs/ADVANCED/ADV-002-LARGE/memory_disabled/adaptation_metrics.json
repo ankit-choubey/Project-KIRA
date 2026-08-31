@@ -1,0 +1,17 @@
+{
+  "initial_round_asr": 0.18,
+  "final_round_asr": 0.2,
+  "delta_asr": 0.02,
+  "adaptation_event_count": 3222,
+  "family_switch_count": 341,
+  "budget_adjustment_count": 2881,
+  "exploration_rate": 0.044,
+  "exploitation_rate": 0.956,
+  "family_selection_entropy": 1.183,
+  "memory_retrieval_count": 0,
+  "memory_reuse_rate": 0.0,
+  "successful_memory_reuse_rate": 0.0,
+  "failed_pattern_avoidance_rate": 0.5593,
+  "behavioral_adaptation_demonstrated": true,
+  "scientific_classification": "ADAPTATION_DEMONSTRATED"
+}

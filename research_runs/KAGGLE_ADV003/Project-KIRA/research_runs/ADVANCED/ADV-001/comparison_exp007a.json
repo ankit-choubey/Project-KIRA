@@ -1,0 +1,33 @@
+{
+  "benchmark_comparison": {
+    "attempts": {
+      "EXP-007-A": 200,
+      "ADV-001": 10000
+    },
+    "asr_budget_1": {
+      "EXP-007-A": 0.3333,
+      "ADV-001": 0.0
+    },
+    "asr_budget_5": {
+      "EXP-007-A": 0.7667,
+      "ADV-001": 0.08
+    },
+    "asr_budget_20": {
+      "EXP-007-A": 0.9667,
+      "ADV-001": 0.08
+    },
+    "asr_budget_100": {
+      "EXP-007-A": 0.9667,
+      "ADV-001": 0.08
+    },
+    "families_covered": {
+      "EXP-007-A": 5,
+      "ADV-001": 5
+    },
+    "median_med": {
+      "EXP-007-A": 2.8488,
+      "ADV-001": 1.2032
+    }
+  },
+  "interpretation": "ADV-001 scaled adversarial evaluation by 50x (from 200 to 10000 attempts) providing tighter 95% bootstrap confidence intervals across query budgets and families."
+}

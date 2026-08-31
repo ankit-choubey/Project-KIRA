@@ -1,0 +1,20 @@
+{
+  "A01": "COMPLETED",
+  "A02": "COMPLETED",
+  "G01": "COMPLETED",
+  "G02": "COMPLETED",
+  "G03": "COMPLETED",
+  "G04": "COMPLETED",
+  "G05": "COMPLETED",
+  "LLM01": "COMPLETED",
+  "R01": "COMPLETED",
+  "S00": "COMPLETED",
+  "S01": "COMPLETED",
+  "S02": "FAILED",
+  "S02_reason": "could not append value: \"agent_c_08869\" of type: str to the builder; make sure that all rows have the same schema or consider increasing `infer_schema_length`\n\nit might also be that a value overflows the data-type's capacity",
+  "S02_traceback": "Traceback (most recent call last):\n  File \"/kaggle/working/Project-KIRA/src/mcdl/research/phase2/experiments.py\", line 1020, in run_s02\n    real_graph = TemporalPaymentGraph(world.transactions)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/kaggle/working/Project-KIRA/src/mcdl/research/phase2/graph_temporal.py\", line 75, in __init__\n    transactions_df = pl.DataFrame(records)\n                      ^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/polars/dataframe/frame.py\", line 386, in __init__\n    self._df = sequence_to_pydf(\n               ^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/polars/_utils/construction/dataframe.py\", line 466, in sequence_to_pydf\n    return _sequence_to_pydf_dispatcher(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/functools.py\", line 912, in wrapper\n    return dispatch(args[0].__class__)(*args, **kw)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/polars/_utils/construction/dataframe.py\", line 722, in _sequence_of_dict_to_pydf\n    pydf = PyDataFrame.from_dicts(\n           ^^^^^^^^^^^^^^^^^^^^^^^\npolars.exceptions.ComputeError: could not append value: \"agent_c_08869\" of type: str to the builder; make sure that all rows have the same schema or consider increasing `infer_schema_length`\n\nit might also be that a value overflows the data-type's capacity\n",
+  "S03": "FAILED",
+  "S03_reason": "could not append value: \"agent_c_08869\" of type: str to the builder; make sure that all rows have the same schema or consider increasing `infer_schema_length`\n\nit might also be that a value overflows the data-type's capacity",
+  "S03_traceback": "Traceback (most recent call last):\n  File \"/kaggle/working/Project-KIRA/src/mcdl/research/phase2/experiments.py\", line 1385, in run_s03\n    real_graph = TemporalPaymentGraph(world.transactions)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/kaggle/working/Project-KIRA/src/mcdl/research/phase2/graph_temporal.py\", line 75, in __init__\n    transactions_df = pl.DataFrame(records)\n                      ^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/polars/dataframe/frame.py\", line 386, in __init__\n    self._df = sequence_to_pydf(\n               ^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/polars/_utils/construction/dataframe.py\", line 466, in sequence_to_pydf\n    return _sequence_to_pydf_dispatcher(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/functools.py\", line 912, in wrapper\n    return dispatch(args[0].__class__)(*args, **kw)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/polars/_utils/construction/dataframe.py\", line 722, in _sequence_of_dict_to_pydf\n    pydf = PyDataFrame.from_dicts(\n           ^^^^^^^^^^^^^^^^^^^^^^^\npolars.exceptions.ComputeError: could not append value: \"agent_c_08869\" of type: str to the builder; make sure that all rows have the same schema or consider increasing `infer_schema_length`\n\nit might also be that a value overflows the data-type's capacity\n",
+  "S04": "COMPLETED"
+}

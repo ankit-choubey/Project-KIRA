@@ -1,0 +1,21 @@
+{
+  "experiment_id": "DRIFT",
+  "metrics": {
+    "overall_drift": true,
+    "feature_drift": {
+      "amount": {
+        "ks_stat": 0.1119,
+        "p_value": 0.0,
+        "drift_detected": true
+      },
+      "cust_velocity_1h_count": {
+        "ks_stat": 0.0043,
+        "p_value": 1.0,
+        "drift_detected": false
+      }
+    },
+    "action": "TRIGGER_INVESTIGATION"
+  },
+  "status": "COMPLETED",
+  "runtime": 1.7195962080004392
+}

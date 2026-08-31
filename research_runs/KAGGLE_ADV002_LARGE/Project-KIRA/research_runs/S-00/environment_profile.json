@@ -1,0 +1,18 @@
+{
+  "python_version": "3.14.0 (v3.14.0:ebf955df7a8, Oct  7 2025, 08:20:14) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "cpu_count": 10,
+  "gpu_available": false,
+  "gpu_count": 0,
+  "gpu_name": null,
+  "gpu_vram_gb": 0.0,
+  "ram_gb": 16.0,
+  "torch_available": true,
+  "lightgbm_available": true,
+  "torch_version": "2.9.1",
+  "lightgbm_version": "4.7.0",
+  "baseline_directory_exists": true,
+  "sparkov_local_present": false,
+  "sparkov_status": "REMOTE_DATA_REQUIRED",
+  "dry_run": false
+}

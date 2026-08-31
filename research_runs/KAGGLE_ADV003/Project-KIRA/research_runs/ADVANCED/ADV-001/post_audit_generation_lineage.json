@@ -1,0 +1,68 @@
+{
+  "audit_type": "ATTACK_GENERATION_LINEAGE_AUDIT",
+  "experiment_id": "ADV-001",
+  "generated_at": "2026-08-31T10:28:00Z",
+  "call_chain": "mcdl.red.search.RedSearchEngine -> mcdl.red.strategies.generate_candidate_mutation -> mcdl.research.advanced.adv001.population.generate_population_plans -> evaluate_single_attempt -> BlueDetector.score_transaction -> Decision",
+  "family_lineage": {
+    "burst_drain": {
+      "reused_source": "src/mcdl/red/strategies.py:mutate_burst_drain",
+      "strategy_name": "mutate_burst_drain",
+      "number_generated": 2000,
+      "number_valid": 2000,
+      "number_invalid": 0,
+      "number_evaluated": 2000,
+      "number_evaded": 0,
+      "mask_constraints_satisfied": true,
+      "classification": "GENUINE_DEFENSE_RESULT",
+      "findings": "Mutations scaled amounts and channels within allowable masks, but Blue detector velocity features remained above block threshold."
+    },
+    "slow_siphon": {
+      "reused_source": "src/mcdl/red/strategies.py:mutate_slow_siphon",
+      "strategy_name": "mutate_slow_siphon",
+      "number_generated": 2000,
+      "number_valid": 2000,
+      "number_invalid": 0,
+      "number_evaluated": 2000,
+      "number_evaded": 0,
+      "mask_constraints_satisfied": true,
+      "classification": "GENUINE_DEFENSE_RESULT",
+      "findings": "Micro-amounts were validly generated; persistent streaming risk from high-risk customer profiles prevented score reduction below threshold."
+    },
+    "geo_hop": {
+      "reused_source": "src/mcdl/red/strategies.py:mutate_geo_hop",
+      "strategy_name": "mutate_geo_hop",
+      "number_generated": 2000,
+      "number_valid": 2000,
+      "number_invalid": 0,
+      "number_evaluated": 2000,
+      "number_evaded": 600,
+      "mask_constraints_satisfied": true,
+      "classification": "GENUINE_DEFENSE_RESULT",
+      "findings": "Perturbing coordinates closer to home address and switching merchants successfully reduced distance-from-home features, flipping 30.0% of cases to ALLOW."
+    },
+    "agent_subversion": {
+      "reused_source": "src/mcdl/red/strategies.py:mutate_agent_subversion",
+      "strategy_name": "mutate_agent_subversion",
+      "number_generated": 2000,
+      "number_valid": 2000,
+      "number_invalid": 0,
+      "number_evaluated": 2000,
+      "number_evaded": 0,
+      "mask_constraints_satisfied": true,
+      "classification": "GENERATION_LIMITATION",
+      "findings": "Agent subversion without registered customer mandates defaulted to generic fallback parameters, which Blue policy treated as unverified agent traffic."
+    },
+    "cross_merchant_fanout": {
+      "reused_source": "src/mcdl/red/strategies.py:mutate_cross_merchant_fanout",
+      "strategy_name": "mutate_cross_merchant_fanout",
+      "number_generated": 2000,
+      "number_valid": 2000,
+      "number_invalid": 0,
+      "number_evaluated": 2000,
+      "number_evaded": 0,
+      "mask_constraints_satisfied": true,
+      "classification": "GENUINE_DEFENSE_RESULT",
+      "findings": "Spreading transactions across low-risk MCCs reduced merchant risk but did not overcome historical account velocity signals."
+    }
+  }
+}

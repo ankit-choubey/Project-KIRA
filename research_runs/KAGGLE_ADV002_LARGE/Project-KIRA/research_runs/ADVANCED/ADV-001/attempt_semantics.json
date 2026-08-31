@@ -1,0 +1,99 @@
+{
+  "experiment_id": "ADV-001",
+  "population_id": "ADV001_ATTACK_POPULATION_10K",
+  "formal_naming_convention": "10,000 attack attempts",
+  "attempt_definition": "10,000 deterministic budgeted adversarial search invocations across 200 distinct (source_transaction, attack_family, query_budget) grid configurations, with 50 independent seeded search trajectories per grid configuration.",
+  "counts": {
+    "total_attempts": 10000,
+    "unique_attack_ids": 10000,
+    "unique_source_transactions": 10,
+    "unique_grid_combinations_source_family_budget": 200,
+    "duplicate_grid_combinations_count": 9800,
+    "repetitions_per_grid_combination": 50,
+    "unique_deterministic_seeds": 10000,
+    "unique_evasion_trajectories_with_perturbation": 598,
+    "total_successful_evasions": 600
+  },
+  "distributions": {
+    "family_counts": {
+      "burst_drain": 2000,
+      "slow_siphon": 2000,
+      "geo_hop": 2000,
+      "agent_subversion": 2000,
+      "cross_merchant_fanout": 2000
+    },
+    "budget_counts": {
+      "1": 2500,
+      "5": 2500,
+      "20": 2500,
+      "100": 2500
+    },
+    "family_budget_grid_counts": {
+      "agent_subversion_budget_1": 500,
+      "agent_subversion_budget_5": 500,
+      "agent_subversion_budget_20": 500,
+      "agent_subversion_budget_100": 500,
+      "burst_drain_budget_1": 500,
+      "burst_drain_budget_5": 500,
+      "burst_drain_budget_20": 500,
+      "burst_drain_budget_100": 500,
+      "cross_merchant_fanout_budget_1": 500,
+      "cross_merchant_fanout_budget_5": 500,
+      "cross_merchant_fanout_budget_20": 500,
+      "cross_merchant_fanout_budget_100": 500,
+      "geo_hop_budget_1": 500,
+      "geo_hop_budget_5": 500,
+      "geo_hop_budget_20": 500,
+      "geo_hop_budget_100": 500,
+      "slow_siphon_budget_1": 500,
+      "slow_siphon_budget_5": 500,
+      "slow_siphon_budget_20": 500,
+      "slow_siphon_budget_100": 500
+    },
+    "source_transaction_counts": {
+      "tx_00008161": 1000,
+      "tx_00008275": 1000,
+      "tx_00008408": 1000,
+      "tx_00008428": 1000,
+      "tx_00008768": 1000,
+      "tx_00008791": 1000,
+      "tx_00009014": 1000,
+      "tx_00009125": 1000,
+      "tx_00009290": 1000,
+      "tx_00009337": 1000
+    }
+  },
+  "outcome_accounting": {
+    "allowed_evasion": 600,
+    "blocked": 9100,
+    "step_up": 300,
+    "failed_mutation": 0,
+    "invalid_mutation": 0,
+    "error": 0,
+    "timeout": 0,
+    "total_attempts": 10000,
+    "partition_sum_check": true
+  },
+  "attack_memory_validation": {
+    "required_fields": [
+      "attack_id",
+      "family",
+      "target_transaction_id",
+      "query_budget",
+      "queries_used",
+      "outcome",
+      "evasion",
+      "perturbation_distance",
+      "blue_model_version",
+      "provenance"
+    ],
+    "missing_fields_count": 0,
+    "status": "COMPLETE"
+  },
+  "generation_lineage": {
+    "generator_module": "src/mcdl/research/advanced/adv001/population.py",
+    "evaluator_module": "src/mcdl/research/advanced/adv001/evaluator.py",
+    "search_engine": "src/mcdl/red/search.py",
+    "blue_model_version": "run_tiny_s20260827_193f7897_40997ab"
+  }
+}

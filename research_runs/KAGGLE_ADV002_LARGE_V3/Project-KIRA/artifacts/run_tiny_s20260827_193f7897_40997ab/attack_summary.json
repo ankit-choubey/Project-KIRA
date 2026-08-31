@@ -1,0 +1,129 @@
+{
+  "attack_families": [
+    "burst_drain",
+    "slow_siphon",
+    "geo_hop",
+    "agent_subversion",
+    "cross_merchant_fanout"
+  ],
+  "budgets_evaluated": [
+    1,
+    5,
+    20,
+    100
+  ],
+  "representative_samples": [
+    {
+      "attack_instance_id": "atk_r0_tx_00000077_agent_subversion_b100_s20260862",
+      "evasion_decision": "ALLOW",
+      "evasion_risk": 0.0,
+      "family": "agent_subversion",
+      "med": 2.835615,
+      "original_decision": "BLOCK",
+      "original_risk": 1.0,
+      "round": 0,
+      "source_txn_id": "tx_00000077"
+    },
+    {
+      "attack_instance_id": "atk_r0_tx_00000077_agent_subversion_b1_s20260859",
+      "evasion_decision": "ALLOW",
+      "evasion_risk": 0.0,
+      "family": "agent_subversion",
+      "med": 2.835615,
+      "original_decision": "BLOCK",
+      "original_risk": 1.0,
+      "round": 0,
+      "source_txn_id": "tx_00000077"
+    },
+    {
+      "attack_instance_id": "atk_r0_tx_00000077_agent_subversion_b20_s20260861",
+      "evasion_decision": "ALLOW",
+      "evasion_risk": 0.0,
+      "family": "agent_subversion",
+      "med": 2.835615,
+      "original_decision": "BLOCK",
+      "original_risk": 1.0,
+      "round": 0,
+      "source_txn_id": "tx_00000077"
+    },
+    {
+      "attack_instance_id": "atk_r0_tx_00000077_agent_subversion_b5_s20260860",
+      "evasion_decision": "ALLOW",
+      "evasion_risk": 0.0,
+      "family": "agent_subversion",
+      "med": 2.835615,
+      "original_decision": "BLOCK",
+      "original_risk": 1.0,
+      "round": 0,
+      "source_txn_id": "tx_00000077"
+    },
+    {
+      "attack_instance_id": "atk_r0_tx_00000077_burst_drain_b100_s20260850",
+      "evasion_decision": "ALLOW",
+      "evasion_risk": 0.0,
+      "family": "burst_drain",
+      "med": 1.189634,
+      "original_decision": "BLOCK",
+      "original_risk": 1.0,
+      "round": 0,
+      "source_txn_id": "tx_00000077"
+    },
+    {
+      "attack_instance_id": "atk_r0_tx_00000077_burst_drain_b1_s20260847",
+      "evasion_decision": "ALLOW",
+      "evasion_risk": 0.0,
+      "family": "burst_drain",
+      "med": 1.209902,
+      "original_decision": "BLOCK",
+      "original_risk": 1.0,
+      "round": 0,
+      "source_txn_id": "tx_00000077"
+    },
+    {
+      "attack_instance_id": "atk_r0_tx_00000077_burst_drain_b20_s20260849",
+      "evasion_decision": "ALLOW",
+      "evasion_risk": 0.0,
+      "family": "burst_drain",
+      "med": 1.169072,
+      "original_decision": "BLOCK",
+      "original_risk": 1.0,
+      "round": 0,
+      "source_txn_id": "tx_00000077"
+    },
+    {
+      "attack_instance_id": "atk_r0_tx_00000077_burst_drain_b5_s20260848",
+      "evasion_decision": "ALLOW",
+      "evasion_risk": 0.0,
+      "family": "burst_drain",
+      "med": 1.139255,
+      "original_decision": "BLOCK",
+      "original_risk": 1.0,
+      "round": 0,
+      "source_txn_id": "tx_00000077"
+    },
+    {
+      "attack_instance_id": "atk_r0_tx_00001775_burst_drain_b100_s20261090",
+      "evasion_decision": "ALLOW",
+      "evasion_risk": 0.0,
+      "family": "burst_drain",
+      "med": 1.384455,
+      "original_decision": "BLOCK",
+      "original_risk": 1.0,
+      "round": 0,
+      "source_txn_id": "tx_00001775"
+    },
+    {
+      "attack_instance_id": "atk_r0_tx_00001775_burst_drain_b1_s20261087",
+      "evasion_decision": "ALLOW",
+      "evasion_risk": 0.0,
+      "family": "burst_drain",
+      "med": 1.379827,
+      "original_decision": "BLOCK",
+      "original_risk": 1.0,
+      "round": 0,
+      "source_txn_id": "tx_00001775"
+    }
+  ],
+  "total_replay_records": 220,
+  "unique_source_transactions": 10
+}

@@ -1,0 +1,9 @@
+{
+  "sample_count": 0,
+  "families": [
+    "agent_subversion",
+    "cross_merchant_fanout"
+  ],
+  "asr_at_20": 1.0,
+  "status": "LOW_SAMPLE"
+}

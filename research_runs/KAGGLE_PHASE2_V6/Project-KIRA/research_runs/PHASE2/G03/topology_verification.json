@@ -1,0 +1,53 @@
+{
+  "20260827": {
+    "real_graph": {
+      "node_count": 623,
+      "edge_count": 28044,
+      "degree_mean": 67.25179856115108,
+      "degree_std": 41.563697068852825
+    },
+    "shuffled_graph": {
+      "node_count": 623,
+      "edge_count": 28044,
+      "degree_mean": 67.25179856115108,
+      "degree_std": 41.563697068852825
+    },
+    "degree_ks_statistic": 0.0,
+    "degree_ks_p_value": 1.0,
+    "topology_destroyed": true
+  },
+  "42": {
+    "real_graph": {
+      "node_count": 623,
+      "edge_count": 28044,
+      "degree_mean": 67.25179856115108,
+      "degree_std": 41.563697068852825
+    },
+    "shuffled_graph": {
+      "node_count": 623,
+      "edge_count": 28044,
+      "degree_mean": 67.25179856115108,
+      "degree_std": 41.563697068852825
+    },
+    "degree_ks_statistic": 0.0,
+    "degree_ks_p_value": 1.0,
+    "topology_destroyed": true
+  },
+  "12345": {
+    "real_graph": {
+      "node_count": 623,
+      "edge_count": 28044,
+      "degree_mean": 67.25179856115108,
+      "degree_std": 41.563697068852825
+    },
+    "shuffled_graph": {
+      "node_count": 623,
+      "edge_count": 28044,
+      "degree_mean": 67.25179856115108,
+      "degree_std": 41.563697068852825
+    },
+    "degree_ks_statistic": 0.0,
+    "degree_ks_p_value": 1.0,
+    "topology_destroyed": true
+  }
+}

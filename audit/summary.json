@@ -1,0 +1,46 @@
+{
+  "run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "run_dir": "/Users/theankit/Documents/AK/Projects/Project-KIRA/artifacts/run_tiny_s20260827_193f7897_40997ab",
+  "checks_passed": true,
+  "identity": {
+    "run_id": "run_tiny_s20260827_193f7897_40997ab",
+    "scale": "tiny",
+    "world_seed": "unknown",
+    "git_commit": "40997ab"
+  },
+  "completeness": {
+    "required_count": 5,
+    "found_count": 5,
+    "missing_files": [],
+    "status": "PASS"
+  },
+  "integrity": {
+    "verified_file_count": 0,
+    "hash_mismatches": [],
+    "status": "PASS"
+  },
+  "statistics": {
+    "extracted_claims_count": 9,
+    "classifications": {
+      "CLM_BASELINE_PR_AUC": "MEASURED_WITH_CAVEAT",
+      "CLM_BASELINE_ROC_AUC": "MEASURED",
+      "CLM_INTENT_ABLATION_ZERO_DAY_DELTA_ASR": "NOT_MEASURED",
+      "CLM_BENCHMARK_LOOPBACK_P95_LATENCY": "MEASURED_WITH_CAVEAT",
+      "CLM_EXTERNAL_ANCHOR_ULB_PRAUC": "MEASURED",
+      "CLM_PROMOTION_GATE_DECISION_0": "FAILURE_FINDING",
+      "CLM_PROMOTION_GATE_DECISION_1": "FAILURE_FINDING",
+      "CLM_PROMOTION_GATE_DECISION_2": "FAILURE_FINDING",
+      "CLM_PROMOTION_GATE_DECISION_3": "FAILURE_FINDING"
+    }
+  },
+  "temporal_safety": {
+    "transaction_count": 9348,
+    "strictly_chronological": true,
+    "status": "PASS"
+  },
+  "world_c_isolation": {
+    "status": "EVALUATED",
+    "hidden_families_reported": true
+  },
+  "conflicts": []
+}

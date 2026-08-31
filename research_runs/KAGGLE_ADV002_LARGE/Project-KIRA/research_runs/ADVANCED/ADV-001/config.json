@@ -1,0 +1,19 @@
+{
+  "experiment_id": "ADV-001",
+  "target_count": 10000,
+  "seed": 20260831,
+  "batch_size": 500,
+  "budgets": [
+    1,
+    5,
+    20,
+    100
+  ],
+  "families": [
+    "burst_drain",
+    "slow_siphon",
+    "geo_hop",
+    "agent_subversion",
+    "cross_merchant_fanout"
+  ]
+}

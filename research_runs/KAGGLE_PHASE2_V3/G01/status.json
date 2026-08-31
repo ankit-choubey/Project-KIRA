@@ -1,0 +1,48 @@
+{
+  "baseline_git_commit": "40997ab",
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "config_hash": "",
+  "end_time": "2026-08-30T23:54:59.409734+00:00",
+  "exception": null,
+  "experiment_id": "G01",
+  "git_commit": "c10e358409a88659f0bd2623ed9ba1de24ffbeeb",
+  "input_artifact_hashes": {},
+  "metrics": {
+    "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+    "brier": 0.2829,
+    "ece": 0.512,
+    "execution_backend": "CPU (NumPy vectorized)",
+    "feature_causality_passed": true,
+    "fpr": 0.5599,
+    "fraud_count": 10,
+    "git_commit_sha": "c10e358409a88659f0bd2623ed9ba1de24ffbeeb",
+    "leakage_passed": true,
+    "parameter_count": 6017,
+    "pr_auc": 0.0083,
+    "pr_auc_ci_95": {
+      "ci_lower": 0.004474834932004906,
+      "ci_upper": 0.01785046724083848,
+      "std": 0.003435372361514846
+    },
+    "roc_auc": 0.5407,
+    "sample_count": 1403,
+    "split_integrity_passed": true
+  },
+  "output_paths": [
+    "research_runs/PHASE2/G01/config.json",
+    "research_runs/PHASE2/G01/metrics.json"
+  ],
+  "output_sha256": {
+    "config.json": "263eaec01eef358a1e1f2ab3bb5709f043d2d79bb6914bb0de616bcae797b8e0",
+    "metrics.json": "65a43e3326e5bc6515c4933bd7810f201ef5a2eec60b85bcf0c54ae345ffa498"
+  },
+  "peak_gpu_mb": 0,
+  "peak_ram_mb": 0,
+  "run_id": "phase2_1788134094",
+  "runtime_sec": 3.779381322000006,
+  "seed": 20260827,
+  "stage_id": "G01",
+  "start_time": "1970-01-01T00:07:07.527722+00:00",
+  "status": "COMPLETED",
+  "termination_reason": null
+}

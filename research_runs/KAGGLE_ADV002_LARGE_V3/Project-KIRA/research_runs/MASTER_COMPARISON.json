@@ -1,0 +1,53 @@
+{
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "environment_status": "COMPLETE",
+  "baseline_integrity_status": "PASS_22_OF_22",
+  "provenance": {
+    "reference_dataset": "Sparkov Credit Card Fraud Benchmark (kartik2112/fraud-detection)",
+    "license": "CC0 1.0 Universal",
+    "dataset_sha256": "12d553ab19440c752d2531ee1af44bb64f12cc3d3839f1649f19e81c230545f0",
+    "real_samples_evaluated": 50000,
+    "real_fraud_count": 199,
+    "real_fraud_rate": 0.00398
+  },
+  "entries": [
+    {
+      "track": "L3 Behavioral Fidelity (P1–P4)",
+      "stage_id": "S-02",
+      "status": "MEASURED_REAL_COMPARISON",
+      "synthetic_sanity_metric": "Mean dt = 277.3s, Burstiness = -0.1033",
+      "real_world_metric": "Interarrival Ratio = 9.74x, Burstiness Diff = -0.1667, Velocity Ratio = 20.13x",
+      "shared_device": "NOT_COMPARABLE (Sparkov reference schema contains no client device telemetry column)",
+      "flags": [],
+      "preliminary_decision": "RESEARCH ONLY"
+    },
+    {
+      "track": "Real-vs-Synthetic C2ST Discriminator",
+      "stage_id": "S-03",
+      "status": "COMPLETE",
+      "synthetic_sanity_metric": "Synthetic self-split AUC = 0.5025 (95% CI: [0.4745, 0.5318])",
+      "real_world_metric": "Discriminator Test AUC = 0.7780 (95% CI: [0.7641, 0.7918])",
+      "samples_evaluated": 18696,
+      "flags": [],
+      "preliminary_decision": "RESEARCH ONLY"
+    },
+    {
+      "track": "Transfer Evaluation (TSTR vs TRTR)",
+      "stage_id": "S-04",
+      "status": "COMPLETE",
+      "synthetic_sanity_metric": "Synthetic test PR-AUC = 0.0130",
+      "real_world_metric": "TSTR PR-AUC = 0.0271 (ROC-AUC: 0.7597) vs TRTR PR-AUC = 0.4060 (ROC-AUC: 0.9708)",
+      "transfer_gap": "Delta PR-AUC = -0.3789",
+      "flags": [],
+      "preliminary_decision": "RESEARCH ONLY"
+    },
+    {
+      "track": "Graph Topology Causal Leakage Audit",
+      "stage_id": "S-05",
+      "status": "PASS",
+      "primary_metric": "0 Violations (28,044 edges, 0 future edge/label leakage)",
+      "flags": [],
+      "preliminary_decision": "ELIGIBLE_FOR_GPU_G01"
+    }
+  ]
+}

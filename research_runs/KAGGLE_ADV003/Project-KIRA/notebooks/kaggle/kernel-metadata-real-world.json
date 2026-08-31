@@ -1,0 +1,16 @@
+{
+  "id": "theankitchoubey/project-kira-phase1-real-world-validation",
+  "title": "project-kira-phase1-real-world-validation",
+  "code_file": "03_real_world_validation.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "false",
+  "enable_gpu": "true",
+  "enable_tpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": [
+    "kartik2112/fraud-detection"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}

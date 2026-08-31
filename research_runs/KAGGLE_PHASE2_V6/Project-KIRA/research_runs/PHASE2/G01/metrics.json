@@ -1,0 +1,21 @@
+{
+  "git_commit_sha": "f9ad563ca867f2524ac499bb0ecca49af4134575",
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "execution_backend": "CPU (NumPy vectorized)",
+  "pr_auc": 0.0083,
+  "roc_auc": 0.5396,
+  "fpr": 0.5607,
+  "ece": 0.5137,
+  "brier": 0.2848,
+  "pr_auc_ci_95": {
+    "ci_lower": 0.004448151914123435,
+    "ci_upper": 0.01767183703496577,
+    "std": 0.0034032835184338336
+  },
+  "parameter_count": 6017,
+  "feature_causality_passed": true,
+  "split_integrity_passed": true,
+  "leakage_passed": true,
+  "sample_count": 1403,
+  "fraud_count": 10
+}

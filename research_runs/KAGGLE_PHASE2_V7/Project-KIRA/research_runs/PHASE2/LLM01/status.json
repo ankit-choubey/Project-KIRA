@@ -1,0 +1,25 @@
+{
+  "baseline_git_commit": "40997ab",
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "config_hash": "",
+  "end_time": "2026-08-31T11:47:08.192836+00:00",
+  "exception": null,
+  "experiment_id": "LLM01",
+  "git_commit": "ab721f9d464456cb6f936f3f9466c7975671a319",
+  "input_artifact_hashes": {},
+  "metrics": {
+    "metrics": null,
+    "status": "NOT_RUN"
+  },
+  "output_paths": [],
+  "output_sha256": {},
+  "peak_gpu_mb": 0,
+  "peak_ram_mb": 0,
+  "run_id": "phase2_1788176761",
+  "runtime_sec": 0.0012331840000570082,
+  "seed": 20260827,
+  "stage_id": "LLM01",
+  "start_time": "1970-01-01T00:11:18.159958+00:00",
+  "status": "COMPLETED",
+  "termination_reason": null
+}

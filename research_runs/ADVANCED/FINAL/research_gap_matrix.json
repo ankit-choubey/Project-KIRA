@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-08-31T16:29:12.860329+00:00",
+  "capabilities": {
+    "synthetic_world": "VERIFIED",
+    "causal_features": "VERIFIED",
+    "blue_detector": "VERIFIED",
+    "intent_ablation": "INCONCLUSIVE",
+    "adv001_static_discovery": "VERIFIED",
+    "adv002_stateful_swarm": "VERIFIED",
+    "adv003_adaptive_defense": "VERIFIED",
+    "adv004_transferability": "VERIFIED",
+    "ops001_load_capacity": "NOT_MEASURED",
+    "ops002_degraded_telemetry": "VERIFIED",
+    "ti001_threat_intelligence": "VERIFIED",
+    "ag001_attack_planner": "EXECUTED_WITH_DETERMINISTIC_FALLBACK",
+    "drift_detection": "VERIFIED",
+    "adversarial_ops_unification": "VERIFIED",
+    "frontend_integration": "IMPLEMENTED",
+    "live_mode_fallback": "IMPLEMENTED"
+  }
+}

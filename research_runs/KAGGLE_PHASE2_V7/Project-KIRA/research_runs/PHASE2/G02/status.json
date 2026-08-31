@@ -1,0 +1,52 @@
+{
+  "baseline_git_commit": "40997ab",
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "config_hash": "",
+  "end_time": "2026-08-31T11:46:10.983824+00:00",
+  "exception": null,
+  "experiment_id": "G02",
+  "git_commit": "ab721f9d464456cb6f936f3f9466c7975671a319",
+  "input_artifact_hashes": {},
+  "metrics": {
+    "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+    "execution_backend": "CPU (NumPy vectorized)",
+    "families": {
+      "agent_subversion": {
+        "count": 0,
+        "status": "NOT_PRESENT_IN_TEST_SPLIT"
+      },
+      "authorized_push_payment": {
+        "count": 0,
+        "status": "NOT_PRESENT_IN_TEST_SPLIT"
+      },
+      "botnet_takeover": {
+        "count": 0,
+        "status": "NOT_PRESENT_IN_TEST_SPLIT"
+      },
+      "cross_merchant_fanout": {
+        "count": 0,
+        "status": "NOT_PRESENT_IN_TEST_SPLIT"
+      },
+      "synthetic_identity": {
+        "count": 0,
+        "status": "NOT_PRESENT_IN_TEST_SPLIT"
+      }
+    },
+    "git_commit_sha": "ab721f9d464456cb6f936f3f9466c7975671a319"
+  },
+  "output_paths": [
+    "research_runs/PHASE2/G02/metrics.json"
+  ],
+  "output_sha256": {
+    "metrics.json": "24ff4f4f273a499c5aa7bb86c63b8f91d3092ccedce524d65aab53eade0a41c7"
+  },
+  "peak_gpu_mb": 0,
+  "peak_ram_mb": 0,
+  "run_id": "phase2_1788176761",
+  "runtime_sec": 2.099372159999916,
+  "seed": 20260827,
+  "stage_id": "G02",
+  "start_time": "1970-01-01T00:10:18.852811+00:00",
+  "status": "COMPLETED",
+  "termination_reason": null
+}

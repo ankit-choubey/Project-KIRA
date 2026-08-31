@@ -1,0 +1,103 @@
+# ONE config for the whole project. There are no per-machine profiles.
+# The only thing that changes between laptop and Kaggle is `scale`.
+#
+#   scale: tiny   -> laptop, smoke runs, ~2 minutes
+#   scale: small  -> laptop, gate runs, ~5 minutes
+#   scale: full   -> Kaggle CPU notebook, the final artifact run
+#
+# Override from the CLI:  make run SCALE=small
+# Override in code:       load_config(scale="full")
+
+project: mastercard-ai-defense-lab
+seed: 20260827
+
+scale_presets:
+  tiny:
+    n_customers: 200
+    n_merchants: 80
+    n_days: 30
+    target_events: 10_000
+  small:
+    n_customers: 1_000
+    n_merchants: 300
+    n_days: 90
+    target_events: 50_000
+  full:
+    n_customers: 10_000
+    n_merchants: 800
+    n_days: 365
+    target_events: 1_000_000
+
+scale: tiny
+
+world:
+  # Fractions must sum to 1.0 - asserted at load time.
+  archetypes:
+    salaried_urban: 0.45
+    student: 0.25
+    small_business: 0.20
+    high_net_worth: 0.10
+  # Hard negatives: legitimate behaviour that LOOKS fraudulent.
+  # Without these the detector learns "unusual == fraud" and the FPR is a lie.
+  hard_negatives:
+    traveller: 0.03
+    flash_sale: 0.04
+    shared_family_device: 0.03
+  base_fraud_rate: 0.006          # calibrated against docs/DATA_PROFILE.md
+  agent_share: 0.08               # fraction of customers with an AI payment agent
+
+features:
+  velocity_windows_hours: [1, 6, 24]
+  # Real fraud labels arrive late via chargebacks. Any feature that reads a
+  # neighbour's LABEL must respect this lag or it is leakage (audit F-08).
+  label_availability_lag_days: 7
+
+split:
+  # Out-of-time. Asserted in gate 3: train.max_ts < valid.min_ts < test.min_ts
+  train_frac: 0.70
+  valid_frac: 0.15
+  test_frac: 0.15
+
+blue:
+  model: lightgbm
+  imbalance: scale_pos_weight     # NOT smote - see .agents/rules/20-ml-rules.md
+  calibration: isotonic
+  # Cost-sensitive router. Currency-agnostic relative weights.
+  costs:
+    fraud_loss: 1.0
+    step_up_friction: 0.02
+    review: 0.05
+  thresholds:                     # starting values; tuned on the cost curve
+    step_up: 0.25
+    block: 0.70
+
+red:
+  families: [R1_ato, R2_velocity_burst, R3_low_and_slow, R4_mule_ring, R8_intent_drift]
+  # Families hidden from Blue's training set, used for the zero-day transfer test.
+  hidden_from_blue: [R4_mule_ring, R8_intent_drift]
+  variants_per_family: 10
+  # Blue hardens on variants 0-4 only. ASR on 5-9 is the honest headline (audit F-06).
+  harden_on_variants: 5
+  # The threat model. Without this, ASR is unfalsifiable (audit F-05).
+  query_budgets: [1, 5, 20, 100]
+  population: 64
+  generations: 20
+
+loop:
+  rounds: 3
+  replay_max_fraction: 0.15       # cap so hardening cannot blow up the FPR
+
+evaluation:
+  c2st_folds: 5
+  anchor_dataset: sparkov         # docs/DATA_PROFILE.md
+  # Published degradation ratios for context in the L3 table. 1.0 == real.
+  published_baselines:
+    CTGAN_ieee_cis: 30.0
+    TVAE_ieee_cis: 24.4
+    GaussianCopula_ieee_cis: 39.0
+    TabularARGN_amazon: 17.2
+
+paths:
+  artifacts: artifacts
+  demo_artifacts: artifacts/demo
+  reference_data: data/reference

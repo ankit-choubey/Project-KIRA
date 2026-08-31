@@ -1,0 +1,39 @@
+{
+  "git_commit_sha": "f9ad563ca867f2524ac499bb0ecca49af4134575",
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "feature_spec_version": "1.0.0",
+  "execution_backend": "CPU (NumPy vectorized)",
+  "train_count": 6543,
+  "val_count": 1402,
+  "test_count": 1403,
+  "results_by_delay": {
+    "1d": {
+      "delay_days": 1,
+      "pr_auc": 1.0,
+      "roc_auc": 1.0,
+      "brier": 0.0003,
+      "ece": 0.0005
+    },
+    "3d": {
+      "delay_days": 3,
+      "pr_auc": 1.0,
+      "roc_auc": 1.0,
+      "brier": 0.0003,
+      "ece": 0.0005
+    },
+    "7d": {
+      "delay_days": 7,
+      "pr_auc": 1.0,
+      "roc_auc": 1.0,
+      "brier": 0.0003,
+      "ece": 0.0005
+    },
+    "14d": {
+      "delay_days": 14,
+      "pr_auc": 1.0,
+      "roc_auc": 1.0,
+      "brier": 0.0003,
+      "ece": 0.0005
+    }
+  }
+}

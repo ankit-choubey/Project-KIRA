@@ -1,0 +1,136 @@
+{
+  "population_id": "ADV001_ATTACK_POPULATION_10K",
+  "total_attempts": 10000,
+  "valid_attacks": 10000,
+  "allowed_evasion_count": 600,
+  "blocked_count": 9100,
+  "step_up_count": 300,
+  "generation_failures": 0,
+  "error_count": 0,
+  "aggregate_asr": 0.06,
+  "aggregate_asr_ci_95": [
+    0.0554,
+    0.0646
+  ],
+  "mean_med": 1.2042,
+  "median_med": 1.2032,
+  "med_ci_95": [
+    1.2017,
+    1.2067
+  ],
+  "outcome_distribution": {
+    "BLOCKED": 9100,
+    "STEP_UP": 300,
+    "ALLOWED_EVASION": 600
+  },
+  "family_metrics": {
+    "burst_drain": {
+      "attempted": 2000,
+      "successful_evasions": 0,
+      "blocked": 2000,
+      "asr": 0.0,
+      "asr_ci_95": [
+        0.0,
+        0.0
+      ],
+      "median_query_count": 5.0,
+      "mean_perturbation_distance": null,
+      "median_perturbation_distance": null,
+      "min_perturbation_distance": null
+    },
+    "slow_siphon": {
+      "attempted": 2000,
+      "successful_evasions": 0,
+      "blocked": 2000,
+      "asr": 0.0,
+      "asr_ci_95": [
+        0.0,
+        0.0
+      ],
+      "median_query_count": 5.0,
+      "mean_perturbation_distance": null,
+      "median_perturbation_distance": null,
+      "min_perturbation_distance": null
+    },
+    "geo_hop": {
+      "attempted": 2000,
+      "successful_evasions": 600,
+      "blocked": 1400,
+      "asr": 0.3,
+      "asr_ci_95": [
+        0.28,
+        0.3205
+      ],
+      "median_query_count": 4.0,
+      "mean_perturbation_distance": 1.2042,
+      "median_perturbation_distance": 1.2032,
+      "min_perturbation_distance": 1.13
+    },
+    "agent_subversion": {
+      "attempted": 2000,
+      "successful_evasions": 0,
+      "blocked": 2000,
+      "asr": 0.0,
+      "asr_ci_95": [
+        0.0,
+        0.0
+      ],
+      "median_query_count": 5.0,
+      "mean_perturbation_distance": null,
+      "median_perturbation_distance": null,
+      "min_perturbation_distance": null
+    },
+    "cross_merchant_fanout": {
+      "attempted": 2000,
+      "successful_evasions": 0,
+      "blocked": 2000,
+      "asr": 0.0,
+      "asr_ci_95": [
+        0.0,
+        0.0
+      ],
+      "median_query_count": 5.0,
+      "mean_perturbation_distance": null,
+      "median_perturbation_distance": null,
+      "min_perturbation_distance": null
+    }
+  },
+  "budget_metrics": {
+    "1": {
+      "attempted": 2500,
+      "successful_evasions": 0,
+      "asr": 0.0,
+      "asr_ci_95": [
+        0.0,
+        0.0
+      ]
+    },
+    "5": {
+      "attempted": 2500,
+      "successful_evasions": 200,
+      "asr": 0.08,
+      "asr_ci_95": [
+        0.0696,
+        0.0908
+      ]
+    },
+    "20": {
+      "attempted": 2500,
+      "successful_evasions": 200,
+      "asr": 0.08,
+      "asr_ci_95": [
+        0.0696,
+        0.0908
+      ]
+    },
+    "100": {
+      "attempted": 2500,
+      "successful_evasions": 200,
+      "asr": 0.08,
+      "asr_ci_95": [
+        0.0696,
+        0.0908
+      ]
+    }
+  }
+}

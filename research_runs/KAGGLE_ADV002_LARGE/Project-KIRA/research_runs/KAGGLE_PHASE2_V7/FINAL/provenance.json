@@ -1,0 +1,21 @@
+{
+  "baseline_git_commit": "40997ab",
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "environment": {},
+  "generated_at": "2026-08-31T11:53:45.900683+00:00",
+  "input_datasets": {
+    "baseline_provenance": "c6e7271840db64c20e32fb78b817879f7f485d0684c50ad93ba06dd29b35ca2d"
+  },
+  "library_versions": {
+    "backend": "CPU (NumPy vectorized)",
+    "lightgbm": "4.6.0",
+    "numpy": "2.0.2",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "polars": "1.35.2",
+    "python": "3.12.13",
+    "sklearn": "1.6.1"
+  },
+  "namespace": "RESEARCH_PHASE2",
+  "notebook_git_commit": "ab721f9d464456cb6f936f3f9466c7975671a319",
+  "notebook_version": 1
+}

@@ -1,0 +1,17 @@
+{
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "git_commit": "40997ab",
+  "seed": 20260827,
+  "scale": "tiny",
+  "verified_artifacts_count": 22,
+  "total_artifacts_expected": 22,
+  "integrity_status": "PASS_22_OF_22",
+  "champion_metrics": {
+    "test_pr_auc": 1.0,
+    "test_roc_auc": 1.0,
+    "ece": 0.0,
+    "fpr": 0.0,
+    "heldout_asr": null
+  },
+  "timestamp": "2026-08-30T21:42:33.317368+00:00"
+}

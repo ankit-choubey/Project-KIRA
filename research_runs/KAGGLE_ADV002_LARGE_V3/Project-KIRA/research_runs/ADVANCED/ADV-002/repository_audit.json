@@ -1,0 +1,80 @@
+{
+  "experiment_id": "ADV-002",
+  "name": "Stateful Adversarial Swarm Foundation",
+  "audit_timestamp": "2026-08-31T17:20:00Z",
+  "base_git_commit": "9a47f35419b7874319d720f255db048684b56f41",
+  "execution_readiness": "EXECUTED_AND_VERIFIED",
+  "components": {
+    "module_isolation": {
+      "status": "IMPLEMENTED",
+      "path": "src/mcdl/research/advanced/adv002/",
+      "files_count": 9,
+      "touches_core_red_blue": false
+    },
+    "agent_swarm": {
+      "status": "IMPLEMENTED",
+      "specialists": [
+        "velocity_specialist",
+        "geo_specialist",
+        "merchant_specialist",
+        "agent_subversion_specialist",
+        "hybrid_adaptive"
+      ],
+      "deterministic_seeding": true,
+      "isolated_state": true
+    },
+    "shared_attack_memory": {
+      "status": "IMPLEMENTED",
+      "ingests_adv001": true,
+      "adv001_read_only": true,
+      "adv002_append_only": true,
+      "indexed_retrieval": true
+    },
+    "adaptive_policy": {
+      "status": "IMPLEMENTED",
+      "rl_free": true,
+      "deterministic": true,
+      "inspectable": true,
+      "bounded_exploration": true
+    },
+    "campaign_mechanics": {
+      "status": "IMPLEMENTED",
+      "multi_round": true,
+      "adaptation_event_tracking": true,
+      "atomic_checkpointing": true
+    },
+    "evaluator_and_reward": {
+      "status": "IMPLEMENTED",
+      "multi_objective_reward": true,
+      "transparent_breakdown": true,
+      "adaptation_metrics": true
+    },
+    "test_suite": {
+      "status": "TESTED",
+      "test_path": "tests/unit/research/test_adv002.py",
+      "tests_passed": 11,
+      "tests_failed": 0
+    },
+    "standard_swarm_execution": {
+      "status": "MEASURED",
+      "attempts": 500,
+      "targets": 5,
+      "rounds": 20,
+      "asr": 0.30,
+      "adaptation_events": 515,
+      "runtime_sec": 5.945
+    },
+    "large_swarm_execution": {
+      "status": "NOT YET MEASURED",
+      "reason": "Large swarm run (5,000 attempts) queued for subsequent phase."
+    }
+  },
+  "safety_verifications": {
+    "no_rl_agent": true,
+    "no_real_financial_interaction": true,
+    "no_external_network_calls": true,
+    "adv001_memory_untouched": true,
+    "phase2_notebooks_untouched": true,
+    "phase2_artifacts_untouched": true
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "timestamp": "2026-08-31T16:42:56.829482+00:00",
+  "git_commit": "1e200382ccb7085fd9c17fa07caa993391773508",
+  "authoritative_baseline_run": "run_tiny_s20260827_193f7897_40997ab",
+  "authoritative_baseline_sha": "40997ab",
+  "phase2_run": "phase2_1788176761",
+  "phase2_sha": "ab721f9",
+  "adv001_run": "ADV-001",
+  "adv001_sha": "d5b6226",
+  "adv002_run": "ADV-002-LARGE",
+  "adv002_sha": "57d4652",
+  "adv003_run": "ADV-003",
+  "adv003_sha": "6320c2d",
+  "final_mile_run": "FINAL_MILE_UNIFIED",
+  "final_mile_sha": "1e20038",
+  "provenance_map": {
+    "baseline_pr_auc": {
+      "file": "artifacts/run_tiny_s20260827_193f7897_40997ab/blue_metrics.json",
+      "pointer": "/pr_auc",
+      "value": 1.0
+    },
+    "adv001_asr": {
+      "file": "research_runs/ADVANCED/ADV-001/metrics.json",
+      "pointer": "/aggregate_asr",
+      "value": 0.06
+    },
+    "adv002_adaptive_asr": {
+      "file": "research_runs/ADVANCED/ADV-002-LARGE/cross_arm_metrics.json",
+      "pointer": "/arms/adaptive_memory/asr",
+      "value": 0.1968
+    },
+    "adv002_static_asr": {
+      "file": "research_runs/ADVANCED/ADV-002-LARGE/cross_arm_metrics.json",
+      "pointer": "/arms/static_control/asr",
+      "value": 0.096
+    },
+    "adv003_curve": {
+      "file": "research_runs/ADVANCED/ADV-003/adaptive_defense_curve.json",
+      "pointer": "/experiment_id",
+      "value": "ADV-003"
+    },
+    "zero_day_asr": {
+      "file": "artifacts/run_tiny_s20260827_193f7897_40997ab/three_world_evaluation.json",
+      "pointer": "/hidden_family_asr_at_20",
+      "value": 1.0
+    },
+    "external_anchor": {
+      "file": "artifacts/run_tiny_s20260827_193f7897_40997ab/external_anchor.json",
+      "pointer": "/pr_auc",
+      "value": 0.864
+    },
+    "latency_p95": {
+      "file": "artifacts/run_tiny_s20260827_193f7897_40997ab/latency_benchmark.json",
+      "pointer": "/p95_ms",
+      "value": 2.3
+    }
+  }
+}

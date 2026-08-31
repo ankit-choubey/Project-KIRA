@@ -1,0 +1,11 @@
+{
+  "scale": "large",
+  "total_global_runtime_sec": 890.546,
+  "total_attempts": 15000,
+  "overall_throughput_attempts_per_sec": 16.84,
+  "arm_runtimes_sec": {
+    "adaptive_memory": 329.217,
+    "static_control": 292.716,
+    "memory_disabled": 254.231
+  }
+}

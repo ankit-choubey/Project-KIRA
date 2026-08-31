@@ -1,0 +1,38 @@
+{
+  "1": {
+    "attempted": 2500,
+    "successful_evasions": 0,
+    "asr": 0.0,
+    "asr_ci_95": [
+      0.0,
+      0.0
+    ]
+  },
+  "5": {
+    "attempted": 2500,
+    "successful_evasions": 200,
+    "asr": 0.08,
+    "asr_ci_95": [
+      0.0696,
+      0.0908
+    ]
+  },
+  "20": {
+    "attempted": 2500,
+    "successful_evasions": 200,
+    "asr": 0.08,
+    "asr_ci_95": [
+      0.0696,
+      0.0908
+    ]
+  },
+  "100": {
+    "attempted": 2500,
+    "successful_evasions": 200,
+    "asr": 0.08,
+    "asr_ci_95": [
+      0.0696,
+      0.0908
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "asr_by_budget": {
+    "1": 0.0,
+    "100": 0.0,
+    "20": 0.0,
+    "5": 0.0
+  },
+  "asr_heldout_variants": 0.0,
+  "asr_seen_variants": 0.0,
+  "asr_unseen_family": null,
+  "invalid_attacks": 0,
+  "mask_violations": 0,
+  "mean_evasion_distance": 0.0
+}

@@ -1,0 +1,14 @@
+{
+  "git_commit_sha": "c10e358409a88659f0bd2623ed9ba1de24ffbeeb",
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "execution_backend": "CPU (NumPy vectorized)",
+  "world_c_sample_count": 0,
+  "world_c_families": [
+    "cross_merchant_fanout",
+    "agent_subversion"
+  ],
+  "customer_overlap_count": 0,
+  "customer_overlap_ratio": 0.0,
+  "asr_at_20": 1.0,
+  "status": "LOW_SAMPLE"
+}

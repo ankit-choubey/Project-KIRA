@@ -1,0 +1,32 @@
+{
+  "audit_passed": true,
+  "status": "PASS",
+  "checks": {
+    "temporal_edge_isolation": {
+      "passed": true,
+      "violations": 0
+    },
+    "chronological_split_ordering": {
+      "passed": true,
+      "train_cutoff": 1768780940.0654228,
+      "valid_cutoff": 1769299233.9048696,
+      "test_cutoff": 1769817527.744316
+    },
+    "label_leakage_in_graph": {
+      "passed": true,
+      "violations": 0
+    },
+    "future_node_isolation": {
+      "passed": true,
+      "violations": 0
+    },
+    "post_cutoff_aggregation_leakage": {
+      "passed": true,
+      "violations": 0
+    }
+  },
+  "summary": {
+    "full_edges": 28044,
+    "train_edges": 17214
+  }
+}

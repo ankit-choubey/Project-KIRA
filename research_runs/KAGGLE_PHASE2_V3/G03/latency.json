@@ -1,0 +1,7 @@
+{
+  "tabular_extract": 0.1228,
+  "graph_build": 0.0575,
+  "gnn_infer": 1.0092,
+  "fusion_infer": 2.0183,
+  "total_fusion_request": 2.1987
+}

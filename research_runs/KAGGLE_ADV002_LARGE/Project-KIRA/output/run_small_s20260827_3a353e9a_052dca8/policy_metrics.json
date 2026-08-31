@@ -1,0 +1,15 @@
+{
+  "final_decision_counts": {
+    "ALLOW": 7088,
+    "BLOCK": 38,
+    "STEP_UP": 0
+  },
+  "parameters": {
+    "c_fraud_multiplier": 1.0,
+    "c_step_up_fixed": 0.5,
+    "false_block_fixed": 10.0,
+    "false_block_variable_pct": 0.05,
+    "step_up_fraud_catch_rate": 0.9
+  },
+  "policy_version": "0.1.0"
+}

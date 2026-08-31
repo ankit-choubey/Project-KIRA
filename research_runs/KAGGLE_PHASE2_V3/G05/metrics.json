@@ -1,0 +1,9 @@
+{
+  "git_commit_sha": "c10e358409a88659f0bd2623ed9ba1de24ffbeeb",
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "execution_backend": "CPU (NumPy vectorized)",
+  "real_topology_pr_auc": 0.0083,
+  "shuffled_topology_pr_auc": 0.0086,
+  "topology_uplift_delta": -0.0003,
+  "uplift_status": "UNCONFIRMED"
+}

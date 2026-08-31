@@ -1,0 +1,18 @@
+{
+  "arm": "arm_A",
+  "arm_name": "FULL_SCALE_TABULAR_REFERENCE",
+  "authoritative_baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "model_seed": 42,
+  "world_seed": 20260827,
+  "scale": "small",
+  "generated_at": "2026-08-31T11:49:55.837402+00:00",
+  "software_versions": {
+    "python": "3.12.13",
+    "platform": "Linux-6.12.90+-x86_64-with-glibc2.35",
+    "numpy": "2.0.2",
+    "polars": "1.35.2",
+    "lightgbm": "4.6.0",
+    "sklearn": "1.6.1",
+    "backend": "CPU (NumPy vectorized)"
+  }
+}

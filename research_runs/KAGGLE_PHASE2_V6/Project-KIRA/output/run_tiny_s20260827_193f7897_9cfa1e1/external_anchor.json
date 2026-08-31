@@ -1,0 +1,38 @@
+{
+  "authors": "Andrea Dal Pozzolo, Olivier Caelen, Reid A. Johnson, Gianluca Bontempi",
+  "comparability_limitations": "The external ULB benchmark uses anonymized PCA features derived from European cardholder data (2013). It is provided strictly as an independent external reality anchor. Performance on this benchmark does not imply identical real-world efficacy for KIRA's synthetic behavioral feature representation, and the external dataset is never used to train Blue or Red models.",
+  "conference": "IEEE Symposium Series on Computational Intelligence (SSCI / CIDM)",
+  "dataset_name": "Credit Card Fraud Detection Benchmark",
+  "doi": "10.1109/SSCI.2015.33",
+  "feature_representation": "28 PCA transformed components (V1-V28) + Time + Amount",
+  "fraud_count": 492,
+  "fraud_rate": 0.001727,
+  "metrics": {
+    "brier": 0.0018,
+    "decision_counts": {
+      "ALLOW": 284310,
+      "BLOCK": 102,
+      "STEP_UP": 395
+    },
+    "ece": 0.0042,
+    "fpr": 0.0003,
+    "latency_p50_ms": 2.15,
+    "latency_p95_ms": 4.8,
+    "latency_p99_ms": 8.3,
+    "pr_auc": 0.864,
+    "precision": 0.891,
+    "recall": 0.793,
+    "roc_auc": 0.982
+  },
+  "namespace": "REAL_WORLD",
+  "publication_title": "Calibrating Probability with Undersampling for Unbalanced Classification",
+  "publication_year": 2015,
+  "purpose": "Contextual validation and baseline anchor only",
+  "retrieval_date": "2026-08-30",
+  "source_organization": "ULB Machine Learning Group (Université Libre de Bruxelles)",
+  "temporal_span": "2 days (September 2013)",
+  "transaction_count": 284807,
+  "units": "Normalized probability, dimensionless performance ratios",
+  "url": "https://doi.org/10.1109/SSCI.2015.33",
+  "used_in_training": false
+}

@@ -1,0 +1,72 @@
+{
+  "burst_drain": {
+    "attempted": 2000,
+    "successful_evasions": 0,
+    "blocked": 2000,
+    "asr": 0.0,
+    "asr_ci_95": [
+      0.0,
+      0.0
+    ],
+    "median_query_count": 5.0,
+    "mean_perturbation_distance": null,
+    "median_perturbation_distance": null,
+    "min_perturbation_distance": null
+  },
+  "slow_siphon": {
+    "attempted": 2000,
+    "successful_evasions": 0,
+    "blocked": 2000,
+    "asr": 0.0,
+    "asr_ci_95": [
+      0.0,
+      0.0
+    ],
+    "median_query_count": 5.0,
+    "mean_perturbation_distance": null,
+    "median_perturbation_distance": null,
+    "min_perturbation_distance": null
+  },
+  "geo_hop": {
+    "attempted": 2000,
+    "successful_evasions": 600,
+    "blocked": 1400,
+    "asr": 0.3,
+    "asr_ci_95": [
+      0.28,
+      0.3205
+    ],
+    "median_query_count": 4.0,
+    "mean_perturbation_distance": 1.2042,
+    "median_perturbation_distance": 1.2032,
+    "min_perturbation_distance": 1.13
+  },
+  "agent_subversion": {
+    "attempted": 2000,
+    "successful_evasions": 0,
+    "blocked": 2000,
+    "asr": 0.0,
+    "asr_ci_95": [
+      0.0,
+      0.0
+    ],
+    "median_query_count": 5.0,
+    "mean_perturbation_distance": null,
+    "median_perturbation_distance": null,
+    "min_perturbation_distance": null
+  },
+  "cross_merchant_fanout": {
+    "attempted": 2000,
+    "successful_evasions": 0,
+    "blocked": 2000,
+    "asr": 0.0,
+    "asr_ci_95": [
+      0.0,
+      0.0
+    ],
+    "median_query_count": 5.0,
+    "mean_perturbation_distance": null,
+    "median_perturbation_distance": null,
+    "min_perturbation_distance": null
+  }
+}

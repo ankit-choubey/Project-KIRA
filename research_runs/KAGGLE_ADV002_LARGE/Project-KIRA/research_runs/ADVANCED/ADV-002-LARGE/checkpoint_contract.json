@@ -1,0 +1,27 @@
+{
+  "experiment_id": "ADV-002-LARGE",
+  "contract_version": "1.0.0",
+  "atomicity": {
+    "mechanism": "TEMPORARY_FILE_ATOMIC_RENAME",
+    "suffix": ".tmp",
+    "fsync_on_write": true
+  },
+  "persistence_structure": {
+    "run_root": "research_runs/ADVANCED/ADV-002-LARGE",
+    "campaigns_dir": "research_runs/ADVANCED/ADV-002-LARGE/campaigns",
+    "rounds_dir": "research_runs/ADVANCED/ADV-002-LARGE/rounds",
+    "attack_memory_adv002": "research_runs/ADVANCED/ADV-002-LARGE/attack_memory_adv002.jsonl",
+    "status_file": "research_runs/ADVANCED/ADV-002-LARGE/status.json",
+    "integrity_file": "research_runs/ADVANCED/ADV-002-LARGE/integrity.json"
+  },
+  "resumability_rules": {
+    "campaign_level": "On restart, storage.get_completed_campaign_ids() inspects completed campaigns in campaigns/ and skips completed campaign IDs.",
+    "attempt_level": "Attack IDs are strictly deterministic (atk_adv002_{campaign}_{round:03d}_{agent_id}) preventing ID collision or mutation.",
+    "memory_protection": "ADV-001 attack_memory.jsonl is ingested strictly in read mode ('r'); SHA-256 is verified pre- and post-run.",
+    "evidence_preservation": "Final artifacts (metrics.json, adaptation_metrics.json, evidence.md) are generated only upon full completion."
+  },
+  "failure_recovery": {
+    "interrupted_campaign": "If interrupted mid-campaign, the partial campaign file is not marked is_completed=True, allowing the scheduler to resume at the target transaction cleanly.",
+    "unhandled_exception_handling": "SwarmEvaluator catches individual attempt exceptions and logs terminal outcome='ERROR' with failure provenance rather than crashing the swarm loop."
+  }
+}

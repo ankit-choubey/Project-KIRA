@@ -1,0 +1,31 @@
+{
+  "status": "MEASURED_REAL_COMPARISON",
+  "sample_counts": {
+    "synthetic": 9348,
+    "real": 50000
+  },
+  "p1_interarrival": {
+    "synthetic_mean_dt_sec": 277.2514386683642,
+    "real_mean_dt_sec": 28.451609032180645,
+    "ratio": 9.7447,
+    "interpretation": "Synthetic events occur every 277.3s vs real 28.5s (ratio: 9.7447)"
+  },
+  "p2_burstiness": {
+    "synthetic_burstiness": -0.1033,
+    "real_burstiness": 0.0634,
+    "difference": -0.1667,
+    "interpretation": "Synthetic burstiness -0.1033 vs real 0.0634"
+  },
+  "p3_shared_entity_motifs": {
+    "shared_device": "NOT_COMPARABLE (Sparkov reference schema contains no client device telemetry column)",
+    "synthetic_shared_merchant_ratio": 1.0,
+    "real_shared_merchant_ratio": 1.0,
+    "shared_merchant_ratio": 1.0
+  },
+  "p4_velocity_triggers": {
+    "synthetic_trigger_rate": 0.063222,
+    "real_trigger_rate": 0.00314,
+    "ratio": 20.1344,
+    "threshold": "$1,000.00"
+  }
+}

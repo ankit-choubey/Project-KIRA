@@ -1,0 +1,65 @@
+{
+  "baseline_git_commit": "40997ab",
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "config_hash": "",
+  "end_time": "2026-08-31T11:53:45.745582+00:00",
+  "exception": null,
+  "experiment_id": "S03",
+  "git_commit": "ab721f9d464456cb6f936f3f9466c7975671a319",
+  "input_artifact_hashes": {
+    "baseline_provenance": "c6e7271840db64c20e32fb78b817879f7f485d0684c50ad93ba06dd29b35ca2d"
+  },
+  "metrics": {
+    "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+    "dataset_scale": "small",
+    "dataset_world_seed": 20260827,
+    "decision_classification": "LOW_SAMPLE",
+    "execution_backend": "CPU (NumPy vectorized)",
+    "git_commit_sha": "ab721f9d464456cb6f936f3f9466c7975671a319",
+    "model_seed": 20260827,
+    "world_c_zero_day": {
+      "asr_arm_a_baseline": null,
+      "asr_arm_c_fusion": null,
+      "confidence_interval_95": null,
+      "hidden_family_count_test": 0,
+      "hidden_family_count_train": 0,
+      "hidden_family_count_val": 0,
+      "hidden_zero_day_families": [
+        "agent_subversion",
+        "cross_merchant_fanout"
+      ],
+      "med": null,
+      "median_med": null,
+      "per_family_attack_count": {
+        "R1_ato": 299
+      },
+      "robustness_delta": null,
+      "sample_count": 0,
+      "status": "LOW_SAMPLE",
+      "total_attack_count": 299,
+      "training_families": [
+        "R1_ato",
+        "benign"
+      ],
+      "validation_families": [
+        "R1_ato",
+        "benign"
+      ]
+    }
+  },
+  "output_paths": [
+    "research_runs/PHASE2/S03/metrics.json"
+  ],
+  "output_sha256": {
+    "metrics.json": "1985887d3a5be8575696be6ee716f5dcda52e50de09724a8456ff00d907b0e1b"
+  },
+  "peak_gpu_mb": 0,
+  "peak_ram_mb": 0,
+  "run_id": "phase2_1788176761",
+  "runtime_sec": 135.260140201,
+  "seed": 20260827,
+  "stage_id": "S03",
+  "start_time": "1970-01-01T00:15:40.453799+00:00",
+  "status": "COMPLETED",
+  "termination_reason": null
+}

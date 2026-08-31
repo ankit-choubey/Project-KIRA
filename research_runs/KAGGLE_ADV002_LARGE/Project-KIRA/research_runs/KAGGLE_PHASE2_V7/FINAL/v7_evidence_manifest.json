@@ -1,0 +1,49 @@
+{
+  "run_id": "KAGGLE_PHASE2_V7",
+  "kaggle_kernel": "theankitchoubey/project-kira-phase2-mega-notebook",
+  "kaggle_version": 7,
+  "execution_timestamp": "2026-08-31T11:53:45.901Z",
+  "launch_git_sha": "ab721f9d464456cb6f936f3f9466c7975671a319",
+  "artifacts": {
+    "CLAIM_TRACEABILITY.md": {
+      "size_bytes": 4972,
+      "sha256": "78bb3b40e37144bc306044fc91a7f45d4705deab41a3e16bb35dcd4d24498fbd"
+    },
+    "FINAL_FORENSIC_AUDIT.json": {
+      "size_bytes": 8166,
+      "sha256": "e1db7dad0d965858b402ad85588bf3372d5b0de82cb3fb09fc40b5aa820f1f0c"
+    },
+    "FINAL_FORENSIC_AUDIT.md": {
+      "size_bytes": 7505,
+      "sha256": "3105eb9470061ceab7b37d0dc7fe400d914285d3fc94c6efe11b66e4d0444a53"
+    },
+    "S03_ROOT_CAUSE.md": {
+      "size_bytes": 3356,
+      "sha256": "16cbf93bb2d9d19e638bf1b8b8ffe0d3482dde41af57134013bc0a6477d4dd95"
+    },
+    "comparison_table.json": {
+      "size_bytes": 2112,
+      "sha256": "ea170554367dd2beed7e2ef2db47bc9bf456279dcf0f8f2ff34f51996524dbbc"
+    },
+    "evidence_report.md": {
+      "size_bytes": 1933,
+      "sha256": "1e7d1157f2dacff70824fc90f8fb261e4901097d5ec09242b5ecaa12e2150f3f"
+    },
+    "integrity.json": {
+      "size_bytes": 821,
+      "sha256": "069de12bc91d623e65ba61e48c27939ef9873a5d060007d30cc52d3ad2be9aa2"
+    },
+    "master_results.json": {
+      "size_bytes": 5135,
+      "sha256": "49b2280dcab45cfe4e3790bccb1415ee1f6488e596bed320772165a73c4fda89"
+    },
+    "provenance.json": {
+      "size_bytes": 667,
+      "sha256": "32298d6eda3bfe6da815ef2538de323b9f4adce63a52bcb95928ad949656e09b"
+    },
+    "runtime_report.json": {
+      "size_bytes": 1621,
+      "sha256": "2cc79ff421bca80f0c4bb624829ae7755881dcbea72b83333c439913494379ef"
+    }
+  }
+}

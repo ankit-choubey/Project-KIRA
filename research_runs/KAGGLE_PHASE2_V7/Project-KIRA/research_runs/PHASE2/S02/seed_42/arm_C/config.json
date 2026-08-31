@@ -1,0 +1,8 @@
+{
+  "arm": "arm_C",
+  "model_type": "CausalGraphTabularFusion",
+  "gnn_embed_dim": 16,
+  "fusion_input_dim": 41,
+  "model_seed": 42,
+  "world_seed": 20260827
+}

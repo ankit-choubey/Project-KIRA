@@ -6,6 +6,33 @@ Never write "done". Write what changed, what you ran, and what the gate said.
 
 ---
 
+## 2026-08-31 · Project KIRA Final Scientific Audit, Evidence Reconciliation & Repository Freeze · Antigravity
+
+**BLOCK:** Final Mile — Canonical Evidence Reconciliation, Full Verification Suite, and Repository Freeze.
+
+**DONE:**
+1. **Scientific Audit & Primary Evidence Extraction**:
+   - Built comprehensive inventory across all 24 experiments (`research_inventory.json`).
+   - Grounded every single reported number directly in verified on-disk JSON artifacts.
+   - Identified and resolved 6 historical metric conflicts with strict scope documentation (`conflict_audit.json`).
+   - Catalogued adversarial population semantics distinguishing synthetic attacks, swarms, and human actors (`adversarial_population_audit.json`).
+2. **Canonical Evidence Artifacts**:
+   - Generated `research_runs/ADVANCED/FINAL/` suite: `master_results.json`, `claims_registry.json`, `comparison_table.json`, `final_metrics.json`, `final_provenance.json`, `repository_final_audit.json`, `evidence_report.md`, and `FINAL_AUDIT.md`.
+   - Generated `docs/FINAL_SUBMISSION_MATRIX.md` with auditable claims and explicit limitations.
+3. **Comprehensive Invariant & Regression Verification**:
+   - Authoritative Baseline Audit (`tools/audit_authoritative_run.py`): **`22/22 PASS`** (0 missing, 0 mismatches).
+   - Full Pytest Suite: **`225 passed`** in 255s.
+   - Phase-2 Pre-Launch Smoke Suite: **`ALL 11 CHECKS PASSED`**.
+   - Frontend Production Build: **`built in 300ms`** (0 errors).
+   - Security / Secret Audit: **`0 keys or credentials committed`** (`PASS`).
+4. **Frozen State Guarantee**:
+   - Protected paths (`artifacts/run_tiny_s20260827_193f7897_40997ab/`, `src/mcdl/blue/`, `src/mcdl/red/`, `src/mcdl/features/`) remain 100% byte-for-byte intact.
+   - Final verdict: **`READY_FOR_SUBMISSION`**.
+
+**FILES:** `research_runs/ADVANCED/FINAL/*`, `docs/FINAL_SUBMISSION_MATRIX.md`, `brain/HANDOFF.md`.
+
+---
+
 ## 2026-08-31 · ADV-003 Adaptive Defense Curve Implementation · Antigravity
 
 **BLOCK:** Research Expansion — ADV-003 Closed-Loop Adaptive Defense Curve & Anti-Forgetting Evaluation.

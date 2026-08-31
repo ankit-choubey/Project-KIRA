@@ -1,0 +1,20 @@
+{
+  "experiment_id": "ADV-002-LARGE",
+  "name": "Stateful Adversarial Swarm — 5,000 Large-Scale Evaluation",
+  "scale": "large",
+  "n_targets": 10,
+  "rounds_per_campaign": 100,
+  "n_agents": 5,
+  "total_expected_attempts": 5000,
+  "base_seed": 20260831,
+  "default_mode": "adaptive_memory",
+  "available_modes": [
+    "adaptive_memory",
+    "static_control",
+    "memory_disabled"
+  ],
+  "blue_model_baseline": "run_tiny_s20260827_193f7897_40997ab",
+  "adv001_memory_source": "research_runs/ADVANCED/ADV-001/attack_memory.jsonl",
+  "output_directory": "research_runs/ADVANCED/ADV-002-LARGE",
+  "git_commit": "6c7a67f"
+}

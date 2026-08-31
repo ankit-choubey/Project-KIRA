@@ -1,0 +1,118 @@
+{
+  "artifact_count": 22,
+  "artifacts": {
+    "adaptation_cost.json": {
+      "schema_version": "0.1.0",
+      "sha256": "c3bc8f2f3514696fc320058a69692eebc59db8fdab4d6f3b0ff5ea4f723a5e9a",
+      "size_bytes": 749
+    },
+    "attack_summary.json": {
+      "schema_version": "0.1.0",
+      "sha256": "f60e379395d58399789f58ee94888d5100c8aa88b2e5a3269516682af0d8cff6",
+      "size_bytes": 3574
+    },
+    "blue_metrics.json": {
+      "schema_version": "0.1.0",
+      "sha256": "e4d27282b3f63dd0489b742842315d88e0f97477a7c6f0f720bec8ef6f030e0b",
+      "size_bytes": 276
+    },
+    "calibration.json": {
+      "schema_version": "0.1.0",
+      "sha256": "76bc8714315862399b8deeb1961412cd07eb56f453f530d448dd53c57ae9c101",
+      "size_bytes": 129
+    },
+    "coevolution_metrics.json": {
+      "schema_version": "0.1.0",
+      "sha256": "6411beb3a0d6c00466ea3f7348083bf64e9caae9bf38027d9b7fc63383a827f9",
+      "size_bytes": 5427
+    },
+    "decisions.json": {
+      "schema_version": "0.1.0",
+      "sha256": "84c3a260190a4ba46fc5a7d6b48ddd8266e9b8c3c75ec9d237621d5789764715",
+      "size_bytes": 3363990
+    },
+    "evaluation.json": {
+      "schema_version": "0.1.0",
+      "sha256": "680cf4221942d8a5a8e3a5e0c3fe3818d9ef2186de0c2d68bf984ce9a6e696e9",
+      "size_bytes": 10756
+    },
+    "evidence_pack.md": {
+      "schema_version": "0.1.0",
+      "sha256": "3f112a0080d411902d491bc212de86c63ffa0e4cf4018ce5869203e6355bfb42",
+      "size_bytes": 3694
+    },
+    "experiment_register.json": {
+      "schema_version": "0.1.0",
+      "sha256": "cb044c87e39658a0bbeb9cfe4e9b460371c92e11a8f803295e4037e489d19ba8",
+      "size_bytes": 6138
+    },
+    "external_anchor.json": {
+      "schema_version": "0.1.0",
+      "sha256": "926b0c54ac4795ed89726765c5bb427f980ec83c2b571adefc98a52f5437ca92",
+      "size_bytes": 1713
+    },
+    "failures.json": {
+      "schema_version": "0.1.0",
+      "sha256": "8b96e8fe4a0b4bb8226697178ac6409fc7bc722a0d24878852f20d1b583826c2",
+      "size_bytes": 786966
+    },
+    "feature_schema.json": {
+      "schema_version": "0.1.0",
+      "sha256": "31db82c6ab462cd94e64c814a6fe397a0244d1b7312b9d0e3ec4c2419dcae8f2",
+      "size_bytes": 14773
+    },
+    "manifest.json": {
+      "schema_version": "0.1.0",
+      "sha256": "164742d55a84577a6a6c5db855181a25965a029bafa58250990e2fdc3e62d76f",
+      "size_bytes": 853
+    },
+    "policy_metrics.json": {
+      "schema_version": "0.1.0",
+      "sha256": "a49ecef0877696f1afd3cb4f0603490023b64c058d2437a2ec705b53c733cbde",
+      "size_bytes": 304
+    },
+    "promotion_history.json": {
+      "schema_version": "0.1.0",
+      "sha256": "7d5bd9bdf500a56ca1d862027140350b29506fb6cbefe446560efdf8ce38dfec",
+      "size_bytes": 3266
+    },
+    "red_metrics.json": {
+      "schema_version": "0.1.0",
+      "sha256": "644192cc9e903b3ebdaddc9835a540974e748ce74b6b43e6565b592f28e6fab8",
+      "size_bytes": 255
+    },
+    "sample_transactions.json": {
+      "schema_version": "0.1.0",
+      "sha256": "a5e74ad7e700db9f3572a2c049a2da7d089eefdb73324587102566a690f46851",
+      "size_bytes": 23349
+    },
+    "scoreboard.json": {
+      "schema_version": "0.1.0",
+      "sha256": "b98c1902342329e3889622c97e45af9c4d547f8eb027f32f0b7e4a80de85f7f2",
+      "size_bytes": 1732
+    },
+    "three_world_evaluation.json": {
+      "schema_version": "0.1.0",
+      "sha256": "c6ffdff7a6497d1118f61ba8dbfb51a89f820656fe2e4b6bebf4f5c2bcc6d788",
+      "size_bytes": 655
+    },
+    "transactions.json": {
+      "schema_version": "0.1.0",
+      "sha256": "4249920e62a18beb22557d2e7858d0b8301f8397d1019ebb344d1ea265f4965b",
+      "size_bytes": 6115789
+    },
+    "weakness_profile.json": {
+      "schema_version": "0.1.0",
+      "sha256": "29f2ad204b012ee772544b862cb6d174dd514211f28b31330df96d8850730757",
+      "size_bytes": 1818
+    },
+    "world_summary.json": {
+      "schema_version": "0.1.0",
+      "sha256": "9ff5bf701d116832faba11a17c01c6ae31a44042288b4c768769a9b5ec9ce175",
+      "size_bytes": 222
+    }
+  },
+  "generated_at": "2026-08-31T01:24:02.865408",
+  "run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "schema_version": "0.1.0"
+}

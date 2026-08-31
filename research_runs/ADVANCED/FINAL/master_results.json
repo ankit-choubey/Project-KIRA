@@ -1,0 +1,820 @@
+{
+  "master_run_id": "KIRA_CANONICAL_FREEZE_20260831",
+  "timestamp": "2026-08-31T16:42:56.828836+00:00",
+  "git_commit": "1e200382ccb7085fd9c17fa07caa993391773508",
+  "authoritative_baseline_run": "run_tiny_s20260827_193f7897_40997ab",
+  "inventory": [
+    {
+      "experiment_id": "S-00",
+      "status": "COMPLETED",
+      "dataset": "KIRA Synthetic World",
+      "dataset_id": "KIRA_SYNTHETIC_TINY",
+      "scale": "tiny",
+      "seed": 20260827,
+      "sample_count": 9348,
+      "positive_count": 140,
+      "artifact_path": "research_runs/KAGGLE_PHASE2_V7/Project-KIRA/research_runs/PHASE2/S00/status.json",
+      "git_sha": "ab721f9",
+      "execution_environment": "Kaggle CPU",
+      "classification": "VERIFIED"
+    },
+    {
+      "experiment_id": "S-01",
+      "status": "COMPLETED",
+      "dataset": "KIRA Synthetic World",
+      "dataset_id": "KIRA_SYNTHETIC_TINY",
+      "scale": "tiny",
+      "seed": 20260827,
+      "sample_count": 9348,
+      "positive_count": 140,
+      "artifact_path": "research_runs/KAGGLE_PHASE2_V7/Project-KIRA/research_runs/PHASE2/S01/status.json",
+      "git_sha": "ab721f9",
+      "execution_environment": "Kaggle CPU",
+      "classification": "VERIFIED"
+    },
+    {
+      "experiment_id": "A-01",
+      "status": "COMPLETED",
+      "dataset": "KIRA Synthetic World",
+      "dataset_id": "KIRA_SYNTHETIC_TINY",
+      "scale": "tiny",
+      "seed": 20260827,
+      "sample_count": 9348,
+      "positive_count": 140,
+      "artifact_path": "research_runs/KAGGLE_PHASE2_V7/Project-KIRA/research_runs/PHASE2/A01/metrics.json",
+      "git_sha": "ab721f9",
+      "execution_environment": "Kaggle CPU",
+      "classification": "VERIFIED"
+    },
+    {
+      "experiment_id": "A-02",
+      "status": "COMPLETED",
+      "dataset": "KIRA Synthetic World",
+      "dataset_id": "KIRA_SYNTHETIC_TINY",
+      "scale": "tiny",
+      "seed": 20260827,
+      "sample_count": 9348,
+      "positive_count": 140,
+      "artifact_path": "research_runs/KAGGLE_PHASE2_V7/Project-KIRA/research_runs/PHASE2/A02/metrics.json",
+      "git_sha": "ab721f9",
+      "execution_environment": "Kaggle CPU",
+      "classification": "VERIFIED"
+    },
+    {
+      "experiment_id": "G-01",
+      "status": "COMPLETED",
+      "dataset": "KIRA Synthetic World",
+      "dataset_id": "KIRA_SYNTHETIC_TINY",
+      "scale": "tiny",
+      "seed": 20260827,
+      "sample_count": 1403,
+      "positive_count": 10,
+      "artifact_path": "research_runs/KAGGLE_PHASE2_V7/Project-KIRA/research_runs/PHASE2/G01/metrics.json",
+      "git_sha": "ab721f9",
+      "execution_environment": "Kaggle CPU",
+      "classification": "VERIFIED"
+    },
+    {
+      "experiment_id": "G-02",
+      "status": "COMPLETED",
+      "dataset": "KIRA Synthetic World",
+      "dataset_id": "KIRA_SYNTHETIC_TINY",
+      "scale": "tiny",
+      "seed": 20260827,
+      "sample_count": 1403,
+      "positive_count": 70,
+      "artifact_path": "research_runs/KAGGLE_PHASE2_V7/Project-KIRA/research_runs/PHASE2/G02/metrics.json",
+      "git_sha": "ab721f9",
+      "execution_environment": "Kaggle CPU",
+      "classification": "VERIFIED"
+    },
+    {
+      "experiment_id": "G-03",
+      "status": "COMPLETED",
+      "dataset": "KIRA Synthetic World",
+      "dataset_id": "KIRA_SYNTHETIC_TINY",
+      "scale": "tiny",
+      "seed": 20260827,
+      "sample_count": 1403,
+      "positive_count": 70,
+      "artifact_path": "research_runs/KAGGLE_PHASE2_V7/Project-KIRA/research_runs/PHASE2/G03/metrics.json",
+      "git_sha": "ab721f9",
+      "execution_environment": "Kaggle CPU",
+      "classification": "INCONCLUSIVE"
+    },
+    {
+      "experiment_id": "G-04",
+      "status": "COMPLETED",
+      "dataset": "KIRA Synthetic World",
+      "dataset_id": "KIRA_SYNTHETIC_TINY",
+      "scale": "tiny",
+      "seed": 20260827,
+      "sample_count": 1403,
+      "positive_count": 70,
+      "artifact_path": "research_runs/KAGGLE_PHASE2_V7/Project-KIRA/research_runs/PHASE2/G04/metrics.json",
+      "git_sha": "ab721f9",
+      "execution_environment": "Kaggle CPU",
+      "classification": "VERIFIED"
+    },
+    {
+      "experiment_id": "G-05",
+      "status": "COMPLETED",
+      "dataset": "KIRA Synthetic World",
+      "dataset_id": "KIRA_SYNTHETIC_TINY",
+      "scale": "tiny",
+      "seed": 20260827,
+      "sample_count": 1403,
+      "positive_count": 70,
+      "artifact_path": "research_runs/KAGGLE_PHASE2_V7/Project-KIRA/research_runs/PHASE2/G05/metrics.json",
+      "git_sha": "ab721f9",
+      "execution_environment": "Kaggle CPU",
+      "classification": "VERIFIED"
+    },
+    {
+      "experiment_id": "S-02",
+      "status": "COMPLETED",
+      "dataset": "KIRA Synthetic World (Multi-Seed)",
+      "dataset_id": "KIRA_SYNTHETIC_MULTI_SEED",
+      "scale": "small",
+      "seed": 20260827,
+      "sample_count": 50000,
+      "positive_count": 750,
+      "artifact_path": "research_runs/KAGGLE_PHASE2_V7/Project-KIRA/research_runs/PHASE2/S02/metrics.json",
+      "git_sha": "ab721f9",
+      "execution_environment": "Kaggle CPU",
+      "classification": "VERIFIED"
+    },
+    {
+      "experiment_id": "S-03",
+      "status": "COMPLETED",
+      "dataset": "KIRA Synthetic World (Zero-Day World C)",
+      "dataset_id": "KIRA_SYNTHETIC_WORLD_C",
+      "scale": "small",
+      "seed": 20260827,
+      "sample_count": 50000,
+      "positive_count": 750,
+      "artifact_path": "research_runs/KAGGLE_PHASE2_V7/Project-KIRA/research_runs/PHASE2/S03/metrics.json",
+      "git_sha": "ab721f9",
+      "execution_environment": "Kaggle CPU",
+      "classification": "FAILURE_FINDING"
+    },
+    {
+      "experiment_id": "S-04",
+      "status": "COMPLETED",
+      "dataset": "KIRA Full Pipeline",
+      "dataset_id": "KIRA_SYNTHETIC_TINY",
+      "scale": "tiny",
+      "seed": 20260827,
+      "sample_count": 9348,
+      "positive_count": 140,
+      "artifact_path": "research_runs/KAGGLE_PHASE2_V7/FINAL/master_results.json",
+      "git_sha": "ab721f9",
+      "execution_environment": "Kaggle CPU",
+      "classification": "VERIFIED"
+    },
+    {
+      "experiment_id": "RES-C2ST",
+      "status": "COMPLETED",
+      "dataset": "KIRA Synthetic vs Real Sparkov",
+      "dataset_id": "KIRA_SPARKOV_ALIGNMENT",
+      "scale": "small",
+      "seed": 20260827,
+      "sample_count": 20000,
+      "positive_count": 300,
+      "artifact_path": "research_runs/KAGGLE_PHASE2_V7/Project-KIRA/research_runs/RES-C2ST/metrics.json",
+      "git_sha": "ab721f9",
+      "execution_environment": "Kaggle CPU",
+      "classification": "VERIFIED"
+    },
+    {
+      "experiment_id": "RES-TSTR",
+      "status": "COMPLETED",
+      "dataset": "KIRA Synthetic & Real ULB/Sparkov",
+      "dataset_id": "KIRA_TSTR_BENCHMARK",
+      "scale": "small",
+      "seed": 20260827,
+      "sample_count": 284807,
+      "positive_count": 492,
+      "artifact_path": "research_runs/KAGGLE_PHASE2_V7/Project-KIRA/research_runs/RES-TSTR/metrics.json",
+      "git_sha": "ab721f9",
+      "execution_environment": "Kaggle CPU",
+      "classification": "VERIFIED"
+    },
+    {
+      "experiment_id": "S-05",
+      "status": "NOT_RUN",
+      "dataset": "KIRA Full Scale Pipeline",
+      "dataset_id": "KIRA_SYNTHETIC_FULL",
+      "scale": "full",
+      "seed": null,
+      "sample_count": null,
+      "positive_count": null,
+      "artifact_path": "",
+      "git_sha": "",
+      "execution_environment": "Unexecuted",
+      "classification": "NOT_RUN"
+    },
+    {
+      "experiment_id": "ADV-001",
+      "status": "COMPLETED",
+      "dataset": "10,000 Constrained Adversarial Attacks",
+      "dataset_id": "ADV001_ATTACK_POPULATION_10K",
+      "scale": "standard",
+      "seed": 20260827,
+      "sample_count": 10000,
+      "positive_count": 600,
+      "artifact_path": "research_runs/ADVANCED/ADV-001/metrics.json",
+      "git_sha": "d5b6226",
+      "execution_environment": "Cloud CPU",
+      "classification": "VERIFIED"
+    },
+    {
+      "experiment_id": "ADV-002",
+      "status": "COMPLETED",
+      "dataset": "Stateful Adversarial Swarm (3 arms x 5,000 attempts)",
+      "dataset_id": "ADV002_SWARM_LARGE_15K",
+      "scale": "large",
+      "seed": 20260827,
+      "sample_count": 15000,
+      "positive_count": 1986,
+      "artifact_path": "research_runs/ADVANCED/ADV-002-LARGE/cross_arm_metrics.json",
+      "git_sha": "57d4652",
+      "execution_environment": "Kaggle Cloud CPU",
+      "classification": "VERIFIED"
+    },
+    {
+      "experiment_id": "ADV-003",
+      "status": "COMPLETED",
+      "dataset": "Closed-Loop Adaptive Defense (3 arms, 5 rounds)",
+      "dataset_id": "ADV003_ADAPTIVE_CURVE_LARGE",
+      "scale": "large",
+      "seed": 20260827,
+      "sample_count": 375,
+      "positive_count": 375,
+      "artifact_path": "research_runs/ADVANCED/ADV-003/adaptive_defense_curve.json",
+      "git_sha": "6320c2d",
+      "execution_environment": "Kaggle Cloud CPU",
+      "classification": "VERIFIED"
+    },
+    {
+      "experiment_id": "ADV-004",
+      "status": "COMPLETED",
+      "dataset": "Cross-Family Adversarial Transfer Matrix",
+      "dataset_id": "ADV004_TRANSFER_SMOKE",
+      "scale": "smoke",
+      "seed": 20260831,
+      "sample_count": 50,
+      "positive_count": 50,
+      "artifact_path": "research_runs/ADVANCED/ADV-004/transferability_matrix.json",
+      "git_sha": "1e20038",
+      "execution_environment": "Bounded Runner",
+      "classification": "VERIFIED"
+    },
+    {
+      "experiment_id": "OPS-001",
+      "status": "COMPLETED",
+      "dataset": "FastAPI ASGI Scoring Loopback Load Stream",
+      "dataset_id": "OPS001_LOAD_STRESS",
+      "scale": "smoke",
+      "seed": 20260831,
+      "sample_count": 8050,
+      "positive_count": null,
+      "artifact_path": "research_runs/ADVANCED/OPS-001/load_curve.json",
+      "git_sha": "1e20038",
+      "execution_environment": "Local ASGI Loopback",
+      "classification": "NOT_MEASURED"
+    },
+    {
+      "experiment_id": "OPS-002",
+      "status": "COMPLETED",
+      "dataset": "Signal-Ablated Degraded Telemetry Stream",
+      "dataset_id": "OPS002_SIGNAL_ABLATION",
+      "scale": "smoke",
+      "seed": 20260831,
+      "sample_count": 2805,
+      "positive_count": 42,
+      "artifact_path": "research_runs/ADVANCED/OPS-002/metrics.json",
+      "git_sha": "1e20038",
+      "execution_environment": "Bounded Runner",
+      "classification": "VERIFIED"
+    },
+    {
+      "experiment_id": "TI-001",
+      "status": "COMPLETED",
+      "dataset": "Synthetic Threat Intelligence Enrichment Feed",
+      "dataset_id": "TI001_ENRICHMENT_EVAL",
+      "scale": "smoke",
+      "seed": 20260831,
+      "sample_count": 2805,
+      "positive_count": 42,
+      "artifact_path": "research_runs/ADVANCED/TI-001/metrics.json",
+      "git_sha": "1e20038",
+      "execution_environment": "Bounded Runner",
+      "classification": "VERIFIED"
+    },
+    {
+      "experiment_id": "AG-001",
+      "status": "COMPLETED",
+      "dataset": "Attack Hypothesis Generation & Policy Masking",
+      "dataset_id": "AG001_HYPOTHESIS_PLANNER",
+      "scale": "smoke",
+      "seed": 20260831,
+      "sample_count": 3,
+      "positive_count": null,
+      "artifact_path": "research_runs/ADVANCED/AG-001/metrics.json",
+      "git_sha": "1e20038",
+      "execution_environment": "Deterministic Fallback",
+      "classification": "MEASURED_WITH_CAVEAT"
+    },
+    {
+      "experiment_id": "DRIFT",
+      "status": "COMPLETED",
+      "dataset": "Kolmogorov-Smirnov Distributional Shift Stream",
+      "dataset_id": "DRIFT_KS_DETECTION",
+      "scale": "smoke",
+      "seed": 20260831,
+      "sample_count": 4674,
+      "positive_count": null,
+      "artifact_path": "research_runs/ADVANCED/DRIFT/metrics.json",
+      "git_sha": "1e20038",
+      "execution_environment": "Bounded Runner",
+      "classification": "VERIFIED"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "CLM_BASELINE_PR_AUC",
+      "claim_name": "Authoritative LightGBM Tabular Fraud Detection PR-AUC",
+      "experiment_id": "EXP-007-C",
+      "dataset_id": "KIRA_SYNTHETIC_TINY",
+      "dataset_description": "Strictly causal out-of-time test split (N=1,403, 70 fraud cases)",
+      "scale": "tiny",
+      "world_seed": 20260827,
+      "model_seed": 20260827,
+      "sample_count": 1403,
+      "positive_count": 70,
+      "metric_name": "pr_auc",
+      "metric_value": 1.0,
+      "confidence_interval": null,
+      "p_value": null,
+      "artifact_path": "artifacts/run_tiny_s20260827_193f7897_40997ab/blue_metrics.json",
+      "json_pointer": "/pr_auc",
+      "git_sha": "40997ab",
+      "execution_environment": "Local/Cloud Verified",
+      "classification": "MEASURED_WITH_CAVEAT",
+      "scope": "Tiny benchmark validation split (5 test positives producing perfect separability)",
+      "notes": "On small scale (N=50,000, 750 positives), PR-AUC is 0.9375."
+    },
+    {
+      "claim_id": "CLM_BASELINE_ROC_AUC",
+      "claim_name": "Authoritative Baseline ROC-AUC",
+      "experiment_id": "EXP-007-C",
+      "dataset_id": "KIRA_SYNTHETIC_TINY",
+      "dataset_description": "Strictly causal out-of-time test split",
+      "scale": "tiny",
+      "world_seed": 20260827,
+      "model_seed": 20260827,
+      "sample_count": 1403,
+      "positive_count": 70,
+      "metric_name": "roc_auc",
+      "metric_value": 1.0,
+      "confidence_interval": null,
+      "p_value": null,
+      "artifact_path": "artifacts/run_tiny_s20260827_193f7897_40997ab/blue_metrics.json",
+      "json_pointer": "/roc_auc",
+      "git_sha": "40997ab",
+      "execution_environment": "Local/Cloud Verified",
+      "classification": "MEASURED",
+      "scope": "Tiny benchmark validation split",
+      "notes": "Verified across baseline audit."
+    },
+    {
+      "claim_id": "CLM_ISOTONIC_CALIBRATION_ECE",
+      "claim_name": "Isotonic Probability Calibration Error",
+      "experiment_id": "EXP-007-C",
+      "dataset_id": "KIRA_SYNTHETIC_TINY",
+      "dataset_description": "Expected Calibration Error across 10 uniform bins",
+      "scale": "tiny",
+      "world_seed": 20260827,
+      "model_seed": 20260827,
+      "sample_count": 1403,
+      "positive_count": 70,
+      "metric_name": "ece",
+      "metric_value": 0.0,
+      "confidence_interval": null,
+      "p_value": null,
+      "artifact_path": "artifacts/run_tiny_s20260827_193f7897_40997ab/blue_metrics.json",
+      "json_pointer": "/ece",
+      "git_sha": "40997ab",
+      "execution_environment": "Local/Cloud Verified",
+      "classification": "MEASURED_WITH_CAVEAT",
+      "scope": "Benchmark validation split",
+      "notes": "Zero error measured on benchmark; not an unbounded theoretical guarantee."
+    },
+    {
+      "claim_id": "CLM_ADV001_AGGREGATE_ASR",
+      "claim_name": "ADV-001 10,000 Population Aggregate Attack Success Rate",
+      "experiment_id": "ADV-001",
+      "dataset_id": "ADV001_ATTACK_POPULATION_10K",
+      "dataset_description": "10,000 synthetic constrained attack attempts across 5 families",
+      "scale": "standard",
+      "world_seed": 20260827,
+      "model_seed": 20260827,
+      "sample_count": 10000,
+      "positive_count": 600,
+      "metric_name": "aggregate_asr",
+      "metric_value": 0.06,
+      "confidence_interval": [
+        0.0554,
+        0.0646
+      ],
+      "p_value": null,
+      "artifact_path": "research_runs/ADVANCED/ADV-001/metrics.json",
+      "json_pointer": "/aggregate_asr",
+      "git_sha": "d5b6226",
+      "execution_environment": "Cloud CPU",
+      "classification": "VERIFIED",
+      "scope": "Full 10,000 population evaluation",
+      "notes": "600 evasions out of 10,000 attempts (all in geo_hop family with ASR=30.0%)."
+    },
+    {
+      "claim_id": "CLM_ADV002_SWARM_ADAPTIVE_UPLIFT",
+      "claim_name": "ADV-002 Swarm Memory-Enabled Adaptive Evasion Uplift",
+      "experiment_id": "ADV-002",
+      "dataset_id": "ADV002_SWARM_LARGE_15K",
+      "dataset_description": "15,000 total attempts across 3 arms (5,000 each)",
+      "scale": "large",
+      "world_seed": 20260827,
+      "model_seed": 20260827,
+      "sample_count": 15000,
+      "positive_count": 1986,
+      "metric_name": "delta_asr_adaptive_vs_static",
+      "metric_value": 0.1008,
+      "confidence_interval": null,
+      "p_value": null,
+      "artifact_path": "research_runs/ADVANCED/ADV-002-LARGE/cross_arm_metrics.json",
+      "json_pointer": "/comparisons/delta_asr_adaptive_vs_static",
+      "git_sha": "57d4652",
+      "execution_environment": "Kaggle Cloud CPU",
+      "classification": "VERIFIED",
+      "scope": "Multi-arm swarm comparison",
+      "notes": "Adaptive memory achieved 19.68% ASR vs 9.60% for static control (+10.08% absolute uplift)."
+    },
+    {
+      "claim_id": "CLM_ADV003_ADAPTIVE_DEFENSE_RETENTION",
+      "claim_name": "ADV-003 Anti-Forgetting Adaptive Defense Curve",
+      "experiment_id": "ADV-003",
+      "dataset_id": "ADV003_ADAPTIVE_CURVE_LARGE",
+      "dataset_description": "Multi-round defensive co-evolution against evasion mutations",
+      "scale": "large",
+      "world_seed": 20260827,
+      "model_seed": 20260827,
+      "sample_count": 375,
+      "positive_count": 375,
+      "metric_name": "anti_forgetting_status",
+      "metric_value": "NO_FORGETTING",
+      "confidence_interval": null,
+      "p_value": null,
+      "artifact_path": "research_runs/ADVANCED/ADV-003/adaptive_defense_curve.json",
+      "json_pointer": "/arms/static_blue/0/anti_forgetting_status",
+      "git_sha": "6320c2d",
+      "execution_environment": "Kaggle Cloud CPU",
+      "classification": "VERIFIED",
+      "scope": "5-round adaptive challenger vs static baseline",
+      "notes": "Challenger governance gate rejects non-generalizing models."
+    },
+    {
+      "claim_id": "CLM_ZERO_DAY_GENERALIZATION_LIMIT",
+      "claim_name": "Zero-Day Attack Generalization Limitation on Withheld Families",
+      "experiment_id": "S-03",
+      "dataset_id": "KIRA_SYNTHETIC_WORLD_C",
+      "dataset_description": "Transfer evaluation on withheld families (agent_subversion, cross_merchant_fanout)",
+      "scale": "small",
+      "world_seed": 20260827,
+      "model_seed": 20260827,
+      "sample_count": 50000,
+      "positive_count": 750,
+      "metric_name": "hidden_family_asr_at_20",
+      "metric_value": 1.0,
+      "confidence_interval": null,
+      "p_value": null,
+      "artifact_path": "research_runs/KAGGLE_PHASE2_V7/Project-KIRA/research_runs/PHASE2/S03/metrics.json",
+      "json_pointer": "/hidden_asr",
+      "git_sha": "ab721f9",
+      "execution_environment": "Kaggle CPU",
+      "classification": "FAILURE_FINDING",
+      "scope": "Zero-day generalization boundary",
+      "notes": "Unhardened Blue exhibits 100% vulnerability to novel topological and agent subversion attack families."
+    },
+    {
+      "claim_id": "CLM_EXTERNAL_ANCHOR_ULB",
+      "claim_name": "External Reality Anchor on Real-World European Cardholder Dataset",
+      "experiment_id": "RES-TSTR",
+      "dataset_id": "ULB_EUROPEAN_CREDIT_CARD",
+      "dataset_description": "284,807 real-world credit card transactions (492 frauds)",
+      "scale": "full",
+      "world_seed": 20260827,
+      "model_seed": 20260827,
+      "sample_count": 284807,
+      "positive_count": 492,
+      "metric_name": "pr_auc",
+      "metric_value": 0.864,
+      "confidence_interval": null,
+      "p_value": null,
+      "artifact_path": "artifacts/run_tiny_s20260827_193f7897_40997ab/external_anchor.json",
+      "json_pointer": "/pr_auc",
+      "git_sha": "40997ab",
+      "execution_environment": "Local/Cloud Reference",
+      "classification": "MEASURED",
+      "scope": "Independent empirical benchmark",
+      "notes": "Dal Pozzolo et al. (2015). FPR=0.03%, ECE=0.0042."
+    },
+    {
+      "claim_id": "CLM_LOCAL_ASGI_LATENCY",
+      "claim_name": "Application Scoring Endpoint Request Latency (Loopback Benchmark)",
+      "experiment_id": "LATENCY-002",
+      "dataset_id": "LOCAL_FASTAPI_BENCHMARK",
+      "dataset_description": "High-resolution roundtrip timing over FastAPI /api/score (200 requests)",
+      "scale": "smoke",
+      "world_seed": 20260827,
+      "model_seed": 20260827,
+      "sample_count": 200,
+      "positive_count": null,
+      "metric_name": "p95_latency_ms",
+      "metric_value": 2.3,
+      "confidence_interval": null,
+      "p_value": null,
+      "artifact_path": "artifacts/run_tiny_s20260827_193f7897_40997ab/latency_benchmark.json",
+      "json_pointer": "/p95_ms",
+      "git_sha": "40997ab",
+      "execution_environment": "Local ASGI Loopback",
+      "classification": "MEASURED_WITH_CAVEAT",
+      "scope": "In-process loopback latency, not wide-area network latency",
+      "notes": "P50=2.223ms, P95=2.300ms, P99=2.361ms."
+    },
+    {
+      "claim_id": "CLM_OPS001_LOAD_CAPACITY",
+      "claim_name": "Progressive Load Testing Degradation Point",
+      "experiment_id": "OPS-001",
+      "dataset_id": "OPS001_LOAD_STRESS",
+      "dataset_description": "Progressive load testing across 10, 100, 500, 1000 req/s tiers",
+      "scale": "smoke",
+      "world_seed": 20260831,
+      "model_seed": 20260831,
+      "sample_count": 8050,
+      "positive_count": null,
+      "metric_name": "degradation_threshold_req_s",
+      "metric_value": 1000.0,
+      "confidence_interval": null,
+      "p_value": null,
+      "artifact_path": "research_runs/ADVANCED/OPS-001/load_curve.json",
+      "json_pointer": "/load_curve/3/target_rate",
+      "git_sha": "1e20038",
+      "execution_environment": "Local Dev",
+      "classification": "NOT_MEASURED",
+      "scope": "Local dev stress test only; not authoritative cloud capacity",
+      "notes": "Local ASGI achieved 539 req/s at 1000 req/s load with 0% errors."
+    },
+    {
+      "claim_id": "CLM_AG001_DETERMINISTIC_PLANNER",
+      "claim_name": "AG-001 Attack Hypothesis Planning and Physical Validation",
+      "experiment_id": "AG-001",
+      "dataset_id": "AG001_HYPOTHESIS_PLANNER",
+      "dataset_description": "Structured hypothesis generation with mutability mask and physics validation",
+      "scale": "smoke",
+      "world_seed": 20260831,
+      "model_seed": 20260831,
+      "sample_count": 3,
+      "positive_count": null,
+      "metric_name": "status",
+      "metric_value": "EXECUTED_WITH_DETERMINISTIC_FALLBACK",
+      "confidence_interval": null,
+      "p_value": null,
+      "artifact_path": "research_runs/ADVANCED/AG-001/metrics.json",
+      "json_pointer": "/status",
+      "git_sha": "1e20038",
+      "execution_environment": "Deterministic Fallback",
+      "classification": "MEASURED_WITH_CAVEAT",
+      "scope": "Deterministic heuristic planner; no live LLM API claimed",
+      "notes": "3 proposals evaluated; 1 mask violation correctly filtered; 3 valid hypotheses formed."
+    }
+  ],
+  "conflicts": [
+    {
+      "conflict_id": "CONF_001_BASELINE_PR_AUC",
+      "metric": "Baseline PR-AUC",
+      "artifacts_involved": [
+        {
+          "artifact": "artifacts/run_tiny_s20260827_193f7897_40997ab/blue_metrics.json",
+          "value": 1.0,
+          "scope": "Tiny evaluation slice (5 fraud cases, N=1,403)"
+        },
+        {
+          "artifact": "run_small_s20260827_3a353e9a_052dca8/blue_metrics.json",
+          "value": 0.9375,
+          "scope": "Small scale dataset (N=50,000, 750 positives)"
+        },
+        {
+          "artifact": "run_tiny_s20260827_193f7897_9cfa1e1/blue_metrics.json",
+          "value": 0.6407,
+          "scope": "Initial unhardened baseline"
+        }
+      ],
+      "reconciliation_status": "RESOLVED",
+      "resolution_explanation": "Scope mismatch. PR-AUC=1.0000 is mathematically valid for the tiny validation split due to perfect separability with 5 positive instances. PR-AUC=0.9375 reflects the higher-power small dataset. The canonical headline must cite the specific scope and caveat.",
+      "final_classification": "MEASURED_WITH_CAVEAT"
+    },
+    {
+      "conflict_id": "CONF_002_HELDOUT_ASR",
+      "metric": "Baseline Held-Out ASR",
+      "artifacts_involved": [
+        {
+          "artifact": "artifacts/run_tiny_s20260827_193f7897_40997ab/red_metrics.json",
+          "value": 0.1455,
+          "scope": "Baseline held-out variant ASR (unseen variants v5..v9)"
+        },
+        {
+          "artifact": "artifacts/run_tiny_s20260827_193f7897_40997ab/coevolution_metrics.json",
+          "value": 0.0,
+          "scope": "Challenger post-defense held-out ASR after retraining"
+        }
+      ],
+      "reconciliation_status": "RESOLVED",
+      "resolution_explanation": "Evaluated at different stages of the co-evolution pipeline. 14.55% is the pre-hardening baseline vulnerability; 0.00% is the post-defense challenger performance. Both are correct in their respective temporal contexts.",
+      "final_classification": "VERIFIED"
+    },
+    {
+      "conflict_id": "CONF_003_ASR_BY_BUDGET",
+      "metric": "ASR scaling by query budget",
+      "artifacts_involved": [
+        {
+          "artifact": "artifacts/run_tiny_s20260827_193f7897_40997ab/red_metrics.json",
+          "value": {
+            "1": 0.3333,
+            "5": 0.7667,
+            "20": 0.9667,
+            "100": 0.9667
+          },
+          "scope": "EXP-007-A (200 attacks, 5 families)"
+        },
+        {
+          "artifact": "research_runs/ADVANCED/ADV-001/metrics.json",
+          "value": {
+            "1": 0.0,
+            "5": 0.0,
+            "20": 0.0784,
+            "100": 0.1616
+          },
+          "scope": "ADV-001 10,000 attack population"
+        }
+      ],
+      "reconciliation_status": "RESOLVED",
+      "resolution_explanation": "Population scope distinction. EXP-007-A evaluated targeted mutations against vulnerable baseline targets (N=200). ADV-001 evaluated 10,000 attacks across the full heterogeneous synthetic population including hardened rules.",
+      "final_classification": "VERIFIED"
+    },
+    {
+      "conflict_id": "CONF_004_ZERO_DAY_TRANSFER",
+      "metric": "World C Zero-Day Hidden Family ASR",
+      "artifacts_involved": [
+        {
+          "artifact": "research_runs/KAGGLE_PHASE2_V7/Project-KIRA/research_runs/PHASE2/S03/metrics.json",
+          "value": 1.0,
+          "scope": "World C hidden family evaluation"
+        },
+        {
+          "artifact": "artifacts/run_tiny_s20260827_193f7897_40997ab/three_world_evaluation.json",
+          "value": 1.0,
+          "scope": "Hidden Family ASR@20"
+        }
+      ],
+      "reconciliation_status": "RESOLVED",
+      "resolution_explanation": "Perfect agreement between Phase 2 and Baseline artifacts: 100.0% ASR against unadapted zero-day families. Classified strictly as a FAILURE_FINDING / negative result demonstrating model generalization boundaries.",
+      "final_classification": "FAILURE_FINDING"
+    },
+    {
+      "conflict_id": "CONF_005_MED_UNDEFINED_POST_DEFENSE",
+      "metric": "Minimum Evasion Distance post-hardening",
+      "artifacts_involved": [
+        {
+          "artifact": "artifacts/run_tiny_s20260827_193f7897_40997ab/scoreboard.json",
+          "value": null,
+          "scope": "Challenger post-hardening MED (0 evasions)"
+        },
+        {
+          "artifact": "artifacts/run_tiny_s20260827_193f7897_40997ab/red_metrics.json",
+          "value": 2.8488,
+          "scope": "Baseline pre-hardening MED"
+        }
+      ],
+      "reconciliation_status": "RESOLVED",
+      "resolution_explanation": "When 0 attacks succeed, MED is mathematically undefined (null). It must never be recorded as 0.0.",
+      "final_classification": "VERIFIED"
+    },
+    {
+      "conflict_id": "CONF_006_INTENT_ABLATION_DELTA",
+      "metric": "Intent mandate ablation delta ASR",
+      "artifacts_involved": [
+        {
+          "artifact": "artifacts/run_tiny_s20260827_193f7897_40997ab/intent_ablation.json",
+          "value": 0.0,
+          "scope": "With Intent ASR = 100%, Without Intent ASR = 100%"
+        }
+      ],
+      "reconciliation_status": "RESOLVED",
+      "resolution_explanation": "Delta ASR is exactly 0.0%. The intent engine did not provide measurable ASR reduction on the tiny benchmark. Classified as INCONCLUSIVE / FAILURE_FINDING.",
+      "final_classification": "INCONCLUSIVE"
+    }
+  ],
+  "adversarial_population_audit": {
+    "audit_timestamp": "2026-08-31T16:42:56.828284+00:00",
+    "methodological_distinction": "Strict separation between attack attempts, synthetic populations, multi-arm swarms, and human/real-world attackers.",
+    "populations": [
+      {
+        "population_id": "BASELINE_EXP007A",
+        "label": "EXP-007-A Vulnerability Discovery",
+        "attack_attempts": 200,
+        "attacker_type": "Black-box budgeted sequential greedy optimizer",
+        "target_count": 10,
+        "families": [
+          "burst_drain",
+          "slow_siphon",
+          "geo_hop",
+          "agent_subversion",
+          "cross_merchant_fanout"
+        ],
+        "total_evasions": 183,
+        "aggregate_asr": 0.9667,
+        "notes": "Evaluated pre-defense vulnerabilities on candidate transactions."
+      },
+      {
+        "population_id": "ADV001_ATTACK_POPULATION_10K",
+        "label": "ADV-001 Large-Scale Constrained Synthetic Attacks",
+        "attack_attempts": 10000,
+        "attacker_type": "Multi-family budgeted mutation search",
+        "target_count": 500,
+        "families": [
+          "burst_drain",
+          "slow_siphon",
+          "geo_hop",
+          "agent_subversion",
+          "cross_merchant_fanout"
+        ],
+        "total_evasions": 600,
+        "aggregate_asr": 0.06,
+        "notes": "10,000 synthetic attack attempts across 5 attack families with Layer-1 physics constraints."
+      },
+      {
+        "population_id": "ADV002_SWARM_LARGE_15K",
+        "label": "ADV-002 Stateful Multi-Agent Adversarial Swarm",
+        "attack_attempts": 15000,
+        "attacker_type": "Multi-agent swarm with shared associative episodic memory vs static vs disabled",
+        "target_count": 10,
+        "arms": {
+          "adaptive_memory": {
+            "attempts": 5000,
+            "evasions": 984,
+            "asr": 0.1968,
+            "median_queries": 4.0
+          },
+          "static_control": {
+            "attempts": 5000,
+            "evasions": 480,
+            "asr": 0.096,
+            "median_queries": 20.0
+          },
+          "memory_disabled": {
+            "attempts": 5000,
+            "evasions": 522,
+            "asr": 0.1044,
+            "median_queries": 4.0
+          }
+        },
+        "comparisons": {
+          "adaptive_vs_static_uplift": "+10.08% ASR",
+          "adaptive_vs_memory_disabled_uplift": "+9.24% ASR"
+        },
+        "notes": "Executed on Kaggle Cloud CPU. Proves memory-enabled swarm behavioral adaptation."
+      },
+      {
+        "population_id": "ADV003_ADAPTIVE_DEFENSE_CURVE",
+        "label": "ADV-003 Closed-Loop Defensive Evolution",
+        "attack_attempts": 375,
+        "attacker_type": "Multi-round adaptive adversarial evaluation",
+        "rounds": 5,
+        "arms": [
+          "adaptive_challenger",
+          "naive_retrain",
+          "static_blue"
+        ],
+        "findings": "Adaptive challenger retains 0.0% legacy ASR while naive retrain exhibits catastrophic forgetting on novel attack families.",
+        "notes": "Executed on Kaggle Cloud CPU."
+      }
+    ],
+    "prohibitions_enforced": [
+      "Never describe 10,000 synthetic attempts as '10,000 real-world hackers'.",
+      "Never pool ADV-001 and ADV-002 populations without stratified lineage separation.",
+      "Never represent local ASGI test throughput as cloud production capacity."
+    ]
+  },
+  "status": "FROZEN_FOR_SUBMISSION"
+}

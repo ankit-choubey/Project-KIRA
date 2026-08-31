@@ -1,0 +1,129 @@
+{
+  "attack_families": [
+    "burst_drain",
+    "slow_siphon",
+    "geo_hop",
+    "agent_subversion",
+    "cross_merchant_fanout"
+  ],
+  "budgets_evaluated": [
+    1,
+    5,
+    20,
+    100
+  ],
+  "representative_samples": [
+    {
+      "attack_instance_id": "atk_tx_00000001_geo_hop_100",
+      "evasion_decision": "ALLOW",
+      "evasion_risk": 0.021739,
+      "family": "geo_hop",
+      "med": 0.614795,
+      "original_decision": "BLOCK",
+      "original_risk": 0.971429,
+      "round": 3,
+      "source_txn_id": "tx_00000001"
+    },
+    {
+      "attack_instance_id": "atk_tx_00000004_cross_merchant_fanout_100",
+      "evasion_decision": "ALLOW",
+      "evasion_risk": 0.020408,
+      "family": "cross_merchant_fanout",
+      "med": 1.520466,
+      "original_decision": "BLOCK",
+      "original_risk": 0.916667,
+      "round": 2,
+      "source_txn_id": "tx_00000004"
+    },
+    {
+      "attack_instance_id": "atk_tx_00000004_geo_hop_100",
+      "evasion_decision": "ALLOW",
+      "evasion_risk": 0.020408,
+      "family": "geo_hop",
+      "med": 1.113394,
+      "original_decision": "BLOCK",
+      "original_risk": 0.916667,
+      "round": 2,
+      "source_txn_id": "tx_00000004"
+    },
+    {
+      "attack_instance_id": "atk_tx_00000005_geo_hop_100",
+      "evasion_decision": "ALLOW",
+      "evasion_risk": 0.020408,
+      "family": "geo_hop",
+      "med": 1.122345,
+      "original_decision": "BLOCK",
+      "original_risk": 0.916667,
+      "round": 2,
+      "source_txn_id": "tx_00000005"
+    },
+    {
+      "attack_instance_id": "atk_tx_00000005_geo_hop_20",
+      "evasion_decision": "ALLOW",
+      "evasion_risk": 0.021739,
+      "family": "geo_hop",
+      "med": 1.18052,
+      "original_decision": "BLOCK",
+      "original_risk": 0.971429,
+      "round": 3,
+      "source_txn_id": "tx_00000005"
+    },
+    {
+      "attack_instance_id": "atk_tx_00000006_geo_hop_100",
+      "evasion_decision": "ALLOW",
+      "evasion_risk": 0.020408,
+      "family": "geo_hop",
+      "med": 0.642554,
+      "original_decision": "BLOCK",
+      "original_risk": 0.916667,
+      "round": 2,
+      "source_txn_id": "tx_00000006"
+    },
+    {
+      "attack_instance_id": "atk_tx_00000007_cross_merchant_fanout_100",
+      "evasion_decision": "ALLOW",
+      "evasion_risk": 0.020408,
+      "family": "cross_merchant_fanout",
+      "med": 1.687148,
+      "original_decision": "BLOCK",
+      "original_risk": 0.916667,
+      "round": 2,
+      "source_txn_id": "tx_00000007"
+    },
+    {
+      "attack_instance_id": "atk_tx_00000007_cross_merchant_fanout_5",
+      "evasion_decision": "ALLOW",
+      "evasion_risk": 0.020408,
+      "family": "cross_merchant_fanout",
+      "med": 2.187148,
+      "original_decision": "BLOCK",
+      "original_risk": 0.916667,
+      "round": 2,
+      "source_txn_id": "tx_00000007"
+    },
+    {
+      "attack_instance_id": "atk_tx_00000007_geo_hop_100",
+      "evasion_decision": "ALLOW",
+      "evasion_risk": 0.020408,
+      "family": "geo_hop",
+      "med": 1.179381,
+      "original_decision": "BLOCK",
+      "original_risk": 0.916667,
+      "round": 2,
+      "source_txn_id": "tx_00000007"
+    },
+    {
+      "attack_instance_id": "atk_tx_00000007_geo_hop_20",
+      "evasion_decision": "ALLOW",
+      "evasion_risk": 0.021739,
+      "family": "geo_hop",
+      "med": 1.092284,
+      "original_decision": "BLOCK",
+      "original_risk": 0.971429,
+      "round": 3,
+      "source_txn_id": "tx_00000007"
+    }
+  ],
+  "total_replay_records": 7607,
+  "unique_source_transactions": 845
+}

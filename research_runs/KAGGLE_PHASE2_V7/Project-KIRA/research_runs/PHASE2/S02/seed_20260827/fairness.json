@@ -1,0 +1,13 @@
+{
+  "all_passed": true,
+  "status": "PASS",
+  "same_transactions": true,
+  "same_labels": true,
+  "same_timestamps": true,
+  "same_tabular_features": true,
+  "temporal_ordering_valid": true,
+  "test_sample_count": 7126,
+  "test_fraud_count": 48,
+  "world_c_isolation_valid": true,
+  "topology_destroyed": true
+}

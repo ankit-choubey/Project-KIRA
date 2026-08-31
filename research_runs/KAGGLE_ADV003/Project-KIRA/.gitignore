@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Secrets - never commit
+.env
+*.key
+kaggle.json
+
+# Reference data is downloaded, not committed (also keeps licences clean)
+data/
+
+# Generated artifacts. artifacts/demo/ and authoritative baseline are committed.
+artifacts/*
+!artifacts/demo/
+!artifacts/demo/**
+!artifacts/run_tiny_s20260827_193f7897_40997ab/
+!artifacts/run_tiny_s20260827_193f7897_40997ab/**
+
+# Frontend build. `make frontend` force-adds dist/ when deploying (see rules/30).
+frontend/node_modules/
+frontend/dist/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+# Research binary artifacts
+research_runs/**/*.pkl
+research_runs/**/*.bin
+research_runs/**/*.ckpt

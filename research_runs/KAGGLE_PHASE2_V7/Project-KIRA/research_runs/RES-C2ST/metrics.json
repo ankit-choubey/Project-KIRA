@@ -1,0 +1,32 @@
+{
+  "status": "COMPLETE",
+  "c2st_auc": 0.778,
+  "ci_95": [
+    0.7641,
+    0.7918
+  ],
+  "bootstrap_samples": 1000,
+  "sample_counts": {
+    "n_total": 18696,
+    "n_synthetic": 9348,
+    "n_real": 9348,
+    "n_test": 3740
+  },
+  "feature_importances_top10": [
+    {
+      "feature": "log_amount",
+      "importance": 365.0
+    },
+    {
+      "feature": "day_of_week",
+      "importance": 223.0
+    },
+    {
+      "feature": "time_of_day_sec",
+      "importance": 157.0
+    }
+  ],
+  "interpretation": "AUC ~0.50 indicates distributions are hard to distinguish; AUC > 0.80 indicates high discriminability between synthetic and real.",
+  "experiment_id": "RES-C2ST-REAL",
+  "dataset_comparison": "KIRA Synthetic (0) vs Sparkov Real (1)"
+}

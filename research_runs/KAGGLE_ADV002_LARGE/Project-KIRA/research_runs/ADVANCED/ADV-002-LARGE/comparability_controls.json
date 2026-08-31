@@ -1,0 +1,44 @@
+{
+  "experiment_id": "ADV-002-LARGE",
+  "comparability_framework": {
+    "target_baseline": "ADV-001 (10,000 Static Population)",
+    "active_study": "ADV-002 (Stateful Multi-Agent Swarm)",
+    "shared_experimental_constants": [
+      "Blue detector champion model: run_tiny_s20260827_193f7897_40997ab",
+      "5 Canonical attack families: burst_drain, slow_siphon, geo_hop, agent_subversion, cross_merchant_fanout",
+      "Layer-1 physical balance and limit invariants",
+      "Streaming causal feature extraction without future leakage (t > t_0)",
+      "Normalized Euclidean perturbation distance (MED) metric"
+    ]
+  },
+  "scientific_control_arms": {
+    "arm_1_adaptive_memory": {
+      "mode": "adaptive_memory",
+      "description": "Full stateful adaptive multi-agent swarm with cross-agent shared attack memory and dynamic policy weighting.",
+      "memory_access": "READ_WRITE",
+      "policy_adaptation": "FULL"
+    },
+    "arm_2_static_control": {
+      "mode": "static_control",
+      "description": "Non-adaptive multi-agent swarm with fixed budget (20) and static round-robin family preference.",
+      "memory_access": "NONE",
+      "policy_adaptation": "NONE"
+    },
+    "arm_3_memory_disabled": {
+      "mode": "memory_disabled",
+      "description": "Stateful multi-agent swarm with private agent state only; cross-agent shared attack memory disabled.",
+      "memory_access": "PRIVATE_ONLY",
+      "policy_adaptation": "LOCAL"
+    }
+  },
+  "formal_hypotheses": {
+    "H1_adaptation_gain": {
+      "hypothesis": "ASR(adaptive_memory) > ASR(static_control)",
+      "rationale": "Dynamic shifting away from blocked families towards memory-validated families increases overall evasion yield."
+    },
+    "H2_shared_memory_gain": {
+      "hypothesis": "ASR(adaptive_memory) > ASR(memory_disabled)",
+      "rationale": "Cross-agent knowledge sharing accelerates discovery of target vulnerabilities across specialized agent roles."
+    }
+  }
+}

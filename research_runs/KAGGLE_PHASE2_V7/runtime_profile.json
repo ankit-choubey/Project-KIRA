@@ -1,0 +1,49 @@
+{
+  "profile_version": "1.0.0",
+  "historical_execution": {
+    "kernel": "theankitchoubey/project-kira-phase2-mega-notebook",
+    "version": "V6",
+    "git_commit": "f9ad563ca867f2524ac499bb0ecca49af4134575",
+    "total_wall_clock_seconds": 14217.6,
+    "total_wall_clock_hours": 3.95,
+    "hardware": "Kaggle 4-Core CPU, 30 GB RAM (Linux x86_64)",
+    "gpu_utilized": false
+  },
+  "v6_stage_breakdown_seconds": {
+    "git_clone_and_setup": 26.0,
+    "S00_environment_causality": 0.02,
+    "S01_baseline_integrity": 0.02,
+    "A01_label_delay_sensitivity": 0.95,
+    "A02_multi_seed_stability": 0.56,
+    "G01_causal_graphsage": 1.31,
+    "G02_gnn_zero_shot": 0.55,
+    "G03_fusion_4arm": 48.8,
+    "G04_world_c_isolation": 0.15,
+    "G05_topology_shuffling": 0.12,
+    "R01_LLM01_gated": 0.02,
+    "S02_full_scale_validation": 7024.77,
+    "S02_failure_point": "Polars schema inference on agent_id at 08:55:51 UTC (~117 min)",
+    "S03_zero_day_robustness": 7104.73,
+    "S03_failure_point": "Polars schema inference on agent_id at 10:54:15 UTC (~118 min)",
+    "S04_final_reconciliation": 0.09
+  },
+  "bottleneck_analysis": {
+    "primary_bottleneck": "Unconstrained 1M-event synthetic world generation during S02 and S03 on 4-core CPU (~115 min per world)",
+    "secondary_bottleneck": "Polars schema inference default infer_schema_length=100 causing crash after 115 minutes of compute",
+    "mitigation_1": "Enforce infer_schema_length=None across all DataFrame constructors (verified by test_v6_polars_regression.py)",
+    "mitigation_2": "Runtime-bounded stage execution: primary seed 20260827 executed first with wall-clock checkpointing",
+    "mitigation_3": "Dynamic deadline monitor: budget_seconds=2700 (45m target, 50m soft stop, 55m hard stop)"
+  },
+  "proposed_v7_budget_seconds": {
+    "target_runtime_seconds": 2700,
+    "soft_stop_seconds": 3000,
+    "hard_stop_seconds": 3300,
+    "stage_allocations": {
+      "cached_historical_stages_S00_to_G05": 10,
+      "S02_full_scale_validation_arm_A_C_D": 1800,
+      "S03_zero_day_world_c_evaluation": 600,
+      "S04_final_reconciliation_and_evidence": 60,
+      "contingency_margin": 230
+    }
+  }
+}

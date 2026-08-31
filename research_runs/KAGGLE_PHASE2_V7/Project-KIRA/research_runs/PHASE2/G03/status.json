@@ -1,0 +1,362 @@
+{
+  "baseline_git_commit": "40997ab",
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "config_hash": "",
+  "end_time": "2026-08-31T11:47:08.159359+00:00",
+  "exception": null,
+  "experiment_id": "G03",
+  "git_commit": "ab721f9d464456cb6f936f3f9466c7975671a319",
+  "input_artifact_hashes": {},
+  "metrics": {
+    "arms": {
+      "arm_a_baseline": {
+        "brier": 0.0006992300970801675,
+        "ece": 0.0004921443493729732,
+        "fpr": 0.00574300071787509,
+        "model_config": {
+          "learning_rate": 0.05,
+          "max_depth": 4,
+          "model_type": "LightGBM_Frozen",
+          "n_estimators": 100,
+          "num_leaves": 15
+        },
+        "pr_auc": 0.9555555555555556,
+        "pr_auc_ci_95": {
+          "ci_lower": 0.833298319327731,
+          "ci_upper": 1.0,
+          "mean": 0.9565492156405713,
+          "std": 0.05122090500236456
+        },
+        "roc_auc": 0.9996769562096196
+      },
+      "arm_b_graph_diagnostic": {
+        "brier": 0.007087177110732223,
+        "ece": 0.003679838110334632,
+        "fpr": 1.0,
+        "model_config": {
+          "graph_encoder_param_count": 6401,
+          "layer_dims": [
+            63,
+            64,
+            32,
+            1
+          ],
+          "model_type": "CausalGraphSAGE"
+        },
+        "pr_auc": 0.007932009711809301,
+        "pr_auc_ci_95": {
+          "ci_lower": 0.003571199572526315,
+          "ci_upper": 0.014064265211707122,
+          "mean": 0.008132307824537567,
+          "std": 0.002586895851511129
+        },
+        "roc_auc": 0.5504307250538406
+      },
+      "arm_c_real_fusion": {
+        "brier": 0.000138591906232676,
+        "ece": 0.000831551437396056,
+        "fpr": 0.0,
+        "model_config": {
+          "graph_encoder_param_count": 6401,
+          "model_type": "DualBranch_LightGBM",
+          "tree_config": {
+            "learning_rate": 0.05,
+            "max_depth": 4,
+            "n_estimators": 100,
+            "num_leaves": 15
+          }
+        },
+        "pr_auc": 1.0,
+        "pr_auc_ci_95": {
+          "ci_lower": 1.0,
+          "ci_upper": 1.0,
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "roc_auc": 1.0
+      },
+      "arm_d_shuffled_control": {
+        "brier": 0.0006924180645686203,
+        "ece": 0.00012288937498463888,
+        "fpr": 0.023689877961234746,
+        "model_config": {
+          "graph_encoder_param_count": 6401,
+          "model_type": "DualBranch_LightGBM",
+          "tree_config": {
+            "learning_rate": 0.05,
+            "max_depth": 4,
+            "n_estimators": 100,
+            "num_leaves": 15
+          }
+        },
+        "pr_auc": 0.9232558139534884,
+        "pr_auc_ci_95": {
+          "ci_lower": 0.7178861788617886,
+          "ci_upper": 1.0,
+          "mean": 0.9221571756688485,
+          "std": 0.07769822901938131
+        },
+        "roc_auc": 0.9988155061019383
+      }
+    },
+    "authoritative_seed": 20260827,
+    "automated_interpretation": "Marginal delta (+0.0444) is statistically indistinguishable from baseline noise (p=0.1560).",
+    "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+    "decision_classification": "INCONCLUSIVE",
+    "estimands": {
+      "delta_diag": -0.9476,
+      "delta_rel": 0.0444,
+      "delta_topology": 0.0767,
+      "p_value_bootstrap": 0.156
+    },
+    "execution_backend": "CPU (NumPy vectorized)",
+    "git_commit_sha": "ab721f9d464456cb6f936f3f9466c7975671a319",
+    "invariance_checks": {
+      "feature_causality": true,
+      "split_causality": true
+    },
+    "latency_breakdown_ms": {
+      "fusion_infer": 2.5605,
+      "gnn_infer": 1.2802,
+      "graph_build": 0.0716,
+      "tabular_extract": 0.2076,
+      "total_fusion_request": 2.8396
+    },
+    "multi_seed_results": {
+      "42": {
+        "arm_a_baseline": {
+          "brier": 0.0006992300970801675,
+          "ece": 0.0004921443493729732,
+          "fpr": 0.00574300071787509,
+          "pr_auc": 0.9555555555555556,
+          "pr_auc_ci_95": {
+            "ci_lower": 0.8319327731092437,
+            "ci_upper": 1.0,
+            "mean": 0.9552816428306442,
+            "std": 0.05066116227904911
+          },
+          "roc_auc": 0.9996769562096196
+        },
+        "arm_b_graph_diagnostic": {
+          "brier": 0.007123941679240415,
+          "ece": 0.003337802223464429,
+          "fpr": 1.0,
+          "pr_auc": 0.00631478726944261,
+          "pr_auc_ci_95": {
+            "ci_lower": 0.003123424446058123,
+            "ci_upper": 0.011246453233696616,
+            "mean": 0.0067133365550979904,
+            "std": 0.0021398115493771325
+          },
+          "roc_auc": 0.30495333811916725
+        },
+        "arm_c_real_fusion": {
+          "brier": 0.0006198134307718355,
+          "ece": 0.0005585332411662667,
+          "fpr": 0.0021536252692031586,
+          "pr_auc": 0.976923076923077,
+          "pr_auc_ci_95": {
+            "ci_lower": 0.9019117647058824,
+            "ci_upper": 1.0,
+            "mean": 0.978965867710436,
+            "std": 0.028783676752561105
+          },
+          "roc_auc": 0.9998923187365399
+        },
+        "arm_d_shuffled_control": {
+          "brier": 0.0010263720598717037,
+          "ece": 0.0005702066999287242,
+          "fpr": 0.002871500358937545,
+          "pr_auc": 0.9428571428571428,
+          "pr_auc_ci_95": {
+            "ci_lower": 0.8214056776556776,
+            "ci_upper": 1.0,
+            "mean": 0.9452926066731389,
+            "std": 0.05083846727332202
+          },
+          "roc_auc": 0.9997128499641063
+        },
+        "estimands": {
+          "delta_diag": -0.9492,
+          "delta_rel": 0.0214,
+          "delta_topology": 0.0341,
+          "p_value_bootstrap": 0.722
+        }
+      },
+      "12345": {
+        "arm_a_baseline": {
+          "brier": 0.0006992300970801675,
+          "ece": 0.0004921443493729732,
+          "fpr": 0.00574300071787509,
+          "pr_auc": 0.9555555555555556,
+          "pr_auc_ci_95": {
+            "ci_lower": 0.8319327731092437,
+            "ci_upper": 1.0,
+            "mean": 0.9555449178806024,
+            "std": 0.05160021066234521
+          },
+          "roc_auc": 0.9996769562096196
+        },
+        "arm_b_graph_diagnostic": {
+          "brier": 0.007083616595776886,
+          "ece": 0.003501959902203612,
+          "fpr": 1.0,
+          "pr_auc": 0.008339877018978701,
+          "pr_auc_ci_95": {
+            "ci_lower": 0.0031359420209169887,
+            "ci_upper": 0.0139931469080871,
+            "mean": 0.008347084941935833,
+            "std": 0.002759967755485831
+          },
+          "roc_auc": 0.5718234027279253
+        },
+        "arm_c_real_fusion": {
+          "brier": 0.0005300791837880397,
+          "ece": 0.0007837067440859169,
+          "fpr": 0.0,
+          "pr_auc": 1.0,
+          "pr_auc_ci_95": {
+            "ci_lower": 1.0,
+            "ci_upper": 1.0,
+            "mean": 1.0,
+            "std": 0.0
+          },
+          "roc_auc": 1.0
+        },
+        "arm_d_shuffled_control": {
+          "brier": 0.000440610133692534,
+          "ece": 0.0011024631056221691,
+          "fpr": 0.0,
+          "pr_auc": 1.0,
+          "pr_auc_ci_95": {
+            "ci_lower": 1.0,
+            "ci_upper": 1.0,
+            "mean": 1.0,
+            "std": 4.965068306494546e-18
+          },
+          "roc_auc": 1.0
+        },
+        "estimands": {
+          "delta_diag": -0.9472,
+          "delta_rel": 0.0444,
+          "delta_topology": 0.0,
+          "p_value_bootstrap": 0.523
+        }
+      },
+      "20260827": {
+        "arm_a_baseline": {
+          "brier": 0.0006992300970801675,
+          "ece": 0.0004921443493729732,
+          "fpr": 0.00574300071787509,
+          "pr_auc": 0.9555555555555556,
+          "pr_auc_ci_95": {
+            "ci_lower": 0.833298319327731,
+            "ci_upper": 1.0,
+            "mean": 0.9565492156405713,
+            "std": 0.05122090500236456
+          },
+          "roc_auc": 0.9996769562096196
+        },
+        "arm_b_graph_diagnostic": {
+          "brier": 0.007087177110732223,
+          "ece": 0.003679838110334632,
+          "fpr": 1.0,
+          "pr_auc": 0.007932009711809301,
+          "pr_auc_ci_95": {
+            "ci_lower": 0.003571199572526315,
+            "ci_upper": 0.014064265211707122,
+            "mean": 0.008132307824537567,
+            "std": 0.002586895851511129
+          },
+          "roc_auc": 0.5504307250538406
+        },
+        "arm_c_real_fusion": {
+          "brier": 0.000138591906232676,
+          "ece": 0.000831551437396056,
+          "fpr": 0.0,
+          "pr_auc": 1.0,
+          "pr_auc_ci_95": {
+            "ci_lower": 1.0,
+            "ci_upper": 1.0,
+            "mean": 1.0,
+            "std": 0.0
+          },
+          "roc_auc": 1.0
+        },
+        "arm_d_shuffled_control": {
+          "brier": 0.0006924180645686203,
+          "ece": 0.00012288937498463888,
+          "fpr": 0.023689877961234746,
+          "pr_auc": 0.9232558139534884,
+          "pr_auc_ci_95": {
+            "ci_lower": 0.7178861788617886,
+            "ci_upper": 1.0,
+            "mean": 0.9221571756688485,
+            "std": 0.07769822901938131
+          },
+          "roc_auc": 0.9988155061019383
+        },
+        "estimands": {
+          "delta_diag": -0.9476,
+          "delta_rel": 0.0444,
+          "delta_topology": 0.0767,
+          "p_value_bootstrap": 0.156
+        }
+      }
+    },
+    "seeds_evaluated": [
+      20260827,
+      42,
+      12345
+    ],
+    "topology_verification": {
+      "degree_ks_p_value": 1.0,
+      "degree_ks_statistic": 0.0,
+      "real_graph": {
+        "degree_mean": 67.25179856115108,
+        "degree_std": 41.563697068852825,
+        "edge_count": 28044,
+        "node_count": 623
+      },
+      "shuffled_graph": {
+        "degree_mean": 67.25179856115108,
+        "degree_std": 41.563697068852825,
+        "edge_count": 28044,
+        "node_count": 623
+      },
+      "topology_destroyed": true
+    },
+    "world_c_zero_day": {
+      "asr_at_20": 1.0,
+      "families": [
+        "agent_subversion",
+        "cross_merchant_fanout"
+      ],
+      "sample_count": 0,
+      "status": "LOW_SAMPLE"
+    }
+  },
+  "output_paths": [
+    "research_runs/PHASE2/G03/metrics.json",
+    "research_runs/PHASE2/G03/topology_verification.json",
+    "research_runs/PHASE2/G03/latency.json",
+    "research_runs/PHASE2/G03/world_c.json",
+    "research_runs/PHASE2/G03/evidence_report.md"
+  ],
+  "output_sha256": {
+    "evidence_report.md": "39835bf668fa1099e08ca599d0df9021e0310d2e16454f2ce4b3950971b99271",
+    "latency.json": "75dae1df3daec9e5319a342487d787bdf459be4f468f45343aa790eea4fc37c0",
+    "metrics.json": "499f25e863b2ec59e7cbd2f72d94b4a99d828210c029235f8ccb3259a8288cf1",
+    "topology_verification.json": "26949252cbbdab0127b6f4d1ffcf56130c13118450fa988c8e1d9c15dc06dfc0",
+    "world_c.json": "b952949497657f289165551b4048a8a46d95067d1b449d483230d8c7c62b57be"
+  },
+  "peak_gpu_mb": 0,
+  "peak_ram_mb": 0,
+  "run_id": "phase2_1788176761",
+  "runtime_sec": 50.498338406000016,
+  "seed": 20260827,
+  "stage_id": "G03",
+  "start_time": "1970-01-01T00:10:27.629378+00:00",
+  "status": "COMPLETED",
+  "termination_reason": null
+}

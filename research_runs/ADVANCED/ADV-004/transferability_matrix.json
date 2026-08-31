@@ -1,0 +1,337 @@
+{
+  "burst_drain": {
+    "burst_drain": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_burst_drain",
+      "training_family": "burst_drain",
+      "evaluation_family": "burst_drain",
+      "seed": 20260831,
+      "artifact": "matrix_burst_drain_burst_drain.json"
+    },
+    "slow_siphon": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_burst_drain",
+      "training_family": "burst_drain",
+      "evaluation_family": "slow_siphon",
+      "seed": 20260831,
+      "artifact": "matrix_burst_drain_slow_siphon.json"
+    },
+    "geo_hop": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_burst_drain",
+      "training_family": "burst_drain",
+      "evaluation_family": "geo_hop",
+      "seed": 20260831,
+      "artifact": "matrix_burst_drain_geo_hop.json"
+    },
+    "agent_subversion": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_burst_drain",
+      "training_family": "burst_drain",
+      "evaluation_family": "agent_subversion",
+      "seed": 20260831,
+      "artifact": "matrix_burst_drain_agent_subversion.json"
+    },
+    "cross_merchant_fanout": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_burst_drain",
+      "training_family": "burst_drain",
+      "evaluation_family": "cross_merchant_fanout",
+      "seed": 20260831,
+      "artifact": "matrix_burst_drain_cross_merchant_fanout.json"
+    }
+  },
+  "slow_siphon": {
+    "burst_drain": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_slow_siphon",
+      "training_family": "slow_siphon",
+      "evaluation_family": "burst_drain",
+      "seed": 20260831,
+      "artifact": "matrix_slow_siphon_burst_drain.json"
+    },
+    "slow_siphon": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_slow_siphon",
+      "training_family": "slow_siphon",
+      "evaluation_family": "slow_siphon",
+      "seed": 20260831,
+      "artifact": "matrix_slow_siphon_slow_siphon.json"
+    },
+    "geo_hop": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_slow_siphon",
+      "training_family": "slow_siphon",
+      "evaluation_family": "geo_hop",
+      "seed": 20260831,
+      "artifact": "matrix_slow_siphon_geo_hop.json"
+    },
+    "agent_subversion": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_slow_siphon",
+      "training_family": "slow_siphon",
+      "evaluation_family": "agent_subversion",
+      "seed": 20260831,
+      "artifact": "matrix_slow_siphon_agent_subversion.json"
+    },
+    "cross_merchant_fanout": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_slow_siphon",
+      "training_family": "slow_siphon",
+      "evaluation_family": "cross_merchant_fanout",
+      "seed": 20260831,
+      "artifact": "matrix_slow_siphon_cross_merchant_fanout.json"
+    }
+  },
+  "geo_hop": {
+    "burst_drain": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_geo_hop",
+      "training_family": "geo_hop",
+      "evaluation_family": "burst_drain",
+      "seed": 20260831,
+      "artifact": "matrix_geo_hop_burst_drain.json"
+    },
+    "slow_siphon": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_geo_hop",
+      "training_family": "geo_hop",
+      "evaluation_family": "slow_siphon",
+      "seed": 20260831,
+      "artifact": "matrix_geo_hop_slow_siphon.json"
+    },
+    "geo_hop": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_geo_hop",
+      "training_family": "geo_hop",
+      "evaluation_family": "geo_hop",
+      "seed": 20260831,
+      "artifact": "matrix_geo_hop_geo_hop.json"
+    },
+    "agent_subversion": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_geo_hop",
+      "training_family": "geo_hop",
+      "evaluation_family": "agent_subversion",
+      "seed": 20260831,
+      "artifact": "matrix_geo_hop_agent_subversion.json"
+    },
+    "cross_merchant_fanout": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_geo_hop",
+      "training_family": "geo_hop",
+      "evaluation_family": "cross_merchant_fanout",
+      "seed": 20260831,
+      "artifact": "matrix_geo_hop_cross_merchant_fanout.json"
+    }
+  },
+  "agent_subversion": {
+    "burst_drain": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_agent_subversion",
+      "training_family": "agent_subversion",
+      "evaluation_family": "burst_drain",
+      "seed": 20260831,
+      "artifact": "matrix_agent_subversion_burst_drain.json"
+    },
+    "slow_siphon": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_agent_subversion",
+      "training_family": "agent_subversion",
+      "evaluation_family": "slow_siphon",
+      "seed": 20260831,
+      "artifact": "matrix_agent_subversion_slow_siphon.json"
+    },
+    "geo_hop": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_agent_subversion",
+      "training_family": "agent_subversion",
+      "evaluation_family": "geo_hop",
+      "seed": 20260831,
+      "artifact": "matrix_agent_subversion_geo_hop.json"
+    },
+    "agent_subversion": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_agent_subversion",
+      "training_family": "agent_subversion",
+      "evaluation_family": "agent_subversion",
+      "seed": 20260831,
+      "artifact": "matrix_agent_subversion_agent_subversion.json"
+    },
+    "cross_merchant_fanout": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_agent_subversion",
+      "training_family": "agent_subversion",
+      "evaluation_family": "cross_merchant_fanout",
+      "seed": 20260831,
+      "artifact": "matrix_agent_subversion_cross_merchant_fanout.json"
+    }
+  },
+  "cross_merchant_fanout": {
+    "burst_drain": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_cross_merchant_fanout",
+      "training_family": "cross_merchant_fanout",
+      "evaluation_family": "burst_drain",
+      "seed": 20260831,
+      "artifact": "matrix_cross_merchant_fanout_burst_drain.json"
+    },
+    "slow_siphon": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_cross_merchant_fanout",
+      "training_family": "cross_merchant_fanout",
+      "evaluation_family": "slow_siphon",
+      "seed": 20260831,
+      "artifact": "matrix_cross_merchant_fanout_slow_siphon.json"
+    },
+    "geo_hop": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_cross_merchant_fanout",
+      "training_family": "cross_merchant_fanout",
+      "evaluation_family": "geo_hop",
+      "seed": 20260831,
+      "artifact": "matrix_cross_merchant_fanout_geo_hop.json"
+    },
+    "agent_subversion": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_cross_merchant_fanout",
+      "training_family": "cross_merchant_fanout",
+      "evaluation_family": "agent_subversion",
+      "seed": 20260831,
+      "artifact": "matrix_cross_merchant_fanout_agent_subversion.json"
+    },
+    "cross_merchant_fanout": {
+      "ASR": 1.0,
+      "sample_count": 2,
+      "confidence_interval": [
+        0.0,
+        0.0
+      ],
+      "model_version": "blue_v01_cross_merchant_fanout",
+      "training_family": "cross_merchant_fanout",
+      "evaluation_family": "cross_merchant_fanout",
+      "seed": 20260831,
+      "artifact": "matrix_cross_merchant_fanout_cross_merchant_fanout.json"
+    }
+  }
+}

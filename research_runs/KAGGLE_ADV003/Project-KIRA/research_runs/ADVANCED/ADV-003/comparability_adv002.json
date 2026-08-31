@@ -1,0 +1,18 @@
+{
+  "experiment_id": "ADV-003",
+  "comparison_target": "ADV-002",
+  "shared_components": [
+    "Underlying Blue detector architecture (LightGBM + Isotonic calibration)",
+    "5 Canonical attack families (burst_drain, slow_siphon, geo_hop, agent_subversion, cross_merchant_fanout)",
+    "Layer-1 physical constraints and mutability masks",
+    "Distance computation metric (normalized Euclidean space)",
+    "RedSearchEngine candidate generation"
+  ],
+  "structural_differences": [
+    "ADV-002 evaluated fixed Blue against a multi-agent Red swarm (attacker adaptation only)",
+    "ADV-003 evaluates closed-loop Blue challenger learning with multi-split promotion gating",
+    "ADV-003 measures anti-forgetting and round-by-round defense curves across 3 control arms"
+  ],
+  "comparability_verdict": "COMPATIBLE_EXTENSION",
+  "rationale": "ADV-003 consumes the attack outcome mechanics of ADV-002 to test defender learning without mutating baseline production models."
+}

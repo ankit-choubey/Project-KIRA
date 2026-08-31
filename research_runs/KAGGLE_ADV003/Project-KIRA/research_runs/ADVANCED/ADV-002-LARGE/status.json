@@ -1,0 +1,10 @@
+{
+  "experiment_id": "ADV-002-LARGE",
+  "status": "PREPARED_FOR_CLOUD_EXECUTION",
+  "total_attacks_planned": 5000,
+  "total_attacks_executed": 0,
+  "aggregate_asr": null,
+  "metrics": null,
+  "adaptation_metrics": null,
+  "execution_timestamp": null
+}

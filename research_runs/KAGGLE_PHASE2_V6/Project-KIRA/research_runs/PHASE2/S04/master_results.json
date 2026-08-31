@@ -1,0 +1,165 @@
+{
+  "provenance": {
+    "phase2_run_id": "phase2_1788159476",
+    "phase2_commit": "f9ad563ca867f2524ac499bb0ecca49af4134575",
+    "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+    "baseline_commit": "40997ab",
+    "execution_backend": "CPU (NumPy vectorized)",
+    "reconciliation_timestamp": "2026-08-31T10:54:18.138348+00:00"
+  },
+  "baseline_integrity_verified": true,
+  "stages_completed": [
+    "S00",
+    "S01",
+    "A01",
+    "A02",
+    "G01",
+    "G02",
+    "G03",
+    "G04",
+    "G05"
+  ],
+  "claims_registry": [
+    {
+      "claim_id": "CLM_001_AUTHORITATIVE_TABULAR_BASELINE",
+      "claim_name": "Authoritative LightGBM Tabular Fraud Detection PR-AUC",
+      "experiment_id": "EXP_BASELINE_BLUE",
+      "dataset_id": "KIRA_SYNTHETIC_TINY",
+      "scale": "tiny",
+      "world_seed": 20260827,
+      "model_seed": 20260827,
+      "sample_count": 1403,
+      "positive_count": 70,
+      "metric_name": "pr_auc",
+      "metric_value": 1.0,
+      "confidence_interval": null,
+      "p_value": null,
+      "artifact_path": "artifacts/run_tiny_s20260827_193f7897_40997ab/blue_metrics.json",
+      "git_sha": "40997ab",
+      "classification": "MEASURED"
+    },
+    {
+      "claim_id": "CLM_002_FEATURE_TEMPORAL_CAUSALITY",
+      "claim_name": "Feature-Level Zero-Future Leakage Under Future Mutations",
+      "experiment_id": "S00",
+      "dataset_id": "KIRA_SYNTHETIC_TINY",
+      "scale": "tiny",
+      "world_seed": 20260827,
+      "model_seed": 20260827,
+      "sample_count": 5,
+      "positive_count": null,
+      "metric_name": "global_max_delta",
+      "metric_value": 0.0,
+      "confidence_interval": null,
+      "p_value": null,
+      "artifact_path": "research_runs/PHASE2/S00/status.json",
+      "git_sha": "f9ad563ca867f2524ac499bb0ecca49af4134575",
+      "classification": "MEASURED"
+    },
+    {
+      "claim_id": "CLM_003_GRAPH_DIAGNOSTIC_STANDALONE",
+      "claim_name": "Standalone CausalGraphSAGE Diagnostic PR-AUC",
+      "experiment_id": "G01",
+      "dataset_id": "KIRA_SYNTHETIC_TINY",
+      "scale": "tiny",
+      "world_seed": 20260827,
+      "model_seed": 20260827,
+      "sample_count": 1403,
+      "positive_count": 10,
+      "metric_name": "pr_auc",
+      "metric_value": 0.0083,
+      "confidence_interval": {
+        "ci_lower": 0.004448151914123435,
+        "ci_upper": 0.01767183703496577,
+        "std": 0.0034032835184338336
+      },
+      "p_value": null,
+      "artifact_path": "research_runs/PHASE2/G01/metrics.json",
+      "git_sha": "f9ad563ca867f2524ac499bb0ecca49af4134575",
+      "classification": "MEASURED"
+    },
+    {
+      "claim_id": "CLM_004_G03_FUSION_INCREMENTAL_VALUE",
+      "claim_name": "G-03 Dual-Branch Causal Fusion Incremental Predictive Uplift",
+      "experiment_id": "G03",
+      "dataset_id": "KIRA_SYNTHETIC_TINY",
+      "scale": "tiny",
+      "world_seed": 20260827,
+      "model_seed": 20260827,
+      "sample_count": 1403,
+      "positive_count": 70,
+      "metric_name": "delta_rel",
+      "metric_value": 0.0444,
+      "confidence_interval": null,
+      "p_value": 0.156,
+      "artifact_path": "research_runs/PHASE2/G03/metrics.json",
+      "git_sha": "f9ad563ca867f2524ac499bb0ecca49af4134575",
+      "classification": "INCONCLUSIVE"
+    },
+    {
+      "claim_id": "CLM_005_S02_FULL_SCALE_SYNTHETIC_VALIDATION",
+      "claim_name": "S-02 Full-Scale Synthetic World Fusion Uplift & Multi-Seed Stability",
+      "experiment_id": "S02",
+      "dataset_id": "KIRA_SYNTHETIC_TINY",
+      "scale": "tiny",
+      "world_seed": 20260827,
+      "model_seed": 20260827,
+      "sample_count": 1403,
+      "positive_count": null,
+      "metric_name": "delta_rel",
+      "metric_value": null,
+      "confidence_interval": null,
+      "p_value": null,
+      "artifact_path": "research_runs/PHASE2/S02/metrics.json",
+      "git_sha": "f9ad563ca867f2524ac499bb0ecca49af4134575",
+      "classification": "NOT_MEASURED"
+    },
+    {
+      "claim_id": "CLM_006_S03_ZERO_DAY_ROBUSTNESS",
+      "claim_name": "S-03 Out-of-Distribution Zero-Day Robustness (World C)",
+      "experiment_id": "S03",
+      "dataset_id": "KIRA_SYNTHETIC_TINY",
+      "scale": "tiny",
+      "world_seed": 20260827,
+      "model_seed": 20260827,
+      "sample_count": 0,
+      "positive_count": null,
+      "metric_name": "robustness_delta",
+      "metric_value": null,
+      "confidence_interval": null,
+      "p_value": null,
+      "artifact_path": "research_runs/PHASE2/S03/metrics.json",
+      "git_sha": "f9ad563ca867f2524ac499bb0ecca49af4134575",
+      "classification": "NOT_MEASURED"
+    }
+  ],
+  "stage_artifacts_summary": {
+    "S00": {
+      "status": "COMPLETED"
+    },
+    "S01": {
+      "status": "COMPLETED"
+    },
+    "A01": {
+      "status": "COMPLETED"
+    },
+    "A02": {
+      "status": "COMPLETED"
+    },
+    "G01": {
+      "status": "COMPLETED"
+    },
+    "G02": {
+      "status": "COMPLETED"
+    },
+    "G03": {
+      "status": "COMPLETED"
+    },
+    "G04": {
+      "status": "COMPLETED"
+    },
+    "G05": {
+      "status": "COMPLETED"
+    }
+  }
+}

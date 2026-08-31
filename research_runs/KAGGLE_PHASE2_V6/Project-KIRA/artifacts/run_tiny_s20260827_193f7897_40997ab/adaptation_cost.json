@@ -1,0 +1,34 @@
+[
+  {
+    "attack_generation_time_s": 3.89,
+    "evaluation_time_s": 0.29,
+    "memory_mb": 128.0,
+    "retraining_steps": 30,
+    "total_compute_s": 4.21,
+    "training_time_s": 0.03
+  },
+  {
+    "attack_generation_time_s": 3.92,
+    "evaluation_time_s": 0.28,
+    "memory_mb": 128.0,
+    "retraining_steps": 30,
+    "total_compute_s": 4.24,
+    "training_time_s": 0.03
+  },
+  {
+    "attack_generation_time_s": 3.88,
+    "evaluation_time_s": 0.29,
+    "memory_mb": 128.0,
+    "retraining_steps": 30,
+    "total_compute_s": 4.2,
+    "training_time_s": 0.03
+  },
+  {
+    "attack_generation_time_s": 3.89,
+    "evaluation_time_s": 0.29,
+    "memory_mb": 128.0,
+    "retraining_steps": 30,
+    "total_compute_s": 4.21,
+    "training_time_s": 0.04
+  }
+]

@@ -1,0 +1,95 @@
+{
+  "experiments": [
+    {
+      "id": "EXP-007-C",
+      "name": "Authoritative Baseline",
+      "scale": "tiny",
+      "n": 1403,
+      "pr_auc": 1.0,
+      "roc_auc": 1.0,
+      "ece": 0.0,
+      "asr_baseline": 0.9667,
+      "asr_heldout": 0.1455,
+      "asr_hardened": 0.0,
+      "classification": "VERIFIED"
+    },
+    {
+      "id": "S-02",
+      "name": "Multi-Seed Scaled Baseline",
+      "scale": "small",
+      "n": 50000,
+      "pr_auc": 0.9375,
+      "roc_auc": 0.985,
+      "ece": 0.0012,
+      "asr_baseline": null,
+      "asr_heldout": null,
+      "asr_hardened": null,
+      "classification": "VERIFIED"
+    },
+    {
+      "id": "ADV-001",
+      "name": "10k Synthetic Attack Population",
+      "scale": "standard",
+      "n": 10000,
+      "pr_auc": null,
+      "roc_auc": null,
+      "ece": null,
+      "asr_baseline": 0.06,
+      "asr_heldout": null,
+      "asr_hardened": null,
+      "classification": "VERIFIED"
+    },
+    {
+      "id": "ADV-002",
+      "name": "15k Swarm (Adaptive Memory)",
+      "scale": "large",
+      "n": 5000,
+      "pr_auc": null,
+      "roc_auc": null,
+      "ece": null,
+      "asr_baseline": 0.1968,
+      "asr_heldout": null,
+      "asr_hardened": null,
+      "classification": "VERIFIED"
+    },
+    {
+      "id": "ADV-002-STATIC",
+      "name": "15k Swarm (Static Control)",
+      "scale": "large",
+      "n": 5000,
+      "pr_auc": null,
+      "roc_auc": null,
+      "ece": null,
+      "asr_baseline": 0.096,
+      "asr_heldout": null,
+      "asr_hardened": null,
+      "classification": "VERIFIED"
+    },
+    {
+      "id": "ADV-003",
+      "name": "Adaptive Defense Curve",
+      "scale": "large",
+      "n": 375,
+      "pr_auc": null,
+      "roc_auc": null,
+      "ece": null,
+      "asr_baseline": 1.0,
+      "asr_heldout": 1.0,
+      "asr_hardened": 0.0,
+      "classification": "VERIFIED"
+    },
+    {
+      "id": "S-03",
+      "name": "Zero-Day Withheld Families",
+      "scale": "small",
+      "n": 50000,
+      "pr_auc": null,
+      "roc_auc": null,
+      "ece": null,
+      "asr_baseline": 1.0,
+      "asr_heldout": 1.0,
+      "asr_hardened": null,
+      "classification": "FAILURE_FINDING"
+    }
+  ]
+}

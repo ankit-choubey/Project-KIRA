@@ -1,0 +1,38 @@
+{
+  "git_commit_sha": "ab721f9d464456cb6f936f3f9466c7975671a319",
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "execution_backend": "CPU (NumPy vectorized)",
+  "dataset_scale": "small",
+  "dataset_world_seed": 20260827,
+  "model_seed": 20260827,
+  "world_c_zero_day": {
+    "sample_count": 0,
+    "hidden_family_count_train": 0,
+    "hidden_family_count_val": 0,
+    "hidden_family_count_test": 0,
+    "total_attack_count": 299,
+    "per_family_attack_count": {
+      "R1_ato": 299
+    },
+    "asr_arm_a_baseline": null,
+    "asr_arm_c_fusion": null,
+    "robustness_delta": null,
+    "confidence_interval_95": null,
+    "med": null,
+    "median_med": null,
+    "status": "LOW_SAMPLE",
+    "training_families": [
+      "R1_ato",
+      "benign"
+    ],
+    "validation_families": [
+      "R1_ato",
+      "benign"
+    ],
+    "hidden_zero_day_families": [
+      "agent_subversion",
+      "cross_merchant_fanout"
+    ]
+  },
+  "decision_classification": "LOW_SAMPLE"
+}

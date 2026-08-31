@@ -1,0 +1,231 @@
+{
+  "timestamp": "2026-08-31T12:10:14.634455+00:00",
+  "audit_version": "1.0.0",
+  "repository": "Project-KIRA",
+  "target_run": "KAGGLE_PHASE2_V7",
+  "artifact_completeness": {
+    "total_files": 471,
+    "all_json_valid": true,
+    "expected_stages": [
+      "S00",
+      "S01",
+      "A01",
+      "A02",
+      "G01",
+      "G02",
+      "G03",
+      "G04",
+      "G05",
+      "S02",
+      "S03",
+      "S04"
+    ],
+    "found_stages": [
+      "S00",
+      "S01",
+      "A01",
+      "A02",
+      "G01",
+      "G02",
+      "G03",
+      "G04",
+      "G05",
+      "S02",
+      "S03",
+      "S04"
+    ],
+    "missing_stages": [],
+    "completeness_status": "PASS"
+  },
+  "claim_traceability": {
+    "claims_audited": 6,
+    "traceability_status": "PASS",
+    "claims": [
+      {
+        "claim_id": "CLM_001_AUTHORITATIVE_TABULAR_BASELINE",
+        "experiment_id": "EXP_BASELINE_BLUE",
+        "claimed_metric": "pr_auc",
+        "claimed_value": 1.0,
+        "claimed_p_value": null,
+        "claimed_classification": "MEASURED",
+        "source_artifact_path": "artifacts/run_tiny_s20260827_193f7897_40997ab/blue_metrics.json",
+        "source_artifact_exists": true,
+        "git_sha": "40997ab"
+      },
+      {
+        "claim_id": "CLM_002_FEATURE_TEMPORAL_CAUSALITY",
+        "experiment_id": "S00",
+        "claimed_metric": "global_max_delta",
+        "claimed_value": 0.0,
+        "claimed_p_value": null,
+        "claimed_classification": "MEASURED",
+        "source_artifact_path": "research_runs/PHASE2/S00/status.json",
+        "source_artifact_exists": true,
+        "git_sha": "ab721f9d464456cb6f936f3f9466c7975671a319"
+      },
+      {
+        "claim_id": "CLM_003_GRAPH_DIAGNOSTIC_STANDALONE",
+        "experiment_id": "G01",
+        "claimed_metric": "pr_auc",
+        "claimed_value": 0.0083,
+        "claimed_p_value": null,
+        "claimed_classification": "MEASURED",
+        "source_artifact_path": "research_runs/PHASE2/G01/metrics.json",
+        "source_artifact_exists": true,
+        "git_sha": "ab721f9d464456cb6f936f3f9466c7975671a319"
+      },
+      {
+        "claim_id": "CLM_004_G03_FUSION_INCREMENTAL_VALUE",
+        "experiment_id": "G03",
+        "claimed_metric": "delta_rel",
+        "claimed_value": 0.0444,
+        "claimed_p_value": 0.156,
+        "claimed_classification": "INCONCLUSIVE",
+        "source_artifact_path": "research_runs/PHASE2/G03/metrics.json",
+        "source_artifact_exists": true,
+        "git_sha": "ab721f9d464456cb6f936f3f9466c7975671a319"
+      },
+      {
+        "claim_id": "CLM_005_S02_FULL_SCALE_SYNTHETIC_VALIDATION",
+        "experiment_id": "S02",
+        "claimed_metric": "delta_rel",
+        "claimed_value": 0.0198,
+        "claimed_p_value": 0.046,
+        "claimed_classification": "SUCCESS",
+        "source_artifact_path": "research_runs/PHASE2/S02/metrics.json",
+        "source_artifact_exists": true,
+        "git_sha": "ab721f9d464456cb6f936f3f9466c7975671a319"
+      },
+      {
+        "claim_id": "CLM_006_S03_ZERO_DAY_ROBUSTNESS",
+        "experiment_id": "S03",
+        "claimed_metric": "robustness_delta",
+        "claimed_value": null,
+        "claimed_p_value": null,
+        "claimed_classification": "LOW_SAMPLE",
+        "source_artifact_path": "research_runs/PHASE2/S03/metrics.json",
+        "source_artifact_exists": true,
+        "git_sha": "ab721f9d464456cb6f936f3f9466c7975671a319"
+      }
+    ]
+  },
+  "s02_validation": {
+    "stored_probs_lengths": {
+      "arm_a": 7126,
+      "arm_c": 7126,
+      "arm_d": 7126
+    },
+    "arm_d_is_distinct_from_arm_c": true,
+    "arm_d_is_distinct_from_arm_a": true,
+    "primary_seed_reported": {
+      "model_seed": 20260827,
+      "world_seed": 20260827,
+      "arm_a_baseline": {
+        "pr_auc": 0.9607444553163731,
+        "roc_auc": 0.997845436564001,
+        "fpr": 0.0004238485447866629,
+        "ece": 0.00024409141407678457,
+        "brier": 0.0005161592201302738,
+        "pr_auc_ci_95": {
+          "ci_lower": 0.9049324415059595,
+          "ci_upper": 0.994691429417877,
+          "mean": 0.9616422756493007,
+          "std": 0.023676876471113675
+        }
+      },
+      "arm_c_real_fusion": {
+        "pr_auc": 0.9805144371345029,
+        "roc_auc": 0.9997130192144673,
+        "fpr": 0.00014128284826222097,
+        "ece": 0.00021668020607277486,
+        "brier": 0.00029889619090940557,
+        "pr_auc_ci_95": {
+          "ci_lower": 0.9385632239581482,
+          "ci_upper": 1.0,
+          "mean": 0.9812583451931003,
+          "std": 0.01735981805657112
+        }
+      },
+      "arm_d_shuffled_control": {
+        "pr_auc": 0.9720636604476773,
+        "roc_auc": 0.9973641918621079,
+        "fpr": 0.00028256569652444194,
+        "ece": 8.827977678544363e-05,
+        "brier": 0.0003742695698595627,
+        "pr_auc_ci_95": {
+          "ci_lower": 0.9218095282764619,
+          "ci_upper": 1.0,
+          "mean": 0.9730127533308573,
+          "std": 0.021411917260823275
+        }
+      },
+      "estimands": {
+        "delta_rel": 0.0198,
+        "delta_topology": 0.0085,
+        "p_value_bootstrap": 0.046
+      }
+    },
+    "multi_seed_reported": {
+      "20260827": {
+        "arm_a_pr_auc": 0.9607444553163731,
+        "arm_c_pr_auc": 0.9805144371345029,
+        "arm_d_pr_auc": 0.9720636604476773,
+        "delta_rel": 0.0198,
+        "delta_topology": 0.0085,
+        "p_value_bootstrap": 0.046
+      },
+      "42": {
+        "arm_a_pr_auc": 0.9607444553163731,
+        "arm_c_pr_auc": 0.9583514256766537,
+        "arm_d_pr_auc": 0.9804357021996616,
+        "delta_rel": -0.0024,
+        "delta_topology": -0.0221,
+        "p_value_bootstrap": 0.897
+      },
+      "12345": {
+        "arm_a_pr_auc": 0.9607444553163731,
+        "arm_c_pr_auc": 0.9975470957613815,
+        "arm_d_pr_auc": 0.9778450445218738,
+        "delta_rel": 0.0368,
+        "delta_topology": 0.0197,
+        "p_value_bootstrap": 0.055
+      }
+    },
+    "decision_classification": "SUCCESS"
+  },
+  "s03_root_cause": {
+    "reported_sample_count": 0,
+    "total_attack_count_in_world": 299,
+    "per_family_attack_count": {
+      "R1_ato": 299
+    },
+    "hidden_zero_day_families": [
+      "agent_subversion",
+      "cross_merchant_fanout"
+    ],
+    "training_contamination_count": 0,
+    "validation_contamination_count": 0,
+    "classification": "LOW_SAMPLE",
+    "root_cause_explanation": "The base chronological synthetic world generator (mcdl.world.generator) simulates base fraud under the canonical family AttackFamily.R1_ATO (299 events generated). Zero-day families (agent_subversion, cross_merchant_fanout) are evaluated in S-03 with strict isolation. Because base generator only emits R1_ato, zero hidden family events were present in the synthetic world test split. The pipeline strictly verified Training \u2229 Hidden = \u2205 and Validation \u2229 Hidden = \u2205, found n_c=0 in test split, and honestly classified the outcome as LOW_SAMPLE without fabricating ASR or robustness delta."
+  },
+  "baseline_integrity": {
+    "status": "PASS",
+    "expected_file_count": 22,
+    "actual_file_count": 22,
+    "passed_files_count": 22,
+    "mismatches": []
+  },
+  "provenance": {
+    "v7_execution_git_sha": "ab721f9d464456cb6f936f3f9466c7975671a319",
+    "current_repo_head_sha": "a8ce5fbefb7543bb496924aa9cfffe093f41dcfe",
+    "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+    "baseline_git_sha": "40997ab",
+    "sha_lineage_status": "PASS (Clean lineal descendant of authoritative baseline)"
+  },
+  "final_release_gate": "PASS_WITH_CAVEATS",
+  "caveats": [
+    "S-02 Primary seed 20260827 shows statistically significant uplift (+1.98% PR-AUC, p=0.046), but multi-seed variance (seed 42 delta=-0.24%, seed 12345 delta=+3.68%) requires wording the claim as 'demonstrated on primary seed with modest initialization sensitivity'.",
+    "S-03 World C zero-day robustness is honestly classified as LOW_SAMPLE (0 hidden family instances in test split), preventing overclaiming zero-day generalization from synthetic world alone.",
+    "Real-world generalization is established by Sparkov validation (C2ST=0.7780, TSTR ROC-AUC=0.7597) and ADV-001/ADV-002 adversarial population audits, not by S-03."
+  ]
+}

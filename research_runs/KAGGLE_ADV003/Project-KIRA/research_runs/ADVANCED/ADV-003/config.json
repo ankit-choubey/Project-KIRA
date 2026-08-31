@@ -1,0 +1,14 @@
+{
+  "experiment_id": "ADV-003",
+  "scale": "large",
+  "n_rounds": 10,
+  "budget": 50,
+  "base_seed": 20260831,
+  "gate_config": {
+    "min_asr_reduction": 0.0,
+    "max_legacy_degradation": 0.02,
+    "max_heldout_degradation": 0.03,
+    "anti_forgetting_threshold": 0.05,
+    "max_brier_score_increase": 0.05
+  }
+}

@@ -1,0 +1,160 @@
+[
+  {
+    "artifact_path": "exp_007_a_static.json",
+    "baseline_name": "Zero-Knowledge Random Attacker",
+    "code_commit": "40997ab",
+    "conclusion": "Static Red achieves 96.67% ASR at budget 20 with MED=2.8488.",
+    "configuration_hash": "193f789727f6",
+    "dataset_world_version": "world_v1_tiny",
+    "exp_id": "EXP-007-A",
+    "hypothesis": "Static Red search achieves non-zero evasion against unhardened baseline Blue detector.",
+    "metrics": {
+      "asr_budget_1": 0.3333,
+      "asr_budget_100": 0.9667,
+      "asr_budget_20": 0.9667,
+      "asr_budget_5": 0.7667,
+      "baseline_fpr": 0.0,
+      "baseline_pr_auc": 1.0,
+      "mean_evasion_distance": 2.8488
+    },
+    "result_status": "RESULT",
+    "seed": 20260827,
+    "treatment_name": "Static Constrained Mutation Search"
+  },
+  {
+    "artifact_path": "exp_007_b_adaptive_red.json",
+    "baseline_name": "Static Red Search against Fixed Blue (R0)",
+    "code_commit": "40997ab",
+    "conclusion": "Adaptive Red identified dominant weakness W1_velocity_blindness (ASR: R0=15.15% -> R1=15.15%).",
+    "configuration_hash": "193f789727f6",
+    "dataset_world_version": "world_v1_tiny",
+    "exp_id": "EXP-007-B",
+    "hypothesis": "Adaptive Red with WeaknessProfile feedback discovers higher concentration of vulnerable surfaces.",
+    "metrics": {
+      "dominant_weakness_category_ratio": 0.5,
+      "near_boundary_count": 0.0,
+      "round_0_asr": 0.1515,
+      "round_1_adaptive_asr": 0.1515,
+      "total_diagnosed_failures": 20.0
+    },
+    "result_status": "RESULT",
+    "seed": 20260827,
+    "treatment_name": "WeaknessProfile-Informed Adaptive Red against Fixed Blue (R1)"
+  },
+  {
+    "artifact_path": "exp_007_c_coevolution.json",
+    "baseline_name": "Blue Champion R0 (Unhardened)",
+    "code_commit": "40997ab",
+    "conclusion": "Hardening reduced Seen ASR from 0.00% to 0.00% and Held-out ASR from 0.00% to 0.00%.",
+    "configuration_hash": "193f789727f6",
+    "dataset_world_version": "world_v1_tiny",
+    "exp_id": "EXP-007-C",
+    "hypothesis": "Challenger retraining on prioritized replay buffer significantly reduces attack success rate.",
+    "metrics": {
+      "delta_heldout_asr": 0.0,
+      "delta_seen_asr": 0.0,
+      "final_blue_ece": 0.0,
+      "final_blue_fpr": 0.0,
+      "final_blue_pr_auc": 1.0,
+      "r0_heldout_asr": 0.0,
+      "r0_seen_asr": 0.0,
+      "rN_heldout_asr": 0.0,
+      "rN_seen_asr": 0.0
+    },
+    "result_status": "RESULT",
+    "seed": 20260827,
+    "treatment_name": "Challenger Hardening (Multi-Round Co-evolution)"
+  },
+  {
+    "artifact_path": "exp_007_d_heldout.json",
+    "baseline_name": "Unhardened Held-Out Attack Variants",
+    "code_commit": "40997ab",
+    "conclusion": "Held-out variant ASR dropped to 0.00% with Generalisation Retention=1.3071.",
+    "configuration_hash": "193f789727f6",
+    "dataset_world_version": "world_v1_tiny",
+    "exp_id": "EXP-007-D",
+    "hypothesis": "Hardened defense generalises to unseen variants (v5..v9) rather than merely memorising seen attacks.",
+    "metrics": {
+      "baseline_heldout_asr": 0.0,
+      "delta_heldout_asr": 0.1545,
+      "generalisation_retention": 1.3071,
+      "hardened_heldout_asr": 0.0
+    },
+    "result_status": "RESULT",
+    "seed": 20260827,
+    "treatment_name": "Challenger on Held-Out Attack Variants"
+  },
+  {
+    "artifact_path": "exp_007_e_hidden.json",
+    "baseline_name": "Unhardened Zero-Day Attack Benchmark",
+    "code_commit": "40997ab",
+    "conclusion": "Zero-day transfer measured on strictly isolated World C families: ASR@20=100.00%.",
+    "configuration_hash": "193f789727f6",
+    "dataset_world_version": "world_c_hidden_tiny",
+    "exp_id": "EXP-007-E",
+    "hypothesis": "Defensive features provide non-zero transfer against entirely withheld attack families (World C).",
+    "metrics": {
+      "hidden_families_asr_b20": 1.0,
+      "hidden_families_count": 2.0,
+      "hidden_mean_evasion_distance": 3.7706,
+      "zero_day_leakage_violations": 0.0
+    },
+    "result_status": "RESULT",
+    "seed": 20260827,
+    "treatment_name": "Hardened Champion on Withheld Families (World C)"
+  },
+  {
+    "artifact_path": "exp_007_f_budgets.json",
+    "baseline_name": "Single Probe (Budget=1)",
+    "code_commit": "40997ab",
+    "conclusion": "Query budget scaling verified: B=1 (0.00%) -> B=100 (0.00%).",
+    "configuration_hash": "193f789727f6",
+    "dataset_world_version": "world_v1_tiny",
+    "exp_id": "EXP-007-F",
+    "hypothesis": "Attacker evasion success is monotonically non-decreasing in query budget B in {1, 5, 20, 100}.",
+    "metrics": {
+      "asr_budget_1": 0.0,
+      "asr_budget_100": 0.0,
+      "asr_budget_20": 0.0,
+      "asr_budget_5": 0.0
+    },
+    "result_status": "RESULT",
+    "seed": 20260827,
+    "treatment_name": "Budgeted Probing Sweep (B in {1, 5, 20, 100})"
+  },
+  {
+    "artifact_path": "exp_007_g_med.json",
+    "baseline_name": "Baseline Decision Boundary (R0)",
+    "code_commit": "40997ab",
+    "conclusion": "MED measured: R0=0.0000 -> Final=0.0000.",
+    "configuration_hash": "193f789727f6",
+    "dataset_world_version": "world_v1_tiny",
+    "exp_id": "EXP-007-G",
+    "hypothesis": "Adversarial hardening alters the Minimum Evasion Distance required to cross the Blue decision boundary.",
+    "metrics": {
+      "delta_med": 0.0,
+      "med_final_round": 0.0,
+      "med_round_0": 0.0
+    },
+    "result_status": "RESULT",
+    "seed": 20260827,
+    "treatment_name": "Hardened Decision Boundary (RN)"
+  },
+  {
+    "artifact_path": "exp_007_h_intent.json",
+    "baseline_name": "Transaction Feature Detection Alone",
+    "code_commit": "40997ab",
+    "conclusion": "Intent scoring bounds Agent Subversion ASR to 100.00%.",
+    "configuration_hash": "193f789727f6",
+    "dataset_world_version": "world_v1_tiny",
+    "exp_id": "EXP-007-H",
+    "hypothesis": "Verifiable Intent mandate scoring reduces Agent Subversion attack success rate.",
+    "metrics": {
+      "agent_subversion_asr_with_intent": 1.0,
+      "mandate_violation_rejection_count": 0.0
+    },
+    "result_status": "RESULT",
+    "seed": 20260827,
+    "treatment_name": "Transaction + Mandate Intent Scoring"
+  }
+]

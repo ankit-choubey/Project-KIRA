@@ -1,0 +1,89 @@
+{
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "baseline_commit": "40997ab",
+  "phase2_run_id": "phase2_1788176761",
+  "phase2_commit": "ab721f9d464456cb6f936f3f9466c7975671a319",
+  "execution_backend": "CPU (NumPy vectorized)",
+  "stages_completed": [
+    "S00",
+    "S01",
+    "A01",
+    "A02",
+    "G01",
+    "G02",
+    "G03",
+    "G04",
+    "G05",
+    "S02",
+    "S03"
+  ],
+  "stages_evaluated": [
+    "S00",
+    "S01",
+    "A01",
+    "A02",
+    "G01",
+    "G02",
+    "G03",
+    "G04",
+    "G05",
+    "S02",
+    "S03"
+  ],
+  "comparison_matrix": [
+    {
+      "stage": "EXP_BASELINE_BLUE",
+      "claim": "Authoritative LightGBM Tabular Fraud Detection PR-AUC",
+      "scale": "tiny",
+      "sample_size": 1403,
+      "metric": "pr_auc = 1.0",
+      "p_value": null,
+      "classification": "MEASURED"
+    },
+    {
+      "stage": "S00",
+      "claim": "Feature-Level Zero-Future Leakage Under Future Mutations",
+      "scale": "tiny",
+      "sample_size": 5,
+      "metric": "global_max_delta = 0.0",
+      "p_value": null,
+      "classification": "MEASURED"
+    },
+    {
+      "stage": "G01",
+      "claim": "Standalone CausalGraphSAGE Diagnostic PR-AUC",
+      "scale": "tiny",
+      "sample_size": 1403,
+      "metric": "pr_auc = 0.0083",
+      "p_value": null,
+      "classification": "MEASURED"
+    },
+    {
+      "stage": "G03",
+      "claim": "G-03 Dual-Branch Causal Fusion Incremental Predictive Uplift",
+      "scale": "tiny",
+      "sample_size": 1403,
+      "metric": "delta_rel = 0.0444",
+      "p_value": 0.156,
+      "classification": "INCONCLUSIVE"
+    },
+    {
+      "stage": "S02",
+      "claim": "S-02 Full-Scale Synthetic World Fusion Uplift & Multi-Seed Stability",
+      "scale": "small",
+      "sample_size": 1403,
+      "metric": "delta_rel = 0.0198",
+      "p_value": 0.046,
+      "classification": "SUCCESS"
+    },
+    {
+      "stage": "S03",
+      "claim": "S-03 Out-of-Distribution Zero-Day Robustness (World C)",
+      "scale": "small",
+      "sample_size": 0,
+      "metric": "UNMEASURED",
+      "p_value": null,
+      "classification": "LOW_SAMPLE"
+    }
+  ]
+}

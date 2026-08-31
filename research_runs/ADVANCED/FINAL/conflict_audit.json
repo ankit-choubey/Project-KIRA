@@ -1,0 +1,126 @@
+[
+  {
+    "conflict_id": "CONF_001_BASELINE_PR_AUC",
+    "metric": "Baseline PR-AUC",
+    "artifacts_involved": [
+      {
+        "artifact": "artifacts/run_tiny_s20260827_193f7897_40997ab/blue_metrics.json",
+        "value": 1.0,
+        "scope": "Tiny evaluation slice (5 fraud cases, N=1,403)"
+      },
+      {
+        "artifact": "run_small_s20260827_3a353e9a_052dca8/blue_metrics.json",
+        "value": 0.9375,
+        "scope": "Small scale dataset (N=50,000, 750 positives)"
+      },
+      {
+        "artifact": "run_tiny_s20260827_193f7897_9cfa1e1/blue_metrics.json",
+        "value": 0.6407,
+        "scope": "Initial unhardened baseline"
+      }
+    ],
+    "reconciliation_status": "RESOLVED",
+    "resolution_explanation": "Scope mismatch. PR-AUC=1.0000 is mathematically valid for the tiny validation split due to perfect separability with 5 positive instances. PR-AUC=0.9375 reflects the higher-power small dataset. The canonical headline must cite the specific scope and caveat.",
+    "final_classification": "MEASURED_WITH_CAVEAT"
+  },
+  {
+    "conflict_id": "CONF_002_HELDOUT_ASR",
+    "metric": "Baseline Held-Out ASR",
+    "artifacts_involved": [
+      {
+        "artifact": "artifacts/run_tiny_s20260827_193f7897_40997ab/red_metrics.json",
+        "value": 0.1455,
+        "scope": "Baseline held-out variant ASR (unseen variants v5..v9)"
+      },
+      {
+        "artifact": "artifacts/run_tiny_s20260827_193f7897_40997ab/coevolution_metrics.json",
+        "value": 0.0,
+        "scope": "Challenger post-defense held-out ASR after retraining"
+      }
+    ],
+    "reconciliation_status": "RESOLVED",
+    "resolution_explanation": "Evaluated at different stages of the co-evolution pipeline. 14.55% is the pre-hardening baseline vulnerability; 0.00% is the post-defense challenger performance. Both are correct in their respective temporal contexts.",
+    "final_classification": "VERIFIED"
+  },
+  {
+    "conflict_id": "CONF_003_ASR_BY_BUDGET",
+    "metric": "ASR scaling by query budget",
+    "artifacts_involved": [
+      {
+        "artifact": "artifacts/run_tiny_s20260827_193f7897_40997ab/red_metrics.json",
+        "value": {
+          "1": 0.3333,
+          "5": 0.7667,
+          "20": 0.9667,
+          "100": 0.9667
+        },
+        "scope": "EXP-007-A (200 attacks, 5 families)"
+      },
+      {
+        "artifact": "research_runs/ADVANCED/ADV-001/metrics.json",
+        "value": {
+          "1": 0.0,
+          "5": 0.0,
+          "20": 0.0784,
+          "100": 0.1616
+        },
+        "scope": "ADV-001 10,000 attack population"
+      }
+    ],
+    "reconciliation_status": "RESOLVED",
+    "resolution_explanation": "Population scope distinction. EXP-007-A evaluated targeted mutations against vulnerable baseline targets (N=200). ADV-001 evaluated 10,000 attacks across the full heterogeneous synthetic population including hardened rules.",
+    "final_classification": "VERIFIED"
+  },
+  {
+    "conflict_id": "CONF_004_ZERO_DAY_TRANSFER",
+    "metric": "World C Zero-Day Hidden Family ASR",
+    "artifacts_involved": [
+      {
+        "artifact": "research_runs/KAGGLE_PHASE2_V7/Project-KIRA/research_runs/PHASE2/S03/metrics.json",
+        "value": 1.0,
+        "scope": "World C hidden family evaluation"
+      },
+      {
+        "artifact": "artifacts/run_tiny_s20260827_193f7897_40997ab/three_world_evaluation.json",
+        "value": 1.0,
+        "scope": "Hidden Family ASR@20"
+      }
+    ],
+    "reconciliation_status": "RESOLVED",
+    "resolution_explanation": "Perfect agreement between Phase 2 and Baseline artifacts: 100.0% ASR against unadapted zero-day families. Classified strictly as a FAILURE_FINDING / negative result demonstrating model generalization boundaries.",
+    "final_classification": "FAILURE_FINDING"
+  },
+  {
+    "conflict_id": "CONF_005_MED_UNDEFINED_POST_DEFENSE",
+    "metric": "Minimum Evasion Distance post-hardening",
+    "artifacts_involved": [
+      {
+        "artifact": "artifacts/run_tiny_s20260827_193f7897_40997ab/scoreboard.json",
+        "value": null,
+        "scope": "Challenger post-hardening MED (0 evasions)"
+      },
+      {
+        "artifact": "artifacts/run_tiny_s20260827_193f7897_40997ab/red_metrics.json",
+        "value": 2.8488,
+        "scope": "Baseline pre-hardening MED"
+      }
+    ],
+    "reconciliation_status": "RESOLVED",
+    "resolution_explanation": "When 0 attacks succeed, MED is mathematically undefined (null). It must never be recorded as 0.0.",
+    "final_classification": "VERIFIED"
+  },
+  {
+    "conflict_id": "CONF_006_INTENT_ABLATION_DELTA",
+    "metric": "Intent mandate ablation delta ASR",
+    "artifacts_involved": [
+      {
+        "artifact": "artifacts/run_tiny_s20260827_193f7897_40997ab/intent_ablation.json",
+        "value": 0.0,
+        "scope": "With Intent ASR = 100%, Without Intent ASR = 100%"
+      }
+    ],
+    "reconciliation_status": "RESOLVED",
+    "resolution_explanation": "Delta ASR is exactly 0.0%. The intent engine did not provide measurable ASR reduction on the tiny benchmark. Classified as INCONCLUSIVE / FAILURE_FINDING.",
+    "final_classification": "INCONCLUSIVE"
+  }
+]

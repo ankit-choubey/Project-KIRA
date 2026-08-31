@@ -1,0 +1,1398 @@
+{
+  "experiment_id": "ADV-003",
+  "scale": "large",
+  "arms": {
+    "static_blue": [
+      {
+        "round_number": 0,
+        "arm_name": "static_blue",
+        "blue_version": "blue_v00_static_blue",
+        "parent_blue_version": null,
+        "train_attack_count": 0,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 1.0,
+        "legacy_asr": 1.0,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": 0.0,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "INITIAL",
+        "replay_examples_added": 0,
+        "total_knowledge_count": 0,
+        "runtime_sec": 0.1,
+        "metrics": {}
+      },
+      {
+        "round_number": 1,
+        "arm_name": "static_blue",
+        "blue_version": "blue_v00_static_blue",
+        "parent_blue_version": "blue_v00_static_blue",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 1.0,
+        "legacy_asr": 1.0,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": 0.0,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "REJECT",
+        "replay_examples_added": 0,
+        "total_knowledge_count": 0,
+        "runtime_sec": 0.52,
+        "metrics": {
+          "val_family_asr": {
+            "slow_siphon": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "burst_drain": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "slow_siphon": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "burst_drain": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 2,
+        "arm_name": "static_blue",
+        "blue_version": "blue_v00_static_blue",
+        "parent_blue_version": "blue_v00_static_blue",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 1.0,
+        "legacy_asr": 1.0,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": 0.0,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "REJECT",
+        "replay_examples_added": 0,
+        "total_knowledge_count": 0,
+        "runtime_sec": 0.586,
+        "metrics": {
+          "val_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "agent_subversion": 1.0,
+            "geo_hop": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "agent_subversion": 1.0,
+            "geo_hop": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 3,
+        "arm_name": "static_blue",
+        "blue_version": "blue_v00_static_blue",
+        "parent_blue_version": "blue_v00_static_blue",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 1.0,
+        "legacy_asr": 1.0,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": 0.0,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "REJECT",
+        "replay_examples_added": 0,
+        "total_knowledge_count": 0,
+        "runtime_sec": 0.486,
+        "metrics": {
+          "val_family_asr": {
+            "agent_subversion": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "burst_drain": 1.0,
+            "slow_siphon": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "agent_subversion": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "burst_drain": 1.0,
+            "slow_siphon": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 4,
+        "arm_name": "static_blue",
+        "blue_version": "blue_v00_static_blue",
+        "parent_blue_version": "blue_v00_static_blue",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 1.0,
+        "legacy_asr": 1.0,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": 0.0,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "REJECT",
+        "replay_examples_added": 0,
+        "total_knowledge_count": 0,
+        "runtime_sec": 0.522,
+        "metrics": {
+          "val_family_asr": {
+            "cross_merchant_fanout": 1.0,
+            "agent_subversion": 1.0,
+            "burst_drain": 1.0,
+            "geo_hop": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "cross_merchant_fanout": 1.0,
+            "agent_subversion": 1.0,
+            "burst_drain": 1.0,
+            "geo_hop": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 5,
+        "arm_name": "static_blue",
+        "blue_version": "blue_v00_static_blue",
+        "parent_blue_version": "blue_v00_static_blue",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 1.0,
+        "legacy_asr": 1.0,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": 0.0,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "REJECT",
+        "replay_examples_added": 0,
+        "total_knowledge_count": 0,
+        "runtime_sec": 0.518,
+        "metrics": {
+          "val_family_asr": {
+            "geo_hop": 1.0,
+            "burst_drain": 1.0,
+            "agent_subversion": 1.0,
+            "cross_merchant_fanout": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "geo_hop": 1.0,
+            "burst_drain": 1.0,
+            "agent_subversion": 1.0,
+            "cross_merchant_fanout": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 6,
+        "arm_name": "static_blue",
+        "blue_version": "blue_v00_static_blue",
+        "parent_blue_version": "blue_v00_static_blue",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 1.0,
+        "legacy_asr": 1.0,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": 0.0,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "REJECT",
+        "replay_examples_added": 0,
+        "total_knowledge_count": 0,
+        "runtime_sec": 0.515,
+        "metrics": {
+          "val_family_asr": {
+            "agent_subversion": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "burst_drain": 1.0,
+            "geo_hop": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "agent_subversion": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "burst_drain": 1.0,
+            "geo_hop": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 7,
+        "arm_name": "static_blue",
+        "blue_version": "blue_v00_static_blue",
+        "parent_blue_version": "blue_v00_static_blue",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 1.0,
+        "legacy_asr": 1.0,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": 0.0,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "REJECT",
+        "replay_examples_added": 0,
+        "total_knowledge_count": 0,
+        "runtime_sec": 0.482,
+        "metrics": {
+          "val_family_asr": {
+            "cross_merchant_fanout": 1.0,
+            "agent_subversion": 1.0,
+            "geo_hop": 1.0,
+            "burst_drain": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "cross_merchant_fanout": 1.0,
+            "agent_subversion": 1.0,
+            "geo_hop": 1.0,
+            "burst_drain": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 8,
+        "arm_name": "static_blue",
+        "blue_version": "blue_v00_static_blue",
+        "parent_blue_version": "blue_v00_static_blue",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 1.0,
+        "legacy_asr": 1.0,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": 0.0,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "REJECT",
+        "replay_examples_added": 0,
+        "total_knowledge_count": 0,
+        "runtime_sec": 0.522,
+        "metrics": {
+          "val_family_asr": {
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "slow_siphon": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "slow_siphon": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 9,
+        "arm_name": "static_blue",
+        "blue_version": "blue_v00_static_blue",
+        "parent_blue_version": "blue_v00_static_blue",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 1.0,
+        "legacy_asr": 1.0,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": 0.0,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "REJECT",
+        "replay_examples_added": 0,
+        "total_knowledge_count": 0,
+        "runtime_sec": 0.513,
+        "metrics": {
+          "val_family_asr": {
+            "slow_siphon": 1.0,
+            "geo_hop": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "burst_drain": 1.0,
+            "agent_subversion": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "slow_siphon": 1.0,
+            "geo_hop": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "burst_drain": 1.0,
+            "agent_subversion": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 10,
+        "arm_name": "static_blue",
+        "blue_version": "blue_v00_static_blue",
+        "parent_blue_version": "blue_v00_static_blue",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 1.0,
+        "legacy_asr": 1.0,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": 0.0,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "REJECT",
+        "replay_examples_added": 0,
+        "total_knowledge_count": 0,
+        "runtime_sec": 0.502,
+        "metrics": {
+          "val_family_asr": {
+            "geo_hop": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "agent_subversion": 1.0,
+            "burst_drain": 1.0,
+            "slow_siphon": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "geo_hop": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "agent_subversion": 1.0,
+            "burst_drain": 1.0,
+            "slow_siphon": 1.0
+          }
+        }
+      }
+    ],
+    "adaptive_challenger": [
+      {
+        "round_number": 0,
+        "arm_name": "adaptive_challenger",
+        "blue_version": "blue_v00_adaptive_challenger",
+        "parent_blue_version": null,
+        "train_attack_count": 0,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 1.0,
+        "legacy_asr": 1.0,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": 0.0,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "INITIAL",
+        "replay_examples_added": 0,
+        "total_knowledge_count": 0,
+        "runtime_sec": 0.1,
+        "metrics": {}
+      },
+      {
+        "round_number": 1,
+        "arm_name": "adaptive_challenger",
+        "blue_version": "blue_v01_adaptive_challenger",
+        "parent_blue_version": "blue_v00_adaptive_challenger",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 0.88,
+        "legacy_asr": 1.0,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": -0.12,
+        "val_asr_delta_from_round0": -0.12,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "PROMOTE",
+        "replay_examples_added": 25,
+        "total_knowledge_count": 25,
+        "runtime_sec": 3.184,
+        "metrics": {
+          "val_family_asr": {
+            "slow_siphon": 0.8,
+            "geo_hop": 0.8333,
+            "agent_subversion": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "burst_drain": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "slow_siphon": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "burst_drain": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 2,
+        "arm_name": "adaptive_challenger",
+        "blue_version": "blue_v02_adaptive_challenger",
+        "parent_blue_version": "blue_v01_adaptive_challenger",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 0.88,
+        "legacy_asr": 1.0,
+        "heldout_asr": 0.92,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": -0.12,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "PROMOTE",
+        "replay_examples_added": 25,
+        "total_knowledge_count": 50,
+        "runtime_sec": 6.172,
+        "metrics": {
+          "val_family_asr": {
+            "slow_siphon": 0.7857,
+            "agent_subversion": 1.0,
+            "geo_hop": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "slow_siphon": 0.9286,
+            "agent_subversion": 1.0,
+            "geo_hop": 0.8333,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 3,
+        "arm_name": "adaptive_challenger",
+        "blue_version": "blue_v03_adaptive_challenger",
+        "parent_blue_version": "blue_v02_adaptive_challenger",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 0.88,
+        "legacy_asr": 1.0,
+        "heldout_asr": 0.96,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": -0.12,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "PROMOTE",
+        "replay_examples_added": 23,
+        "total_knowledge_count": 73,
+        "runtime_sec": 6.928,
+        "metrics": {
+          "val_family_asr": {
+            "geo_hop": 0.3333,
+            "agent_subversion": 0.75,
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "geo_hop": 0.6667,
+            "agent_subversion": 1.0,
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 4,
+        "arm_name": "adaptive_challenger",
+        "blue_version": "blue_v04_adaptive_challenger",
+        "parent_blue_version": "blue_v03_adaptive_challenger",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 0.88,
+        "legacy_asr": 0.96,
+        "heldout_asr": 0.96,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": -0.12,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "PROMOTE",
+        "replay_examples_added": 22,
+        "total_knowledge_count": 95,
+        "runtime_sec": 7.084,
+        "metrics": {
+          "val_family_asr": {
+            "cross_merchant_fanout": 0.8333,
+            "agent_subversion": 0.6,
+            "burst_drain": 1.0,
+            "geo_hop": 1.0,
+            "slow_siphon": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 0.8333
+          },
+          "heldout_family_asr": {
+            "cross_merchant_fanout": 0.8333,
+            "agent_subversion": 1.0,
+            "burst_drain": 1.0,
+            "geo_hop": 1.0,
+            "slow_siphon": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 5,
+        "arm_name": "adaptive_challenger",
+        "blue_version": "blue_v04_adaptive_challenger",
+        "parent_blue_version": "blue_v04_adaptive_challenger",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 0.92,
+        "legacy_asr": 0.96,
+        "heldout_asr": 0.96,
+        "val_asr_delta_from_prev": 0.04,
+        "val_asr_delta_from_round0": -0.08,
+        "anti_forgetting_delta": 0.04,
+        "anti_forgetting_status": "MINOR_DEGRADATION",
+        "promotion_decision": "REJECT",
+        "replay_examples_added": 16,
+        "total_knowledge_count": 111,
+        "runtime_sec": 7.546,
+        "metrics": {
+          "val_family_asr": {
+            "geo_hop": 0.8,
+            "burst_drain": 0.8889,
+            "agent_subversion": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "slow_siphon": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 0.8333
+          },
+          "heldout_family_asr": {
+            "geo_hop": 0.8,
+            "burst_drain": 1.0,
+            "agent_subversion": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "slow_siphon": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 6,
+        "arm_name": "adaptive_challenger",
+        "blue_version": "blue_v04_adaptive_challenger",
+        "parent_blue_version": "blue_v04_adaptive_challenger",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 0.92,
+        "legacy_asr": 0.96,
+        "heldout_asr": 0.96,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": -0.08,
+        "anti_forgetting_delta": 0.04,
+        "anti_forgetting_status": "MINOR_DEGRADATION",
+        "promotion_decision": "REJECT",
+        "replay_examples_added": 19,
+        "total_knowledge_count": 130,
+        "runtime_sec": 7.524,
+        "metrics": {
+          "val_family_asr": {
+            "geo_hop": 0.75,
+            "cross_merchant_fanout": 0.8333,
+            "agent_subversion": 1.0,
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 0.8333
+          },
+          "heldout_family_asr": {
+            "geo_hop": 0.75,
+            "cross_merchant_fanout": 1.0,
+            "agent_subversion": 1.0,
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 7,
+        "arm_name": "adaptive_challenger",
+        "blue_version": "blue_v07_adaptive_challenger",
+        "parent_blue_version": "blue_v04_adaptive_challenger",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 0.76,
+        "legacy_asr": 0.96,
+        "heldout_asr": 0.76,
+        "val_asr_delta_from_prev": -0.16,
+        "val_asr_delta_from_round0": -0.24,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "PROMOTE",
+        "replay_examples_added": 16,
+        "total_knowledge_count": 146,
+        "runtime_sec": 7.519,
+        "metrics": {
+          "val_family_asr": {
+            "cross_merchant_fanout": 0.7778,
+            "geo_hop": 0.6667,
+            "agent_subversion": 0.6667,
+            "burst_drain": 1.0,
+            "slow_siphon": 0.6
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 0.6667,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "cross_merchant_fanout": 0.7778,
+            "geo_hop": 1.0,
+            "agent_subversion": 0.6667,
+            "burst_drain": 0.4,
+            "slow_siphon": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 8,
+        "arm_name": "adaptive_challenger",
+        "blue_version": "blue_v08_adaptive_challenger",
+        "parent_blue_version": "blue_v07_adaptive_challenger",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 0.92,
+        "legacy_asr": 0.96,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": 0.16,
+        "val_asr_delta_from_round0": -0.08,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "PROMOTE",
+        "replay_examples_added": 20,
+        "total_knowledge_count": 166,
+        "runtime_sec": 7.149,
+        "metrics": {
+          "val_family_asr": {
+            "slow_siphon": 0.9091,
+            "agent_subversion": 0.6667,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "burst_drain": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 0.8333
+          },
+          "heldout_family_asr": {
+            "slow_siphon": 1.0,
+            "agent_subversion": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "burst_drain": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 9,
+        "arm_name": "adaptive_challenger",
+        "blue_version": "blue_v08_adaptive_challenger",
+        "parent_blue_version": "blue_v08_adaptive_challenger",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 0.96,
+        "legacy_asr": 0.96,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": 0.04,
+        "val_asr_delta_from_round0": -0.04,
+        "anti_forgetting_delta": 0.04,
+        "anti_forgetting_status": "MINOR_DEGRADATION",
+        "promotion_decision": "REJECT",
+        "replay_examples_added": 13,
+        "total_knowledge_count": 179,
+        "runtime_sec": 7.22,
+        "metrics": {
+          "val_family_asr": {
+            "slow_siphon": 0.8,
+            "geo_hop": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "burst_drain": 1.0,
+            "agent_subversion": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 0.8333
+          },
+          "heldout_family_asr": {
+            "slow_siphon": 1.0,
+            "geo_hop": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "burst_drain": 1.0,
+            "agent_subversion": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 10,
+        "arm_name": "adaptive_challenger",
+        "blue_version": "blue_v08_adaptive_challenger",
+        "parent_blue_version": "blue_v08_adaptive_challenger",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 0.92,
+        "legacy_asr": 0.96,
+        "heldout_asr": 0.96,
+        "val_asr_delta_from_prev": -0.04,
+        "val_asr_delta_from_round0": -0.08,
+        "anti_forgetting_delta": 0.04,
+        "anti_forgetting_status": "MINOR_DEGRADATION",
+        "promotion_decision": "REJECT",
+        "replay_examples_added": 11,
+        "total_knowledge_count": 190,
+        "runtime_sec": 7.762,
+        "metrics": {
+          "val_family_asr": {
+            "geo_hop": 0.8333,
+            "cross_merchant_fanout": 0.75,
+            "agent_subversion": 1.0,
+            "burst_drain": 1.0,
+            "slow_siphon": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 0.8333
+          },
+          "heldout_family_asr": {
+            "geo_hop": 0.8333,
+            "cross_merchant_fanout": 1.0,
+            "agent_subversion": 1.0,
+            "burst_drain": 1.0,
+            "slow_siphon": 1.0
+          }
+        }
+      }
+    ],
+    "replay_control": [
+      {
+        "round_number": 0,
+        "arm_name": "replay_control",
+        "blue_version": "blue_v00_replay_control",
+        "parent_blue_version": null,
+        "train_attack_count": 0,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 1.0,
+        "legacy_asr": 1.0,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": 0.0,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "INITIAL",
+        "replay_examples_added": 0,
+        "total_knowledge_count": 0,
+        "runtime_sec": 0.1,
+        "metrics": {}
+      },
+      {
+        "round_number": 1,
+        "arm_name": "replay_control",
+        "blue_version": "blue_v01_replay_control",
+        "parent_blue_version": "blue_v00_replay_control",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 0.96,
+        "legacy_asr": 1.0,
+        "heldout_asr": 0.96,
+        "val_asr_delta_from_prev": -0.04,
+        "val_asr_delta_from_round0": -0.04,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "PROMOTE",
+        "replay_examples_added": 13,
+        "total_knowledge_count": 13,
+        "runtime_sec": 3.81,
+        "metrics": {
+          "val_family_asr": {
+            "slow_siphon": 0.9,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "burst_drain": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "slow_siphon": 1.0,
+            "geo_hop": 0.8333,
+            "agent_subversion": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "burst_drain": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 2,
+        "arm_name": "replay_control",
+        "blue_version": "blue_v02_replay_control",
+        "parent_blue_version": "blue_v01_replay_control",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 0.96,
+        "legacy_asr": 1.0,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": -0.04,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "PROMOTE",
+        "replay_examples_added": 13,
+        "total_knowledge_count": 26,
+        "runtime_sec": 5.853,
+        "metrics": {
+          "val_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 0.8333,
+            "geo_hop": 1.0,
+            "cross_merchant_fanout": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "geo_hop": 1.0,
+            "cross_merchant_fanout": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 3,
+        "arm_name": "replay_control",
+        "blue_version": "blue_v03_replay_control",
+        "parent_blue_version": "blue_v02_replay_control",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 0.96,
+        "legacy_asr": 1.0,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": -0.04,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "PROMOTE",
+        "replay_examples_added": 13,
+        "total_knowledge_count": 39,
+        "runtime_sec": 6.345,
+        "metrics": {
+          "val_family_asr": {
+            "cross_merchant_fanout": 0.9,
+            "agent_subversion": 1.0,
+            "slow_siphon": 1.0,
+            "geo_hop": 1.0,
+            "burst_drain": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "cross_merchant_fanout": 1.0,
+            "agent_subversion": 1.0,
+            "slow_siphon": 1.0,
+            "geo_hop": 1.0,
+            "burst_drain": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 4,
+        "arm_name": "replay_control",
+        "blue_version": "blue_v04_replay_control",
+        "parent_blue_version": "blue_v03_replay_control",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 0.84,
+        "legacy_asr": 1.0,
+        "heldout_asr": 0.92,
+        "val_asr_delta_from_prev": -0.12,
+        "val_asr_delta_from_round0": -0.16,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "PROMOTE",
+        "replay_examples_added": 13,
+        "total_knowledge_count": 52,
+        "runtime_sec": 6.491,
+        "metrics": {
+          "val_family_asr": {
+            "geo_hop": 0.5,
+            "slow_siphon": 0.8421,
+            "agent_subversion": 1.0,
+            "cross_merchant_fanout": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "geo_hop": 0.5,
+            "slow_siphon": 0.9474,
+            "agent_subversion": 1.0,
+            "cross_merchant_fanout": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 5,
+        "arm_name": "replay_control",
+        "blue_version": "blue_v04_replay_control",
+        "parent_blue_version": "blue_v04_replay_control",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 0.96,
+        "legacy_asr": 1.0,
+        "heldout_asr": 0.96,
+        "val_asr_delta_from_prev": 0.12,
+        "val_asr_delta_from_round0": -0.04,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "REJECT",
+        "replay_examples_added": 8,
+        "total_knowledge_count": 60,
+        "runtime_sec": 6.228,
+        "metrics": {
+          "val_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 0.8889,
+            "geo_hop": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "agent_subversion": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "geo_hop": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "agent_subversion": 0.5
+          }
+        }
+      },
+      {
+        "round_number": 6,
+        "arm_name": "replay_control",
+        "blue_version": "blue_v04_replay_control",
+        "parent_blue_version": "blue_v04_replay_control",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 0.96,
+        "legacy_asr": 1.0,
+        "heldout_asr": 0.96,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": -0.04,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "REJECT",
+        "replay_examples_added": 7,
+        "total_knowledge_count": 67,
+        "runtime_sec": 7.261,
+        "metrics": {
+          "val_family_asr": {
+            "geo_hop": 1.0,
+            "agent_subversion": 0.8,
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 1.0,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "geo_hop": 0.9231,
+            "agent_subversion": 1.0,
+            "slow_siphon": 1.0,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 7,
+        "arm_name": "replay_control",
+        "blue_version": "blue_v07_replay_control",
+        "parent_blue_version": "blue_v04_replay_control",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 0.92,
+        "legacy_asr": 0.92,
+        "heldout_asr": 0.96,
+        "val_asr_delta_from_prev": -0.04,
+        "val_asr_delta_from_round0": -0.08,
+        "anti_forgetting_delta": 0.0,
+        "anti_forgetting_status": "NO_FORGETTING",
+        "promotion_decision": "PROMOTE",
+        "replay_examples_added": 11,
+        "total_knowledge_count": 78,
+        "runtime_sec": 7.308,
+        "metrics": {
+          "val_family_asr": {
+            "cross_merchant_fanout": 1.0,
+            "slow_siphon": 0.9167,
+            "geo_hop": 1.0,
+            "burst_drain": 1.0,
+            "agent_subversion": 0.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 0.6667,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 0.8571,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "cross_merchant_fanout": 0.875,
+            "slow_siphon": 1.0,
+            "geo_hop": 1.0,
+            "burst_drain": 1.0,
+            "agent_subversion": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 8,
+        "arm_name": "replay_control",
+        "blue_version": "blue_v07_replay_control",
+        "parent_blue_version": "blue_v07_replay_control",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 0.96,
+        "legacy_asr": 0.92,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": 0.04,
+        "val_asr_delta_from_round0": -0.04,
+        "anti_forgetting_delta": 0.04,
+        "anti_forgetting_status": "MINOR_DEGRADATION",
+        "promotion_decision": "REJECT",
+        "replay_examples_added": 11,
+        "total_knowledge_count": 89,
+        "runtime_sec": 7.05,
+        "metrics": {
+          "val_family_asr": {
+            "slow_siphon": 1.0,
+            "geo_hop": 0.75,
+            "cross_merchant_fanout": 1.0,
+            "agent_subversion": 1.0,
+            "burst_drain": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 0.6667,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 0.8571,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "slow_siphon": 1.0,
+            "geo_hop": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "agent_subversion": 1.0,
+            "burst_drain": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 9,
+        "arm_name": "replay_control",
+        "blue_version": "blue_v07_replay_control",
+        "parent_blue_version": "blue_v07_replay_control",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 0.96,
+        "legacy_asr": 0.92,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": 0.0,
+        "val_asr_delta_from_round0": -0.04,
+        "anti_forgetting_delta": 0.04,
+        "anti_forgetting_status": "MINOR_DEGRADATION",
+        "promotion_decision": "REJECT",
+        "replay_examples_added": 5,
+        "total_knowledge_count": 94,
+        "runtime_sec": 6.719,
+        "metrics": {
+          "val_family_asr": {
+            "slow_siphon": 1.0,
+            "geo_hop": 0.8889,
+            "cross_merchant_fanout": 1.0,
+            "burst_drain": 1.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 0.6667,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 0.8571,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "slow_siphon": 1.0,
+            "geo_hop": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "burst_drain": 1.0
+          }
+        }
+      },
+      {
+        "round_number": 10,
+        "arm_name": "replay_control",
+        "blue_version": "blue_v07_replay_control",
+        "parent_blue_version": "blue_v07_replay_control",
+        "train_attack_count": 25,
+        "val_attack_count": 25,
+        "heldout_attack_count": 25,
+        "legacy_attack_count": 25,
+        "val_asr": 0.92,
+        "legacy_asr": 0.92,
+        "heldout_asr": 1.0,
+        "val_asr_delta_from_prev": -0.04,
+        "val_asr_delta_from_round0": -0.08,
+        "anti_forgetting_delta": 0.08,
+        "anti_forgetting_status": "SIGNIFICANT_FORGETTING",
+        "promotion_decision": "REJECT",
+        "replay_examples_added": 9,
+        "total_knowledge_count": 103,
+        "runtime_sec": 6.848,
+        "metrics": {
+          "val_family_asr": {
+            "agent_subversion": 1.0,
+            "cross_merchant_fanout": 0.8571,
+            "burst_drain": 1.0,
+            "slow_siphon": 1.0,
+            "geo_hop": 0.0
+          },
+          "legacy_family_asr": {
+            "slow_siphon": 0.6667,
+            "burst_drain": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "geo_hop": 0.8571,
+            "agent_subversion": 1.0
+          },
+          "heldout_family_asr": {
+            "agent_subversion": 1.0,
+            "cross_merchant_fanout": 1.0,
+            "burst_drain": 1.0,
+            "slow_siphon": 1.0,
+            "geo_hop": 1.0
+          }
+        }
+      }
+    ]
+  },
+  "comparisons": {
+    "final_val_asr": {
+      "static_blue": 1.0,
+      "adaptive_challenger": 0.92,
+      "replay_control": 0.92
+    },
+    "delta_asr_adaptive_vs_static": -0.08,
+    "delta_asr_adaptive_vs_replay": 0.0,
+    "final_anti_forgetting_delta": {
+      "static_blue": 0.0,
+      "adaptive_challenger": 0.04,
+      "replay_control": 0.08
+    }
+  }
+}

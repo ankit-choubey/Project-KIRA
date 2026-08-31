@@ -1,0 +1,7 @@
+{
+  "bins": 10,
+  "brier": 0.001282,
+  "ece": 0.0,
+  "method": "isotonic_regression",
+  "train_scale_pos_weight": 3.868014268727705
+}

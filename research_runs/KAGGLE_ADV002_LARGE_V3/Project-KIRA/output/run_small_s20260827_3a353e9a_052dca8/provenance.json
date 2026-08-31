@@ -1,0 +1,83 @@
+{
+  "artifact_count": 15,
+  "artifacts": {
+    "attack_summary.json": {
+      "schema_version": "0.1.0",
+      "sha256": "7e72c9ad903d32beeeccdab29175804906c4f8043e0e030bd47c28eecbff6760",
+      "size_bytes": 3507
+    },
+    "blue_metrics.json": {
+      "schema_version": "0.1.0",
+      "sha256": "4b05acde1868318fbd559cab26e72cb6d8c482f301fe0e10867d6854b7c7740d",
+      "size_bytes": 306
+    },
+    "calibration.json": {
+      "schema_version": "0.1.0",
+      "sha256": "15292f7512c859902dbcf5ead34a17fe61874c52a9f0b5dc436ce9550333ce4a",
+      "size_bytes": 133
+    },
+    "coevolution_metrics.json": {
+      "schema_version": "0.1.0",
+      "sha256": "b0e7ec144eeb14d9e60619a26be795e2f3a2f268ab5e4ee267819262dd45466b",
+      "size_bytes": 5481
+    },
+    "decisions.json": {
+      "schema_version": "0.1.0",
+      "sha256": "7bdef4083a5d953c468bb7202943c5b15a43decf0c3c2bca5623e02d67967113",
+      "size_bytes": 17350155
+    },
+    "evaluation.json": {
+      "schema_version": "0.1.0",
+      "sha256": "d521bc9c818d9e3a6e0cfd48d1ba18e0f22953d050c37d1f8d59fce7cd777e40",
+      "size_bytes": 6139
+    },
+    "evidence_pack.md": {
+      "schema_version": "0.1.0",
+      "sha256": "7253d5f53a6a6ed40ec9d999605748bd4eb8bdb1d7c3b594d858fc8adc2ec21c",
+      "size_bytes": 3691
+    },
+    "external_anchor.json": {
+      "schema_version": "0.1.0",
+      "sha256": "926b0c54ac4795ed89726765c5bb427f980ec83c2b571adefc98a52f5437ca92",
+      "size_bytes": 1713
+    },
+    "feature_schema.json": {
+      "schema_version": "0.1.0",
+      "sha256": "31db82c6ab462cd94e64c814a6fe397a0244d1b7312b9d0e3ec4c2419dcae8f2",
+      "size_bytes": 14773
+    },
+    "manifest.json": {
+      "schema_version": "0.1.0",
+      "sha256": "761cfcf1be0daaa3c34763f27d36ac5390d0cd95bf5f0ac28432f435c04eda88",
+      "size_bytes": 867
+    },
+    "policy_metrics.json": {
+      "schema_version": "0.1.0",
+      "sha256": "b295fbc2a0387cf0d7b2b625532c0e9351c1f8352fa11d1bc4fb8fe60528e54c",
+      "size_bytes": 305
+    },
+    "red_metrics.json": {
+      "schema_version": "0.1.0",
+      "sha256": "af47cf303e2d42b24f0e3a9fbb8133b56700b0967523c86ca2ae50a763cd61b2",
+      "size_bytes": 254
+    },
+    "sample_transactions.json": {
+      "schema_version": "0.1.0",
+      "sha256": "fd647d352cf792145110ce61b656f22f370d6c5ec2e421f1719a9190eda3cc8e",
+      "size_bytes": 23426
+    },
+    "transactions.json": {
+      "schema_version": "0.1.0",
+      "sha256": "63dee361b972bae8027444225af4653d72a61bbd10a3d3d83c3413f9f1b033b3",
+      "size_bytes": 31075821
+    },
+    "world_summary.json": {
+      "schema_version": "0.1.0",
+      "sha256": "a14bbe5173a6b6787b996dc61571f2a685c1ed2bcb17764813f5195af622753e",
+      "size_bytes": 227
+    }
+  },
+  "generated_at": "2026-08-30T16:22:05.986742",
+  "run_id": "run_small_s20260827_3a353e9a_052dca8",
+  "schema_version": "0.1.0"
+}

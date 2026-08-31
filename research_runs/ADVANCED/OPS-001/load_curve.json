@@ -1,0 +1,51 @@
+{
+  "experiment_id": "OPS-001",
+  "load_curve": [
+    {
+      "target_rate": 10,
+      "actual_throughput": 10.18,
+      "P50": 9.403,
+      "P95": 10.998,
+      "P99": 11.314,
+      "mean_latency": 8.97,
+      "error_rate": 0.0,
+      "successful_requests": 50,
+      "failed_requests": 0
+    },
+    {
+      "target_rate": 100,
+      "actual_throughput": 100.1,
+      "P50": 3.765,
+      "P95": 4.38,
+      "P99": 5.018,
+      "mean_latency": 3.763,
+      "error_rate": 0.0,
+      "successful_requests": 500,
+      "failed_requests": 0
+    },
+    {
+      "target_rate": 500,
+      "actual_throughput": 499.92,
+      "P50": 1.844,
+      "P95": 29.199,
+      "P99": 70.159,
+      "mean_latency": 4.936,
+      "error_rate": 0.0,
+      "successful_requests": 2500,
+      "failed_requests": 0
+    },
+    {
+      "target_rate": 1000,
+      "actual_throughput": 539.01,
+      "P50": 4870.351,
+      "P95": 6361.727,
+      "P99": 6499.307,
+      "mean_latency": 4414.226,
+      "error_rate": 0.0,
+      "successful_requests": 5000,
+      "failed_requests": 0
+    }
+  ],
+  "final_status": "COMPLETED",
+  "infrastructure": "Local Dev"
+}

@@ -1,0 +1,11 @@
+{
+  "experiment_id": "ADV-002",
+  "scale": "standard",
+  "base_seed": 20260831,
+  "git_commit": "9a47f35419b7874319d720f255db048684b56f41",
+  "timestamp": "2026-08-31T11:49:34.527465Z",
+  "adv001_memory_records_ingested": 10000,
+  "adv002_memory_records_added": 500,
+  "runtime_sec": 5.945,
+  "throughput_attempts_per_sec": 84.1
+}

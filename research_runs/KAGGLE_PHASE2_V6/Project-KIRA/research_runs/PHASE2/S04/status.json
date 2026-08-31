@@ -1,0 +1,38 @@
+{
+  "baseline_git_commit": "40997ab",
+  "baseline_run_id": "run_tiny_s20260827_193f7897_40997ab",
+  "config_hash": "",
+  "end_time": "2026-08-31T10:54:18.139927+00:00",
+  "exception": null,
+  "experiment_id": "S04",
+  "git_commit": "f9ad563ca867f2524ac499bb0ecca49af4134575",
+  "input_artifact_hashes": {
+    "baseline_provenance": "c6e7271840db64c20e32fb78b817879f7f485d0684c50ad93ba06dd29b35ca2d"
+  },
+  "metrics": {
+    "claims_count": 6,
+    "stages_summarized": 9,
+    "synthesis_complete": true
+  },
+  "output_paths": [
+    "research_runs/PHASE2/S04/master_results.json",
+    "research_runs/PHASE2/S04/comparison_table.json",
+    "research_runs/PHASE2/S04/evidence_report.md",
+    "research_runs/PHASE2/S04/integrity.json"
+  ],
+  "output_sha256": {
+    "comparison_table.json": "94df156da6a5f99e0e615a70fc28aae7ec19592b148ff4b0453d549ad900a14d",
+    "evidence_report.md": "50f547104e495ad55db4f3c528521605eadca5f6e7c970a2067cb42f9636c3ed",
+    "integrity.json": "069de12bc91d623e65ba61e48c27939ef9873a5d060007d30cc52d3ad2be9aa2",
+    "master_results.json": "b5b4c3f047a54a5a4f9270dfece94c42cf3a9f28ae685c6d2f5994b45d95cb55"
+  },
+  "peak_gpu_mb": 0,
+  "peak_ram_mb": 0,
+  "run_id": "phase2_1788159476",
+  "runtime_sec": 0.09121784099988872,
+  "seed": 20260827,
+  "stage_id": "S04",
+  "start_time": "1970-01-01T04:16:55.016614+00:00",
+  "status": "COMPLETED",
+  "termination_reason": null
+}
