@@ -6,6 +6,32 @@ Never write "done". Write what changed, what you ran, and what the gate said.
 
 ---
 
+## 2026-08-31 · ADV-003 Adaptive Defense Curve Implementation · Antigravity
+
+**BLOCK:** Research Expansion — ADV-003 Closed-Loop Adaptive Defense Curve & Anti-Forgetting Evaluation.
+
+**DONE:**
+1. **Architecture & Module Isolation**: Implemented `src/mcdl/research/advanced/adv003/` with full separation from production Blue/Red core:
+   - `schemas.py`: Defined `DefensiveKnowledgeRecord`, `PromotionGateConfig`, `PromotionEvaluation`, `RoundMetricRecord`.
+   - `knowledge.py`: Built `DefensiveKnowledgeStore` with validation, deduplication, partition indexing, and replay DataFrame synthesis.
+   - `challenger.py`: Implemented `ChallengerDetector` (LightGBM + isotonic calibration) and `PromotionGate` (multi-split gating on validation, legacy baseline, held-out attacks, and anti-forgetting boundary $\Delta \le 0.05$).
+   - `attacker.py`: Built `DeterministicAdaptiveRedAttacker` with empirical weakness weighting across disjoint target splits.
+   - `evaluator.py`: Implemented `ADV003Evaluator` with ASR, family ASR, query ASR, Brier score, ECE, PR-AUC, and ROC-AUC.
+   - `storage.py`: Implemented `ADV003Storage` for atomic round checkpointing and master evidence generation.
+   - `runner.py`: Implemented multi-arm pipeline (`static_blue`, `adaptive_challenger`, `replay_control`).
+2. **Comprehensive Unit & Invariant Testing**: Built `tests/unit/research/test_adv003.py` covering all 14 mandatory invariants (round isolation, split disjointness, no holdout contamination, zero production mutation, rollback on rejection, anti-forgetting calculation, deterministic replay, checkpoint integrity, null semantics). All **14/14 tests pass**.
+3. **Full Regression & Integrity Verification**:
+   - `pytest tests/unit/research/test_adv003.py -v`: 14 passed.
+   - `pytest tests/unit/research/test_adv002.py -v`: 14 passed.
+   - `pytest tests/unit/research/test_adv001.py -v`: 14 passed.
+   - `audit_authoritative_run.py run_tiny_s20260827_193f7897_40997ab`: 22/22 baseline artifacts verified (100% SHA-256 match).
+   - `run_phase2_smoke_tests.py`: All passed.
+4. **Smoke Pipeline Dry-Run**: Executed lightweight smoke run across 3 arms (2 rounds, 6.16s runtime) generating all master artifacts cleanly.
+
+**FILES:** `src/mcdl/research/advanced/adv003/*`, `tests/unit/research/test_adv003.py`, `research_runs/ADVANCED/ADV-003/*`, `brain/HANDOFF.md`.
+
+---
+
 ## 2026-08-31 · KIRA V7 Authoritative Completion Run · Antigravity
 
 **BLOCK:** Research Completion — Kaggle Phase-2 Mega Notebook V7 Final Execution & Reconciliation.

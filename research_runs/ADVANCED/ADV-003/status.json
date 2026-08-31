@@ -1,0 +1,16 @@
+{
+  "status": "PREPARED_FOR_CLOUD_EXECUTION",
+  "experiment_id": "ADV-003",
+  "scale": "large",
+  "total_rounds": 10,
+  "arms": ["static_blue", "adaptive_challenger", "replay_control"],
+  "metrics": {
+    "adaptive_final_val_asr": null,
+    "static_final_val_asr": null,
+    "replay_final_val_asr": null,
+    "delta_asr_adaptive_vs_static": null,
+    "delta_asr_adaptive_vs_replay": null,
+    "anti_forgetting_status": null
+  },
+  "timestamp": "2026-08-31T19:07:00Z"
+}

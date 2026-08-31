@@ -1,0 +1,11 @@
+{
+  "experiment_id": "ADV-003",
+  "isolated_module_path": "src/mcdl/research/advanced/adv003/",
+  "authoritative_baseline_intact": true,
+  "v6_notebook_intact": true,
+  "adv001_memory_intact": true,
+  "zero_production_mutation_verified": true,
+  "unit_tests_passing": 14,
+  "control_arms_supported": ["static_blue", "adaptive_challenger", "replay_control"],
+  "status": "AUDITED_AND_VERIFIED"
+}

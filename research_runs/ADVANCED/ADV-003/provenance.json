@@ -1,0 +1,8 @@
+{
+  "experiment_id": "ADV-003",
+  "scale": "large",
+  "base_seed": 20260831,
+  "git_commit": "8b495ff4b3fd54f84214c77e1d82c058ad87e125",
+  "timestamp": "2026-08-31T19:07:00Z",
+  "status": "PREPARED_FOR_CLOUD_EXECUTION"
+}
