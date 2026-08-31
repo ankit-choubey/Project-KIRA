@@ -28,7 +28,7 @@ RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir .
 COPY --chown=user api ./api
 COPY --chown=user configs ./configs
 COPY --chown=user frontend/dist ./frontend/dist
-COPY --chown=user artifacts/demo ./artifacts
+COPY --chown=user artifacts ./artifacts
 
 EXPOSE 7860
 CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "7860"]
