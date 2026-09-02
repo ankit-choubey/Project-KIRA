@@ -3,8 +3,7 @@ title: Mastercard AI Defense Lab
 emoji: 🛡️
 colorFrom: indigo
 colorTo: gray
-sdk: docker
-app_port: 7860
+sdk: static
 pinned: false
 ---
 
