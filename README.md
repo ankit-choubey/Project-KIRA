@@ -9,246 +9,270 @@ pinned: false
 
 <div align="center">
 
-# Project KIRA — Mastercard AI Defense Lab
-### Adversarial Co-Evolution & Closed-Loop Security Verification for Payment Intelligence
+# 🛡️ Project KIRA — Mastercard AI Defense Lab
+### Institutional Adversarial Security Laboratory, Stateful Swarms & Closed-Loop Co-Evolution
 
-[![GitHub Stars](https://img.shields.io/github/stars/ankit-choubey/Project-KIRA?style=flat-square&color=ffd700&label=STARS)](https://github.com/ankit-choubey/Project-KIRA)
-[![GitHub Forks](https://img.shields.io/github/forks/ankit-choubey/Project-KIRA?style=flat-square&color=607d8b&label=FORKS)](https://github.com/ankit-choubey/Project-KIRA)
+[![GitHub Stars](https://img.shields.io/github/stars/ankit-choubey/Project-KIRA?style=for-the-badge&color=ffd700&label=STARS)](https://github.com/ankit-choubey/Project-KIRA)
+[![GitHub Forks](https://img.shields.io/github/forks/ankit-choubey/Project-KIRA?style=for-the-badge&color=607d8b&label=FORKS)](https://github.com/ankit-choubey/Project-KIRA)
 [![Python](https://img.shields.io/badge/Python-3.11_|_3.12_|_3.14-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-005571?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Polars](https://img.shields.io/badge/Polars-Vectorized_Engine-CD792C?style=for-the-badge&logo=polars&logoColor=white)](https://pola.rs)
 [![LightGBM](https://img.shields.io/badge/LightGBM-Gradient_Boosting-2E7D32?style=for-the-badge)](https://lightgbm.readthedocs.io)
-[![Test Suite](https://img.shields.io/badge/tests-75_passed-2E7D32?style=for-the-badge)](https://github.com/ankit-choubey/Project-KIRA/tree/main/tests)
-[![Security Gates](https://img.shields.io/badge/gates-0_through_7_verified-14607A?style=for-the-badge)](https://github.com/ankit-choubey/Project-KIRA/blob/main/tools/gates.py)
+[![Test Suite](https://img.shields.io/badge/tests-225_passed_·_0_failed-2E7D32?style=for-the-badge)](https://github.com/ankit-choubey/Project-KIRA/tree/main/tests)
+[![Security Gates](https://img.shields.io/badge/gates-0_through_7_ALL_PASSED-14607A?style=for-the-badge)](https://github.com/ankit-choubey/Project-KIRA/blob/main/tools/gates.py)
+[![Integrity](https://img.shields.io/badge/SHA--256-22%2F22_VERIFIED-10b981?style=for-the-badge)](https://github.com/ankit-choubey/Project-KIRA/blob/main/artifacts/LATEST)
 
 <br/>
 
-**Mastercard AI Defense Lab (Project KIRA)** is an institutional-grade payment-security laboratory designed to evaluate, stress-test, and harden transaction intelligence models against realistic, budget-constrained adversarial evasion attacks. Built around a stateful synthetic payment world, KIRA simulates continuous Red vs. Blue co-evolution, measures true generalization versus memorization, and enforces strict temporal-causal integrity across every metric.
-
-[🚀 Live Web App](https://ankit-choubey-project-kira.hf.space) • [🤗 Hugging Face Space](https://huggingface.co/spaces/ankit-choubey/Project-KIRA) • [⚡ Interactive API Docs](https://ankit-choubey-project-kira.hf.space/docs) • [🔍 REST API Index](https://ankit-choubey-project-kira.hf.space/api) • [💻 GitHub Repository](https://github.com/ankit-choubey/Project-KIRA)
+**Mastercard AI Defense Lab (Project KIRA)** is an institutional payment-security laboratory that treats transaction defense as an **active, continuously evaluated adversarial game**. Rather than evaluating static classifiers on stationary data, KIRA pits a stateful synthetic payment world against adaptive, multi-agent adversarial swarms (Red Engine), captures evasive vectors, retrains challenger detectors (Blue Team), and enforces strict anti-forgetting promotion gates before deploying models to production.
 
 <br/>
 
-## System Operational Status
+### 🌐 Verified Production Ecosystem Links
 
-| Verification Dimension | Operational Status | Invariant Enforcement |
-| :--- | :--- | :--- |
-| **Baseline Cryptographic Integrity** | `PASS` (22/22 Hash Matches) | Frozen baseline `run_tiny_s20260827_193f7897_40997ab` strictly unmutated |
-| **Temporal-Causal Isolation** | `PASS` (Zero Future Leakage) | Future mutation test confirmed $\Delta\text{Features}_{t \le t_0} = 0.0000$ |
-| **Batch / Stream Invariance** | `PASS` ($\Delta = 0.0$) | Real-time feature engine matches batch historical calculation byte-for-byte |
-| **Adversarial Search Constraints** | `PASS` (Zero Mask Violations) | Red mutator strictly restricted to attacker-controllable transaction fields |
-| **Automated Promotion Gate** | `PASS` (Overfit Rejection) | Rejects 4/4 over-fitted challengers to protect baseline detection quality |
-| **External Reality Anchor** | `PASS` (ULB Benchmark) | Real-world validation against independent credit card fraud benchmarks |
-| **API Contract & Latency** | `PASS` (P95 < 1.2ms) | Real HTTP loopback scoring with explicit fixture/artifact serving tags |
+| Platform | Production Target | URL | Status |
+| :--- | :--- | :--- | :--- |
+| **Primary Interactive Dashboard** | **Netlify (Devraj UI)** | [https://kaleidoscopic-quokka-251564.netlify.app/](https://kaleidoscopic-quokka-251564.netlify.app/) | `200 OK · ACTIVE` |
+| **Live Scoring & Simulation API** | **Render Web Service** | [https://project-kira-api.onrender.com/docs](https://project-kira-api.onrender.com/docs) | `200 OK · LIVE` |
+| **Public Evidence & Showcase Hub** | **Hugging Face Space** | [https://huggingface.co/spaces/ankit-choubey/Project-KIRA](https://huggingface.co/spaces/ankit-choubey/Project-KIRA) | `200 OK · UNPAUSED` |
+| **Kaggle CPU Reproducibility** | **5 Research Notebooks** | [github.com/.../notebooks/kaggle](https://github.com/ankit-choubey/Project-KIRA/tree/main/notebooks/kaggle) | `VERIFIED · ZERO GPU` |
+| **Authoritative Codebase** | **GitHub Repository** | [https://github.com/ankit-choubey/Project-KIRA](https://github.com/ankit-choubey/Project-KIRA) | `22/22 SHA-256 MATCH` |
 
 </div>
 
 ---
 
-## 1. Executive Summary & Research Objectives
+## 🎖️ Gate Verification Ladder: Gates 0 Through 7 ALL PASSED
 
-Traditional payment fraud detectors are static classifiers evaluated on stationary test sets. In production, adversaries dynamically probe detection surfaces, exploit chargeback label lags, and coordinate distributed fraud rings across merchants and devices.
+Every release in Project KIRA is bound to an automated 8-stage gate ladder (`tools/gates.py`). All gates execute strictly without GPU dependencies, enforcing causal safety, mathematical invariance, and cryptographic consistency.
 
-Project KIRA re-architects fraud defense as an **active, closed-loop adversarial game**:
+```text
+  GATE 0        GATE 1        GATE 2        GATE 3        GATE 4        GATE 5        GATE 6        GATE 7
+┌─────────┐   ┌─────────┐   ┌─────────┐   ┌─────────┐   ┌─────────┐   ┌─────────┐   ┌─────────┐   ┌─────────┐
+│CONTRACTS│──►│  WORLD  │──►│CAUSALITY│──►│DETECTOR │──►│ ADVERS. │──►│ CO-EVOL │──►│ CRYPTO  │──►│ RELEASE │
+│ 31 API  │   │ ENTITY  │   │BATCH=STR│   │OOT-SPLIT│   │BUDGET 20│   │GATE REJ │   │  22/22  │   │0 SECRETS│
+│  PASS   │   │  PASS   │   │  PASS   │   │  PASS   │   │  PASS   │   │  PASS   │   │  PASS   │   │  PASS   │
+└─────────┘   └─────────┘   └─────────┘   └─────────┘   └─────────┘   └─────────┘   └─────────┘   └─────────┘
+```
 
-*   **Stateful Payment Universe**: Synthesizes authentic payment topologies (cards, merchants, terminal devices, velocity bursts, and chargeback lag cycles) with realistic base fraud prevalence ($\sim 0.1\%$).
-*   **Constrained Adversarial Optimization (Red Engine)**: Explores evasion surfaces using realistic query budgets (1, 5, 20, 100 probes) and strict action masks (immutable account history and merchant IDs; mutable channels, velocity, and timing).
-*   **Causal Graph-Tabular Fusion (Blue Detector)**: Combines LightGBM tabular estimators with temporal dynamic graph embeddings (CausalGraphSAGE) to capture topological fraud motifs without future label leakage.
-*   **Anti-Memorization Hardening Verification**: Measures whether adversarial retraining genuinely generalizes to unseen attack variants (variants 5–9) or merely memorizes observed perturbations (variants 0–4).
-*   **Zero Metric Fabrication Contract**: Every reported metric is cryptographically bound to a frozen SHA-256 artifact hash. Missing data is rendered honestly as `Not measured`, never coerced to zero.
+| Gate # | Scope & Invariant Checked | Verification Condition | Output / Evidence | Status |
+| :---: | :--- | :--- | :--- | :---: |
+| **Gate 0** | **Contracts & Fixtures** | Schema validation, zero-drift Pydantic models, fixture reproducibility | 31/31 API contract tests pass | **`PASS`** |
+| **Gate 1** | **World Engine Physics** | Transaction graph integrity, cardholder trajectory physics, merchant validity | 9,348 txns strictly chronological | **`PASS`** |
+| **Gate 2** | **Temporal Feature Causality** | Zero future leakage ($t_j < t_i$), mandatory 7-day chargeback reporting delay | $\Delta\text{Features} = 0.0000$ (Batch $\equiv$ Stream) | **`PASS`** |
+| **Gate 3** | **Blue Detection & Calibration** | Out-of-time chronological splits, Isotonic calibration curve bounds | ECE $\le 0.012$, PR-AUC $0.9375$ | **`PASS`** |
+| **Gate 4** | **Red Action Masks & Budgets** | Strict mask compliance: account history locked; amount/velocity mutated | 0 mask violations across 10,000 attacks | **`PASS`** |
+| **Gate 5** | **Co-Evolutionary Hardening** | Anti-forgetting check: rejects models triggering detection collapse | 4/4 overfit challenger models rejected | **`PASS`** |
+| **Gate 6** | **Cryptographic Artifact Proof** | Exact byte-level SHA-256 hash match against frozen baseline | 22/22 artifacts verified matching | **`PASS`** |
+| **Gate 7** | **Final Security & Governance** | Zero hardcoded API keys, tokens, or private credentials in Git history | Automated regex scan clean; 0 secrets | **`PASS`** |
 
 ---
 
-## 2. System Architecture & Closed-Loop Control Flow
+## 📊 The 10 Audited Headline Research Numbers
 
-KIRA is architected with complete decoupling between **compute** (Kaggle CPU / Offline Pipeline) and **inference/serving** (FastAPI Gateway + Vite Dashboard):
+Every number below is extracted directly from cryptographically hashed research outputs in `artifacts/run_tiny_s20260827_193f7897_40997ab` and phase-2 research logs:
 
 ```text
-                                 PROJECT KIRA ARCHITECTURE
-  
- ┌──────────────────────────────────────────────────────────────────────────────────┐
- │                        OFFLINE ADVERSARIAL DISCOVERY                             │
- │                                                                                  │
- │   ┌───────────────────────┐              ┌───────────────────────────────────┐   │
- │   │ Stateful World Engine │              │   Red Adversarial Search Engine   │   │
- │   │  • Synthetic Entities │              │    • Budgeted Queries (1..100)    │   │
- │   │  • Topology & Bursts  │              │    • Action Mask Constraints      │   │
- │   │  • 7-Day Label Delay  │              │    • Minimum Evasion Distance     │   │
- │   └──────────┬────────────┘              └─────────────────┬─────────────────┘   │
- │              │                                             │                     │
- │              ▼                                             ▼                     │
- │   ┌───────────────────────┐              ┌───────────────────────────────────┐   │
- │   │ Temporal Feature Pipe │              │  Blue Graph-Tabular Fusion Model  │   │
- │   │  • 25 Canonical Feats │─────────────►│    • LightGBM Tabular Branch      │   │
- │   │  • Graph Embeddings   │              │    • CausalGraphSAGE Embeddings   │   │
- │   │  • Zero-Leakage Split │              │    • Isotonic Score Calibration   │   │
- │   └───────────────────────┘              └─────────────────┬─────────────────┘   │
- │                                                            │                     │
- │                                                            ▼                     │
- │                                          ┌───────────────────────────────────┐   │
- │                                          │     Automated Promotion Gate      │   │
- │                                          │    • Held-out Generalization Check│   │
- │                                          │    • False Positive Guardrails    │   │
- │                                          │    • 4/4 Overfit Candidates Rejected  │
- │                                          └─────────────────┬─────────────────┘   │
- └────────────────────────────────────────────────────────────┼─────────────────────┘
-                                                              │
-                                    CRYPTOGRAPHIC ARTIFACT PIPELINE (SHA-256)
-                                                              │
- ┌────────────────────────────────────────────────────────────┼─────────────────────┐
- │                                                            ▼                     │
- │                        PRODUCTION SERVING & AUDIT PLATFORM                       │
- │                                                                                  │
- │   ┌───────────────────────┐              ┌───────────────────────────────────┐   │
- │   │   FastAPI Gateway     │              │    Interactive Research UI        │   │
- │   │  • /api/health        │              │  • Closed-Loop Attack Console     │   │
- │   │  • /api/stream        │─────────────►│  • Provenance Drawer (17 Fields)  │   │
- │   │  • /api/score (<1.2ms)│              │  • Authenticity Audit Chips       │   │
- │   │  • /api/evidence      │              │  • Failure Mode Taxonomy          │   │
- │   └───────────────────────┘              └───────────────────────────────────┘   │
- └──────────────────────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                 THE 10 AUDITED HEADLINE NUMBERS                                  │
+├────────┬─────────────────┬───────────────────────────────────┬───────────────────────────────────┤
+│ Number │ Metric Value    │ Benchmark / Experiment Context    │ What It Actually Proves           │
+├────────┼─────────────────┼───────────────────────────────────┼───────────────────────────────────┤
+│   01   │ 284,807         │ ULB European Credit Card Benchmark│ External real-world validation    │
+│   02   │ 50,000          │ S-02 Synthetic World Evaluation   │ Large-scale causal graph scale    │
+│   03   │ 15,000          │ ADV-002 Stateful Swarm Trials     │ Swarm agentic stress-testing      │
+│   04   │ 10,000          │ ADV-001 Constrained Attacks       │ 6.00% ASR; 9,400 blocked/step-up  │
+│   05   │ +10.08 pp       │ Attacker Memory Effect (ADV-002)  │ Adaptive agents find more bugs    │
+│   06   │ +1.98 pp        │ Causal Graph Uplift (S-02)        │ Relational fusion (p = 0.0460)    │
+│   07   │ 50.0%           │ TI Bounded ASR Reduction (TI-001) │ Threat intel halves attacker ASR  │
+│   08   │ 100.0%          │ World C Zero-Day ASR              │ Vulnerability found (not hidden)  │
+│   09   │ 22 / 22         │ Authoritative Artifact Integrity  │ Zero hash drift / 225 tests green │
+│   10   │ 225             │ Automated Tests Passed            │ Rigorous research-engineering     │
+└────────┴─────────────────┴───────────────────────────────────┴───────────────────────────────────┘
+```
+
+> [!NOTE]
+> **Scientific Integrity Notice:**
+> * **`+10.08 pp`** is **Attacker ASR Gain under Adaptive Memory** (19.68% adaptive vs. 9.60% static control), demonstrating that memory enables attackers to systematically isolate structural weaknesses.
+> * **`100% Zero-Day ASR`** is a **Vulnerability Discovered**, confirming that the unhardened baseline is blind to withheld attack families and proving the necessity of KIRA's continuous co-evolutionary loop.
+
+---
+
+## 📈 High-Density Experimental Event Scale
+
+```text
+====================================================================================================
+                              KIRA EXPERIMENTAL SCALE & EVENT VOLUME
+====================================================================================================
+
+  [284,807]  Real-World Credit Card Benchmark Transactions (ULB 2015 · 492 Real Frauds)
+     │
+  [50,000]   Synthetic World C Transactions (S-02 Relational Graph Evaluation)
+     │
+  [28,044]   Causal Dynamic Graph Edges (Zero Future-Read Violations Verified)
+     │
+  [15,000]   Stateful Adversarial Swarm Probes (ADV-002 · 5 Agents · 3 Arms · 100 Rounds)
+     │
+  [10,000]   Constrained Adversarial Attacks (ADV-001 · 5 Mutation Families)
+     │
+  [9,400]    Evasion Attacks Blocked or Stepped-Up by Blue Fusion Detector
+     │
+  [4,674]    Stream Drift Monitoring Samples (KS Statistic = 0.1119, p = 0.0)
+     │
+  [2,805]    Synthetic Threat Intelligence Enrichment Events (TI-001)
+     │
+  [1,986]    Adversarial Swarm Evasions Captured and Quarantined into failures.json
+     │
+  [225]      Automated Tests Passing Cleanly Across Unit, Invariant & API Suites (0 Failures)
+     │
+  [22]       Authoritative JSON Artifacts Sealed with SHA-256 Signatures (22/22 Match)
+     │
+  [0]        Catastrophic Degradations Allowed: 4/4 Overfit Challenger Models Rejected
+
+====================================================================================================
 ```
 
 ---
 
-## 3. Core Scientific Invariants
+## 🏗️ Step-by-Step Closed-Loop Architecture Workflow
 
-### 3.1 Strict Temporal Causality
-Features evaluated for transaction $i$ at timestamp $t_i$ may only read events $j$ where $t_j < t_i$. Any label-dependent feature incorporates a mandatory **7-day chargeback reporting delay**, preventing future-leakage artifacts that artificially inflate laboratory models.
-
-### 3.2 Minimum Evasion Distance (MED)
-Rather than relying solely on Attack Success Rate (ASR)—which shifts arbitrarily with classification thresholds—KIRA measures **Minimum Evasion Distance**:
-$$\text{MED} = \min_{\delta \in \mathcal{A}} \|\delta\|_2 \quad \text{s.t.} \quad f(x + \delta) \le \tau_{\text{ALLOW}}$$
-where $\mathcal{A}$ is the constrained action space of mutable payment fields.
-
-### 3.3 Zero-Day Attack Isolation
-Attack families designated as zero-day ($R_3$ Merchant Collusion, $R_5$ Reverse Mule Fan-in) are strictly quarantined from training, validation, and calibration splits. They are evaluated exclusively out-of-time in World C to measure true generalized detection boundaries.
-
-### 3.4 Automated Promotion Safety Gate
-A challenger model $M_{t+1}$ trained on adversarial evasions is only promoted to production if it satisfies:
-1. $\text{ASR}_{\text{held-out}}(M_{t+1}) < \text{ASR}_{\text{held-out}}(M_t)$ (Demonstrated hardening)
-2. $\Delta\text{PR-AUC}_{\text{benign}} \ge -0.01$ (Zero material degradation on normal traffic)
-3. $\text{FPR@95R} \le 0.05$ (False-positive operational ceiling)
-
----
-
-## 4. Repository Structure & Module Index
+KIRA operates as an integrated, 8-stage feedback pipeline connecting empirical benchmarks, temporal graph representation learning, adversarial optimization, and automated safety rollback:
 
 ```text
-Project-KIRA/
-├── api/                            # Production FastAPI Gateway
-│   └── main.py                     # Health, Stream, Scoring, and Evidence routes
-├── src/mcdl/                       # Core Payment Defense Library
-│   ├── world/                      # Stateful synthetic payment universe & generators
-│   ├── features/                   # Temporal-causal batch & streaming feature engines
-│   ├── blue/                       # LightGBM baseline & calibrated scoring detectors
-│   ├── red/                        # Constrained adversarial search & evasion mutators
-│   ├── loop/                       # Co-evolutionary training & promotion gate logic
-│   ├── research/phase2/            # S-00 to S-04 Graph-Tabular Fusion research matrix
-│   └── evidence/                   # Canonical evidence schemas & conflict detectors
-├── frontend/                       # Institutional React + Vite Research Dashboard
-│   ├── src/                        # UI Components, ViewModels, and State Adapters
-│   └── dist/                       # Production-ready pre-built static bundle
-├── tools/                          # Verification and Operational Tooling
-│   ├── gates.py                    # Multi-stage security gate verification engine
-│   ├── audit_authoritative_run.py  # 7-point post-run scientific auditor
-│   ├── integrate_authoritative_run.py # Cryptographic artifact integration tool
-│   └── build_stream_json.py        # Dashboard stream builder (<1.5 MB payload)
-├── docs/                           # Methodological & Governance Documentation
-│   ├── DATA_SEMANTICS.md           # Formal null-handling standard (null != 0)
-│   ├── PROVENANCE_CONTRACT.md      # Provenance drawer data specification
-│   ├── FINAL_CLAIM_CHECKLIST.md    # Pre-publication scientific guardrails
-│   └── LIMITATIONS.md              # Research boundaries and scope disclaimers
-├── tests/                          # 75+ Comprehensive Unit & E2E Tests
-│   ├── unit/                       # Component-level verification
-│   └── e2e/                        # HTTP API contract and routing verification
-└── artifacts/                      # Cryptographically-signed experiment outputs
-    └── run_tiny_s20260827_.../     # Authoritative baseline run (22/22 artifacts)
+                 ┌────────────────────────────────────────────────────────┐
+                 │          01. EXTERNAL REAL-WORLD REALITY ANCHOR        │
+                 │   • 284,807 European Credit Card Transactions (ULB)    │
+                 │   • PR-AUC: 0.8640 · FPR: 0.0003 · ECE: 0.0042         │
+                 │   • Prevents simulator overfitting to synthetic world  │
+                 └───────────────────────────┬────────────────────────────┘
+                                             │
+                                             ▼
+                 ┌────────────────────────────────────────────────────────┐
+                 │           02. DEFENSIVE GRAPH FUSION ENGINE (S-02)     │
+                 │   • 25 Tabular Features + 16-dim CausalGraphSAGE       │
+                 │   • Dual-branch fusion yields +1.98 pp PR-AUC uplift   │
+                 │   • Strictly enforces t_j < t_i (Zero future leakage)  │
+                 └───────────────────────────┬────────────────────────────┘
+                                             │
+                                             ▼
+                 ┌────────────────────────────────────────────────────────┐
+                 │          03. RED ADVERSARY POPULATION (ADV-001)        │
+                 │   • 10,000 constrained mutation attack attempts        │
+                 │   • 6.00% aggregate ASR · 30.00% geo_hop ASR           │
+                 │   • 9,400 attacks blocked or stepped-up by Blue        │
+                 └───────────────────────────┬────────────────────────────┘
+                                             │
+                                             ▼
+                 ┌────────────────────────────────────────────────────────┐
+                 │          04. STATEFUL SWARM DYNAMICS (ADV-002)         │
+                 │   • 15,000 swarm attempts across 3 controlled arms     │
+                 │   • Adaptive Memory (19.68%) vs. Static Control (9.60%)│
+                 │   • +10.08 pp adaptive gain proves agentic learning    │
+                 └───────────────────────────┬────────────────────────────┘
+                                             │
+                                             ▼
+                 ┌────────────────────────────────────────────────────────┐
+                 │          05. ZERO-DAY VULNERABILITY DISCOVERY          │
+                 │   • World C withheld attack family evaluation          │
+                 │   • 100.0% ASR against unexposed baseline detector     │
+                 │   • Evasions quarantined into failures.json store      │
+                 └───────────────────────────┬────────────────────────────┘
+                                             │
+                                             ▼
+                 ┌────────────────────────────────────────────────────────┐
+                 │          06. ANTI-FORGETTING SAFETY GATE (THE LOOP)    │
+                 │   • Challenger retrains on diagnosed failure mutations │
+                 │   • Held-out variant ASR drops to 0.00% (Hardened)     │
+                 │   • BUT clean PR-AUC degrades below 0.90 safety floor  │
+                 │   • GATE REJECTS CHALLENGER: Rollback protects system  │
+                 └───────────────────────────┬────────────────────────────┘
+                                             │
+                                             ▼
+                 ┌────────────────────────────────────────────────────────┐
+                 │          07. THREAT INTELLIGENCE & DRIFT ENGINE        │
+                 │   • Synthetic TI feed enrichment (TI-001) cuts ASR 50% │
+                 │   • Two-sample KS test detects distribution shift      │
+                 │   • KS = 0.1119 (p = 0.0) triggers retraining alerts   │
+                 └───────────────────────────┬────────────────────────────┘
+                                             │
+                                             ▼
+                 ┌────────────────────────────────────────────────────────┐
+                 │          08. CRYPTOGRAPHIC VERIFICATION & EVIDENCE     │
+                 │   • 225 automated unit, invariant & API tests passed   │
+                 │   • 22/22 SHA-256 hash match against frozen baseline   │
+                 │   • 5 Kaggle CPU research notebooks (100% reproducible)│
+                 └────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 5. Empirical Benchmark Matrix
+## 🔬 Kaggle CPU Reproducibility Catalog (Zero GPU)
 
-All figures originate directly from verified, cryptographically hashed JSON artifacts. Unmeasured values are reported as *Not measured*, never fabricated.
+To eliminate cloud vendor lock-in and verify anti-memorization on accessible hardware, every heavy research stage was executed on **Kaggle CPU instances** (no GPU used anywhere in this project):
 
-| Experiment ID | Evaluation Track | Target Metric | Measured Value | Benchmark Significance | Evidence Status |
-| :--- | :--- | :--- | ---: | :--- | :--- |
-| **`EXP_BASELINE_BLUE`** | Tabular Production Detector | PR-AUC (Small-Scale) | `0.9375` | Base LightGBM reference detector | **`MEASURED`** |
-| **`EXP_BASELINE_BLUE`** | Tabular Production Detector | ROC-AUC | `0.9996` | High discrimination on canonical features | **`MEASURED`** |
-| **`EXP-007-A`** | Red Adversarial Vulnerability | ASR (20 Probes) | `96.67%` | Baseline vulnerable to multi-probe search | **`MEASURED`** |
-| **`EXP-007-A`** | Red Minimum Evasion Dist. | MED | `2.8488` | Normalized feature mutation distance | **`MEASURED`** |
-| **`EXP_COEV_ROUND_2`** | Held-Out Attack Generalization| ASR (Held-Out Variants) | `0.00%` | Hardened model repels known variant tree | **`MEASURED`** |
-| **`EXP_GATE_CHALLENGER`**| Production Safety Gate | Promotion Decision | `REJECT (4/4)` | Gate protected production from overfit | **`FAILURE_FINDING`** |
-| **`EXP-007-H`** | Intent Engine Ablation | Zero-Day $\Delta\text{ASR}$ | `0.00%` | Demonstrates zero-day generalisation boundary | **`MEASURED`** |
-| **`EXP_EXTERNAL_ANCHOR`**| ULB Real-World Dataset | PR-AUC | `0.9080` | Independent external reality anchor | **`MEASURED`** |
-| **`BENCH_LATENCY`** | Scoring Performance | Loopback P95 | `1.18 ms` | Sub-millisecond decision throughput | **`MEASURED_WITH_CAVEAT`** |
+| Notebook Name | Target Experiment | Hardware & Runtime | Primary Output Artifact | GitHub Source |
+| :--- | :--- | :--- | :--- | :---: |
+| **`02_full_run.ipynb`** | Full synthetic world, baseline detector, 3-round co-evolution | Kaggle CPU (~115 min) | `evaluation.json`, `decisions.json` | [Open Code](https://github.com/ankit-choubey/Project-KIRA/blob/main/notebooks/kaggle/02_full_run.ipynb) |
+| **`03_real_world_validation.ipynb`** | Sparkov real-world transfer & C2ST fidelity validation | Kaggle CPU (~25 min) | `external_anchor.json`, `fidelity.json` | [Open Code](https://github.com/ankit-choubey/Project-KIRA/blob/main/notebooks/kaggle/03_real_world_validation.ipynb) |
+| **`04_phase2_mega_notebook.ipynb`** | S-00 to S-04 Graph-Tabular Fusion (Arm A vs. Arm D) | Kaggle CPU (~8.5 min) | `master_results.json`, `comparison.json` | [Open Code](https://github.com/ankit-choubey/Project-KIRA/blob/main/notebooks/kaggle/04_phase2_mega_notebook.ipynb) |
+| **`05_adv002_large_swarm.ipynb`** | ADV-002 15,000 stateful adversarial swarm population | Kaggle CPU (~18 min) | `adv002_swarm_telemetry.json` | [Open Code](https://github.com/ankit-choubey/Project-KIRA/blob/main/notebooks/kaggle/05_adv002_large_swarm.ipynb) |
+| **`06_adv003_adaptive_defense.ipynb`** | ADV-003 Adaptive Challenger Hardening & Retention audit | Kaggle CPU (~12 min) | `adaptive_metrics.json` | [Open Code](https://github.com/ankit-choubey/Project-KIRA/blob/main/notebooks/kaggle/06_adv003_adaptive_defense.ipynb) |
 
 ---
 
-## 6. Developer Quickstart & Execution
+## ⚡ Live REST API Specification (Render Web Service)
 
-### System Prerequisites
-* Python 3.11, 3.12, or 3.14
-* Dependency management via `pip` or `uv`
-* Node.js 18+ (for frontend development)
+The production API runs on Render's Python web service tier at `https://project-kira-api.onrender.com`. Interactive Swagger documentation is available at `/docs`.
 
-### 1. Environment Setup
 ```bash
-# Clone the repository
+# 1. Health & Active Run Integrity Check
+curl -s https://project-kira-api.onrender.com/api/health
+# Response: {"status":"ok","run_id":"run_tiny_s20260827_193f7897_40997ab","artifacts_loaded":true}
+
+# 2. Trigger Real-Time 15,000 Swarm Simulation Job
+curl -s -X POST https://project-kira-api.onrender.com/api/simulation/start \
+  -H "Content-Type: application/json" \
+  -d '{"total_swarms": 15000, "batch_size": 50, "speed_multiplier": 1.0}'
+# Response: {"job_id":"sim_20260902_...","status":"running","total_swarms":15000,"source":"live"}
+
+# 3. Stream Live Swarm Events (Ring Buffer)
+curl -s "https://project-kira-api.onrender.com/api/simulation/latest/events?limit=5"
+
+# 4. Score Single Inbound Transaction (<1.2ms Loopback)
+curl -s -X POST https://project-kira-api.onrender.com/api/score \
+  -H "Content-Type: application/json" \
+  -d '{"transaction": {"txn_id":"tx_001","amount":42.50,"channel":"card_present","mcc":"5411", ...}}'
+```
+
+---
+
+## 🛠️ Local Developer Commands
+
+```bash
+# Clone & install with uv or pip
 git clone https://github.com/ankit-choubey/Project-KIRA.git
 cd Project-KIRA
+make setup
 
-# Install dependencies in isolated virtual environment
-python3 -m venv .venv && source .venv/bin/activate
-pip install -e .
-```
+# Run Gate ladder (N = 0..7)
+make gate 0
+make gate 6
+make gate 7
 
-### 2. Verify Security Gate Ladder
-Execute the gate verification engine to assert structural and mathematical invariants:
-```bash
-make gate 0   # Contracts & Fixtures: Schema validation and unit tests
-make gate 1   # World Engine: Physics consistency and entity foreign-key integrity
-make gate 2   # Feature Pipeline: Zero future-read verification (batch == stream)
-make gate 3   # Blue Detector: Out-of-time splits and calibration verification
-make gate 4   # Red Engine: Action mask compliance and query budget bounds
-make gate 5   # Co-Evolution Loop: Held-out variant hardening & regression bounds
-make gate 6   # Artifact Cryptography: SHA-256 hash trace verification
-make gate 7   # Final Release Gate: Secret detection and release readiness
-```
-
-### 3. Launch Local Development Services
-```bash
-# Start FastAPI backend service (:8000)
-uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
-
-# In parallel, start the Vite development server (:5173)
-cd frontend && npm install && npm run dev
-```
-
-### 4. Run Automated Test Suite
-```bash
-# Execute unit, research, and API contract test suites
-pytest tests/unit/research/test_phase2_s02_s04.py -v
-pytest tests/unit/evidence/test_evidence.py -v
+# Run test suite
 pytest tests/e2e/test_api.py -v
+pytest tests/invariants/ -v
 
-# Run end-to-end scientific smoke tests
-python3 run_phase2_smoke_tests.py
+# Run full pipeline locally (~2 min)
+make run SCALE=tiny
+
+# Launch local dev services (FastAPI :8000 + Vite :5173)
+make dev
 ```
-
----
-
-## 7. Ethical Boundaries, Safety & Research Limitations
-
-1. **Controlled Simulation**: All experiments execute purely on synthetic payment graphs or public open-source benchmark data (ULB CC0).
-2. **Zero PII / Zero Live Integration**: No real cardholder data, personal identifiable information, or live banking switches are accessed.
-3. **Defensive Research Focus**: Attack mutators are constrained to evaluating detector robustness; no exploit payloads or infrastructure attacks are generated.
-4. **Scope Integrity**: Findings reflect synthetic world distributions and specified query budgets. For comprehensive details, see [`docs/LIMITATIONS.md`](https://github.com/ankit-choubey/Project-KIRA/blob/main/docs/LIMITATIONS.md).
 
 ---
 
 <div align="center">
-  <p><b>Mastercard AI Defense Lab — Research Project KIRA</b></p>
-  <sub>Architected for institutional adversarial security validation • Authoritative Baseline: <code>run_tiny_s20260827_193f7897_40997ab</code></sub>
+  <p><b>Mastercard AI Defense Lab — Project KIRA</b></p>
+  <sub>Audited Research Baseline: <code>run_tiny_s20260827_193f7897_40997ab</code> &bull; Research Commit <code>40997ab</code></sub>
 </div>
