@@ -112,8 +112,8 @@ export const Header: React.FC<HeaderProps> = ({
           <a href="https://project-kira-api.onrender.com/docs" target="_blank" rel="noopener" style={{ color: "var(--allow)", textDecoration: "none", fontWeight: 600 }}>
             ⚡ Render FastAPI Docs
           </a>
-          <a href="https://ankit-choubey-project-kira.hf.space" target="_blank" rel="noopener" style={{ color: "var(--step-up)", textDecoration: "none", fontWeight: 600 }}>
-            🤗 HF Static Showcase
+          <a href="https://huggingface.co/spaces/ankit-choubey/Project-KIRA" target="_blank" rel="noopener" style={{ color: "var(--step-up)", textDecoration: "none", fontWeight: 600 }}>
+            🤗 HF Showcase (Project-KIRA)
           </a>
           <a href="https://github.com/ankit-choubey/Project-KIRA/tree/main/notebooks/kaggle" target="_blank" rel="noopener" style={{ color: "var(--ink)", textDecoration: "none", fontWeight: 600 }}>
             🔬 Kaggle CPU Notebooks (5)
