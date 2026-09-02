@@ -1,0 +1,19 @@
+# Netlify Deployment Configuration for Project KIRA (Devraj Frontend)
+#
+# Deliberately zero-configuration: installs, builds, and publishes the React + Vite
+# frontend with full SPA client-side routing fallback.
+
+[build]
+  base = "frontend"
+  publish = "dist"
+  command = "npm install && npm run build"
+
+[build.environment]
+  NODE_VERSION = "20"
+  VITE_DATA_MODE = "live"
+
+# SPA redirect rule: Any deep link loads index.html so client-side routing survives page refresh
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

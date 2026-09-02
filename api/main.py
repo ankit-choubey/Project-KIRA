@@ -11,6 +11,7 @@ every /api route, or it swallows the API and the UI shows an empty page.
 from __future__ import annotations
 
 import json
+import os
 import sys
 import time
 from pathlib import Path
@@ -23,8 +24,9 @@ from fastapi import FastAPI, HTTPException, Query  # noqa: E402
 from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
 from fastapi.responses import FileResponse  # noqa: E402
 from fastapi.staticfiles import StaticFiles  # noqa: E402
-from pydantic import BaseModel  # noqa: E402
+from pydantic import BaseModel, Field  # noqa: E402
 
+from api.simulation import SimulationManager  # noqa: E402
 from mcdl import artifacts as art  # noqa: E402
 from mcdl.config import load_config  # noqa: E402
 from mcdl.schemas import (  # noqa: E402
@@ -37,10 +39,16 @@ from mcdl.schemas import (  # noqa: E402
 
 app = FastAPI(title="Mastercard AI Defense Lab", version="0.1.0")
 
-# The Vite dev server runs on a different port; the built app is same-origin.
+# Support configurable CORS origins for Netlify and custom deployments
+_cors_env = os.getenv("CORS_ORIGINS", "*")
+_origins = [o.strip() for o in _cors_env.split(",") if o.strip()]
+if not _origins or "*" in _origins:
+    _origins = ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=_origins,
+    allow_credentials=False if "*" in _origins else True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -147,6 +155,12 @@ def api_root() -> dict[str, Any]:
             "attack": "/api/attack",
             "artifacts": "/api/artifacts",
             "artifact": "/api/artifact/{name}",
+            "simulation_start": "/api/simulation/start",
+            "simulation_latest": "/api/simulation/latest",
+            "simulation_status": "/api/simulation/{job_id}",
+            "simulation_events": "/api/simulation/{job_id}/events",
+            "simulation_stop": "/api/simulation/{job_id}/stop",
+            "simulation_swarm": "/api/simulation/swarm/{swarm_id}",
         },
     }
 
@@ -491,6 +505,88 @@ def config() -> dict:
         "query_budgets": query_budgets,
         "config_hash": cfg.hash,
     }
+
+
+# --------------------------------------------------------------------------- #
+# Live Simulation Endpoints (Truthful Real-Time Swarm & Event Runner)
+# --------------------------------------------------------------------------- #
+
+
+class SimulationStartRequest(BaseModel):
+    total_swarms: int = Field(15000, ge=1, le=100000)
+    batch_size: int = Field(50, ge=1, le=1000)
+    speed_multiplier: float = Field(1.0, ge=0.1, le=10.0)
+
+
+@app.post("/api/simulation/start")
+def start_simulation(req: SimulationStartRequest = SimulationStartRequest()) -> dict:
+    """Start an active live simulation job traversing synthetic payment transactions and adversarial mutations."""
+    mgr = SimulationManager.get_instance()
+    job = mgr.start_simulation(
+        total_swarms=req.total_swarms,
+        batch_size=req.batch_size,
+        speed_multiplier=req.speed_multiplier,
+    )
+    return job.to_summary_dict()
+
+
+@app.get("/api/simulation/latest")
+def get_latest_simulation() -> dict:
+    """Get status and metrics of the latest or active simulation job."""
+    mgr = SimulationManager.get_instance()
+    job = mgr.get_latest_job()
+    if not job:
+        # Start a default background job if none exists yet
+        job = mgr.start_simulation(total_swarms=15000, batch_size=50)
+    return job.to_summary_dict()
+
+
+@app.get("/api/simulation/{job_id}")
+def get_simulation_status(job_id: str) -> dict:
+    """Get status, progress, detections, and evasions for a specific simulation job."""
+    mgr = SimulationManager.get_instance()
+    job = mgr.get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail=f"Simulation job '{job_id}' not found")
+    return job.to_summary_dict()
+
+
+@app.get("/api/simulation/{job_id}/events")
+def get_simulation_events(
+    job_id: str,
+    limit: int = Query(50, ge=1, le=500),
+) -> dict:
+    """Get the latest real-time transaction event stream from an active simulation."""
+    mgr = SimulationManager.get_instance()
+    job = mgr.get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail=f"Simulation job '{job_id}' not found")
+    events = [e.to_dict() for e in job.events[-limit:]]
+    return {
+        "job_id": job.job_id,
+        "status": job.status,
+        "count": len(events),
+        "events": events,
+        "source": "live",
+    }
+
+
+@app.post("/api/simulation/{job_id}/stop")
+def stop_simulation(job_id: str) -> dict:
+    """Stop/cancel an ongoing live simulation."""
+    mgr = SimulationManager.get_instance()
+    job = mgr.get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail=f"Simulation job '{job_id}' not found")
+    job.stop()
+    return {"status": "stopped", "job_id": job.job_id}
+
+
+@app.get("/api/simulation/swarm/{swarm_id}")
+def get_swarm_entity(swarm_id: str) -> dict:
+    """Inspect an individual swarm entity with actual probe, score, decision, and outcome."""
+    mgr = SimulationManager.get_instance()
+    return mgr.get_swarm_detail(swarm_id)
 
 
 # --------------------------------------------------------------------------- #

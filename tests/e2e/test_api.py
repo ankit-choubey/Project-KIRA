@@ -230,3 +230,58 @@ class TestStaticRouting:
         body = res.json()
         assert "status" in body
 
+
+class TestLiveSimulation:
+    """Verification of truthful live simulation endpoints."""
+
+    def test_simulation_lifecycle(self, client):
+        # 1. Start simulation
+        start_res = client.post(
+            "/api/simulation/start",
+            json={"total_swarms": 200, "batch_size": 25, "speed_multiplier": 5.0},
+        )
+        assert start_res.status_code == 200
+        job_data = start_res.json()
+        assert "job_id" in job_data
+        assert job_data["status"] == "running"
+        assert job_data["total_swarms"] == 200
+        assert job_data["source"] == "live"
+        job_id = job_data["job_id"]
+
+        # 2. Get status
+        status_res = client.get(f"/api/simulation/{job_id}")
+        assert status_res.status_code == 200
+        status_data = status_res.json()
+        assert status_data["job_id"] == job_id
+        assert status_data["processed_swarms"] >= 0
+
+        # 3. Get latest simulation
+        latest_res = client.get("/api/simulation/latest")
+        assert latest_res.status_code == 200
+        assert latest_res.json()["job_id"] == job_id
+
+        # 4. Get events
+        events_res = client.get(f"/api/simulation/{job_id}/events?limit=10")
+        assert events_res.status_code == 200
+        events_data = events_res.json()
+        assert "events" in events_data
+        assert events_data["source"] == "live"
+
+        # 5. Get individual swarm
+        swarm_res = client.get("/api/simulation/swarm/SWARM-000001")
+        assert swarm_res.status_code == 200
+        swarm_data = swarm_res.json()
+        assert "swarm_id" in swarm_data
+        assert "outcome" in swarm_data
+
+        # 6. Stop simulation
+        stop_res = client.post(f"/api/simulation/{job_id}/stop")
+        assert stop_res.status_code == 200
+        assert stop_res.json()["status"] == "stopped"
+
+    def test_simulation_nonexistent_job_404(self, client):
+        res = client.get("/api/simulation/nonexistent_job_12345")
+        assert res.status_code == 404
+        assert "not found" in res.json()["detail"].lower()
+
+

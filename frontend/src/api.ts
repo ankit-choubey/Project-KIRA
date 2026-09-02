@@ -255,8 +255,20 @@ export class ApiError extends Error {
   }
 }
 
+const API_BASE = (
+  (import.meta.env.VITE_API_BASE_URL as string) ||
+  (import.meta.env.VITE_API_BASE as string) ||
+  ""
+).replace(/\/$/, "");
+
+function toUrl(path: string): string {
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  if (!API_BASE) return path;
+  return `${API_BASE}${path.startsWith("/") ? "" : "/"}${path}`;
+}
+
 async function get<T>(path: string): Promise<T> {
-  const res = await fetch(path);
+  const res = await fetch(toUrl(path));
   if (!res.ok) {
     let detail = res.statusText;
     try {
@@ -270,7 +282,7 @@ async function get<T>(path: string): Promise<T> {
 }
 
 async function post<T>(path: string, payload: unknown): Promise<T> {
-  const res = await fetch(path, {
+  const res = await fetch(toUrl(path), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
