@@ -9,7 +9,7 @@ pinned: false
 
 <div align="center">
 
-# 🛡️ Project KIRA — Mastercard AI Defense Lab
+# Project KIRA — Mastercard AI Defense Lab
 ### Institutional Adversarial Security Laboratory, Stateful Swarms & Closed-Loop Co-Evolution
 
 [![GitHub Stars](https://img.shields.io/github/stars/ankit-choubey/Project-KIRA?style=for-the-badge&color=ffd700&label=STARS)](https://github.com/ankit-choubey/Project-KIRA)
@@ -28,7 +28,7 @@ pinned: false
 
 <br/>
 
-### 🌐 Verified Production Ecosystem Links
+### Verified Production Ecosystem Links
 
 | Platform | Production Target | URL | Status |
 | :--- | :--- | :--- | :--- |
@@ -42,7 +42,7 @@ pinned: false
 
 ---
 
-## 🎖️ Gate Verification Ladder: Gates 0 Through 7 ALL PASSED
+## Gate Verification Ladder: Gates 0 Through 7 ALL PASSED
 
 Every release in Project KIRA is bound to an automated 8-stage gate ladder (`tools/gates.py`). All gates execute strictly without GPU dependencies, enforcing causal safety, mathematical invariance, and cryptographic consistency.
 
@@ -68,7 +68,7 @@ Every release in Project KIRA is bound to an automated 8-stage gate ladder (`too
 
 ---
 
-## 📊 The 10 Audited Headline Research Numbers
+## The 10 Audited Headline Research Numbers
 
 Every number below is extracted directly from cryptographically hashed research outputs in `artifacts/run_tiny_s20260827_193f7897_40997ab` and phase-2 research logs:
 
@@ -98,115 +98,164 @@ Every number below is extracted directly from cryptographically hashed research 
 
 ---
 
-## 📈 High-Density Experimental Event Scale
+## Multi-Scale Experimental Event Pipeline Architecture
+
+The experimental event architecture integrates real-world anchors, synthetic topology generators, dynamic graph networks, and parallel adversarial stress-testing across distinct operational paths:
 
 ```text
-====================================================================================================
-                              KIRA EXPERIMENTAL SCALE & EVENT VOLUME
-====================================================================================================
+========================================================================================================================
+                                     KIRA MULTI-SCALE EVENT PROCESSING PIPELINE
+========================================================================================================================
 
-  [284,807]  Real-World Credit Card Benchmark Transactions (ULB 2015 · 492 Real Frauds)
-     │
-  [50,000]   Synthetic World C Transactions (S-02 Relational Graph Evaluation)
-     │
-  [28,044]   Causal Dynamic Graph Edges (Zero Future-Read Violations Verified)
-     │
-  [15,000]   Stateful Adversarial Swarm Probes (ADV-002 · 5 Agents · 3 Arms · 100 Rounds)
-     │
-  [10,000]   Constrained Adversarial Attacks (ADV-001 · 5 Mutation Families)
-     │
-  [9,400]    Evasion Attacks Blocked or Stepped-Up by Blue Fusion Detector
-     │
-  [4,674]    Stream Drift Monitoring Samples (KS Statistic = 0.1119, p = 0.0)
-     │
-  [2,805]    Synthetic Threat Intelligence Enrichment Events (TI-001)
-     │
-  [1,986]    Adversarial Swarm Evasions Captured and Quarantined into failures.json
-     │
-  [225]      Automated Tests Passing Cleanly Across Unit, Invariant & API Suites (0 Failures)
-     │
-  [22]       Authoritative JSON Artifacts Sealed with SHA-256 Signatures (22/22 Match)
-     │
-  [0]        Catastrophic Degradations Allowed: 4/4 Overfit Challenger Models Rejected
-
-====================================================================================================
+  [REAL-WORLD BENCHMARK]                                        [SYNTHETIC TRANSACTION UNIVERSE]
+   284,807 European Txns                                         50,000 World C Simulated Events
+   (ULB CC0 · 492 Frauds)                                        (Entities, Merchants, Devices)
+            │                                                                  │
+            ▼                                                                  ▼
+  ┌───────────────────────┐                                      ┌───────────────────────────┐
+  │ C2ST Fidelity Anchor  │                                      │ Relational Entity Graph   │
+  │ • PR-AUC: 0.8640      │                                      │ • 28,044 Causal Edges     │
+  │ • ECE: 0.0042         │                                      │ • Zero Lookahead (t_j<t_i)│
+  └──────────┬────────────┘                                      └─────────────┬─────────────┘
+             │                                                                 │
+             │           ┌─────────────────────────────────────────────────────┘
+             │           │
+             ▼           ▼
+  ┌──────────────────────────────────────────────────────────────────────────────────────────┐
+  │                           TEMPORAL GRAPH-TABULAR FUSION ENGINE                           │
+  │  • 25 Canonical Tabular Features (Velocity, Recency, Risk Scores)                         │
+  │  • 16-Dimensional CausalGraphSAGE Topological Node Embeddings (+1.98 pp Uplift, p=0.0460)│
+  └────────────────────────────────────────────┬─────────────────────────────────────────────┘
+                                               │
+                                               ▼
+  ┌──────────────────────────────────────────────────────────────────────────────────────────┐
+  │                        BLUE TEAM DETECTOR & ISOTONIC CALIBRATION                         │
+  │  • LightGBM Dual-Branch Classifier (PR-AUC: 0.9375 · ROC-AUC: 0.9996)                    │
+  │  • Isotonic Probability Calibrator (ECE <= 0.012 · Clean FPR@95R <= 0.05)                │
+  └──────────────────────┬───────────────────────────────────────────────────┬───────────────┘
+                         │                                                   │
+                         │                                                   │
+  [ADVERSARIAL CAMPAIGN] │                                                   │ [THREAT & DRIFT FEEDS]
+                         ▼                                                   ▼
+  ┌──────────────────────────────────────────────┐        ┌──────────────────────────────────┐
+  │ RED ADVERSARY SWARMS & BUDGETED PROBES       │        │ LIVE TELEMETRY & DRIFT SENSORS   │
+  │ • ADV-001: 10,000 Constrained Mutation Attacks│        │ • 2,805 Synthetic TI Events      │
+  │ • ADV-002: 15,000 Stateful Swarms (3 Arms)   │        │   (TI-001: 50.0% ASR Reduction)  │
+  │ • World C: 100.0% Withheld Zero-Day Attacks  │        │ • 4,674 Stream Drift Samples     │
+  └──────────────────────┬───────────────────────┘        │   (KS Stat = 0.1119, p = 0.0)    │
+                         │                                └──────────────────┬───────────────┘
+                         ▼                                                   │
+  ┌──────────────────────────────────────────────┐                           │
+  │ MULTI-BRANCH ATTACK RESOLUTION               │                           │
+  │ ├── 9,400 Defended / Stepped-Up (Blocked)    │                           │
+  │ └── 1,986 Evasions Isolated & Diagnosed      │                           │
+  └──────────────────────┬───────────────────────┘                           │
+                         │                                                   │
+                         ▼                                                   │
+  ┌──────────────────────────────────────────────┐                           │
+  │ WEAKNESS PROFILER & FAILURE QUARANTINE       │                           │
+  │ • Minimum Evasion Distance (MED) Calculation │                           │
+  │ • Quarantined to failures.json Knowledge Base│                           │
+  └──────────────────────┬───────────────────────┘                           │
+                         │                                                   │
+                         ▼                                                   │
+  ┌──────────────────────────────────────────────────────────────────────────┴───────────────┐
+  │                        CO-EVOLUTIONARY ANTI-FORGETTING SAFETY GATE                       │
+  │  • Retrain Challenger on Diagnosed Evasion Vectors                                       │
+  │  • Multi-Objective Gate Evaluation:                                                      │
+  │    ├── Held-out Variant Evasion: ASR Drops 100.0% -> 0.00% [PASSED HARDENING]            │
+  │    └── Benign Distribution PR-AUC: Degrades Below 0.90 Safety Floor [OVERFIT DETECTED]   │
+  │  • DECISION: REJECT CHALLENGER (4/4 Candidates Blocked) -> AUTOMATED ROLLBACK TO CHAMPION│
+  └────────────────────────────────────────────┬─────────────────────────────────────────────┘
+                                               │
+                                               ▼
+  ┌──────────────────────────────────────────────────────────────────────────────────────────┐
+  │                         CRYPTOGRAPHIC AUDIT & SERVING PLATFORM                           │
+  │  • 22/22 Authoritative SHA-256 JSON Hashes Sealed (Zero Artifact Drift)                  │
+  │  • 225 Automated Invariant, Unit & Contract Tests Green (0 Failures, 255s)               │
+  │  • Render FastAPI Web Service (<1.2ms) + Netlify Presentation Dashboard (Devraj UI)     │
+  └──────────────────────────────────────────────────────────────────────────────────────────┘
+========================================================================================================================
 ```
 
 ---
 
-## 🏗️ Step-by-Step Closed-Loop Architecture Workflow
+## Step-by-Step Closed-Loop Architecture Workflow
 
-KIRA operates as an integrated, 8-stage feedback pipeline connecting empirical benchmarks, temporal graph representation learning, adversarial optimization, and automated safety rollback:
+KIRA operates as an institutional 8-stage feedback pipeline connecting empirical benchmarks, temporal graph representation learning, adversarial optimization, and automated safety rollback:
 
 ```text
-                 ┌────────────────────────────────────────────────────────┐
-                 │          01. EXTERNAL REAL-WORLD REALITY ANCHOR        │
-                 │   • 284,807 European Credit Card Transactions (ULB)    │
-                 │   • PR-AUC: 0.8640 · FPR: 0.0003 · ECE: 0.0042         │
-                 │   • Prevents simulator overfitting to synthetic world  │
-                 └───────────────────────────┬────────────────────────────┘
+ ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+                      KIRA 8-STAGE CLOSED-LOOP DEFENSE & CO-EVOLUTION PIPELINE
+ ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+
+   [01. EXTERNAL REALITY ANCHOR]                 [02. CAUSAL GRAPH FUSION ENGINE (S-02)]
+  ┌─────────────────────────────────────────┐   ┌─────────────────────────────────────────┐
+  │ • 284,807 European Credit Card Txns     │   │ • 50,000 Synthetic World Events        │
+  │ • 492 Real Fraud Exemplars (ULB CC0)    │   │ • 28,044 Causal Dynamic Graph Edges     │
+  │ • PR-AUC: 0.8640 · FPR: 0.0003          │   │ • 25 Tabular + 16-D CausalGraphSAGE     │
+  │ • Prevents Synthetic Simulation Bias    │   │ • Zero Future Leakage (t_j < t_i)       │
+  └────────────────────┬────────────────────┘   └────────────────────┬────────────────────┘
+                       │                                             │
+                       └──────────────────────┬──────────────────────┘
+                                              │
+                                              ▼
+                             [03. BLUE DEFENSE & CALIBRATION]
+                            ┌─────────────────────────────────┐
+                            │ • Dual-Branch LightGBM Model    │
+                            │ • PR-AUC: 0.9375 · ROC: 0.9996  │
+                            │ • Isotonic Score Calibrator     │
+                            │ • Strict ECE <= 0.012 Bound     │
+                            └────────────────┬────────────────┘
+                                             │
+                        ┌────────────────────┴────────────────────┐
+                        │                                         │
+                        ▼                                         ▼
+   [04. ADV-001 CONSTRAINED POPULATION]          [05. ADV-002 STATEFUL SWARM DYNAMICS]
+  ┌─────────────────────────────────────────┐   ┌─────────────────────────────────────────┐
+  │ • 10,000 Mutation Attack Attempts       │   │ • 15,000 Swarm Probes across 3 Arms     │
+  │ • 5 Adversarial Strategy Families       │   │ • Adaptive Memory: 19.68% ASR           │
+  │ • 6.00% Aggregate Evasion ASR           │   │ • Static Control: 9.60% ASR             │
+  │ • 9,400 Blocked or Stepped-Up           │   │ • +10.08 pp Memory Gain (Agentic)       │
+  └────────────────────┬────────────────────┘   └────────────────────┬────────────────────┘
+                       │                                             │
+                       └──────────────────────┬──────────────────────┘
+                                              │
+                                              ▼
+                             [06. ZERO-DAY VULNERABILITY AUDIT]
+                            ┌─────────────────────────────────┐
+                            │ • World C Withheld Attack Family│
+                            │ • 100.0% Zero-Day Evasion Found │
+                            │ • Evasions -> failures.json     │
+                            │ • Action Mask & MED Diagnostics │
+                            └────────────────┬────────────────┘
                                              │
                                              ▼
-                 ┌────────────────────────────────────────────────────────┐
-                 │           02. DEFENSIVE GRAPH FUSION ENGINE (S-02)     │
-                 │   • 25 Tabular Features + 16-dim CausalGraphSAGE       │
-                 │   • Dual-branch fusion yields +1.98 pp PR-AUC uplift   │
-                 │   • Strictly enforces t_j < t_i (Zero future leakage)  │
-                 └───────────────────────────┬────────────────────────────┘
+                             [07. ANTI-FORGETTING SAFETY GATE]
+                            ┌─────────────────────────────────┐
+                            │ • Challenger Trained on Failures│
+                            │ • Held-Out ASR: 100% -> 0.00%   │
+                            │ • Benign PR-AUC: 0.8417 (< 0.90)│
+                            │ • DECISION: REJECT CHALLENGER   │
+                            │ • SAFE ROLLBACK TO CHAMPION     │
+                            └────────────────┬────────────────┘
                                              │
-                                             ▼
-                 ┌────────────────────────────────────────────────────────┐
-                 │          03. RED ADVERSARY POPULATION (ADV-001)        │
-                 │   • 10,000 constrained mutation attack attempts        │
-                 │   • 6.00% aggregate ASR · 30.00% geo_hop ASR           │
-                 │   • 9,400 attacks blocked or stepped-up by Blue        │
-                 └───────────────────────────┬────────────────────────────┘
-                                             │
-                                             ▼
-                 ┌────────────────────────────────────────────────────────┐
-                 │          04. STATEFUL SWARM DYNAMICS (ADV-002)         │
-                 │   • 15,000 swarm attempts across 3 controlled arms     │
-                 │   • Adaptive Memory (19.68%) vs. Static Control (9.60%)│
-                 │   • +10.08 pp adaptive gain proves agentic learning    │
-                 └───────────────────────────┬────────────────────────────┘
-                                             │
-                                             ▼
-                 ┌────────────────────────────────────────────────────────┐
-                 │          05. ZERO-DAY VULNERABILITY DISCOVERY          │
-                 │   • World C withheld attack family evaluation          │
-                 │   • 100.0% ASR against unexposed baseline detector     │
-                 │   • Evasions quarantined into failures.json store      │
-                 └───────────────────────────┬────────────────────────────┘
-                                             │
-                                             ▼
-                 ┌────────────────────────────────────────────────────────┐
-                 │          06. ANTI-FORGETTING SAFETY GATE (THE LOOP)    │
-                 │   • Challenger retrains on diagnosed failure mutations │
-                 │   • Held-out variant ASR drops to 0.00% (Hardened)     │
-                 │   • BUT clean PR-AUC degrades below 0.90 safety floor  │
-                 │   • GATE REJECTS CHALLENGER: Rollback protects system  │
-                 └───────────────────────────┬────────────────────────────┘
-                                             │
-                                             ▼
-                 ┌────────────────────────────────────────────────────────┐
-                 │          07. THREAT INTELLIGENCE & DRIFT ENGINE        │
-                 │   • Synthetic TI feed enrichment (TI-001) cuts ASR 50% │
-                 │   • Two-sample KS test detects distribution shift      │
-                 │   • KS = 0.1119 (p = 0.0) triggers retraining alerts   │
-                 └───────────────────────────┬────────────────────────────┘
-                                             │
-                                             ▼
-                 ┌────────────────────────────────────────────────────────┐
-                 │          08. CRYPTOGRAPHIC VERIFICATION & EVIDENCE     │
-                 │   • 225 automated unit, invariant & API tests passed   │
-                 │   • 22/22 SHA-256 hash match against frozen baseline   │
-                 │   • 5 Kaggle CPU research notebooks (100% reproducible)│
-                 └────────────────────────────────────────────────────────┘
+                        ┌────────────────────┴────────────────────┐
+                        │                                         │
+                        ▼                                         ▼
+   [08. THREAT INTEL & DRIFT ENGINE]             [09. CRYPTOGRAPHIC PROOF & SERVING]
+  ┌─────────────────────────────────────────┐   ┌─────────────────────────────────────────┐
+  │ • 2,805 Synthetic TI Events (TI-001)    │   │ • 22/22 SHA-256 Baseline Hash Match     │
+  │ • Threat Intel Halves Attacker ASR (50%)│   │ • 225 Unit & Invariant Tests Passing    │
+  │ • 4,674 Stream Drift KS Samples         │   │ • 5 Kaggle CPU Notebooks (Zero GPU)     │
+  │ • KS = 0.1119 (p = 0.0) Triggers Alert  │   │ • Live Render API + Netlify Frontend    │
+  └─────────────────────────────────────────┘   └─────────────────────────────────────────┘
+ ═══════════════════════════════════════════════════════════════════════════════════════════════════════
 ```
 
 ---
 
-## 🔬 Kaggle CPU Reproducibility Catalog (Zero GPU)
+## Kaggle CPU Reproducibility Catalog (Zero GPU)
 
 To eliminate cloud vendor lock-in and verify anti-memorization on accessible hardware, every heavy research stage was executed on **Kaggle CPU instances** (no GPU used anywhere in this project):
 
@@ -220,7 +269,7 @@ To eliminate cloud vendor lock-in and verify anti-memorization on accessible har
 
 ---
 
-## ⚡ Live REST API Specification (Render Web Service)
+## Live REST API Specification (Render Web Service)
 
 The production API runs on Render's Python web service tier at `https://project-kira-api.onrender.com`. Interactive Swagger documentation is available at `/docs`.
 
@@ -246,7 +295,7 @@ curl -s -X POST https://project-kira-api.onrender.com/api/score \
 
 ---
 
-## 🛠️ Local Developer Commands
+## Local Developer Commands
 
 ```bash
 # Clone & install with uv or pip
