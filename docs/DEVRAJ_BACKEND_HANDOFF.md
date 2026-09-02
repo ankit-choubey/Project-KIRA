@@ -13,12 +13,12 @@ Devraj, **you do NOT need to modify your UI, redesign components, or rewrite any
 To connect your Netlify frontend to the live FastAPI backend:
 
 1. In your Netlify dashboard (**Site configuration → Environment variables**), set:
-   ```text
-   VITE_API_BASE = https://<your-fastapi-backend-url>
-   VITE_DATA_MODE = live
+   ```ini
+   VITE_API_BASE=https://project-kira-api.onrender.com
+   VITE_DATA_MODE=live
    ```
 2. Trigger a deploy on Netlify.
-3. Your UI will automatically communicate with the live backend with full CORS support!
+3. Your UI will automatically communicate with the live Render backend with full CORS support!
 
 ---
 

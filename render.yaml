@@ -1,0 +1,22 @@
+# Render Blueprint Configuration for Project KIRA FastAPI Gateway
+#
+# Configures a 100% Free Tier Python Web Service.
+# Deploys independently of the Netlify frontend.
+
+services:
+  - type: web
+    name: project-kira-api
+    runtime: python
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: MCDL_SCALE
+        value: "tiny"
