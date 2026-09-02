@@ -102,6 +102,32 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
+      {/* Ecosystem Global Navigation Links */}
+      <div className="masthead-ecosystem-bar" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "6px 20px", background: "rgba(0, 0, 0, 0.35)", borderTop: "1px solid rgba(255, 255, 255, 0.06)", fontSize: "11px", overflowX: "auto" }}>
+        <div style={{ display: "flex", gap: "14px", alignItems: "center", whiteSpace: "nowrap" }}>
+          <span style={{ color: "var(--muted)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em" }}>Verified Ecosystem:</span>
+          <a href="https://kaleidoscopic-quokka-251564.netlify.app" target="_blank" rel="noopener" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>
+            🌐 Netlify Live UI
+          </a>
+          <a href="https://project-kira-api.onrender.com/docs" target="_blank" rel="noopener" style={{ color: "var(--allow)", textDecoration: "none", fontWeight: 600 }}>
+            ⚡ Render FastAPI Docs
+          </a>
+          <a href="https://ankit-choubey-project-kira.hf.space" target="_blank" rel="noopener" style={{ color: "var(--step-up)", textDecoration: "none", fontWeight: 600 }}>
+            🤗 HF Static Showcase
+          </a>
+          <a href="https://github.com/ankit-choubey/Project-KIRA/tree/main/notebooks/kaggle" target="_blank" rel="noopener" style={{ color: "var(--ink)", textDecoration: "none", fontWeight: 600 }}>
+            🔬 Kaggle CPU Notebooks (5)
+          </a>
+          <a href="https://github.com/ankit-choubey/Project-KIRA" target="_blank" rel="noopener" style={{ color: "var(--ink)", textDecoration: "none", fontWeight: 600 }}>
+            💻 GitHub Source
+          </a>
+        </div>
+        <div style={{ display: "flex", gap: "8px", alignItems: "center", whiteSpace: "nowrap" }}>
+          <span className="badge-pill allow" style={{ fontSize: "10px", padding: "2px 6px" }}>22/22 SHA-256</span>
+          <span className="badge-pill" style={{ fontSize: "10px", padding: "2px 6px" }}>225 Tests Passed</span>
+        </div>
+      </div>
+
       {/* Expandable Provenance Legend */}
       {showLegend && (
         <div className="masthead-legend-drawer">

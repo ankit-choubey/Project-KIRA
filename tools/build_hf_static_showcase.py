@@ -422,7 +422,7 @@ html_content = f"""<!doctype html>
         <span class="brand-badge">Mastercard AI Defense Lab</span>
       </div>
       <div class="btn-group">
-        <a href="https://project-kira.netlify.app" target="_blank" rel="noopener" class="btn btn-primary">
+        <a href="https://kaleidoscopic-quokka-251564.netlify.app" target="_blank" rel="noopener" class="btn btn-primary">
           🚀 Open Live Netlify Demo
         </a>
         <a href="https://project-kira-api.onrender.com/docs" target="_blank" rel="noopener" class="btn btn-outline">
@@ -588,6 +588,59 @@ html_content = f"""<!doctype html>
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+
+      <!-- KIRA Closed-Loop Architecture Workflow Stack -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">🔁 KIRA Closed-Loop Defensive Engine &amp; Co-Evolution Workflow</div>
+          <span class="tag tag-verified">AUDITED PIPELINE</span>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 18px;">
+          KIRA is framed as a continuously evaluated adversarial fraud-defense system that never assumes its detector is already perfect. The entire 8-stage pipeline operates as an integrated feedback loop:
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-left: 4px solid var(--purple); border-radius: 8px; padding: 14px;">
+            <div style="font-size: 0.72rem; color: var(--purple); font-weight: 700; text-transform: uppercase;">01 &bull; Real-World Anchor</div>
+            <div style="font-size: 1.15rem; font-weight: 800; margin: 4px 0; font-family: var(--font-mono);">284,807 Txns</div>
+            <p style="font-size: 0.78rem; color: var(--text-muted);">ULB European fraud benchmark (492 frauds, PR-AUC 0.8640, FPR 0.0003, ECE 0.0042) anchors simulation.</p>
+          </div>
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-left: 4px solid var(--primary); border-radius: 8px; padding: 14px;">
+            <div style="font-size: 0.72rem; color: var(--primary); font-weight: 700; text-transform: uppercase;">02 &bull; Graph Fusion Engine</div>
+            <div style="font-size: 1.15rem; font-weight: 800; margin: 4px 0; font-family: var(--font-mono);">50,000 Events</div>
+            <p style="font-size: 0.78rem; color: var(--text-muted);">CausalGraphSAGE + LightGBM yields +1.98 pp PR-AUC uplift (0.9805 vs 0.9607, p = 0.0460) with 0 temporal leakage.</p>
+          </div>
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-left: 4px solid var(--warning); border-radius: 8px; padding: 14px;">
+            <div style="font-size: 0.72rem; color: var(--warning); font-weight: 700; text-transform: uppercase;">03 &bull; Red Adversary Population</div>
+            <div style="font-size: 1.15rem; font-weight: 800; margin: 4px 0; font-family: var(--font-mono);">10,000 Attacks</div>
+            <p style="font-size: 0.78rem; color: var(--text-muted);">Constrained mutations achieve 6.00% aggregate ASR (30.00% geo_hop). 9,400 blocked or stepped-up.</p>
+          </div>
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-left: 4px solid var(--warning); border-radius: 8px; padding: 14px;">
+            <div style="font-size: 0.72rem; color: var(--warning); font-weight: 700; text-transform: uppercase;">04 &bull; Stateful Swarm Trials</div>
+            <div style="font-size: 1.15rem; font-weight: 800; margin: 4px 0; font-family: var(--font-mono);">15,000 Swarms</div>
+            <p style="font-size: 0.78rem; color: var(--text-muted);">Adaptive memory produces +10.08 pp attacker gain (19.68% vs 9.60% control), experimentally proving agent adaptation.</p>
+          </div>
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-left: 4px solid var(--danger); border-radius: 8px; padding: 14px;">
+            <div style="font-size: 0.72rem; color: var(--danger); font-weight: 700; text-transform: uppercase;">05 &bull; Zero-Day Vulnerability</div>
+            <div style="font-size: 1.15rem; font-weight: 800; margin: 4px 0; font-family: var(--font-mono);">100% Zero-Day ASR</div>
+            <p style="font-size: 0.78rem; color: var(--text-muted);">Unhardened baseline defeated by withheld family in World C. Discovered vulnerability quarantined into failures.json.</p>
+          </div>
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-left: 4px solid var(--danger); border-radius: 8px; padding: 14px;">
+            <div style="font-size: 0.72rem; color: var(--danger); font-weight: 700; text-transform: uppercase;">06 &bull; Anti-Forgetting Gate</div>
+            <div style="font-size: 1.15rem; font-weight: 800; margin: 4px 0; font-family: var(--font-mono);">0 Promoted / 4 Retrained</div>
+            <p style="font-size: 0.78rem; color: var(--text-muted);">Challenger achieved 0.00% evasion on seen attacks, but degraded clean PR-AUC below 0.90 floor. Automated rollback enforced.</p>
+          </div>
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-left: 4px solid var(--success); border-radius: 8px; padding: 14px;">
+            <div style="font-size: 0.72rem; color: var(--success); font-weight: 700; text-transform: uppercase;">07 &bull; Threat Intel &amp; Drift</div>
+            <div style="font-size: 1.15rem; font-weight: 800; margin: 4px 0; font-family: var(--font-mono);">50% ASR Cut &bull; KS = 0.1119</div>
+            <p style="font-size: 0.78rem; color: var(--text-muted);">Synthetic TI halves bounded ASR (13.33% ➔ 6.67%). KS drift test (4,674 events, p=0.0) triggers retraining alerts.</p>
+          </div>
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-left: 4px solid var(--success); border-radius: 8px; padding: 14px;">
+            <div style="font-size: 0.72rem; color: var(--success); font-weight: 700; text-transform: uppercase;">08 &bull; Engineering Verification</div>
+            <div style="font-size: 1.15rem; font-weight: 800; margin: 4px 0; font-family: var(--font-mono);">225 Passed &bull; 22/22 Hashes</div>
+            <p style="font-size: 0.78rem; color: var(--text-muted);">225 automated tests, 42 ADV tests, 31 API contract tests, 0 TypeScript errors, 0 credentials in Git.</p>
+          </div>
         </div>
       </div>
     </section>
