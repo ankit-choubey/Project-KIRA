@@ -1,0 +1,1002 @@
+[
+  {
+    "amount": 5.83,
+    "calibrated_score": 0.0,
+    "channel": "ecommerce",
+    "customer_id": "c_00044",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0030",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T00:07:38.547083",
+    "top_features": {
+      "amount": 5.83,
+      "auth_failed_count": 0,
+      "hour_of_day": 0
+    },
+    "txn_id": "tx_00000000"
+  },
+  {
+    "amount": 326.42,
+    "calibrated_score": 0.0,
+    "channel": "card_present",
+    "customer_id": "c_00056",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0042",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T00:11:16.567828",
+    "top_features": {
+      "amount": 326.42,
+      "auth_failed_count": 0,
+      "hour_of_day": 0
+    },
+    "txn_id": "tx_00000001"
+  },
+  {
+    "amount": 1313.94,
+    "calibrated_score": 0.0,
+    "channel": "card_present",
+    "customer_id": "c_00077",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0021",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T00:25:52.489977",
+    "top_features": {
+      "amount": 1313.94,
+      "auth_failed_count": 0,
+      "hour_of_day": 0
+    },
+    "txn_id": "tx_00000002"
+  },
+  {
+    "amount": 168.65,
+    "calibrated_score": 0.0,
+    "channel": "ecommerce",
+    "customer_id": "c_00145",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0027",
+    "raw_score": 0.000989,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T00:31:34.260023",
+    "top_features": {
+      "amount": 168.65,
+      "auth_failed_count": 0,
+      "hour_of_day": 0
+    },
+    "txn_id": "tx_00000003"
+  },
+  {
+    "amount": 53.22,
+    "calibrated_score": 0.0,
+    "channel": "mobile_wallet",
+    "customer_id": "c_00036",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0043",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T00:34:51.940584",
+    "top_features": {
+      "amount": 53.22,
+      "auth_failed_count": 0,
+      "hour_of_day": 0
+    },
+    "txn_id": "tx_00000004"
+  },
+  {
+    "amount": 939.6,
+    "calibrated_score": 0.0,
+    "channel": "ecommerce",
+    "customer_id": "c_00063",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0041",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T00:48:12.603484",
+    "top_features": {
+      "amount": 939.6,
+      "auth_failed_count": 0,
+      "hour_of_day": 0
+    },
+    "txn_id": "tx_00000005"
+  },
+  {
+    "amount": 8.23,
+    "calibrated_score": 0.0,
+    "channel": "ecommerce",
+    "customer_id": "c_00025",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0022",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T00:52:37.171283",
+    "top_features": {
+      "amount": 8.23,
+      "auth_failed_count": 0,
+      "hour_of_day": 0
+    },
+    "txn_id": "tx_00000006"
+  },
+  {
+    "amount": 155.47,
+    "calibrated_score": 0.0,
+    "channel": "mobile_wallet",
+    "customer_id": "c_00184",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0055",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T00:53:21.537312",
+    "top_features": {
+      "amount": 155.47,
+      "auth_failed_count": 0,
+      "hour_of_day": 0
+    },
+    "txn_id": "tx_00000007"
+  },
+  {
+    "amount": 9.74,
+    "calibrated_score": 0.0,
+    "channel": "card_present",
+    "customer_id": "c_00158",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0045",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T00:55:59.151285",
+    "top_features": {
+      "amount": 9.74,
+      "auth_failed_count": 0,
+      "hour_of_day": 0
+    },
+    "txn_id": "tx_00000008"
+  },
+  {
+    "amount": 70.79,
+    "calibrated_score": 0.0,
+    "channel": "mobile_wallet",
+    "customer_id": "c_00057",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0050",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T00:58:16.748252",
+    "top_features": {
+      "amount": 70.79,
+      "auth_failed_count": 0,
+      "hour_of_day": 0
+    },
+    "txn_id": "tx_00000009"
+  },
+  {
+    "amount": 128.06,
+    "calibrated_score": 0.0,
+    "channel": "card_present",
+    "customer_id": "c_00197",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0025",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T00:59:35.765987",
+    "top_features": {
+      "amount": 128.06,
+      "auth_failed_count": 0,
+      "hour_of_day": 0
+    },
+    "txn_id": "tx_00000010"
+  },
+  {
+    "amount": 8.84,
+    "calibrated_score": 0.0,
+    "channel": "mobile_wallet",
+    "customer_id": "c_00082",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0005",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T01:01:39.203909",
+    "top_features": {
+      "amount": 8.84,
+      "auth_failed_count": 0,
+      "hour_of_day": 1
+    },
+    "txn_id": "tx_00000011"
+  },
+  {
+    "amount": 63.8,
+    "calibrated_score": 0.0,
+    "channel": "mobile_wallet",
+    "customer_id": "c_00064",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0044",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T01:07:34.790592",
+    "top_features": {
+      "amount": 63.8,
+      "auth_failed_count": 0,
+      "hour_of_day": 1
+    },
+    "txn_id": "tx_00000012"
+  },
+  {
+    "amount": 8.03,
+    "calibrated_score": 0.0,
+    "channel": "ecommerce",
+    "customer_id": "c_00041",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0026",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T01:19:11.639999",
+    "top_features": {
+      "amount": 8.03,
+      "auth_failed_count": 0,
+      "hour_of_day": 1
+    },
+    "txn_id": "tx_00000013"
+  },
+  {
+    "amount": 114.53,
+    "calibrated_score": 0.0,
+    "channel": "card_present",
+    "customer_id": "c_00172",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0039",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T01:32:07.989317",
+    "top_features": {
+      "amount": 114.53,
+      "auth_failed_count": 0,
+      "hour_of_day": 1
+    },
+    "txn_id": "tx_00000014"
+  },
+  {
+    "amount": 3.95,
+    "calibrated_score": 0.0,
+    "channel": "card_present",
+    "customer_id": "c_00049",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0063",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T01:37:58.319966",
+    "top_features": {
+      "amount": 3.95,
+      "auth_failed_count": 0,
+      "hour_of_day": 1
+    },
+    "txn_id": "tx_00000015"
+  },
+  {
+    "amount": 412.09,
+    "calibrated_score": 0.0,
+    "channel": "ecommerce",
+    "customer_id": "c_00057",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0011",
+    "raw_score": 0.001199,
+    "reason_codes": [
+      "AMOUNT_HISTORICAL_SPIKE"
+    ],
+    "timestamp": "2026-01-01T01:44:09.393674",
+    "top_features": {
+      "amount": 412.09,
+      "auth_failed_count": 0,
+      "hour_of_day": 1
+    },
+    "txn_id": "tx_00000016"
+  },
+  {
+    "amount": 1872.88,
+    "calibrated_score": 0.0,
+    "channel": "mobile_wallet",
+    "customer_id": "c_00056",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0033",
+    "raw_score": 0.001199,
+    "reason_codes": [
+      "AMOUNT_HISTORICAL_SPIKE"
+    ],
+    "timestamp": "2026-01-01T01:44:56.995169",
+    "top_features": {
+      "amount": 1872.88,
+      "auth_failed_count": 0,
+      "hour_of_day": 1
+    },
+    "txn_id": "tx_00000017"
+  },
+  {
+    "amount": 125.18,
+    "calibrated_score": 0.0,
+    "channel": "ecommerce",
+    "customer_id": "c_00153",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0042",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T01:48:35.339938",
+    "top_features": {
+      "amount": 125.18,
+      "auth_failed_count": 0,
+      "hour_of_day": 1
+    },
+    "txn_id": "tx_00000018"
+  },
+  {
+    "amount": 1969.38,
+    "calibrated_score": 0.0,
+    "channel": "card_present",
+    "customer_id": "c_00106",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0027",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T01:53:40.867841",
+    "top_features": {
+      "amount": 1969.38,
+      "auth_failed_count": 0,
+      "hour_of_day": 1
+    },
+    "txn_id": "tx_00000019"
+  },
+  {
+    "amount": 24.4,
+    "calibrated_score": 0.0,
+    "channel": "card_present",
+    "customer_id": "c_00090",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0008",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T01:55:55.665015",
+    "top_features": {
+      "amount": 24.4,
+      "auth_failed_count": 0,
+      "hour_of_day": 1
+    },
+    "txn_id": "tx_00000020"
+  },
+  {
+    "amount": 510.8,
+    "calibrated_score": 0.0,
+    "channel": "mobile_wallet",
+    "customer_id": "c_00109",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0073",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T01:57:03.784803",
+    "top_features": {
+      "amount": 510.8,
+      "auth_failed_count": 0,
+      "hour_of_day": 1
+    },
+    "txn_id": "tx_00000021"
+  },
+  {
+    "amount": 36.55,
+    "calibrated_score": 0.0,
+    "channel": "card_present",
+    "customer_id": "c_00005",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0000",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T01:57:28.151212",
+    "top_features": {
+      "amount": 36.55,
+      "auth_failed_count": 0,
+      "hour_of_day": 1
+    },
+    "txn_id": "tx_00000022"
+  },
+  {
+    "amount": 30.02,
+    "calibrated_score": 0.0,
+    "channel": "mobile_wallet",
+    "customer_id": "c_00168",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0056",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T02:02:32.246812",
+    "top_features": {
+      "amount": 30.02,
+      "auth_failed_count": 0,
+      "hour_of_day": 2
+    },
+    "txn_id": "tx_00000023"
+  },
+  {
+    "amount": 364.71,
+    "calibrated_score": 0.0,
+    "channel": "mobile_wallet",
+    "customer_id": "c_00012",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0034",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T02:04:02.522293",
+    "top_features": {
+      "amount": 364.71,
+      "auth_failed_count": 0,
+      "hour_of_day": 2
+    },
+    "txn_id": "tx_00000024"
+  },
+  {
+    "amount": 35.15,
+    "calibrated_score": 0.0,
+    "channel": "card_present",
+    "customer_id": "c_00151",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0073",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T02:07:25.240372",
+    "top_features": {
+      "amount": 35.15,
+      "auth_failed_count": 0,
+      "hour_of_day": 2
+    },
+    "txn_id": "tx_00000025"
+  },
+  {
+    "amount": 851.52,
+    "calibrated_score": 0.0,
+    "channel": "ecommerce",
+    "customer_id": "c_00095",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0002",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T02:13:57.563141",
+    "top_features": {
+      "amount": 851.52,
+      "auth_failed_count": 0,
+      "hour_of_day": 2
+    },
+    "txn_id": "tx_00000026"
+  },
+  {
+    "amount": 35.98,
+    "calibrated_score": 0.0,
+    "channel": "ecommerce",
+    "customer_id": "c_00078",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0030",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T02:20:31.512632",
+    "top_features": {
+      "amount": 35.98,
+      "auth_failed_count": 0,
+      "hour_of_day": 2
+    },
+    "txn_id": "tx_00000027"
+  },
+  {
+    "amount": 97.87,
+    "calibrated_score": 0.0,
+    "channel": "mobile_wallet",
+    "customer_id": "c_00094",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0059",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T02:21:53.739087",
+    "top_features": {
+      "amount": 97.87,
+      "auth_failed_count": 0,
+      "hour_of_day": 2
+    },
+    "txn_id": "tx_00000028"
+  },
+  {
+    "amount": 182.89,
+    "calibrated_score": 0.0,
+    "channel": "mobile_wallet",
+    "customer_id": "c_00145",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0005",
+    "raw_score": 0.001199,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T02:24:26.543733",
+    "top_features": {
+      "amount": 182.89,
+      "auth_failed_count": 0,
+      "hour_of_day": 2
+    },
+    "txn_id": "tx_00000029"
+  },
+  {
+    "amount": 24.37,
+    "calibrated_score": 0.0,
+    "channel": "ecommerce",
+    "customer_id": "c_00191",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0074",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T02:25:32.743645",
+    "top_features": {
+      "amount": 24.37,
+      "auth_failed_count": 0,
+      "hour_of_day": 2
+    },
+    "txn_id": "tx_00000030"
+  },
+  {
+    "amount": 33.49,
+    "calibrated_score": 0.0,
+    "channel": "card_present",
+    "customer_id": "c_00058",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0070",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T02:27:06.550736",
+    "top_features": {
+      "amount": 33.49,
+      "auth_failed_count": 0,
+      "hour_of_day": 2
+    },
+    "txn_id": "tx_00000031"
+  },
+  {
+    "amount": 8.38,
+    "calibrated_score": 0.0,
+    "channel": "card_present",
+    "customer_id": "c_00163",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0025",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T02:46:00.885110",
+    "top_features": {
+      "amount": 8.38,
+      "auth_failed_count": 0,
+      "hour_of_day": 2
+    },
+    "txn_id": "tx_00000032"
+  },
+  {
+    "amount": 210.55,
+    "calibrated_score": 0.0,
+    "channel": "card_present",
+    "customer_id": "c_00073",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0054",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T02:51:30.328676",
+    "top_features": {
+      "amount": 210.55,
+      "auth_failed_count": 0,
+      "hour_of_day": 2
+    },
+    "txn_id": "tx_00000033"
+  },
+  {
+    "amount": 1754.41,
+    "calibrated_score": 0.0,
+    "channel": "mobile_wallet",
+    "customer_id": "c_00143",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0006",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T02:52:50.929625",
+    "top_features": {
+      "amount": 1754.41,
+      "auth_failed_count": 0,
+      "hour_of_day": 2
+    },
+    "txn_id": "tx_00000034"
+  },
+  {
+    "amount": 17.45,
+    "calibrated_score": 0.0,
+    "channel": "card_present",
+    "customer_id": "c_00135",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0025",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T02:53:31.696332",
+    "top_features": {
+      "amount": 17.45,
+      "auth_failed_count": 0,
+      "hour_of_day": 2
+    },
+    "txn_id": "tx_00000035"
+  },
+  {
+    "amount": 222.36,
+    "calibrated_score": 0.0,
+    "channel": "ecommerce",
+    "customer_id": "c_00071",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0054",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T02:56:41.064383",
+    "top_features": {
+      "amount": 222.36,
+      "auth_failed_count": 0,
+      "hour_of_day": 2
+    },
+    "txn_id": "tx_00000036"
+  },
+  {
+    "amount": 13.11,
+    "calibrated_score": 0.0,
+    "channel": "ecommerce",
+    "customer_id": "c_00111",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0008",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T03:02:36.900597",
+    "top_features": {
+      "amount": 13.11,
+      "auth_failed_count": 0,
+      "hour_of_day": 3
+    },
+    "txn_id": "tx_00000037"
+  },
+  {
+    "amount": 64.28,
+    "calibrated_score": 0.0,
+    "channel": "ecommerce",
+    "customer_id": "c_00074",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0072",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T03:12:34.993631",
+    "top_features": {
+      "amount": 64.28,
+      "auth_failed_count": 0,
+      "hour_of_day": 3
+    },
+    "txn_id": "tx_00000038"
+  },
+  {
+    "amount": 538.83,
+    "calibrated_score": 0.0,
+    "channel": "mobile_wallet",
+    "customer_id": "c_00085",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0000",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T03:16:21.290385",
+    "top_features": {
+      "amount": 538.83,
+      "auth_failed_count": 0,
+      "hour_of_day": 3
+    },
+    "txn_id": "tx_00000039"
+  },
+  {
+    "amount": 634.01,
+    "calibrated_score": 0.0,
+    "channel": "ecommerce",
+    "customer_id": "c_00125",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0057",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T03:18:18.084141",
+    "top_features": {
+      "amount": 634.01,
+      "auth_failed_count": 0,
+      "hour_of_day": 3
+    },
+    "txn_id": "tx_00000040"
+  },
+  {
+    "amount": 45.38,
+    "calibrated_score": 0.0,
+    "channel": "mobile_wallet",
+    "customer_id": "c_00094",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0001",
+    "raw_score": 0.001274,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T03:28:12.704672",
+    "top_features": {
+      "amount": 45.38,
+      "auth_failed_count": 0,
+      "hour_of_day": 3
+    },
+    "txn_id": "tx_00000041"
+  },
+  {
+    "amount": 297.01,
+    "calibrated_score": 0.0,
+    "channel": "card_present",
+    "customer_id": "c_00187",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0067",
+    "raw_score": 0.000989,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T03:28:40.055724",
+    "top_features": {
+      "amount": 297.01,
+      "auth_failed_count": 0,
+      "hour_of_day": 3
+    },
+    "txn_id": "tx_00000042"
+  },
+  {
+    "amount": 44.75,
+    "calibrated_score": 0.0,
+    "channel": "card_present",
+    "customer_id": "c_00021",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0007",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T03:33:11.348186",
+    "top_features": {
+      "amount": 44.75,
+      "auth_failed_count": 0,
+      "hour_of_day": 3
+    },
+    "txn_id": "tx_00000043"
+  },
+  {
+    "amount": 2266.1,
+    "calibrated_score": 0.0,
+    "channel": "mobile_wallet",
+    "customer_id": "c_00159",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0019",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T03:35:56.831501",
+    "top_features": {
+      "amount": 2266.1,
+      "auth_failed_count": 0,
+      "hour_of_day": 3
+    },
+    "txn_id": "tx_00000044"
+  },
+  {
+    "amount": 4.09,
+    "calibrated_score": 0.0,
+    "channel": "mobile_wallet",
+    "customer_id": "c_00090",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0079",
+    "raw_score": 0.001274,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T03:40:07.989215",
+    "top_features": {
+      "amount": 4.09,
+      "auth_failed_count": 0,
+      "hour_of_day": 3
+    },
+    "txn_id": "tx_00000045"
+  },
+  {
+    "amount": 69.76,
+    "calibrated_score": 0.0,
+    "channel": "mobile_wallet",
+    "customer_id": "c_00123",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0029",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T03:44:42.580705",
+    "top_features": {
+      "amount": 69.76,
+      "auth_failed_count": 0,
+      "hour_of_day": 3
+    },
+    "txn_id": "tx_00000046"
+  },
+  {
+    "amount": 33.69,
+    "calibrated_score": 0.0,
+    "channel": "ecommerce",
+    "customer_id": "c_00128",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0057",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T03:47:37.354948",
+    "top_features": {
+      "amount": 33.69,
+      "auth_failed_count": 0,
+      "hour_of_day": 3
+    },
+    "txn_id": "tx_00000047"
+  },
+  {
+    "amount": 140.48,
+    "calibrated_score": 0.0,
+    "channel": "mobile_wallet",
+    "customer_id": "c_00031",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0042",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T03:55:34.693931",
+    "top_features": {
+      "amount": 140.48,
+      "auth_failed_count": 0,
+      "hour_of_day": 3
+    },
+    "txn_id": "tx_00000048"
+  },
+  {
+    "amount": 6.79,
+    "calibrated_score": 0.0,
+    "channel": "card_present",
+    "customer_id": "c_00195",
+    "decision": "ALLOW",
+    "is_fraud": false,
+    "merchant_id": "m_0040",
+    "raw_score": 0.011625,
+    "reason_codes": [
+      "STANDARD_LOW_RISK_PROFILE"
+    ],
+    "timestamp": "2026-01-01T03:57:53.912997",
+    "top_features": {
+      "amount": 6.79,
+      "auth_failed_count": 0,
+      "hour_of_day": 3
+    },
+    "txn_id": "tx_00000049"
+  }
+]

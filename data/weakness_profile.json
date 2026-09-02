@@ -1,0 +1,81 @@
+{
+  "category_distribution": {
+    "W1_velocity_blindness": 0.3333,
+    "W5_low_and_slow": 0.3333,
+    "W7_intent_drift": 0.3333
+  },
+  "dominant_categories": [
+    [
+      "W1_velocity_blindness",
+      0.3333
+    ],
+    [
+      "W5_low_and_slow",
+      0.3333
+    ],
+    [
+      "W7_intent_drift",
+      0.3333
+    ]
+  ],
+  "frequent_mutations": {
+    "mean_amount": 177.37,
+    "median_amount": 72.07,
+    "top_channels": [
+      "mobile_wallet",
+      "agent"
+    ]
+  },
+  "high_value_attack_surfaces": [
+    "slow_siphon",
+    "burst_drain",
+    "agent_subversion"
+  ],
+  "near_boundary_count": 0,
+  "rare_successful_patterns": [
+    {
+      "category": "W5_low_and_slow",
+      "failure_id": "fail_tx_00002691_slow_siphon_r3_20291212",
+      "family": "slow_siphon",
+      "med": 1.785835,
+      "priority": 0.7
+    },
+    {
+      "category": "W5_low_and_slow",
+      "failure_id": "fail_tx_00002691_slow_siphon_r3_20291213",
+      "family": "slow_siphon",
+      "med": 1.747994,
+      "priority": 0.7
+    },
+    {
+      "category": "W5_low_and_slow",
+      "failure_id": "fail_tx_00002691_slow_siphon_r3_20291211",
+      "family": "slow_siphon",
+      "med": 1.346417,
+      "priority": 0.6723
+    },
+    {
+      "category": "W5_low_and_slow",
+      "failure_id": "fail_tx_00002691_slow_siphon_r3_20291214",
+      "family": "slow_siphon",
+      "med": 1.310868,
+      "priority": 0.6666
+    },
+    {
+      "category": "W5_low_and_slow",
+      "failure_id": "fail_tx_00000077_slow_siphon_r3_20290853",
+      "family": "slow_siphon",
+      "med": 1.180533,
+      "priority": 0.6523
+    }
+  ],
+  "reseeding_weights": {
+    "agent_subversion": 0.2817,
+    "burst_drain": 0.3254,
+    "cross_merchant_fanout": 0.0282,
+    "geo_hop": 0.0282,
+    "slow_siphon": 0.3365
+  },
+  "round_index": 3,
+  "total_failures": 120
+}

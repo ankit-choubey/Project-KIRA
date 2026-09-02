@@ -1,0 +1,17 @@
+{
+  "brier": 0.0,
+  "decision_counts": {
+    "ALLOW": 1398,
+    "BLOCK": 5,
+    "STEP_UP": 0
+  },
+  "ece": 0.0,
+  "fpr": 0.0,
+  "latency_p50_ms": null,
+  "latency_p95_ms": null,
+  "latency_p99_ms": null,
+  "pr_auc": 1.0,
+  "precision": 1.0,
+  "recall": 1.0,
+  "roc_auc": 1.0
+}

@@ -1,0 +1,429 @@
+{
+  "causal_ordering": "strictly (timestamp, txn_id) ascending",
+  "feature_count": 25,
+  "features": [
+    {
+      "causal_boundary": "Current event T_i",
+      "description": "Raw transaction amount in USD",
+      "dtype": "Float64",
+      "first_event_default": "0.0",
+      "group": "transaction",
+      "includes_current_txn": true,
+      "inputs": [
+        "amount"
+      ],
+      "mathematical_formula": "T_i.amount",
+      "name": "amount",
+      "requires_labels": false,
+      "state_required": "None (stateless)"
+    },
+    {
+      "causal_boundary": "Current event T_i",
+      "description": "Natural logarithm of (1 + amount)",
+      "dtype": "Float64",
+      "first_event_default": "0.0",
+      "group": "transaction",
+      "includes_current_txn": true,
+      "inputs": [
+        "amount"
+      ],
+      "mathematical_formula": "ln(1.0 + T_i.amount)",
+      "name": "log_amount",
+      "requires_labels": false,
+      "state_required": "None (stateless)"
+    },
+    {
+      "causal_boundary": "Current event T_i",
+      "description": "Hour of transaction in UTC (0..23)",
+      "dtype": "Int64",
+      "first_event_default": "0",
+      "group": "temporal",
+      "includes_current_txn": true,
+      "inputs": [
+        "timestamp"
+      ],
+      "mathematical_formula": "T_i.timestamp.hour",
+      "name": "hour_of_day",
+      "requires_labels": false,
+      "state_required": "None (stateless)"
+    },
+    {
+      "causal_boundary": "Current event T_i",
+      "description": "Day of week (0=Monday, 6=Sunday)",
+      "dtype": "Int64",
+      "first_event_default": "0",
+      "group": "temporal",
+      "includes_current_txn": true,
+      "inputs": [
+        "timestamp"
+      ],
+      "mathematical_formula": "T_i.timestamp.weekday()",
+      "name": "day_of_week",
+      "requires_labels": false,
+      "state_required": "None (stateless)"
+    },
+    {
+      "causal_boundary": "Current event T_i",
+      "description": "Binary flag for Saturday/Sunday (1 if weekday >= 5 else 0)",
+      "dtype": "Int64",
+      "first_event_default": "0",
+      "group": "temporal",
+      "includes_current_txn": true,
+      "inputs": [
+        "timestamp"
+      ],
+      "mathematical_formula": "1 if T_i.timestamp.weekday() >= 5 else 0",
+      "name": "is_weekend",
+      "requires_labels": false,
+      "state_required": "None (stateless)"
+    },
+    {
+      "causal_boundary": "Current event T_i + Customer creation time",
+      "description": "Haversine distance between customer home and transaction coordinates",
+      "dtype": "Float64",
+      "first_event_default": "0.0",
+      "group": "spatial",
+      "includes_current_txn": true,
+      "inputs": [
+        "lat",
+        "lon",
+        "customer_id"
+      ],
+      "mathematical_formula": "haversine(C.home_lat, C.home_lon, T_i.lat, T_i.lon)",
+      "name": "dist_from_home_km",
+      "requires_labels": false,
+      "state_required": "Customer static profile (home_lat, home_lon)"
+    },
+    {
+      "causal_boundary": "T_prev strictly < T_i",
+      "description": "Haversine distance from previous customer transaction in causal order",
+      "dtype": "Float64",
+      "first_event_default": "0.0",
+      "group": "spatial",
+      "includes_current_txn": false,
+      "inputs": [
+        "lat",
+        "lon",
+        "customer_id",
+        "timestamp",
+        "txn_id"
+      ],
+      "mathematical_formula": "haversine(T_prev.lat, T_prev.lon, T_i.lat, T_i.lon) if T_prev exists else 0.0",
+      "name": "dist_from_prev_txn_km",
+      "requires_labels": false,
+      "state_required": "Customer previous transaction location (T_prev.lat, T_prev.lon)"
+    },
+    {
+      "causal_boundary": "T_prev strictly < T_i",
+      "description": "Elapsed seconds since previous customer transaction in causal order",
+      "dtype": "Float64",
+      "first_event_default": "-1.0",
+      "group": "spatial",
+      "includes_current_txn": false,
+      "inputs": [
+        "customer_id",
+        "timestamp",
+        "txn_id"
+      ],
+      "mathematical_formula": "(T_i.timestamp - T_prev.timestamp).total_seconds() if T_prev exists else -1.0",
+      "name": "time_since_prev_txn_seconds",
+      "requires_labels": false,
+      "state_required": "Customer previous transaction timestamp"
+    },
+    {
+      "causal_boundary": "T_prev strictly < T_i",
+      "description": "Implied travel speed in km/h from previous transaction",
+      "dtype": "Float64",
+      "first_event_default": "0.0",
+      "group": "spatial",
+      "includes_current_txn": false,
+      "inputs": [
+        "lat",
+        "lon",
+        "customer_id",
+        "timestamp",
+        "txn_id"
+      ],
+      "mathematical_formula": "(dist_from_prev_txn_km / (time_since_prev_txn_seconds / 3600.0)) if time > 0 else 0.0",
+      "name": "speed_kmh",
+      "requires_labels": false,
+      "state_required": "Customer previous transaction location and timestamp"
+    },
+    {
+      "causal_boundary": "T_j strictly < T_i",
+      "description": "Count of customer transactions in trailing 1h window strictly prior to T_i",
+      "dtype": "Int64",
+      "first_event_default": "0",
+      "group": "velocity",
+      "includes_current_txn": false,
+      "inputs": [
+        "customer_id",
+        "timestamp",
+        "txn_id"
+      ],
+      "mathematical_formula": "| { T_j in C | T_j < T_i and (t_i - 3600s) <= t_j <= t_i } |",
+      "name": "cust_velocity_1h_count",
+      "requires_labels": false,
+      "state_required": "Customer event queue for trailing 1h"
+    },
+    {
+      "causal_boundary": "T_j strictly < T_i",
+      "description": "Sum of customer transaction amounts in trailing 1h window strictly prior to T_i",
+      "dtype": "Float64",
+      "first_event_default": "0.0",
+      "group": "velocity",
+      "includes_current_txn": false,
+      "inputs": [
+        "customer_id",
+        "amount",
+        "timestamp",
+        "txn_id"
+      ],
+      "mathematical_formula": "sum( T_j.amount for T_j in C where T_j < T_i and (t_i - 3600s) <= t_j <= t_i )",
+      "name": "cust_velocity_1h_sum",
+      "requires_labels": false,
+      "state_required": "Customer event amount queue for trailing 1h"
+    },
+    {
+      "causal_boundary": "T_j strictly < T_i",
+      "description": "Count of customer transactions in trailing 6h window strictly prior to T_i",
+      "dtype": "Int64",
+      "first_event_default": "0",
+      "group": "velocity",
+      "includes_current_txn": false,
+      "inputs": [
+        "customer_id",
+        "timestamp",
+        "txn_id"
+      ],
+      "mathematical_formula": "| { T_j in C | T_j < T_i and (t_i - 21600s) <= t_j <= t_i } |",
+      "name": "cust_velocity_6h_count",
+      "requires_labels": false,
+      "state_required": "Customer event queue for trailing 6h"
+    },
+    {
+      "causal_boundary": "T_j strictly < T_i",
+      "description": "Sum of customer transaction amounts in trailing 6h window strictly prior to T_i",
+      "dtype": "Float64",
+      "first_event_default": "0.0",
+      "group": "velocity",
+      "includes_current_txn": false,
+      "inputs": [
+        "customer_id",
+        "amount",
+        "timestamp",
+        "txn_id"
+      ],
+      "mathematical_formula": "sum( T_j.amount for T_j in C where T_j < T_i and (t_i - 21600s) <= t_j <= t_i )",
+      "name": "cust_velocity_6h_sum",
+      "requires_labels": false,
+      "state_required": "Customer event amount queue for trailing 6h"
+    },
+    {
+      "causal_boundary": "T_j strictly < T_i",
+      "description": "Count of customer transactions in trailing 24h window strictly prior to T_i",
+      "dtype": "Int64",
+      "first_event_default": "0",
+      "group": "velocity",
+      "includes_current_txn": false,
+      "inputs": [
+        "customer_id",
+        "timestamp",
+        "txn_id"
+      ],
+      "mathematical_formula": "| { T_j in C | T_j < T_i and (t_i - 86400s) <= t_j <= t_i } |",
+      "name": "cust_velocity_24h_count",
+      "requires_labels": false,
+      "state_required": "Customer event queue for trailing 24h"
+    },
+    {
+      "causal_boundary": "T_j strictly < T_i",
+      "description": "Sum of customer transaction amounts in trailing 24h window strictly prior to T_i",
+      "dtype": "Float64",
+      "first_event_default": "0.0",
+      "group": "velocity",
+      "includes_current_txn": false,
+      "inputs": [
+        "customer_id",
+        "amount",
+        "timestamp",
+        "txn_id"
+      ],
+      "mathematical_formula": "sum( T_j.amount for T_j in C where T_j < T_i and (t_i - 86400s) <= t_j <= t_i )",
+      "name": "cust_velocity_24h_sum",
+      "requires_labels": false,
+      "state_required": "Customer event amount queue for trailing 24h"
+    },
+    {
+      "causal_boundary": "T_j strictly < T_i",
+      "description": "Count of merchant transactions in trailing 1h window strictly prior to T_i",
+      "dtype": "Int64",
+      "first_event_default": "0",
+      "group": "velocity",
+      "includes_current_txn": false,
+      "inputs": [
+        "merchant_id",
+        "timestamp",
+        "txn_id"
+      ],
+      "mathematical_formula": "| { T_j in M | T_j < T_i and (t_i - 3600s) <= t_j <= t_i } |",
+      "name": "merch_velocity_1h_count",
+      "requires_labels": false,
+      "state_required": "Merchant event queue for trailing 1h"
+    },
+    {
+      "causal_boundary": "T_j strictly < T_i",
+      "description": "Count of merchant transactions in trailing 24h window strictly prior to T_i",
+      "dtype": "Int64",
+      "first_event_default": "0",
+      "group": "velocity",
+      "includes_current_txn": false,
+      "inputs": [
+        "merchant_id",
+        "timestamp",
+        "txn_id"
+      ],
+      "mathematical_formula": "| { T_j in M | T_j < T_i and (t_i - 86400s) <= t_j <= t_i } |",
+      "name": "merch_velocity_24h_count",
+      "requires_labels": false,
+      "state_required": "Merchant event queue for trailing 24h"
+    },
+    {
+      "causal_boundary": "T_j strictly < T_i",
+      "description": "Cumulative average amount of all customer transactions strictly prior to T_i",
+      "dtype": "Float64",
+      "first_event_default": "T_i.amount",
+      "group": "behavioral",
+      "includes_current_txn": false,
+      "inputs": [
+        "customer_id",
+        "amount",
+        "timestamp",
+        "txn_id"
+      ],
+      "mathematical_formula": "mean( T_j.amount for T_j in C where T_j < T_i ) if history exists else T_i.amount",
+      "name": "cust_avg_amount_hist",
+      "requires_labels": false,
+      "state_required": "Customer cumulative amount sum and count strictly prior to T_i"
+    },
+    {
+      "causal_boundary": "T_j strictly < T_i (evaluating T_i.amount)",
+      "description": "Ratio of current amount to customer historical average amount",
+      "dtype": "Float64",
+      "first_event_default": "1.0",
+      "group": "behavioral",
+      "includes_current_txn": false,
+      "inputs": [
+        "amount",
+        "customer_id",
+        "timestamp",
+        "txn_id"
+      ],
+      "mathematical_formula": "T_i.amount / cust_avg_amount_hist",
+      "name": "cust_amount_to_avg_ratio",
+      "requires_labels": false,
+      "state_required": "Customer historical mean amount strictly prior to T_i"
+    },
+    {
+      "causal_boundary": "Current event T_i (observable balance_before)",
+      "description": "Fraction of customer credit limit utilized at event time",
+      "dtype": "Float64",
+      "first_event_default": "0.0",
+      "group": "behavioral",
+      "includes_current_txn": true,
+      "inputs": [
+        "balance_before",
+        "customer_id"
+      ],
+      "mathematical_formula": "T_i.balance_before / C.credit_limit",
+      "name": "balance_utilization",
+      "requires_labels": false,
+      "state_required": "Customer credit_limit"
+    },
+    {
+      "causal_boundary": "T_j strictly < T_i",
+      "description": "Binary flag (1 if customer has never used this device_id prior to T_i, else 0)",
+      "dtype": "Int64",
+      "first_event_default": "0",
+      "group": "entity",
+      "includes_current_txn": false,
+      "inputs": [
+        "customer_id",
+        "device_id",
+        "timestamp",
+        "txn_id"
+      ],
+      "mathematical_formula": "1 if device_id not in C.known_devices_prior_to_t else 0",
+      "name": "is_new_device",
+      "requires_labels": false,
+      "state_required": "Set of devices used by customer strictly prior to T_i"
+    },
+    {
+      "causal_boundary": "T_j strictly < T_i",
+      "description": "Count of distinct customers who used this device strictly prior to T_i",
+      "dtype": "Int64",
+      "first_event_default": "0",
+      "group": "relational",
+      "includes_current_txn": false,
+      "inputs": [
+        "device_id",
+        "customer_id",
+        "timestamp",
+        "txn_id"
+      ],
+      "mathematical_formula": "| { T_j.customer_id | T_j.device_id == T_i.device_id and T_j < T_i } |",
+      "name": "device_cust_count",
+      "requires_labels": false,
+      "state_required": "Set of customers per device strictly prior to T_i"
+    },
+    {
+      "causal_boundary": "Current event T_i",
+      "description": "Number of failed authentication attempts reported on current transaction",
+      "dtype": "Int64",
+      "first_event_default": "0",
+      "group": "entity",
+      "includes_current_txn": true,
+      "inputs": [
+        "auth_failed_count"
+      ],
+      "mathematical_formula": "T_i.auth_failed_count",
+      "name": "auth_failed_count",
+      "requires_labels": false,
+      "state_required": "None (stateless)"
+    },
+    {
+      "causal_boundary": "Current event T_i",
+      "description": "Binary flag: 1 if payment was initiated by an autonomous agent, else 0",
+      "dtype": "Int64",
+      "first_event_default": "0",
+      "group": "delegation",
+      "includes_current_txn": true,
+      "inputs": [
+        "agent_id"
+      ],
+      "mathematical_formula": "1 if T_i.agent_id is not None else 0",
+      "name": "is_agent_initiated",
+      "requires_labels": false,
+      "state_required": "None (stateless)"
+    },
+    {
+      "causal_boundary": "t_j <= t_i - 7 days (inclusive 7-day cutoff)",
+      "description": "Historical fraud rate at this merchant using only labels confirmed >= 7 days prior to T_i",
+      "dtype": "Float64",
+      "first_event_default": "0.0",
+      "group": "relational",
+      "includes_current_txn": false,
+      "inputs": [
+        "merchant_id",
+        "timestamp",
+        "is_fraud"
+      ],
+      "mathematical_formula": "sum(T_j.is_fraud for T_j in M where t_j <= t_i - 7d) / count(T_j for T_j in M where t_j <= t_i - 7d) if count > 0 else 0.0",
+      "name": "merch_fraud_rate_7d_lag",
+      "requires_labels": true,
+      "state_required": "Confirmed fraud labels per merchant strictly older than 7 days (604,800s)"
+    }
+  ],
+  "label_delay_lag_seconds": 604800,
+  "schema_version": "0.1.0"
+}

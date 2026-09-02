@@ -1,0 +1,11 @@
+{
+  "customer_count": 200,
+  "device_count": 1294,
+  "fraud_count": 53,
+  "fraud_rate": 0.00567,
+  "merchant_count": 80,
+  "physics_valid": true,
+  "scale": "tiny",
+  "temporal_span_days": 30,
+  "transaction_count": 9348
+}
